@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+
+.alignVertical{
+    display: flex;
+    flex-direction: column;
+}
+
+.nameLine{
+    margin-left: 4px;
+    font-weight: bold;
+}
+.nameLine>div:first-child>span{
+    opacity: 0.6;
+}
+
+.fontColorRed>span{
+    color: #7f47E9;
+    font-weight: bold;
+}
+
+.fontColorGreen>span{
+    color: #41B979;
+    font-weight: bold;
+}
+
+
+#stopwatch{
+    font-size: 20px;
+  
+}
+
+#stopwatch>div{
+    display: flex;
+   justify-content: flex-end;
+    align-items: center;
+  
+}
+
+#stopwatch>div>span{
+    font-size: 40px;
+    margin: 0 0;
+   
+}
+
+#nowPrice{
+    display: flex;
+   justify-content: flex-end;
+   align-items: center;
+}
+
+#nowPrice>span{
+    margin: 0 0;
+    margin-right: 3px;
+    font-size: 40px;
+}
+#nowPrice>span:last-child{
+    font-size:20px;
+}
+
+#inputBox{
+    border: #41B979 solid 3px;
+}
+#inputBox>input{
+    border:none;
+}
+#inputBox>input:focus{
+    outline: none;
+}
+
+#biddingBtn>button{
+    background-color: #41B979;
+}
+
+#buynowBtn{
+    border: #41B979 solid 3px;
+}
+
+#buynowBtn>input{
+    border:none;
+}
+#buynowBtn>input:focus{
+    outline: none;
+}
+
+#buynowBtn>button{
+    background-color: #41B979;
+}
+#renewBtn{
+   text-decoration: none;
+}
