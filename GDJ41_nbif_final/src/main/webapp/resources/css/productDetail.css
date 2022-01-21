@@ -10,25 +10,23 @@
     margin-left: 4px;
     font-weight: bold;
 }
-.nameLine>div:first-child>span{
+.nameLine>div:first-child>strong{
     opacity: 0.6;
 }
 
-.fontColorRed>span{
+.fontColorRed>strong{
     color: #7f47E9;
     font-weight: bold;
 }
 
-.fontColorGreen>span{
+.fontColorGreen>strong{
     color: #41B979;
     font-weight: bold;
-}
+}Input
 
 
-#stopwatch{
-    font-size: 20px;
-  
-}
+
+
 
 #stopwatch>div{
     display: flex;
@@ -37,7 +35,7 @@
   
 }
 
-#stopwatch>div>span{
+#stopwatch>div>strong{
     font-size: 40px;
     margin: 0 0;
    
@@ -49,7 +47,7 @@
    align-items: center;
 }
 
-#nowPrice>span{
+#nowPrice>strong{
     margin: 0 0;
     margin-right: 3px;
     font-size: 40px;
@@ -72,20 +70,24 @@
     background-color: #41B979;
 }
 
-#buynowBtn{
+#buynowInput{
     border: #41B979 solid 3px;
 }
 
-#buynowBtn>input{
+#buynowInput>input{
     border:none;
 }
-#buynowBtn>input:focus{
+#buynowInput>input:focus{
     outline: none;
 }
 
-#buynowBtn>button{
+#buynowInput>button{
     background-color: #41B979;
 }
 #renewBtn{
    text-decoration: none;
+}
+
+#buynowBtn{
+    background-color: #41B979;
 }
