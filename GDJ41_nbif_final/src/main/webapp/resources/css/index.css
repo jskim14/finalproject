@@ -17,6 +17,10 @@ a {
 }
 header {
     position: fixed;
+    z-index:999;
+}
+section{
+	z-index:100;
 }
 #header-container {
     width: 100%;
