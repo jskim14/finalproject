@@ -11,4 +11,9 @@ public class MainController {
 		mv.setViewName("index");
 		return mv;
 	}
+	
+	@RequestMapping("/login")
+	public String loginView() {
+		return "login/loginView";
+	}
 }

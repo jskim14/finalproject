@@ -32,3 +32,5 @@ build/
 nbif/
 /src/main/resources/mapper/
 /src/main/resources/application.yml
+
+.settings
