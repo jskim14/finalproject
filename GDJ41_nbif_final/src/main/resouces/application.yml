@@ -4,10 +4,13 @@ server:
 spring:
   datasource: 
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:xe
-    username: spring
-    password: spring
- 
+    url: jdbc:oracle:thin:@61.78.121.242:8877:xe
+    username: nbif
+    password: nbif
+  mvc: 
+    view: 
+      suffix: .jsp
+      prefix: /WEB-INF/views/
 
 mybatis: 
  mapper-locations: /mapper/**/*.xml
