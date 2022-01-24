@@ -45,13 +45,13 @@
 			<div class="col-6">
 				<div class="row">
 					<div class="col-4">
-						<button type="button" class="btn">이메일 가입</button>
+						<button type="button" class="btn w-100">이메일 가입</button>
 					</div>
 					<div class="col-4">
-						<button type="button" class="btn">이메일 찾기</button>
+						<button type="button" class="btn w-100">이메일 찾기</button>
 					</div>
 					<div class="col-4">
-						<button type="button" class="btn">비밀번호 찾기</button>
+						<button type="button" class="btn w-100">비밀번호 찾기</button>
 					</div>
 				</div>
 			</div>
@@ -62,13 +62,13 @@
 			<div class="col-6">
 				<div class="row">
 					<div class="col-4">
-						<button type="button" class="btn">네이버</button>
+						<button type="button" class="btn btn-secondary w-100">네이버</button>
 					</div>
 					<div class="col-4">
-						<button type="button" class="btn">카카오</button>
+						<button type="button" class="btn btn-secondary w-100">카카오</button>
 					</div>
 					<div class="col-4">
-						<button type="button" class="btn">구글</button>
+						<button type="button" class="btn btn-secondary w-100">구글</button>
 					</div>
 				</div>
 			</div>
