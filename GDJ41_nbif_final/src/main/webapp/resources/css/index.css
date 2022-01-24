@@ -82,8 +82,8 @@ section{
     display: flex;
     list-style: none;
     vertical-align: middle;
-      margin:0;
-   width: 100%;
+   	margin:0;
+	width: 100%;
     margin-top: 10px;
 }
 #second-header>ul>li {

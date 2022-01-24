@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/product")
 public class ProductController {
 	@RequestMapping("/productDetail")
-	public ModelAndView productDetail(@RequestParam(defaultValue = "1") int productNo, ModelAndView mv) {
+	public ModelAndView productDetail(@RequestParam String productNo, ModelAndView mv) {
 		
 		System.out.println(productNo);
 		
