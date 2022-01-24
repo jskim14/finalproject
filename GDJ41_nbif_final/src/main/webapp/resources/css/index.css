@@ -1,10 +1,11 @@
+@charset "UTF-8";
 * {
     margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+   padding: 0;
+   border: 0;
+   font-size: 100%;
+   font: inherit;
+   vertical-align: baseline;
 }
 img {
     object-fit: cover;
@@ -18,9 +19,10 @@ a {
 header {
     position: fixed;
     z-index:999;
+    width: 100%;
 }
 section{
-	z-index:100;
+   z-index:100;
 }
 #header-container {
     width: 100%;
@@ -55,8 +57,8 @@ section{
     margin: 0;
     width: 80%;
     margin: 0;
-	position: absolute;
-	left: 74%;
+   position: absolute;
+   left: 74%;
 }
 #first-header>ul>li {
     padding-left: 15px;
@@ -73,14 +75,15 @@ section{
     width:100%;
 }
 #second-header>h2 {
-	width: 840px
+   width: 100%;
+   padding-right: 400px;
 }
 #second-header>ul {
     display: flex;
     list-style: none;
     vertical-align: middle;
-   	margin:0;
-	width: 500px;
+      margin:0;
+   width: 100%;
     margin-top: 10px;
 }
 #second-header>ul>li {
@@ -92,6 +95,7 @@ section{
     color: white;
     font-size: 20px;
     font-weight: bold;
+    width: 100%;
 }
 #second-header>ul>li>a:hover {
     text-decoration: underline;
@@ -145,7 +149,7 @@ footer {
 #search-bar::-webkit-search-cancel-button,
 #search-bar::-webkit-search-results-button,
 #search-bar::-webkit-search-results-decoration{
-	display:none;
+   display:none;
 }
 #banner-con {
     width: 100%;

@@ -43,5 +43,10 @@ public class MainController {
 		return "login/findPassword";
 	}
 	
+	@RequestMapping("/member/myPage")
+	public String myPage() {
+		return "login/myPage";
+	}
+	
 	
 }

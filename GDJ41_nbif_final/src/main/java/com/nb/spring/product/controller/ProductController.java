@@ -16,4 +16,10 @@ public class ProductController {
 		mv.setViewName("detail/productDetail");
 		return mv;
 	}
+	
+	@RequestMapping("/insertProduct")
+	public ModelAndView insertProduct(ModelAndView mv) {
+		mv.setViewName("/product/insertProduct");
+		return mv;
+	}
 }
