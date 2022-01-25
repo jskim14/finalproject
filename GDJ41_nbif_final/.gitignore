@@ -34,3 +34,5 @@ nbif/
 /src/main/resources/application.yml
 
 .settings
+.classpath
+.project
