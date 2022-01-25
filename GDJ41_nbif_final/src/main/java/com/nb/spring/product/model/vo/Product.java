@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Product {
 	private String productNo;
-	private String prodcutCategory;
+	private String productCategory;
 	private String productName;
 	private Member seller;
 	private String nowBidPrice;
