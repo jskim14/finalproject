@@ -42,11 +42,5 @@ public class MainController {
 	public String findPasswordView() {
 		return "login/findPassword";
 	}
-	
-	@RequestMapping("/member/myPage")
-	public String myPage() {
-		return "login/myPage";
-	}
-	
-	
+		
 }

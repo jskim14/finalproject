@@ -26,4 +26,9 @@ public class MemberController {
 		System.out.println(param.get("email") + param.get("password"));
 		return mv;
 	}
+	
+	@RequestMapping("/myPage")
+	public String myPage() {
+		return "login/myPage";
+	}
 }

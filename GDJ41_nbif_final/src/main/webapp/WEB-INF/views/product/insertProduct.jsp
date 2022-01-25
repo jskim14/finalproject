@@ -8,7 +8,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
-    
+<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+  
 <section>
     <div id="totalContainer">
         <div class="pageTitle">
@@ -131,7 +132,7 @@
                                 <span class="subMenuTitle">물품설명</span> 
                             </div>
                             <div class="titleRight">
-                                <textarea name="noticeDoc" id="summernote" class="form-control" style="height: 40rem;"
+                                <textarea name="noticeDoc" id="classic" class="form-control" style="height: 40rem;"
                                 placeholder="상품을 소개할 내용을 적어주세요.">  </textarea>
                             </div>
                         </div>
@@ -157,6 +158,11 @@
                     </div>
                 </div>
             </form>
+            
+            <div class="app">
+				</div>
+            
+            
         </div>
     </div>
     <script>
@@ -191,8 +197,23 @@
         $("#test123").click(e=>{
             alert($("#maxDate").val());
         })
+        
 
-        </script>
+        ClassicEditor
+            .create( document.querySelector( '#classic' ))
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+    	<!-- 넓이 높이 조절 -->
+<style>
+        .ck.ck-editor {
+            max-width: 100%;
+        }
+        .ck-editor__editable {
+            min-height: 300px;
+        }
+</style>
 
     
 </section>
