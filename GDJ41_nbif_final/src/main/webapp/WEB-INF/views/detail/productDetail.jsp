@@ -149,23 +149,24 @@
 							</div>
 						</div>
 
-						<div class="row">
+						<div class="row mb-3">
 							<div class="col-12">
 								<strong>입찰하기</strong>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row mb-3">
 							<div class="col-3">
-								<button>1000</button>
+								
+								<button type="button" class="w-100 btn btn-primary">1000</button>
 							</div>
 							<div class="col-3">
-								<button>10000</button>
+								<button type="button" class="w-100 btn btn-primary">10000</button>
 							</div>
 							<div class="col-3">
-								<button>10000</button>
+								<button type="button" class="w-100 btn btn-primary">10000</button>
 							</div>
 							<div class="col-3">
-								<button>100000</button>
+								<button type="button" class="w-100 btn btn-primary">100000</button>
 							</div>
 						</div>
 
@@ -173,7 +174,7 @@
 							<div class="col-1"></div>
 							<div class="col-6">
 								<div style="border: 3px solid #41B979">
-									<input type="text">
+									<input type="number">
 									<span>원</span>
 								</div>
 							</div>
@@ -197,8 +198,7 @@
 						<div class="col-1"></div>
 							<div class="col-6">
 								<div style="border: 3px solid #41B979">
-									<input type="text" > 
-									<span>원</span>
+									<span style="font-size:50px"><c:out value="${product.buyNowPrice }"></c:out></span>
 								</div>
 							</div>
 							<div class="col-1"></div>
