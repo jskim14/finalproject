@@ -183,7 +183,6 @@
                       </li>
                   </ul>
               </div>
-              <button onclick="websocket();">버튼</button>
               <div style="padding-left: 6.7%; background-color: #FFD481;">
                 <div id="banner-con">
                     <div><a href=""><img src="${path}/resources/images/banner1.png" alt="" width="230px" height="100%"></a></div>
@@ -192,9 +191,4 @@
                 </div>
             </div>
         </section>
-        <script>
-        	const websocket=()=> {
-        		open("${path }/product/realtimeaction","_blank","width=800, height=1000");
-        	}
-        </script>
 <jsp:include page="${path}/WEB-INF/views/common/footer.jsp"/>
