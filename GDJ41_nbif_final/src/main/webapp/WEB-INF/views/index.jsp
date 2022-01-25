@@ -42,7 +42,7 @@
                   <h6>마감임박상품</h6>
                   <ul>
                       <li>
-                        <a href="">
+                        <a href="${path }/product/productDetail?productNo=FS2401221">
                             <div class="goods-box">
                                 <img src="https://image.msscdn.net/images/goods_img/20190723/1100781/1100781_1_500.jpg" width="250" height="200" style="margin-bottom:12px;">
                                 <p><strong style="font-size:20px;">레고하우스 심슨</strong><br>
@@ -191,4 +191,4 @@
                 </div>
             </div>
         </section>
-        <jsp:include page="${path}/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="${path}/WEB-INF/views/common/footer.jsp"/>

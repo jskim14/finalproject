@@ -18,6 +18,7 @@ a {
 header {
     position: fixed;
     z-index:999;
+    width: 100%;
 }
 section{
 	z-index:100;
@@ -73,14 +74,15 @@ section{
     width:100%;
 }
 #second-header>h2 {
-	width: 840px
+	width: 100%;
+	padding-right: 400px;
 }
 #second-header>ul {
     display: flex;
     list-style: none;
     vertical-align: middle;
    	margin:0;
-	width: 500px;
+	width: 100%;
     margin-top: 10px;
 }
 #second-header>ul>li {
@@ -92,6 +94,7 @@ section{
     color: white;
     font-size: 20px;
     font-weight: bold;
+    width: 100%;
 }
 #second-header>ul>li>a:hover {
     text-decoration: underline;
