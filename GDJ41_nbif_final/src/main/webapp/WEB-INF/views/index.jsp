@@ -191,4 +191,4 @@
                 </div>
             </div>
         </section>
-<jsp:include page="${path}/WEB-INF/views/common/footer.jsp"/>
+        <jsp:include page="${path}/WEB-INF/views/common/footer.jsp"/>
