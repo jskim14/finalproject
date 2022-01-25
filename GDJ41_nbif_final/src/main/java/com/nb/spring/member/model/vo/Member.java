@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Member {
 	private String memberNo;
-	private String name;
+	private String memberName;
 	private String password;
 	private String phone;
 	private String email;

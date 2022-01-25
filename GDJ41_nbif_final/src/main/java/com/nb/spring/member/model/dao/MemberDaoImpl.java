@@ -12,7 +12,7 @@ public class MemberDaoImpl implements MemberDao {
 	
 	@Override
 	public Member loginMember(SqlSessionTemplate session,Map<String, String> param) {
-		return session.selectOne("member.loginMember",param);
+		return session.selectOne("member.loginMember", param);
 	}
 
 }

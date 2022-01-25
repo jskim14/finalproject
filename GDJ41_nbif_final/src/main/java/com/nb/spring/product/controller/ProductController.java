@@ -16,4 +16,9 @@ public class ProductController {
 		mv.setViewName("detail/productDetail");
 		return mv;
 	}
+	
+	@RequestMapping("/realtimeaction")
+	public String realtimeaction() {
+		return "detail/productRealTimeAction";
+	}
 }

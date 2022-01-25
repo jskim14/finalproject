@@ -3,27 +3,56 @@ package com.nb.spring.member.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.member.model.service.MemberService;
+import com.nb.spring.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/member")
+@SessionAttributes({"loginMember"})
 public class MemberController {
 	
 	@Autowired
-	private MemberService service;
+	private MemberService service;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 
 	@PostMapping("/loginMember")
 	public ModelAndView loginMember(ModelAndView mv, String email, String password) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("email", email);
 		param.put("password", password);
-		System.out.println(param.get("email") + param.get("password"));
+		Member m = service.loginMember(param);
+		if(m!=null) {
+			mv.addObject("loginMember", m);
+			mv.addObject("msg","로그인 성공");
+			mv.addObject("loc","/");
+		}else {
+			mv.addObject("msg","로그인 실패, 다시 시도하세요.");
+			mv.addObject("loc","/login");
+		}
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpSession session, SessionStatus stauts, ModelAndView mv) {
+		if(!stauts.isComplete()) {
+			stauts.setComplete();
+		}
+		session.invalidate();
+		String msg = "로그아웃 완료";
+		String loc = "/";
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("common/msg");
 		return mv;
 	}
 }
