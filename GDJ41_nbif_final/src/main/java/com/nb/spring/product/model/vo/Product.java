@@ -29,7 +29,7 @@ public class Product {
 	private Date startDate;
 	private Date endDate;
 	private String finalPrice;
-	private String butyNowPrice;
+	private String buyNowPrice;
 	private String extendYn;
 	private String permissionYn;
 	private String readCount;

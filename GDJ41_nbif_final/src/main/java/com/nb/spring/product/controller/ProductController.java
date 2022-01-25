@@ -1,5 +1,7 @@
 package com.nb.spring.product.controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,8 @@ public class ProductController {
 	
 	@RequestMapping("/insertProduct")
 	public ModelAndView insertProduct(ModelAndView mv) {
+		
+		
 		mv.setViewName("/product/insertProduct");
 		return mv;
 	}
