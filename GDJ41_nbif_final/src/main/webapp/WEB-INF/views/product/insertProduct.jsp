@@ -35,7 +35,7 @@
                                     설정
                                 </label> 
                                 
-                                <input type="text" id="inputTyping1" class="form-control" placeholder="즉시구매가를 입력해주세요" style="width: 250px; display:inline; margin-left: 1%" disabled>
+                                <input type="text" id="inputTyping1" class="form-control" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" style="width: 250px; display:inline; margin-left: 1%" disabled>
                             </div>
                         </div>
                         <div class="subMenu">
@@ -43,20 +43,20 @@
                                 <span class="subMenuTitle">자동 재경매</span><br>
                             </div>
                             <div class="titleRight">
-                                <label><input class="form-check-input" type="radio" name="flexRadioDefault"> 
+                                <label><input class="form-check-input" type="radio" name="extendYn" value="Y"> 
                                     설정안함
                                 </label> &nbsp;
-                                <label><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"> 
+                                <label><input class="form-check-input" type="radio" name="extendYn" id="flexRadioDefault2" value="Y"> 
                                     설정
                                 </label>
-                                <input type="text" id="inputTyping2" class="form-control" placeholder="재경매 시작가를 입력해주세요" style="width: 250px; display:inline; margin-left: 1%" disabled>
+                                <input type="text" id="inputTyping2" class="form-control" name="nowBidPrice" placeholder="재경매 시작가를 입력해주세요" style="width: 250px; display:inline; margin-left: 1%" disabled>
                                 <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
                             </div>
                         </div>
                         <div class="subMenu">
                             <div class="titleLeft">
-                                <span class="subMenuTitle">입찰 시작가</span>
+                                <span class="subMenuTitle">입찰 시작가</span> <!-- minBidPrice -->
                             </div>
                             <div class="titleRight">
                                 <input type="text" class="form-control" placeholder="" style="width: 250px; display:inline;">
@@ -68,7 +68,7 @@
                                 <span class="subMenuTitle">입찰단위</span>
                             </div>
                             <div class="titleRight">
-                                <select id="priceUnit" onchange="unitSelect();" class="form-select" aria-label="Default select example" style="width: 200px; color: gray; display:inline;">
+                                <select id="priceUnit" onchange="unitSelect();" class="form-select" name="bidUnit" aria-label="Default select example" style="width: 200px; color: gray; display:inline;">
                                     <option selected>---선택하세요---</option>
                                     <option value="1000">1,000원</option>
                                     <option value="5000">5,000원</option>
@@ -77,7 +77,7 @@
                                     <option value="100000">100,000원</option>
                                     <option value="typing">직접입력</option>
                                 </select>
-                                <input type="text" id="inputTyping3" class="form-control" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled>
+                                <input type="text" id="inputTyping3" class="form-control" name="bidUnit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled>
                                 <div id="autionUnitInfo" style="display: inline; padding: 1%"> *입찰단위가 입찰시작가보다 높습니다. </div>
                             </div>
                         </div>
@@ -87,9 +87,9 @@
                             </div>
                             <div class="titleRight">
                                 <!-- 스타일 각각해야됨 -->
-                                시작일 &nbsp;<input type="date"  id="currentDate" class="form-control" style="width: 180px; display:inline;" readonly>&nbsp;
-                                종료일 &nbsp;<input type="text" id="maxDate" class="form-control" placeholder="최대 14일 가능" style="width: 180px; display:inline;">&nbsp;
-                                마감시간 &nbsp;<input type="time" class="form-control" name="endTime" style="width: 180px; display:inline;">&nbsp;
+                                시작일 &nbsp;<input type="date"  id="currentDate" class="form-control" name="startDate" style="width: 180px; display:inline;" readonly>&nbsp;
+                                종료일 &nbsp;<input type="text" id="maxDate" class="form-control" name="maxDate" placeholder="최대 14일 가능" style="width: 180px; display:inline;">&nbsp;
+                                마감시간 &nbsp;<input type="time" class="form-control" name="maxTime" style="width: 180px; display:inline;">&nbsp;
                                 
                             </div>
                         </div>
@@ -110,12 +110,12 @@
                                 <span class="subMenuTitle">카테고리</span>
                             </div>
                             <div class="titleRight"> 
-                                <select class="form-select" aria-label="Default select example" style="width: 200px; color: gray;">
+                                <select class="form-select" name="productCategory" aria-label="Default select example" style="width: 200px; color: gray;">
                                     <option selected>---선택하세요---</option>
-                                    <option value="1">패션</option>
-                                    <option value="2">라이프</option>
-                                    <option value="3">테크</option>
-                                    <option value="4">아트</option>
+                                    <option value="FS">패션</option>
+                                    <option value="LF">라이프</option>
+                                    <option value="TC">테크</option>
+                                    <option value="AR">아트</option>
                                 </select>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                 <span class="subMenuTitle">상품명</span>
                             </div>
                             <div class="titleRight"> 
-                                <input type="text" class="form-control" placeholder="" >
+                                <input type="text" class="form-control" name="productName" placeholder="상품명을 입력해주세요. 상품명은 제목으로 입력됩니다." >
                             </div>
                         </div>
                         <div class="subMenu">
@@ -132,7 +132,7 @@
                                 <span class="subMenuTitle">물품설명</span> 
                             </div>
                             <div class="titleRight">
-                                <textarea name="noticeDoc" id="classic" class="form-control" style="height: 40rem;"
+                                <textarea name="productContent" id="classic" class="form-control" style="height: 40rem;"
                                 placeholder="상품을 소개할 내용을 적어주세요.">  </textarea>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                 maxDate: +14
                 });
             })
-
+            
         $("#test123").click(e=>{
             alert($("#maxDate").val());
         })
