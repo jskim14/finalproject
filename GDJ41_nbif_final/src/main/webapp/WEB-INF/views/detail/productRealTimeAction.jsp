@@ -15,10 +15,8 @@
 	<input type="text" id="msg">
 	<button id="sendBtn">입력</button>
 	<script>
-		const username = [[${#authentication.loginMember.nickName}]];
 		const socket = new WebSocket("ws://localhost:9090/ws/chat");
 		socket.onopen = e => {
-			console.log(username);
 			$("#container").append($("<h2>").html("접속?"));
 		}
 	</script>

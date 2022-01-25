@@ -26,7 +26,6 @@ public class RealTimeActionServer extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
-		session.sendMessage(null);
 		clients.add(session);
 	}
 
