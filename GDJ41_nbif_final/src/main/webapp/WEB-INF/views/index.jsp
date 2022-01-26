@@ -194,7 +194,7 @@
         </section>
         <script>
         	const websocket=()=> {
-        		open("${path }/product/realtimeaction","_blank","width=800, height=1000");
+        		open("${path }/product/realtimeaction","_blank","width=1100, height=700, left=150");
         	}
         </script>
 <jsp:include page="${path}/WEB-INF/views/common/footer.jsp"/>

@@ -20,19 +20,32 @@ public class RealTimeActionServer extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		super.handleTextMessage(session, message);
+		System.out.println(clients.size());
+		System.out.println(message.getPayload());
+		String msg = message.getPayload();
+		for(WebSocketSession ss : clients) {
+			ss.sendMessage(message);
+		}
 	}
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
-		clients.add(session);
+		if(clients.size()<=0) {
+			clients.add(session);
+		}else {
+			for(WebSocketSession ss : clients) {
+				if(ss.getId()!=session.getId()) {
+					clients.add(session);
+				}
+			}
+		}
 	}
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
-		super.afterConnectionClosed(session, status);
+		clients.remove(session);
 	}
 	
 }

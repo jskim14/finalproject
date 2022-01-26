@@ -29,7 +29,9 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/realtimeaction")
-	public String realtimeaction() {
-		return "detail/productRealTimeAction";
+	public ModelAndView realtimeaction(ModelAndView mv, String productNo) {
+//		mv.addObject(service.selectOneProductNo(productNo));
+		mv.setViewName("detail/productRealTimeAction");
+		return mv;
 	}
 }

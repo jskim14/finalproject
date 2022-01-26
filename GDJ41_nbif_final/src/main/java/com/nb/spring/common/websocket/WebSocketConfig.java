@@ -12,11 +12,11 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-	private final RealTimeActionServer chatHandler;
+	private final RealTimeActionServer webSocketHandler;
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 	    
-        registry.addHandler(chatHandler, "ws/chat").setAllowedOrigins("*");
+        registry.addHandler(webSocketHandler, "ws/chat").setAllowedOrigins("*");
     }
 }
