@@ -27,4 +27,11 @@ public class ProductController {
 		mv.setViewName("detail/productDetail");
 		return mv;
 	}
+	
+	@RequestMapping("/realtimeaction")
+	public ModelAndView realtimeaction(ModelAndView mv, String productNo) {
+//		mv.addObject(service.selectOneProductNo(productNo));
+		mv.setViewName("detail/productRealTimeAction");
+		return mv;
+	}
 }
