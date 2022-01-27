@@ -21,5 +21,11 @@ public class ProductServiceImpl implements ProductService {
 		Product product = dao.selectOneProductNo(session, productNo);
 		return product;
 	}
+	
+	@Override
+	public int insertProduct(Product p) {
+		int result = dao.insertProduct(session, p);
+		return result;
+	}
 
 }

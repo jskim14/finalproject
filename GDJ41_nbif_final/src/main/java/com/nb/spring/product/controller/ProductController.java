@@ -1,11 +1,16 @@
 package com.nb.spring.product.controller;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
 
@@ -29,13 +34,28 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/insertProduct")
-	public ModelAndView insertProduct(ModelAndView mv, Product p) {
+	public String insertProduct() {
+		return "/product/insertProduct";
+	}
+	
+	@RequestMapping("/insertProductEnd")
+	public ModelAndView insertProductEnd(ModelAndView mv, Product p, String sellerNo, String maxDate, String maxTime) throws Exception {
+
+		//date 지정
+		String date = maxDate+" "+maxTime;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date utilDate = sdf.parse(date);
+		java.sql.Date endDate = new java.sql.Date(utilDate.getTime());
+		p.setEndDate(endDate);
 		
-		System.out.println("bidUnit : "+p.getBidUnit());
-		System.out.println("extendYn : "+p.getExtendYn());
-		System.out.println("productContent"+p.getProductContent());
+		System.out.println(sellerNo);
+		//seller 지정
+		p.setSeller(new Member());
+		p.getSeller().setMemberNo(sellerNo);
 		
-		
+
+		int result=service.insertProduct(p);
+		System.out.println(result);
 		mv.setViewName("/product/insertProduct");
 		return mv;
 	}

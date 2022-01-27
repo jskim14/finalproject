@@ -12,5 +12,11 @@ public class ProductDaoImpl implements ProductDao {
 		
 		return session.selectOne("product.selectOneProductNo",productNo);
 	}
+	
+	@Override
+	public int insertProduct(SqlSessionTemplate session, Product p) {
+		System.out.println("service : "+ p);
+		return session.insert("product.insertProduct",p);
+	}
 
 }
