@@ -12,7 +12,7 @@
 			<div class="col-12">
 
 				<div class="row">
-					<div class="col-7">
+					<div class="col-6 mb-1">
 						<div id="carouselExampleIndicators" class="carousel slide"
 							data-bs-ride="carousel">
 							<div class="carousel-indicators">
@@ -41,7 +41,7 @@
 											<div class="carousel-item">
 										</c:if>
 										<img src="${path}/resources/upload/${img.imageName}"
-											class="d-block" alt="..." width="100%" height="600px">
+											class="d-block" alt="..." width="100%" height="500px">
 							</div>
 							</c:forEach>
 							</c:if>
@@ -66,7 +66,7 @@
 									data-bs-slide-to="${status.index }"
 									aria-label="Slide${status.index+1 }">
 									<img src="${path}/resources/upload/${img.imageName}" alt="사진1"
-										width="100px" height="100px">
+										width="150px" height="150px">
 								</button>
 							</c:forEach>
 						</c:if>
@@ -74,6 +74,7 @@
 
 					</div>
 				</div>
+				<div class="col-1"></div>
 				<div id="infoBox" class="col-5">
 					<div class="row">
 						<div class="col-12">
@@ -161,16 +162,16 @@
 					</div>
 					<div id="bidButtons" class="row mb-3">
 						<div class="col-3">
-							<button type="button" class="w-100 btn btn-primary">1000</button>
+							<button type="button" class="w-100 btn btn-primary" value="1000">1000</button>
 						</div>
 						<div class="col-3">
-							<button type="button" class="w-100 btn btn-primary">10000</button>
+							<button type="button" class="w-100 btn btn-primary" value="10000">10000</button>
 						</div>
 						<div class="col-3">
-							<button type="button" class="w-100 btn btn-primary">100000</button>
+							<button type="button" class="w-100 btn btn-primary" value="100000">100000</button>
 						</div>
 						<div class="col-3">
-							<button type="button" class="w-100 btn btn-primary">1000000</button>
+							<button type="button" class="w-100 btn btn-primary" value="1000000">1000000</button>
 						</div>
 					</div>
 
@@ -178,7 +179,7 @@
 						<div class="col-1"></div>
 						<div class="col-6">
 							<div style="border: 3px solid #41B979">
-								<input type="number"> <span>원</span>
+								<input id="bidUnitInput" type="number" value="${product.bidUnit }"><span>원</span>
 							</div>
 						</div>
 						<div class="col-1"></div>
@@ -188,7 +189,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<small>다음 비딩금액은 <b>000</b>원 이며 , 그이상을 직접입력하여 비딩할 수 있습니다.
+							<small>다음 비딩금액은 <b><c:out value="${product.nowBidPrice+product.bidUnit }"/></b>원 이며 , 그이상을 직접입력하여 비딩할 수 있습니다.
 							</small>
 						</div>
 					</div>
@@ -207,7 +208,9 @@
 						</div>
 						<div class="col-1"></div>
 						<div class="col-4">
-							<button type="button" class="btn btn-primary">바로구매</button>
+							<button type="button" class="btn btn-primary" onclick="checkBuyNow('${product.productNo}');">바로구매</button>
+							<button id="buyNowModalBtn" type="button" data-bs-toggle="modal" data-bs-target="#buyNowModal" style="display: none"></button>
+							
 						</div>
 					</div>
 
@@ -495,7 +498,7 @@
 			</div>
 		</div>
 </section>
-<div class="modal fade" id="buynowModal" tabindex="-1"
+<div class="modal fade" id="buyNowModal" tabindex="-1"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -510,21 +513,21 @@
 				</div>
 				<div class="row">
 					<div class="col-12" style="margin: 0 auto; text-align: center;">
-						<img src="${path}/resources/images/exbag.png" alt="..."
+						<img src="${path}/resources/upload/${product.images.get(0).imageName}" alt="..."
 							width="250px">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<span>물품번호</span>
+						<span><c:out value="${product.productNo }"/></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-6">
-						<span>상품명</span>
+						<span><c:out value="${product.productName }"/></span>
 					</div>
 					<div class="col-6">
-						<span>즉시구매가</span>
+						<span><c:out value="${product.buyNowPrice }"/></span>
 					</div>
 				</div>
 				<div class="row">
@@ -548,7 +551,7 @@
 						<span>기본주소</span>
 					</div>
 					<div class="col-8">
-						<input type="text" class="form-control w-100" readonly>
+						<input type="text" class="form-control w-100" readonly value="${loginMember.address }">
 					</div>
 				</div>
 				<div class="row">
@@ -580,7 +583,7 @@
 						<span>연락처</span>
 					</div>
 					<div class="col-8">
-						<input type="text" class="form-control w-100">
+						<input type="text" class="form-control w-100" value="${loginMember.phone }">
 					</div>
 				</div>
 				<div class="row">
@@ -588,7 +591,7 @@
 						<span>받는사람</span>
 					</div>
 					<div class="col-8">
-						<input type="text" class="form-control w-100">
+						<input type="text" class="form-control w-100" value="${loginMember.memberName }">
 					</div>
 				</div>
 			</div>
