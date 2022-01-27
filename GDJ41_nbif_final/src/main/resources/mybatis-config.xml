@@ -3,5 +3,9 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.nb.spring.member.model.vo.Member" alias="member"/>
+		<typeAlias type="com.nb.spring.product.model.vo.Product" alias="product"/>
+		<typeAlias type="com.nb.spring.product.model.vo.ProductImage" alias="productImage"/>
+		<typeAlias type="com.nb.spring.report.model.vo.Report" alias="report"/>
+		<typeAlias type="com.nb.spring.report.model.vo.ReportImage" alias="reportImage"/>
 	</typeAliases>
 </configuration>

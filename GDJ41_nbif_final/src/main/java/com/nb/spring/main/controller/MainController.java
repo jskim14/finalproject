@@ -44,4 +44,12 @@ public class MainController {
 	}
 	
 	
+	
+	
+	
+	@RequestMapping("/report")
+	public String reportListView() {
+		return "report/reportList";
+	}
+	
 }
