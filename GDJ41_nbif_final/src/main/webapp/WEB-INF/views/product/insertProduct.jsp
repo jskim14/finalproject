@@ -14,11 +14,11 @@
     <div id="totalContainer">
         <div class="pageTitle">
             <span>판매입찰등록</span>
-        </div>
+        </div> 
         <div class="pageMenu">
             <form action="${path }/product/insertProductEnd" method="post" >
             <!-- 판매자 -->
-            <input type="hidden" name="sellerNo" <%-- value="${logingMember.memberNo}" --%>> <!-- value="${logingMember.memberNo}" -->
+            <input type="hidden" name="sellerNo" value="${loginMember.memberNo}" >
                 <div class="pageMenu-1">
                     <!-- <div class="subTitle">경매설정</div> -->
                     <div class="tit_h3 through "> 

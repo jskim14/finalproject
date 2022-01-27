@@ -40,7 +40,7 @@ public class ProductController {
 	
 	@RequestMapping("/insertProductEnd")
 	public ModelAndView insertProductEnd(ModelAndView mv, Product p,
-			/* String sellerNo, */ String maxDate, String maxTime) throws Exception {
+			 String sellerNo, String maxDate, String maxTime) throws Exception {
 
 		//date 지정
 		String date = maxDate+" "+maxTime;
@@ -49,10 +49,10 @@ public class ProductController {
 		java.sql.Date endDate = new java.sql.Date(utilDate.getTime());
 		p.setEndDate(endDate);
 		
-//		System.out.println(sellerNo);
-//		//seller 지정
-//		p.setSeller(new Member());
-//		p.getSeller().setMemberNo(sellerNo);
+		System.out.println(sellerNo);
+		//seller 지정
+		p.setSeller(new Member());
+		p.getSeller().setMemberNo(sellerNo);
 		
 
 		int result=service.insertProduct(p);
