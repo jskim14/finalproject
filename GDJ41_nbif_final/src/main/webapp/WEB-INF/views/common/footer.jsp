@@ -6,8 +6,13 @@
                 <p>주소 : 서울시 금천구 가산디지털2로 115, 509호  (가산동 대룡테크노타운 3차)</p>
                 <p>Tel : 010 - 1111 - 1111 &nbsp;&nbsp;&nbsp;&nbsp;메일 : seodb89@gmail.com</p>
                 <br>
+                <!-- 나중에 지울거 -->
+           		<a href="${path}/report/reportList">Report List</a>
+           		<!--  -->
                 <p>Copyright&copy; 2022. <strong>NBIF.</strong> All rights reserved.</p>
             </div>
+            
+            
         </footer>
     </div>
     <script>

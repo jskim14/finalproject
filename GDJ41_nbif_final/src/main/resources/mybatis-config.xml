@@ -5,6 +5,11 @@
 		<typeAlias type="com.nb.spring.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.nb.spring.product.model.vo.Product" alias="product"/>
 		<typeAlias type="com.nb.spring.product.model.vo.ProductImage" alias="productImage"/>
+<<<<<<< HEAD
 		
+=======
+		<typeAlias type="com.nb.spring.report.model.vo.Report" alias="report"/>
+		<typeAlias type="com.nb.spring.report.model.vo.ReportImage" alias="reportImage"/>
+>>>>>>> branch 'master' of https://github.com/DaBinSeo/finalproject.git
 	</typeAliases>
 </configuration>
