@@ -39,7 +39,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/insertProductEnd")
-	public ModelAndView insertProductEnd(ModelAndView mv, Product p, String sellerNo, String maxDate, String maxTime) throws Exception {
+	public ModelAndView insertProductEnd(ModelAndView mv, Product p,
+			/* String sellerNo, */ String maxDate, String maxTime) throws Exception {
 
 		//date 지정
 		String date = maxDate+" "+maxTime;
@@ -48,15 +49,29 @@ public class ProductController {
 		java.sql.Date endDate = new java.sql.Date(utilDate.getTime());
 		p.setEndDate(endDate);
 		
-		System.out.println(sellerNo);
-		//seller 지정
-		p.setSeller(new Member());
-		p.getSeller().setMemberNo(sellerNo);
+//		System.out.println(sellerNo);
+//		//seller 지정
+//		p.setSeller(new Member());
+//		p.getSeller().setMemberNo(sellerNo);
 		
 
 		int result=service.insertProduct(p);
 		System.out.println(result);
-		mv.setViewName("/product/insertProduct");
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result>0) {
+			msg = "물품등록이 정상적으로 요청되었습니다.";
+			loc = "/";
+		}else {
+			msg = "물품등록에 실패하였습니다. 관리자에게 문의하세요.";
+			loc = "/product/insertProduct";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
 		return mv;
 	}
 	

@@ -18,7 +18,7 @@
         <div class="pageMenu">
             <form action="${path }/product/insertProductEnd" method="post" >
             <!-- 판매자 -->
-            <input type="hidden" name="sellerNo" value="1"> <!-- value="${logingMember.memberNo}" -->
+            <input type="hidden" name="sellerNo" <%-- value="${logingMember.memberNo}" --%>> <!-- value="${logingMember.memberNo}" -->
                 <div class="pageMenu-1">
                     <!-- <div class="subTitle">경매설정</div> -->
                     <div class="tit_h3 through "> 

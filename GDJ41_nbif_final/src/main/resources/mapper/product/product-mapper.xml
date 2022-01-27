@@ -49,4 +49,11 @@
 		JOIN PRODUCTIMAGE USING (PRODUCTNO)
 		 WHERE  PRODUCTNO=#{productNo}
 	</select>
+	
+	<insert id="insertProduct" parameterType="product">
+		INSERT INTO PRODUCT VALUES(#{productCategory}||TO_CHAR(SYSDATE,'DDMMYY')||SEQ_PRODUCTNO.NEXTVAL,
+		#{productCategory},#{productName},NULL,NULL,NULL,#{minBidPrice},#{productContent},
+		SYSDATE,NULL,#{bidUnit},SYSDATE,#{endDate},NULL,#{buyNowPrice},#{extendYn},0,NULL,NULL,NULL
+		)
+	</insert>
 </mapper>
