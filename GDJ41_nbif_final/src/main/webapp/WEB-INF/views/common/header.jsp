@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <!DOCTYPE html>
@@ -37,9 +39,19 @@
                         <li>
                             <a href="">회원가입</a>
                         </li>
-                        <li>
-                            <a href="${path}/login">로그인</a>
-                        </li>
+                        <c:if test="${loginMember == null}">
+	                        <li>
+	                            <a href="${path}/login">로그인</a>
+	                        </li>
+                        </c:if>
+                        <c:if test="${loginMember != null}">
+                        	<style>
+                        		#first-header>ul {left:73%;}
+                        	</style>
+	                        <li>
+	                            <a href="${path}/member/logout">로그아웃</a>
+	                        </li>
+                        </c:if>
                     </ul>
                 </div>
                 <div id="second-header">
