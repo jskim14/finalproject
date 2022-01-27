@@ -6,8 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,9 @@ import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
 import com.nb.spring.product.model.vo.ProductImage;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -97,4 +103,33 @@ public class ProductController {
 		mv.setViewName("detail/productRealTimeAction");
 		return mv;
 	}
+	
+	@RequestMapping("/checkBuyNow")
+	public void checkBuyNow(@RequestParam(value="productNo") String productNo,HttpServletRequest req, HttpServletResponse response) throws IOException{
+		log.debug(productNo);
+		
+		Product product = service.selectOneProductNo(productNo);
+		
+		boolean isBuy=true;
+		
+		if(product!=null) {
+			//제품명의 제품이 있음 
+			if(product.getFinalPrice()==null) {
+				//최종낙찰가가 없음 -> 구매불가
+				isBuy=false;
+			}else {
+				//구매가능 
+				isBuy = true;
+			}
+		}
+		
+		
+		
+		response.setContentType("application/json;charset-utf-8");
+		response.getWriter().print(isBuy);
+		
+	}
+	
+	
+	
 }

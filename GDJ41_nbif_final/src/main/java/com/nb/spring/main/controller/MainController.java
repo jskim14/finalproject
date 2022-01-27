@@ -44,4 +44,9 @@ public class MainController {
 		return "login/findPassword";
 	}
 		
+	@RequestMapping("/report")
+	public String reportListView() {
+		return "report/reportList";
+	}
+	
 }

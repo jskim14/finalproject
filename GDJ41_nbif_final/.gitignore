@@ -30,6 +30,7 @@ build/
 .vscode/
 
 nbif/
+/src/main/resources/
 /src/main/resources/mapper/
 /src/main/resources/application.yml
 
