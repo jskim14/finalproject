@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class ProductImage {
+	private String productNo;
 	private String imageName;
 }

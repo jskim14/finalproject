@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,11 +52,12 @@ public class ProductController {
 		return "/product/insertProduct";
 	}
 	
-	@RequestMapping("/insertProductEnd")
+	@RequestMapping(value =  "/insertProductEnd", method=RequestMethod.POST)
 	public ModelAndView insertProductEnd(ModelAndView mv, Product p,
 			 String sellerNo, String maxDate, String maxTime,
-			 MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
+			 @RequestParam(value = "imageFile", required = false) MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
 
+		System.out.println(imageFile[0].getOriginalFilename());
 		//date 
 		String date = maxDate+" "+maxTime;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -70,13 +72,26 @@ public class ProductController {
 		//file
 		String path = req.getServletContext().getRealPath("/resources/upload/product/"); 
 		File f = new File(path);
-		if(!f.exists()) f.mkdir(); //폴더가 존재하지 않으면 생성해라 
+		if(!f.exists()) f.mkdir();
+		p.setImages(new ArrayList<ProductImage>());
 		for(MultipartFile mf : imageFile) {
-			ProductImage pi = ProductImage.builder().imageName(mf.getName()).build();
-			p.setImages(new ArrayList<ProductImage>());
-			p.getImages().set(0, pi);
+			if(!mf.isEmpty()) {
+				String originalFileName = mf.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+				
+				SimpleDateFormat sdf2 = new SimpleDateFormat("ddMMyyHHmmssss"); 
+				int ranNum = (int)(Math.random()*1000);
+				String renameFile = sdf2.format(System.currentTimeMillis())+"_"+ranNum+ext;
+				try {
+					mf.transferTo(new File(path+renameFile));
+					ProductImage pi = ProductImage.builder().imageName(renameFile).build();
+					p.getImages().add(pi);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-
+		System.out.println(p.getImages());
 		int result=service.insertProduct(p);
 		System.out.println(result);
 		

@@ -16,7 +16,7 @@
             <span>판매입찰등록</span>
         </div> 
         <div class="pageMenu">
-            <form action="${path }/product/insertProductEnd" method="post" >
+            <form action="${path }/product/insertProductEnd" method="post" enctype="multipart/form-data">
             <!-- 판매자 -->
             <input type="hidden" name="sellerNo" value="${loginMember.memberNo}" >
                 <div class="pageMenu-1">
