@@ -153,7 +153,7 @@
                                     <label for="formFileMultiple" class="form-label">
                                         *사진은 4장까지 등록 가능하며, 첫번째 등록한 사진이 메인사진으로 등록됩니다.
                                     </label>
-                                    <input class="form-control" type="file" id="formFileMultiple" name="images" onclick="fileUpload();"
+                                    <input class="form-control" type="file" id="formFileMultiple" name="imageFile" onclick="fileUpload();"
                                     accept=".jpg, .jpeg, .png" multiple>
                                     <div id="showFiles" style="padding-right:50px"></div>
                                     <div class="img_wrap">

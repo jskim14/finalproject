@@ -1,18 +1,25 @@
 package com.nb.spring.product.controller;
 
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
+import com.nb.spring.product.model.vo.ProductImage;
 
 @Controller
 @RequestMapping("/product")
@@ -40,20 +47,29 @@ public class ProductController {
 	
 	@RequestMapping("/insertProductEnd")
 	public ModelAndView insertProductEnd(ModelAndView mv, Product p,
-			 String sellerNo, String maxDate, String maxTime) throws Exception {
+			 String sellerNo, String maxDate, String maxTime,
+			 MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
 
-		//date 지정
+		//date 
 		String date = maxDate+" "+maxTime;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date utilDate = sdf.parse(date);
 		java.sql.Date endDate = new java.sql.Date(utilDate.getTime());
 		p.setEndDate(endDate);
 		
-		System.out.println(sellerNo);
-		//seller 지정
+		//seller 
 		p.setSeller(new Member());
 		p.getSeller().setMemberNo(sellerNo);
 		
+		//file
+		String path = req.getServletContext().getRealPath("/resources/upload/product/"); 
+		File f = new File(path);
+		if(!f.exists()) f.mkdir(); //폴더가 존재하지 않으면 생성해라 
+		for(MultipartFile mf : imageFile) {
+			ProductImage pi = ProductImage.builder().imageName(mf.getName()).build();
+			p.setImages(new ArrayList<ProductImage>());
+			p.getImages().set(0, pi);
+		}
 
 		int result=service.insertProduct(p);
 		System.out.println(result);

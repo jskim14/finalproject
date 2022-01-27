@@ -15,7 +15,6 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@Override
 	public int insertProduct(SqlSessionTemplate session, Product p) {
-		System.out.println("service : "+ p);
 		return session.insert("product.insertProduct",p);
 	}
 
