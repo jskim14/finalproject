@@ -7,5 +7,6 @@
 		<typeAlias type="com.nb.spring.product.model.vo.ProductImage" alias="productImage"/>
 		<typeAlias type="com.nb.spring.report.model.vo.Report" alias="report"/>
 		<typeAlias type="com.nb.spring.report.model.vo.ReportImage" alias="reportImage"/>
+
 	</typeAliases>
 </configuration>
