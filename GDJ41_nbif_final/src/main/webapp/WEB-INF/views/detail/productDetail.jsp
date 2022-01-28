@@ -208,7 +208,7 @@
 						</div>
 						<div class="col-1"></div>
 						<div class="col-4">
-							<button type="button" class="btn btn-primary" onclick="checkBuyNow('${product.productNo}');">바로구매</button>
+							<button type="button" class="btn btn-primary" onclick="checkBuyNow('${product.productNo}',${loginMember==null?false:true });" >바로구매</button>
 							<button id="buyNowModalBtn" type="button" data-bs-toggle="modal" data-bs-target="#buyNowModal" style="display: none"></button>
 							
 						</div>
@@ -536,12 +536,12 @@
 
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio"
-								name="inlineRadioOptions" id="inlineRadio1" value="option1">
+								name="radioInfoCheck" id="normalInfo" value="option1" checked>
 							<label class="form-check-label" for="inlineRadio1">기본정보로</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio"
-								name="inlineRadioOptions" id="inlineRadio2" value="option2">
+								name="radioInfoCheck" id="newInfo" value="option2">
 							<label class="form-check-label" for="inlineRadio2">새로입력</label>
 						</div>
 					</div>
@@ -551,7 +551,7 @@
 						<span>기본주소</span>
 					</div>
 					<div class="col-8">
-						<input type="text" class="form-control w-100" readonly value="${loginMember.address }">
+						<input id="normalAddress" type="text" class="form-control w-100" readonly value="${loginMember.address }">
 					</div>
 				</div>
 				<div class="row">
@@ -559,8 +559,9 @@
 						<span>배송주소</span>
 					</div>
 					<div class="col-8">
-						<input type="text" class="form-control w-100">
-					</div>
+						<input id="shipAddress" type="text" class="form-control w-100" value="${loginMember.deliveryAddress }">
+						<input id="hiddenAddress" type="hidden" value="${loginMember.deliveryAddress }"/> 
+ 					</div>
 				</div>
 				<div class="row">
 					<div class="col-4"></div>
@@ -568,12 +569,12 @@
 
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio"
-								name="inlineRadioOptions" id="inlineRadio1" value="option1">
+								name="radioAddressCheck" id="inlineRadio1" value="option1" checked>
 							<label class="form-check-label" for="inlineRadio1">기본주소</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio"
-								name="inlineRadioOptions" id="inlineRadio2" value="option2">
+								name="radioAddressCheck" id="inlineRadio2" value="option2">
 							<label class="form-check-label" for="inlineRadio2">배송주소</label>
 						</div>
 					</div>
@@ -617,7 +618,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
 					data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">입찰하기</button>
+				<button type="button" class="btn btn-primary" onclick="bid('${product.productNo}');">입찰하기</button>
 			</div>
 		</div>
 	</div>

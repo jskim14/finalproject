@@ -1,5 +1,7 @@
 package com.nb.spring.product.model.service;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,12 @@ public class ProductServiceImpl implements ProductService {
 		
 		Product product = dao.selectOneProductNo(session, productNo);
 		return product;
+	}
+
+	@Override
+	public int updateBid(Map<String, String> param) {
+		int result = dao.updateBid(session,param);
+		return result;
 	}
 
 }

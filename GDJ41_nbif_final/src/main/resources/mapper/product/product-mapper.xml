@@ -49,4 +49,16 @@
 		JOIN PRODUCTIMAGE USING (PRODUCTNO)
 		 WHERE  PRODUCTNO=#{productNo}
 	</select>
+	
+	<update id="updateBid" parameterType="map">
+		UPDATE PRODUCT
+		SET
+		NOWBIDPRICE = #{bidPrice},
+		HIGHESTBIDDER = #{memberNo}
+		WHERE PRODUCTNO = #{productNo}
+	</update>
+	
+	
+	
+	
 </mapper>
