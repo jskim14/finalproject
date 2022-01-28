@@ -55,4 +55,9 @@ public class MemberController {
 		mv.setViewName("common/msg");
 		return mv;
 	}
+	
+	@RequestMapping("/myPage")
+	public String myPage() {
+		return "login/myPage";
+	}
 }

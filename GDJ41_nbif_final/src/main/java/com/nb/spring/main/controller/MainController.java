@@ -43,6 +43,10 @@ public class MainController {
 	public String findPasswordView() {
 		return "login/findPassword";
 	}
-	
+		
+	@RequestMapping("/report")
+	public String reportListView() {
+		return "report/reportList";
+	}
 	
 }
