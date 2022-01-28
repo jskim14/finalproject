@@ -37,7 +37,7 @@
                                     설정
                                 </label> 
                                 <input type="text" id="inputTyping1" class="form-control" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
-                                 onChange="checkNumber();" style="width: 250px; display:inline; margin-left: 1%" disabled required>
+                                 style="width: 250px; display:inline; margin-left: 1%" disabled required>
                                 <div class="onlyNumber" style="display: inline; padding: 1%"></div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                     설정
                                 </label>
                                 <input type="text" id="inputTyping2" class="form-control" name="nowBidPrice" placeholder="재경매 시작가를 입력해주세요" 
-                                onchange="checkNumber();" style="width: 250px; display:inline; margin-left: 1%" disabled>
+                                 style="width: 250px; display:inline; margin-left: 1%" disabled>
                                 <div class="onlyNumber" style="display: inline; padding: 1%"> </div>
                                 <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
@@ -182,10 +182,11 @@
         $("input[name=flexRadioDefault1]").change(e=>{
             if($(e.target).val()=='Y') {
             	$("#inputTyping1").attr("disabled",false);
-                $("#inputTyping1").focus();            		 
-
+                $("#inputTyping1").focus();
              }else {
                 $("#inputTyping1").attr("disabled",true); 
+                $("#inputTyping1").next().html("");
+                
             } 
         });
         $("input[name=extendYn]").change(e=>{
@@ -207,20 +208,44 @@
             }
         }
         
-        function checkNumber() {
+/*         $("#inputTyping1").change(function(){
         	var target = event.target;
     		var numPattern = /([^0-9])/;
-    		var numPattern = $(event.target).val().match(numPattern);
+    		numPattern = $(target).val().match(numPattern);
     		if (numPattern != null) {
-    			$(event.target).next().html("숫자만 입력이 가능합니다.").css("color","red");
-    			target.value = "";
-    			target.focus();
+    			$("#inputTyping1").val("");
+    			$(target).next().html("숫자만 입력이 가능합니다.").css("color","red");
     			return false;
-    		} if($("input[name=flexRadioDefault1]").val()=='N') {
-    			alert("adf");
-    			//$(event.target).next().remove();
+    		} else {
+    			$(target).next().html("");
     		}
-    	}
+        }) */
+         $("#inputTyping1").change(e=>{
+    		var numPattern = /([^0-9])/;
+    		numPattern = $(e.target).val().match(numPattern);
+    		if (numPattern != null) {
+    			$("#inputTyping1").val("");
+    			$(e.target).next().html("숫자만 입력이 가능합니다.").css("color","red");
+    			return false;
+    		} else {
+    			$(e.target).next().html("");
+    		}
+        }) 
+
+    	
+    	
+/*     	$(document).ready(function(){
+    	      $("input:text[id='inputTyping1']").on("keyup", function() {
+    	         $(this).val(addComma($(this).val().replace(/[^0-9]/g,"")));
+
+    	      });
+    	    });
+
+    	//천단위마다 콤마 생성
+    	function addComma(data) {
+    	    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    	} */
+        
 
 
 
@@ -259,11 +284,16 @@
             target.addEventListener('change', function(){
                 fileList = "";
                 for(i = 0; i < target.files.length; i++){
+                	if(i>3) {
+                		alert("물품이미지는 최대 4장입니다.");
+                		target.value="";
+                		fileList = "";
+                	} else {
                     fileList += ('\u00a0\u00a0'+(i+1)+'.  ')+target.files[i].name+'\u00a0\u00a0\u00a0';
+                	}
                 }
                 target2 = document.getElementById('showFiles');
                 target2.innerHTML = ("등록된 이미지 : ")+fileList;
-                target2.innerHTML('adf');
             });
         }
 

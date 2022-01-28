@@ -60,4 +60,8 @@ public class MemberController {
 	public String myPage() {
 		return "login/myPage";
 	}
+	@RequestMapping("/salesStates")
+	public String salesStates() {
+		return "product/salesStates";
+	}
 }

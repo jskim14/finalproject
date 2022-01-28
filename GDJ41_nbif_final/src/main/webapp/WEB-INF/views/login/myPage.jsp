@@ -104,7 +104,7 @@
                         3. 어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고<br>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-secondary btnColor" style="margin-bottom: 20%;">물품 등록하기</button>
+                        <button type="button" class="btn btn-secondary btnColor" onclick="location.assign('${path}/product/insertProduct')" style="margin-bottom: 20%;">물품 등록하기</button>
                     </div>
                 </div>
             </div>
