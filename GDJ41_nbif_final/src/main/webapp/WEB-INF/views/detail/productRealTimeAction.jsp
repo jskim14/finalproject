@@ -50,7 +50,7 @@
 	#section-right {
 		width: 40%;
 		background-color: #FFF496;
-		height: 630px;
+		height: 639px;
 		overflow-y:scroll;
 		padding-top: 10px;
 	}
@@ -216,6 +216,8 @@ Special Action</h2>
 					$("#inputPrice").val('');
 				}else {
 					alert("현재입찰가보다 낮은가격입니다. 다시 입력해주세요.");
+					$("#inputPrice").val('');
+					$("#inputPrice").focus();
 				}	
 			}else {
 				alert("보유잔액이 부족합니다.");
@@ -224,15 +226,24 @@ Special Action</h2>
 		function send(price) {
 			socket.send(JSON.stringify({"nickName":"${loginMember.nickName}","price":price}));
 		}
+/* 		let memberList = [];
+		function Member(nickName,price) {
+			this.nickName = nickName;
+			this.price = price;
+		} */
 		socket.onmessage = message=> {
-			if(message.data.substring(2,10)=='nickName') {
-				let chat = JSON.parse(message.data)
-				let userDiv = $("<div>");
-				userDiv.css("background-color","white");
-				let h5 = $("<h5>");
-				h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
-				userDiv.append(h5);
-				$("#section-right").append(userDiv);
+			let mem = JSON.parse(message.data);
+			if(typeof mem=='object') {
+				$("#section-right").html('');
+				for(let i=0; i<mem.length; i++) {
+					let chat = mem[i];
+					let userDiv = $("<div>");
+					userDiv.css("background-color","white");
+					let h5 = $("<h5>");
+					h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
+					userDiv.append(h5);
+					$("#section-right").append(userDiv);
+				}
 			}else {
 				$("#userCount").html(message.data);
 			}

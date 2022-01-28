@@ -38,21 +38,26 @@
                             <a href="">고객센터</a>
                         </li>
                         <li>
+                        	<c:if test="${loginMember == null }">
                             <a href="">회원가입</a>
+                            </c:if>
+                            <c:if test="${loginMember != null }">
+                            <a href="">마이페이지</a>
+                            </c:if>
                         </li>
-                        <c:if test="${loginMember == null}">
 	                        <li>
+                        	<c:if test="${loginMember == null}">
 	                            <a href="${path}/login">로그인</a>
+                        	</c:if>
 	                        </li>
-                        </c:if>
-                        <c:if test="${loginMember != null}">
-                        	<style>
-                        		#first-header>ul {left:73%;}
-                        	</style>
 	                        <li>
-	                            <a href="${path}/member/logout">로그아웃</a>
+	                        <c:if test="${loginMember != null}">
+	                        	<style>
+	                        		#first-header>ul {left:71%;}
+	                        	</style>
+		                            <a href="${path}/member/logout">로그아웃</a>
+	                        </c:if>
 	                        </li>
-                        </c:if>
                     </ul>
                 </div>
                 <div id="second-header">

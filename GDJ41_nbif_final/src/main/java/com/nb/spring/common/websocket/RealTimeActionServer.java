@@ -1,7 +1,9 @@
 package com.nb.spring.common.websocket;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -16,23 +18,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RealTimeActionServer extends TextWebSocketHandler {
 
-//	private List<WebSocketSession> clients = new ArrayList<WebSocketSession>();
 	private Map<String,WebSocketSession> clients = new HashMap<String,WebSocketSession>();
+	private List<String> msgList = new ArrayList<String>();
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(clients.size());
-		System.out.println(message.getPayload());
-		message.getPayload();
-//		for(WebSocketSession ss : clients) {
-//			ss.sendMessage(message);
-//		}
+		msgList.add(message.getPayload());
 		Iterator<String> keys = clients.keySet().iterator();
 		while(keys.hasNext()) {
 			String key = keys.next();
 			WebSocketSession ss = clients.get(key);
-			ss.sendMessage(message);
+			ss.sendMessage(new TextMessage("" + msgList));
 		}
 	}
 
@@ -45,16 +42,10 @@ public class RealTimeActionServer extends TextWebSocketHandler {
 			String key = keys.next();
 			WebSocketSession ss = clients.get(key);
 			ss.sendMessage(new TextMessage("" + clients.size()));
+			if(msgList.size()!=0) {
+				ss.sendMessage(new TextMessage("" + msgList));	
+			}
 		}
-//		if(clients.size()<=0) {
-//		}
-//		else {
-//			for(int i=0; i<clients.size(); i++) {
-//				if(clients.get(i).getId() != null && clients.get(i).getId()!=session.getId()) {
-//					clients.add(session);
-//				}
-//			}
-//		}
 	}
 
 	@Override
