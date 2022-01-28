@@ -179,7 +179,7 @@ Special Action</h2>
 					<p>현재입찰가 : <span id="nowPrice">50,000</span></p>
 				</div>
 				<div>
-					나의 잔액 : <span style="font-weight: bold;"><fmt:formatNumber type="currency" value="${loginMember.balance }"/>원</span>
+					나의 잔액 : <span id="balance" style="font-weight: bold;"><fmt:formatNumber type="currency" value="${loginMember.balance }"/>원</span>
 				</div>
 				<div style="padding-top:10px; display:flex;">
 					<div style="border:3px solid #C4C4C4; border-radius:20px; width:150px; margin-right:20px;">
@@ -191,53 +191,45 @@ Special Action</h2>
 				</div>
 			</div>
 			<div id="section-right">
-				<div style="background-color: white; color: red;"><h5>SYSTEM : 경매시간 00분35초 남았습니다.</h5></div>
-				<div style="background-color: white;"><h5>daeyeol님이 110,000원에 응찰!</h5></div>
-				<div style="background-color: white;"><h5>dabin님이 150,000원에 응찰!</h5></div>
-				<div style="background-color: white; color: red;"><h5>SYSTEM : 경매시간 00분05초 남았습니다.</h5></div>
-				<div style="background-color: white; color: red;"><h5>SYSTEM : 경매가 종료됩니다.</h5></div>
-				<div style="background-color: #41B979; color:white;"><h5>dabin님에게 150,000원에 최종 낙찰되었습니다.</h5></div>
-				
-				
-				<div style="background-color: white; color: red;"><h5>SYSTEM : 경매시간 00분35초 남았습니다.</h5></div>
-				<div style="background-color: white;"><h5>daeyeol님이 110,000원에 응찰!</h5></div>
-				<div style="background-color: white;"><h5>dabin님이 150,000원에 응찰!</h5></div>
-				<div style="background-color: white; color: red;"><h5>SYSTEM : 경매시간 00분05초 남았습니다.</h5></div>
-				<div style="background-color: white; color: red;"><h5>SYSTEM : 경매가 종료됩니다.</h5></div>
-				<div style="background-color: #41B979; color:white;"><h5>dabin님에게 150,000원에 최종 낙찰되었습니다.</h5></div>
-				<div style="background-color: white; color: red;"><h5>SYSTEM : 경매시간 00분35초 남았습니다.</h5></div>
-				<div style="background-color: white;"><h5>daeyeol님이 110,000원에 응찰!</h5></div>
-				<div style="background-color: white;"><h5>dabin님이 150,000원에 응찰!</h5></div>
-				<div style="background-color: white; color: red;"><h5>SYSTEM : 경매시간 00분05초 남았습니다.</h5></div>
-				<div style="background-color: white; color: red;"><h5>SYSTEM : 경매가 종료됩니다.</h5></div>
-				<div style="background-color: #41B979; color:white;"><h5>dabin님에게 150,000원에 최종 낙찰되었습니다.</h5></div>
 			</div>
 		</div>
 	</div>
 	<script>
 		const socket = new WebSocket("ws://localhost:9090/ws/chat");
 		$("#sendBtn").click(e=> {
-			/* let price = $("#msg").val();
+			let price = $("#inputPrice").val();
 			let nowPrite = $("#nowPrice").text();
+			let balance = $("#balance").text();
+			nowPrite = nowPrite.replace(',','');
+			balance = balance.replace('₩','');
+			balance = balance.replace(',','');
+			balance = balance.replace(',','');
+			balance = balance.replace('원','');
 			price = Number(price);
 			nowPrite = Number(nowPrite);
-			console.log(price + " : " + typeof(price) + nowPrite + " " + typeof(nowPrite));
-			console.log(price>nowPrite);
-			if(price>nowPrite) {
-				send();				
+			balance = Number(balance);
+			if(price<balance) {
+				if(price>nowPrite) {
+					send(price);
+					$("#inputPrice").val('');
+				}else {
+					alert("현재입찰가보다 낮은가격입니다. 다시 입력해주세요.");
+				}	
 			}else {
-				alert("현재입찰가보다 낮은가격입니다. 다시 입력해주세요.");
-			} */
-			let price = $("#inputPrice").val();
-			send(price);
+				alert("보유잔액이 부족합니다.");
+			}
 		});
 		function send(price) {
 			socket.send(JSON.stringify({"nickName":"${loginMember.nickName}","price":price}));
 		}
 		socket.onmessage = message=> {
-			console.log(message);
-			$("#chat").append($("<h5>").html(message.data));
- 			$("#chat").append($("<h5>").html(message.data["nickName"] + "님이 " + message.data["price"] + "원으로 입찰!"));
+			let chat = JSON.parse(message.data)
+			let userDiv = $("<div>");
+			userDiv.css("background-color","white");
+			let h5 = $("<h5>");
+			h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
+			userDiv.append(h5);
+			$("#section-right").append(userDiv);
 		}
 		$("#img-list-con>div>img").click(e=> {
 			let imgSrc = $(e.target).attr("src");

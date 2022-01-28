@@ -42,7 +42,6 @@
 		</collection>
 	</resultMap>
 
-
 <!--JOIN PRODUCTIMAGE USING (PRODUCTNO)  -->
 	<select id="selectOneProductNo" resultMap="productMap" parameterType="string">
 		SELECT * FROM PRODUCT
