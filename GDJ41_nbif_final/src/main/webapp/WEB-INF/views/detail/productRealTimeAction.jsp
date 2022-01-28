@@ -151,7 +151,7 @@ Special Action</h2>
 			<div id="section-left">
 				<div id="first-con">
 					<div>
-						<i class="fas fa-eye fa-lg"></i><span>155</span>
+						<i class="fas fa-eye fa-lg"></i><span id="userCount">155</span>
 					</div>
 					<p>경매 남은 시간 : <span>00</span>분 <span>00</span>초</p>
 				</div>
@@ -176,7 +176,7 @@ Special Action</h2>
 					</div>
 				</div>
 				<div id="price">
-					<p>현재입찰가 : <span id="nowPrice">50,000</span></p>
+					<p>현재입찰가 : <span id="nowPrice"><fmt:formatNumber type='currency' value='50000'/></span></p>
 				</div>
 				<div>
 					나의 잔액 : <span id="balance" style="font-weight: bold;"><fmt:formatNumber type="currency" value="${loginMember.balance }"/>원</span>
@@ -191,6 +191,7 @@ Special Action</h2>
 				</div>
 			</div>
 			<div id="section-right">
+			
 			</div>
 		</div>
 	</div>
@@ -200,6 +201,7 @@ Special Action</h2>
 			let price = $("#inputPrice").val();
 			let nowPrite = $("#nowPrice").text();
 			let balance = $("#balance").text();
+			nowPrite = nowPrite.replace('₩','');
 			nowPrite = nowPrite.replace(',','');
 			balance = balance.replace('₩','');
 			balance = balance.replace(',','');
@@ -223,13 +225,17 @@ Special Action</h2>
 			socket.send(JSON.stringify({"nickName":"${loginMember.nickName}","price":price}));
 		}
 		socket.onmessage = message=> {
-			let chat = JSON.parse(message.data)
-			let userDiv = $("<div>");
-			userDiv.css("background-color","white");
-			let h5 = $("<h5>");
-			h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
-			userDiv.append(h5);
-			$("#section-right").append(userDiv);
+			if(message.data.substring(2,10)=='nickName') {
+				let chat = JSON.parse(message.data)
+				let userDiv = $("<div>");
+				userDiv.css("background-color","white");
+				let h5 = $("<h5>");
+				h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
+				userDiv.append(h5);
+				$("#section-right").append(userDiv);
+			}else {
+				$("#userCount").html(message.data);
+			}
 		}
 		$("#img-list-con>div>img").click(e=> {
 			let imgSrc = $(e.target).attr("src");
