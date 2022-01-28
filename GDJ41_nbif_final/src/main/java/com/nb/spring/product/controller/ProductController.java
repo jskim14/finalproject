@@ -1,5 +1,12 @@
 package com.nb.spring.product.controller;
 
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Map;
 
@@ -10,13 +17,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
+import com.nb.spring.product.model.vo.ProductImage;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +54,73 @@ public class ProductController {
 		mv.setViewName("detail/productDetail");
 		return mv;
 	}
+
+	
+	@RequestMapping("/insertProduct")
+	public String insertProduct() {
+		return "/product/insertProduct";
+	}
+	
+	@RequestMapping(value =  "/insertProductEnd", method=RequestMethod.POST)
+	public ModelAndView insertProductEnd(ModelAndView mv, Product p,
+			 String sellerNo, String maxDate, String maxTime,
+			 @RequestParam(value = "imageFile", required = false) MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
+
+		System.out.println(imageFile[0].getOriginalFilename());
+		//date 
+		String date = maxDate+" "+maxTime;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date utilDate = sdf.parse(date);
+		java.sql.Date endDate = new java.sql.Date(utilDate.getTime());
+		p.setEndDate(endDate);
+		
+		//seller 
+		p.setSeller(new Member());
+		p.getSeller().setMemberNo(sellerNo);
+		
+		//file
+		String path = req.getServletContext().getRealPath("/resources/upload/product/"); 
+		File f = new File(path);
+		if(!f.exists()) f.mkdir();
+		p.setImages(new ArrayList<ProductImage>());
+		for(MultipartFile mf : imageFile) {
+			if(!mf.isEmpty()) {
+				String originalFileName = mf.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+				
+				SimpleDateFormat sdf2 = new SimpleDateFormat("ddMMyyHHmmssss"); 
+				int ranNum = (int)(Math.random()*1000);
+				String renameFile = sdf2.format(System.currentTimeMillis())+"_"+ranNum+ext;
+				try {
+					mf.transferTo(new File(path+renameFile));
+					ProductImage pi = ProductImage.builder().imageName(renameFile).build();
+					p.getImages().add(pi);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println(p.getImages());
+		int result= productService.insertProduct(p);
+		System.out.println(result);
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result>0) {
+			msg = "물품등록이 정상적으로 요청되었습니다.";
+			loc = "/";
+		}else {
+			msg = "물품등록에 실패하였습니다. 관리자에게 문의하세요.";
+			loc = "/product/insertProduct";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
 
 	@RequestMapping("/realtimeaction")
 	public ModelAndView realtimeaction(ModelAndView mv, String productNo) {

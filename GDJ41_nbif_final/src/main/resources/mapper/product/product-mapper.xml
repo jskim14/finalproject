@@ -61,4 +61,23 @@
 	
 	
 	
+
+	<insert id="insertProduct" parameterType="product">
+		INSERT INTO PRODUCT VALUES(
+			#{productCategory}||TO_CHAR(SYSDATE,'DDMMYY')||SEQ_PRODUCTNO.NEXTVAL,
+			#{productCategory},#{productName},#{seller.memberNo},NULL,NULL,#{minBidPrice},#{productContent},
+			SYSDATE,NULL,#{bidUnit},SYSDATE,#{endDate},NULL,#{buyNowPrice},#{extendYn},0,NULL,NULL,NULL
+		)
+		<selectKey keyProperty="productNo" resultType="string" order="AFTER">
+			SELECT #{productCategory}||TO_CHAR(SYSDATE,'DDMMYY')||SEQ_PRODUCTNO.CURRVAL 
+			FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<insert id="insertProductImg" parameterType="productImage">
+		INSERT INTO PRODUCTIMAGE VALUES(
+			#{productNo}, #{imageName}
+		)
+	</insert>
+
 </mapper>
