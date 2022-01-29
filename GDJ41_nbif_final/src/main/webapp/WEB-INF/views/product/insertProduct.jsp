@@ -74,7 +74,7 @@
                                 <span class="subMenuTitle">입찰단위</span>
                             </div>
                             <div class="titleRight">
-                                <select id="priceUnit" onchange="unitSelect();" class="form-select" name="bidUnit" aria-label="Default select example" style="width: 200px; color: gray; display:inline;" required>
+                                <select id="priceUnit" onchange="unitSelect();" class="form-select" name="unit" aria-label="Default select example" style="width: 200px; color: gray; display:inline;" required>
                                     <option selected>---선택하세요---</option>
                                     <option value="1000">1,000원</option>
                                     <option value="5000">5,000원</option>
@@ -83,7 +83,7 @@
                                     <option value="100000">100,000원</option>
                                     <option value="typing">직접입력</option>
                                 </select>
-                                <input type="text" id="inputTyping3" class="form-control" name="bidUnit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
+                                <input type="text" id="inputTyping3" class="form-control" name="unit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
                                 <div id="autionUnitInfo" style="display: inline; padding: 1%"> 
                                 	*입찰단위가 입찰시작가보다 높습니다. 
                                	</div>

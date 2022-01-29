@@ -46,18 +46,28 @@
                </div>
            </div>
            <!-- ---------------------------------------- -->
-           
+           <!-- 
+           		product테이블의 seller가 loginMember.memberNo 일치할때
+           		for(product를 돌려 seller가 memberNo인 갯수만큼)           
+            -->
            <div class="row" style="margin: 0; text-align: center; "> 
                <hr>
                <!-- 상품내용 한줄 -->
                <div class="col-2">
                    <!-- 사진 -->
+                   <!-- images 의 첫번째.... -->
                    <img src="http://localhost:9090/resources/upload/exbag2.png" 
                    alt="" style="width: 150px; height: 130px;">
                </div>
                <div class="col-5">
                    <!-- 중간 -->
                    <div class="row">
+                   		<!-- 
+                   		판매대기[승인여부 0(대기), 2(거부)] 
+                   		판매중[status 0(판매중)],
+                   		판매완료[1(입완),2(발완),3(필요없음)],
+                   		종료 [4(구매확정),5(신고)]
+                   		-->
                        <div>
                            <strong><span style="font-size: 18px;float: left; color: #ef6253;">판매대기</span></strong>
                        </div>
@@ -66,8 +76,15 @@
                                상품이름 레고심슨하우스
                            </span>
                        </div>
+                       <!-- 
+                       수정하기[승인 0]
+                       재등록하기[승인 2]
+                       발송완료[status 2]
+                       구매확정[status 4]
+                        -->
                        <div>
                            <button type="button" class="btn btn-secondary btnColor" style="float: left;">수정하기 </button>
+                           <button type="button" class="btn btn-secondary btnColor" style="float: left;">재등록하기 </button>
                            <span style="font-size: 18px;float: left; color: gray;">발송완료/구매확정</span>
                        </div>
                    </div>
@@ -76,6 +93,9 @@
                <div class="col-5" >
                    <!-- 오른쪽 -->
                    <div class="row" style="padding-top: 10%">
+                   <!-- 
+                   분기 7개 
+                    -->
                        <div class="col">
                            신고가 접수된 물품입니다. <br>신고가 접수된 물품입니다. 
                        </div>

@@ -54,10 +54,9 @@ public class ProductController {
 	
 	@RequestMapping(value =  "/insertProductEnd", method=RequestMethod.POST)
 	public ModelAndView insertProductEnd(ModelAndView mv, Product p,
-			 String sellerNo, String maxDate, String maxTime,
+			 String sellerNo, String maxDate, String maxTime, String unit,
 			 @RequestParam(value = "imageFile", required = false) MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
 
-		System.out.println(imageFile[0].getOriginalFilename());
 		//date 
 		String date = maxDate+" "+maxTime;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -68,6 +67,14 @@ public class ProductController {
 		//seller 
 		p.setSeller(new Member());
 		p.getSeller().setMemberNo(sellerNo);
+		
+		//bidUnit
+		if(unit.contains(",")) {
+			String splitUnit[] = unit.split(",");
+			p.setBidUnit(splitUnit[1]);
+		} else {
+			p.setBidUnit(unit);
+		}
 		
 		//file
 		String path = req.getServletContext().getRealPath("/resources/upload/product/"); 
@@ -144,6 +151,7 @@ public class ProductController {
 		response.getWriter().print(isBuy);
 		
 	}
+	
 	
 	
 	
