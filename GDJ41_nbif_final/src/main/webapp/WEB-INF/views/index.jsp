@@ -198,4 +198,3 @@
         	}
         </script>
 <jsp:include page="${path}/WEB-INF/views/common/footer.jsp"/>
->>>>>>> branch 'master' of https://github.com/DaBinSeo/finalproject.git

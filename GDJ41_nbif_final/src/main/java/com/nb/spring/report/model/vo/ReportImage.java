@@ -1,5 +1,7 @@
 package com.nb.spring.report.model.vo;
 
+import com.nb.spring.product.model.vo.Product;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,5 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ReportImage {
-	private String reportImageName;
+	private Product productNo;
+	private String OriReportImgName;
+	private String ReReportImgName;
 }
