@@ -1,12 +1,18 @@
 package com.nb.spring.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.product.model.vo.Product;
 
 public interface MemberDao {
 
 	Member loginMember(SqlSessionTemplate session,Map<String,String> param);
+	
+	Member selectMember(SqlSessionTemplate session, String memberNo);
+	
+	List<Product> salesList(SqlSessionTemplate session, String memberNo);
 }

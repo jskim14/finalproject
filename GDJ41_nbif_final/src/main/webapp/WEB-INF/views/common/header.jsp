@@ -42,7 +42,7 @@
                             <a href="">회원가입</a>
                             </c:if>
                             <c:if test="${loginMember != null }">
-                            <a href="">마이페이지</a>
+                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a>
                             </c:if>
                         </li>
 	                        <li>

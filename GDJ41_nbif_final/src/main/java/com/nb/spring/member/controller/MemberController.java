@@ -1,6 +1,7 @@
 package com.nb.spring.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.product.model.vo.Product;
 
 @Controller
 @RequestMapping("/member")
@@ -58,12 +59,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/myPage")
-	public String myPage() {
-		return "login/myPage";
+	public ModelAndView myPage(String memberNo, ModelAndView mv) {
+		Member m = service.selectMember(memberNo);
+		mv.addObject("myPageMember",m);
+		mv.setViewName("login/myPage");
+		return mv;
 	}
 	
 	@RequestMapping("/salesStates")
-	public String salesStates() { //string memberNo 를 받아서 프로덕트의 셀러와 연결해서 프로덕트를 받아와 그것을 jsp에 보내줌
-		return "product/salesStates";
+	public ModelAndView salesStates(String memberNum, ModelAndView mv) { //string memberNo 를 받아서 프로덕트의 셀러와 연결해서 프로덕트를 받아와 그것을 jsp에 보내줌
+		System.out.println(memberNum);
+		List<Product> pl = service.salesList(memberNum);
+		mv.addObject("productList",pl);
+		mv.setViewName("product/salesStates");
+		return mv;
 	}
 }
