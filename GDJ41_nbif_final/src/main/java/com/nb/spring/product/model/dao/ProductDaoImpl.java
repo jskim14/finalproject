@@ -1,5 +1,6 @@
 package com.nb.spring.product.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nb.spring.product.model.vo.Product;
 import com.nb.spring.product.model.vo.ProductImage;
+import com.nb.spring.product.model.vo.Review;
 @Repository
 public class ProductDaoImpl implements ProductDao {
 
@@ -33,6 +35,24 @@ public class ProductDaoImpl implements ProductDao {
 	public int insertProductImg(SqlSessionTemplate session, ProductImage pi) {
 		System.out.println(pi);
 		return session.insert("product.insertProductImg",pi);
+	}
+
+	@Override
+	public List<Review> selectReview(SqlSessionTemplate session, String sellerNo) {
+		
+		return session.selectList("product.selectReview",sellerNo);
+	}
+
+	@Override
+	public int insertWishList(SqlSessionTemplate session, Map<String, String> param) {
+		
+		return session.insert("product.insertWishList", param);
+	}
+
+	@Override
+	public int selectWishList(SqlSessionTemplate session, Map<String, String> param) {
+		
+		return session.selectOne("product.selectWishList",param);
 	}
 
 }

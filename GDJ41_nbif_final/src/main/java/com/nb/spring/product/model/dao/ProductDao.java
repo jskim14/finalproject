@@ -1,11 +1,13 @@
 package com.nb.spring.product.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.nb.spring.product.model.vo.Product;
 import com.nb.spring.product.model.vo.ProductImage;
+import com.nb.spring.product.model.vo.Review;
 
 public interface ProductDao {
 
@@ -16,5 +18,11 @@ public interface ProductDao {
 	int insertProductImg(SqlSessionTemplate session, ProductImage pi);
 
 	int updateBid(SqlSessionTemplate session, Map<String, String> param);
+
+	List<Review> selectReview(SqlSessionTemplate session, String sellerNo);
+
+	int insertWishList(SqlSessionTemplate session, Map<String, String> param);
+
+	int selectWishList(SqlSessionTemplate session, Map<String, String> param);
 
 }

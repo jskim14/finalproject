@@ -7,4 +7,8 @@ import com.nb.spring.member.model.vo.Member;
 public interface MemberService {
 
 	Member loginMember(Map<String, String> param);
+
+	Member selectMemberNickName(String nickName);
+
+	int insertMember(Member m);
 }

@@ -1,5 +1,6 @@
 package com.nb.spring.product.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.nb.spring.product.model.dao.ProductDao;
 import com.nb.spring.product.model.vo.Product;
 import com.nb.spring.product.model.vo.ProductImage;
+import com.nb.spring.product.model.vo.Review;
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -44,6 +46,24 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int updateBid(Map<String, String> param) {
 		int result = dao.updateBid(session,param);
+		return result;
+	}
+
+	@Override
+	public List<Review> selectReview(String sellerNo) {
+		List<Review> list = dao.selectReview(session,sellerNo);
+		return list;
+	}
+
+	@Override
+	public int insertWishList(Map<String, String> param) {
+		int result = dao.insertWishList(session, param);
+		return result;
+	}
+
+	@Override
+	public int selectWishList(Map<String, String> param) {
+		int result = dao.selectWishList(session, param);
 		return result;
 	}
 

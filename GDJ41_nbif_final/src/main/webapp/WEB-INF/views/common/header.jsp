@@ -38,7 +38,7 @@
                             <a href="">고객센터</a>
                         </li>
                         <li>
-                            <a href="">회원가입</a>
+                            <a href="${path}/member/enrollMember">회원가입</a>
                         </li>
                         <c:if test="${loginMember == null}">
 	                        <li>

@@ -51,12 +51,10 @@ const bid=(pNo)=>{
 		data:{userBidPrice:userInputPrice,productNo:pNo},
 		dataType:"json",
 		success:data=>{
-			console.log(data);
-			alert(data);
+			console.log("data");
+			alert(data['result']);
 		}
 	})
 }
-
-
 
 

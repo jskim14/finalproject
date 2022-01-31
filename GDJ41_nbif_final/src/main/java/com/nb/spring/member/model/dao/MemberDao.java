@@ -9,4 +9,8 @@ import com.nb.spring.member.model.vo.Member;
 public interface MemberDao {
 
 	Member loginMember(SqlSessionTemplate session,Map<String,String> param);
+
+	Member selectMemberNickName(SqlSessionTemplate session, String nickName);
+
+	int insertMember(SqlSessionTemplate session, Member m);
 }

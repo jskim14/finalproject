@@ -119,7 +119,7 @@
 								<strong>-</strong>
 							</c:if>
 							<c:if test="${product.highestBidder ne null }">
-								<strong><c:out value="${product.highestBidder }" /></strong>
+								<strong><c:out value="${product.highestBidder.nickName }" /></strong>
 							</c:if>
 
 						</div>
@@ -148,12 +148,50 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<div style="padding-left: 10px;">
-								<strong>00</strong>일&nbsp; <strong>00</strong>시간&nbsp; <strong>00</strong>분&nbsp;
-								<strong>00</strong>초&nbsp;
+							<div id="timer" style="padding-left: 10px;">
+								
 							</div>
 						</div>
 					</div>
+					<script>
+					
+
+						const countDown=(id , date)=>{
+							let targetDate = new Date(date);
+							const second = 1000;
+							const minute= second * 60;
+							const hour = minute * 60;
+							const day = hour* 24;
+							let timer;
+							
+							function showRemaining(){
+								let now = new Date();
+								let distDate = targetDate-now;
+								
+								if(distDate < 0 ){
+									clearInterval(timer);
+									document.getElementById(id).textContent = "종료";
+									return;
+								}
+								
+								let days = Math.floor(distDate/day);
+								let hours = Math.floor((distDate%day)/hour);
+								let minutes = Math.floor((distDate%hour)/minute);
+								let seconds = Math.floor((distDate%minute)/second);
+								
+								document.getElementById(id).textContent = days + '일 ';
+								document.getElementById(id).textContent += hours + '시간 '; 
+								document.getElementById(id).textContent += minutes + '분 '; 
+								document.getElementById(id).textContent += seconds + '초';
+
+							}
+							
+							timer = setInterval(showRemaining,1000);
+							
+						}
+						countDown("timer",new Date('${product.endDate}'));
+						
+					</script>
 
 					<div class="row mb-3">
 						<div class="col-12">
@@ -253,15 +291,47 @@
 
 					<div class="row">
 						<div class="col-12">
-							<div
-								style="width: 100%; height: 50px; border: 1px solid black; display: flex; justify-content: center; opacity: 0.3;">
+						<!-- 	<div style="width: 100%; height: 50px; border: 1px solid black; display: flex; justify-content: center; opacity: 0.3;">
 
 								<i style="margin: 0;" class="far fa-bookmark fa-3x"></i> <strong
 									style="height: 100%; margin: 0; padding-top: 10px; margin-left: 20px; font-size: 20px; font-weight: bold;">관심등록</strong>
 
 
-							</div>
+							</div> -->
+							<c:if test="${isWishList == false }">
+								<button id="wishListBtn" type="button" class="btn btn-primary w-100 d-flex justify-content-center align-items-center">
+									<i class="far fa-bookmark fa-3x"></i>
+									<span>관심등록</span>
+								</button>
+							</c:if>
+							<c:if test="${isWishList == true }">
+								
+								<button id="wishListBtn" type="button" class="btn btn-primary w-100 d-flex justify-content-center align-items-center " disabled>
+									<i class="far fa-bookmark fa-3x"></i>
+									<span>관심등록</span>
+								</button>
+							</c:if>
 						</div>
+						<script>
+
+						$("#wishListBtn").click(e=>{
+							
+							
+
+							$.ajax({
+								url:location.origin+"/product/wishList",
+								data:{productNo:'${product.productNo}',memberNo:'${loginMember.memberNo}'},
+								dataType:'json',
+								success:data=>{
+									console.log(data);
+									alert(data['result']);
+									$("#wishListBtn").attr('disabled',true);
+								}
+							});
+							
+						});
+
+						</script>
 					</div>
 
 					<div class="row">
@@ -284,7 +354,7 @@
 													<strong>판매자 닉네임</strong>
 												</div>
 												<div class="col-4">
-													<span><c:out value="${product.seller}"/></span>
+													<span><c:out value="${product.seller.nickName}"/></span>
 												</div>
 												<div class="col-2"></div>
 											</div>
@@ -293,7 +363,7 @@
 												<div class="col-5">
 													<strong>판매자 등급</strong>
 												</div>
-												<div class="col-4"></div>
+												<div class="col-4"><c:out value="${product.seller.rank}"/></div>
 												<div class="col-2"></div>
 											</div>
 											<div class="row">
@@ -301,8 +371,44 @@
 												<div class="col-5">
 													<strong>구매후기</strong>
 												</div>
-												<div class="col-4"></div>
+												<div class="col-4"><button id="reviewBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewModal">보러가기</button></div>
 												<div class="col-2"></div>
+												<script>
+
+												$("#reviewBtn").click(e=>{
+													
+													$.ajax({
+														url: location.origin+"/product/review",
+														data:{sellerNo:'${product.seller.memberNo}'},
+														dataType:'json',
+														success:data=>{
+															console.log(data);
+															const root = $("#reviewContainer");
+															root.html("");
+															for(let i=0; i<data.length; i++){
+																const box = $("<div>").addClass("list-group-item d-flex justify-content-between align-items-center");
+																
+																const div1 = $("<div>");
+																const div2 = $("<div>");
+																
+																const content = $("<span>").html(data[i]['reviewContent']);
+																const rate = $('<span>').addClass("badge bg-primary rounded-pill").html(data[i]['reviewRate']);
+																const date = $('<span>').html(data[i]['reviewDate']);
+															
+																div1.append(content);
+																div2.append(rate).append(date);
+															
+																box.append(div1).append(div2)
+																root.append(box);
+															}
+															
+															
+															
+														}
+													});
+												});
+
+												</script>
 											</div>
 										</div>
 									</div>
@@ -633,7 +739,12 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
-			<div class="modal-body container-fluid">신중하시길...</div>
+			<div  class="modal-body container-fluid">
+				<ul id="reviewContainer" class="list-group">
+				
+				</ul>
+			
+			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
 					data-bs-dismiss="modal">Close</button>
