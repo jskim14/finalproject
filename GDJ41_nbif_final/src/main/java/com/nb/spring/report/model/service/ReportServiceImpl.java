@@ -29,13 +29,13 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Override
 	public int insertReport(Report r) throws RuntimeException {
-		log.debug("전 reportNo: {}", r.getProductNo());
+		log.debug("전 reportNo: {}", r.getReportProduct());
 		int result=dao.insertReport(session, r);
-		log.debug("후 reportNo: {}", r.getProductNo());
+		log.debug("후 reportNo: {}", r.getReportProduct());
 		if(result>0 && !r.getReportImages().isEmpty()) {
 			try {
 				for(ReportImage ri: r.getReportImages()) {
-					ri.setProductNo(r.getProductNo());
+					ri.setReportProduct(r.getReportProduct());
 					result=dao.insertReportImage(session, ri);
 				}
 			}catch(RuntimeException e) {
