@@ -10,7 +10,11 @@ $("#bidButtons>div>button").click(e=>{
 });
 
 
-const checkBuyNow=(pNo)=>{
+const checkBuyNow=(pNo,isLogin)=>{
+	if(!isLogin){
+		alert("로그인 후 이용가능합니다.");
+		return;
+	}
 	$.ajax({
 		url:location.origin+"/product/checkBuyNow",
 		data:{productNo:pNo},
@@ -28,3 +32,29 @@ const checkBuyNow=(pNo)=>{
 		}
 	});
 };
+
+
+$("#newInfo").change(e=>{
+	$("#shipAddress").val("");
+});
+
+$("#normalInfo").change(e=>{
+	$("#shipAddress").val($("#hiddenAddress").val());
+});
+
+
+const bid=(pNo)=>{
+	const userInputPrice = parseInt($("#bidUnitInput").val());
+	
+	$.ajax({
+		url:location.origin+"/product/bid",
+		data:{userBidPrice:userInputPrice,productNo:pNo},
+		dataType:"json",
+		success:data=>{
+			console.log("data");
+			alert(data['result']);
+		}
+	})
+}
+
+
