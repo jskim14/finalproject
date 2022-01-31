@@ -1,7 +1,10 @@
 package com.nb.spring.common.websocket;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -15,29 +18,32 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RealTimeActionServer extends TextWebSocketHandler {
 
-	private List<WebSocketSession> clients = new ArrayList<WebSocketSession>();
+	private Map<String,WebSocketSession> clients = new HashMap<String,WebSocketSession>();
+	private List<String> msgList = new ArrayList<String>();
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(clients.size());
-		System.out.println(message.getPayload());
-		String msg = message.getPayload();
-		for(WebSocketSession ss : clients) {
-			ss.sendMessage(message);
+		msgList.add(message.getPayload());
+		Iterator<String> keys = clients.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			WebSocketSession ss = clients.get(key);
+			ss.sendMessage(new TextMessage("" + msgList));
 		}
 	}
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
-		if(clients.size()<=0) {
-			clients.add(session);
-		}else {
-			for(WebSocketSession ss : clients) {
-				if(ss.getId()!=session.getId()) {
-					clients.add(session);
-				}
+		clients.put(session.getId(),session);
+		Iterator<String> keys = clients.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			WebSocketSession ss = clients.get(key);
+			ss.sendMessage(new TextMessage("" + clients.size()));
+			if(msgList.size()!=0) {
+				ss.sendMessage(new TextMessage("" + msgList));	
 			}
 		}
 	}
@@ -45,7 +51,13 @@ public class RealTimeActionServer extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
-		clients.remove(session);
+		clients.remove(session.getId());
+		Iterator<String> keys = clients.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			WebSocketSession ss = clients.get(key);
+			ss.sendMessage(new TextMessage("" + clients.size()));
+		}
 	}
 	
 }
