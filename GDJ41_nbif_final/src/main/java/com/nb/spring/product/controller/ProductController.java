@@ -139,7 +139,6 @@ public class ProductController {
 		mv.setViewName("/common/msg");
 		return mv;
 	}
-	
 
 	@RequestMapping("/realtimeaction")
 	public ModelAndView realtimeaction(ModelAndView mv, String productNo) {
@@ -263,5 +262,88 @@ public class ProductController {
 		
 		return Map.of("result",msg);
 	}
+	
+	@RequestMapping("/updateProduct")
+	public ModelAndView updateProduct(String productNo, ModelAndView mv) {
+		System.out.println(productNo);
+		Product p = productService.updateProduct(productNo);
+		mv.addObject("p",p);
+		mv.setViewName("/product/updateProduct");
+		return mv;
+	}
+	
+	@RequestMapping("/updateProductEnd")
+	public ModelAndView updateProductEnd(ModelAndView mv, Product p,
+			 String sellerNo, String productNum, String maxDate, String maxTime, String unit,
+			 @RequestParam(value = "imageFile", required = false) MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
+		System.out.println("p.getproductno : " + p.getProductNo());
+		//date 
+		String date = maxDate+" "+maxTime;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date utilDate = sdf.parse(date);
+		java.sql.Date endDate = new java.sql.Date(utilDate.getTime());
+		p.setEndDate(endDate);
+		
+		//seller 
+		p.setSeller(new Member());
+		p.getSeller().setMemberNo(sellerNo);
+		
+		//productNo
+		p.setProductNo(productNum);
+		System.out.println("p.getproductno : " + p.getProductNo());
+		
+		//bidUnit
+		if(unit.contains(",")) {
+			String splitUnit[] = unit.split(",");
+			p.setBidUnit(splitUnit[1]);
+		} else {
+			p.setBidUnit(unit);
+		}
+		
+		//file
+		String path = req.getServletContext().getRealPath("/resources/upload/product/"); 
+		File f = new File(path);
+		if(!f.exists()) f.mkdir();
+		p.setImages(new ArrayList<ProductImage>());
+		for(MultipartFile mf : imageFile) {
+			if(!mf.isEmpty()) {
+				String originalFileName = mf.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+				
+				SimpleDateFormat sdf2 = new SimpleDateFormat("ddMMyyHHmmssss"); 
+				int ranNum = (int)(Math.random()*1000);
+				String renameFile = sdf2.format(System.currentTimeMillis())+"_"+ranNum+ext;
+				try {
+					mf.transferTo(new File(path+renameFile));
+					ProductImage pi = ProductImage.builder().productNo(productNum).imageName(renameFile).build();
+					p.getImages().add(pi);
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println("p.getproductno : " + p.getProductNo());
+		
+		int result= productService.updateProductEnd(p);
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result>0) {
+			msg = "물품등록 수정에 성공하였습니다. ";
+			loc = "member/salesStates?memberNum="+p.getSeller();
+		}else {
+			msg = "물품등록에 실패하였습니다. 관리자에게 문의하세요.";
+			loc = "/product/updateProduct?productNo="+p.getProductNo();
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
+
 
 }

@@ -16,6 +16,11 @@
    #stateContainer>div {
        padding-top: 3%;
    }
+   
+   #centerRow>div {
+   		padding-bottom: 5px;
+   }
+   
 </style>
 <section>
     <div class="row" style="padding: 15% 10%;"> 
@@ -68,7 +73,7 @@
 						</div>
 						<div class="col-6">
 						    <!-- 중간 -->
-						    <div class="row">
+						    <div id="centerRow" class="row">
 						    		<!-- 
 						    		판매대기[승인여부 0(대기), 2(거부)] 
 						    		판매중[status 0(판매중)], ==> && 승인여부 1
@@ -93,8 +98,13 @@
 						        	</c:when>
 						        </c:choose>
 						        </div>
+						        <div >
+						        <span style="float: left; font-size:12px;">
+							 		<c:out value="${p.productNo }"/>
+							 	</span>
+							 	</div>
 						        <div>
-						            <span style="font-size: 23px; color:#333; float: left; font-weight: 550;  padding: 2% 0 2% 0; ">
+						            <span style="font-size: 23px; color:#333; float: left; font-weight: 550;   ">
 						                <c:out value="${p.productName }"/>
 						            </span>
 						        </div>
@@ -108,7 +118,8 @@
 						        <div>
 						        <c:choose>
 						        	<c:when test="${p.permissionYn eq '0' }">
-						            	<button type="button" class="btn btn-secondary btnColor" onclick="" style="float: left;">
+						            	<button type="button" class="btn btn-secondary btnColor" style="float: left;"
+						            	onclick="location.assign('${path}/product/updateProduct?productNo=${p.productNo }')">
 						            	수정하기 </button>
 						        	</c:when>
 						        </c:choose>
@@ -138,7 +149,10 @@
 						</div>
 					   	<div class="col-4" >
 					       	<!-- 오른쪽 -->
-							<div class="row" style="padding-top: 10%">
+<%-- 							 <div class="row" style="float:right; font-size:12px">
+							 	<c:out value="${p.productNo }"/>
+							 </div> --%>
+							<div class="row" style="padding-top: 10%"> <!--  -->
 							<!-- 
 							분기 7개 
 							 -->

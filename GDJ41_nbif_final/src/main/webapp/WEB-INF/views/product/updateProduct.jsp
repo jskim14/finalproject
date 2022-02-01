@@ -14,11 +14,13 @@
     <div id="totalContainer">
         <div class="pageTitle">
             <span>판매입찰등록</span>
-        </div> 
+        </div>
+        ${p.images }
         <div class="pageMenu">
-            <form action="${path }/product/insertProductEnd" method="post" enctype="multipart/form-data">
+            <form action="${path }/product/updateProductEnd" method="post" enctype="multipart/form-data">
             <!-- 판매자 -->
             <input type="hidden" name="sellerNo" value="${loginMember.memberNo}" >
+            <input type="hidden" name="productNum" value="${p.productNo }"> 
                 <div class="pageMenu-1">
                     <!-- <div class="subTitle">경매설정</div> -->
                     <div class="tit_h3 through "> 
@@ -30,15 +32,28 @@
                                 <span class="subMenuTitle">즉시구매</span><br>
                             </div>
                             <div class="titleRight">
-                                <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="N" required> 
+                            <c:if test="${empty p.buyNowPrice}">
+                                <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="N" checked required> 
                                     설정안함
                                 </label> &nbsp;
                                 <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="Y"> 
                                     설정
                                 </label> 
-                                <input type="text" id="inputTyping1" class="form-control inputBox" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
+                                <input type="text" id="inputTyping1" class="form-control" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
                                  style="width: 250px; display:inline; margin-left: 1%" disabled required>
                                 <div class="onlyNumber" style="display: inline; padding: 1%"></div>
+                            </c:if>
+                            <c:if test="${not empty p.buyNowPrice}">
+                            	<label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="N" required> 
+                                    설정안함
+                                </label> &nbsp;
+                                <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="Y" checked> 
+                                    설정
+                                </label> 
+                                <input type="text" id="inputTyping1" class="form-control" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
+                                 style="width: 250px; display:inline; margin-left: 1%" value="${p.buyNowPrice }" required>
+                                <div class="onlyNumber" style="display: inline; padding: 1%"></div>
+                            </c:if> 
                             </div>
                         </div>
                         <div class="subMenu">
@@ -46,17 +61,32 @@
                                 <span class="subMenuTitle">자동 재경매</span><br>
                             </div>
                             <div class="titleRight">
-                                <label><input class="form-check-input" type="radio" name="extendYn" value="N" required> 
+                            <c:if test="${p.extendYn eq 'N' }">
+                                <label><input class="form-check-input" type="radio" name="extendYn" value="N" checked required> 
                                     설정안함
                                 </label> &nbsp;
                                 <label><input class="form-check-input" type="radio" name="extendYn" id="flexRadioDefault2" value="Y"> 
                                     설정
                                 </label>
-                                <input type="text" id="inputTyping2" class="form-control inputBox" name="nowBidPrice" placeholder="재경매 시작가를 입력해주세요" 
+                                <input type="text" id="inputTyping2" class="form-control" name="nowBidPrice" placeholder="재경매 시작가를 입력해주세요" 
                                  style="width: 250px; display:inline; margin-left: 1%" disabled>
                                 <div class="onlyNumber" style="display: inline; padding: 1%"> </div>
                                 <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
+                            </c:if>
+                            <c:if test="${p.extendYn eq 'Y' }">
+                            	<label><input class="form-check-input" type="radio" name="extendYn" value="N" required> 
+                                    설정안함
+                                </label> &nbsp;
+                                <label><input class="form-check-input" type="radio" name="extendYn" id="flexRadioDefault2" value="Y" checked> 
+                                    설정
+                                </label>
+                                <input type="text" id="inputTyping2" class="form-control" name="nowBidPrice" placeholder="재경매 시작가를 입력해주세요" 
+                                 style="width: 250px; display:inline; margin-left: 1%" value="${p.nowBidPrice }">
+                                <div class="onlyNumber" style="display: inline; padding: 1%"> </div>
+                                <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
+                                </div>
+                            </c:if>
                             </div>
                         </div>
                         <div class="subMenu">
@@ -64,8 +94,8 @@
                                 <span class="subMenuTitle">입찰 시작가</span> <!-- minBidPrice -->
                             </div>
                             <div class="titleRight">
-                                <input type="text" id="minBidPrice" class="form-control inputBox" name="minBidPrice" 
-                                placeholder="" style="width: 250px; display:inline;" required>
+                                <input type="text" id="minBidPrice" class="form-control" name="minBidPrice" 
+                                placeholder="" style="width: 250px; display:inline;" value="${p.minBidPrice }" required>
                                 <div id="autionStartInfo" style="display: inline; padding: 1%"> *입찰시작가가 즉시구매가보다 높습니다. </div>
                             </div>
                         </div>
@@ -73,7 +103,7 @@
                             <div class="titleLeft">
                                 <span class="subMenuTitle">입찰단위</span>
                             </div>
-                            <div class="titleRight">
+                            <div class="titleRight"> <!-- script처리 -->
                                 <select id="priceUnit" onchange="unitSelect();" class="form-select" name="unit" aria-label="Default select example" style="width: 200px; color: gray; display:inline;" required>
                                     <option selected>---선택하세요---</option>
                                     <option value="1000">1,000원</option>
@@ -83,7 +113,7 @@
                                     <option value="100000">100,000원</option>
                                     <option value="typing">직접입력</option>
                                 </select>
-                                <input type="text" id="inputTyping3" class="form-control inputBox" name="unit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
+                                <input type="text" id="inputTyping3" class="form-control" name="unit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
                                 <div id="autionUnitInfo" style="display: inline; padding: 1%"> 
                                 	*입찰단위가 입찰시작가보다 높습니다. 
                                	</div>
@@ -117,8 +147,8 @@
                             <div class="titleLeft">
                                 <span class="subMenuTitle">카테고리</span>
                             </div>
-                            <div class="titleRight"> 
-                                <select class="form-select" name="productCategory" aria-label="Default select example" style="width: 200px; color: gray;" required>
+                            <div class="titleRight"> <!-- script -->
+                                <select class="form-select" id="category" name="productCategory" aria-label="Default select example" style="width: 200px; color: gray;" required>
                                     <option selected>---선택하세요---</option>
                                     <option value="FS">패션</option>
                                     <option value="LF">라이프</option>
@@ -132,7 +162,7 @@
                                 <span class="subMenuTitle">상품명</span>
                             </div>
                             <div class="titleRight"> 
-                                <input type="text" class="form-control" name="productName" placeholder="상품명을 입력해주세요. 상품명은 제목으로 입력됩니다." required>
+                                <input type="text" class="form-control" name="productName" placeholder="상품명을 입력해주세요. 상품명은 제목으로 입력됩니다." value="${p.productName }" required>
                             </div>
                         </div>
                         <div class="subMenu">
@@ -141,7 +171,7 @@
                             </div>
                             <div class="titleRight">
                                 <textarea name="productContent" id="classic" class="form-control" style="height: 40rem;"
-                                placeholder="상품을 소개할 내용을 적어주세요." required>  </textarea>
+                                placeholder="상품을 소개할 내용을 적어주세요." required> ${p.productContent } </textarea>
                             </div>
                         </div>
                         <div class="subMenu">
@@ -162,19 +192,14 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-secondary btn-lg btnColor">등록</button>
                         </div>
                     </div>
                 </div>
             </form>
-            
             <div class="app">
-				</div>
-            
-            
+			</div>
         </div>
     </div>
     <script>
@@ -198,6 +223,11 @@
             } 
         });
         
+        $(()=>{
+        	$("#priceUnit").val("${p.bidUnit}");
+        	$("#category").val("${p.productCategory}");
+        });
+        
         function unitSelect() {
             if($("#priceUnit").val()=="typing") {
                 $("#inputTyping3").attr("disabled",false);
@@ -207,40 +237,17 @@
             }
         }
         
- 
-        
-         $(".inputBox").change(e=>{
+         $("#inputTyping1").change(e=>{
     		var numPattern = /([^0-9])/;
     		numPattern = $(e.target).val().match(numPattern);
     		if (numPattern != null) {
-    			$(e.target).val("");
+    			$("#inputTyping1").val("");
     			$(e.target).next().html("숫자만 입력이 가능합니다.").css("color","red");
     			return false;
     		} else {
-    			let comma = $(e.target).val().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    			$(e.target).val(comma+"원");
     			$(e.target).next().html("");
     		}
         }) 
-
-    	
-    	
-/*      	$(document).ready(function(){
-    	      $(".aaa").on("keyup", function() {
-    	         $(this).val(addComma($(this).val()));
-
-    	      });
-    	    });
-
-    	//천단위마다 콤마 생성
-    	function addComma(data) {
-    	    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    	}  */
-        
-      
-        /* 입찰시작가, 즉시구매가 값 비교 */
-        /* 입찰시작가, 입찰단위 값 비교 */
-        
 
         document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
                     
@@ -251,11 +258,6 @@
                 maxDate: +14
                 });
             })
-            
-        $("#test123").click(e=>{
-            alert($("#maxDate").val());
-        })
-        
 
         ClassicEditor
             .create( document.querySelector( '#classic' ))
