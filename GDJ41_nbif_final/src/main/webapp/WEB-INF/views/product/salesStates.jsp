@@ -28,6 +28,7 @@
 	                전체<br> 0건
 	            </div>
 	            <div class="subMenuTitle col" >
+	                <input type="hidden" name="waiting">
 	                판매대기<br> 0건
 	            </div>
 	            <div class="subMenuTitle col" >

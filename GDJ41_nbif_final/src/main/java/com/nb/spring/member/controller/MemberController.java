@@ -70,6 +70,7 @@ public class MemberController {
 	public ModelAndView salesStates(String memberNum, ModelAndView mv) { //string memberNo 를 받아서 프로덕트의 셀러와 연결해서 프로덕트를 받아와 그것을 jsp에 보내줌
 		System.out.println(memberNum);
 		List<Product> pl = service.salesList(memberNum);
+		
 		mv.addObject("productList",pl);
 		mv.setViewName("product/salesStates");
 		return mv;
