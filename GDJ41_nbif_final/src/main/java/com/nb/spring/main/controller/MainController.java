@@ -49,4 +49,9 @@ public class MainController {
 		return "report/reportList";
 	}
 	
+	@RequestMapping("/chatting")
+	public String openchat() {
+		return "/report/chatting";
+	}
+	
 }

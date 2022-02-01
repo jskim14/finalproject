@@ -2,6 +2,18 @@
 	pageEncoding="UTF-8"%>
 <footer>
 	<div id="footer-con">
+	<!-- 채팅아이콘 -->
+	
+	 <img src="${path }/resources/images/chat.png" width="40px" height="40px" 
+			style="position:fixed; bottom:200px; right:60px;" onclick="openchat();">
+
+	<script>
+	const openchat=()=> {
+		open("${path }/chatting","_blank","width=300, height=500, right=60");
+	}
+	</script>
+	<!--  -->
+	
 		<!-- 나중에 지울거 -->
 		<a href="${path}/report/reportList">Report List</a>
 		<button type="button" class="btn btn-warning" data-bs-toggle="modal"
