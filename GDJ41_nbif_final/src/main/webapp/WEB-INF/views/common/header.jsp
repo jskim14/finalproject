@@ -38,12 +38,14 @@
                             <a href="">고객센터</a>
                         </li>
                         <li>
+
                         	<c:if test="${loginMember == null }">
-                            <a href="">회원가입</a>
+                            <a href="${path}/member/enrollMember">회원가입</a>
                             </c:if>
                             <c:if test="${loginMember != null }">
                             <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a>
                             </c:if>
+
                         </li>
 	                        <li>
                         	<c:if test="${loginMember == null}">

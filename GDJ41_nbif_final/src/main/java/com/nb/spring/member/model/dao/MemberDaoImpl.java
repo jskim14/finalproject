@@ -28,4 +28,14 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	
+	public Member selectMemberNickName(SqlSessionTemplate session, String nickName) {
+		
+		return session.selectOne("member.selectMemberNickName", nickName);
+	}
+
+	@Override
+	public int insertMember(SqlSessionTemplate session, Member m) {
+		
+		return session.insert("member.insertMember", m);
+	}
 }

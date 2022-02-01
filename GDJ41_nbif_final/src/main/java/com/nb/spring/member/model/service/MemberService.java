@@ -13,4 +13,8 @@ public interface MemberService {
 	Member selectMember(String memberNo);
 	
 	List<Product> salesList(String memberNo);
+
+	Member selectMemberNickName(String nickName);
+
+	int insertMember(Member m);
 }

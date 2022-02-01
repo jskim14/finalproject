@@ -15,4 +15,8 @@ public interface MemberDao {
 	Member selectMember(SqlSessionTemplate session, String memberNo);
 	
 	List<Product> salesList(SqlSessionTemplate session, String memberNo);
+
+	Member selectMemberNickName(SqlSessionTemplate session, String nickName);
+
+	int insertMember(SqlSessionTemplate session, Member m);
 }
