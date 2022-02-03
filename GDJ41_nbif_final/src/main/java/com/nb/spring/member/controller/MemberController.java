@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,23 @@ public class MemberController {
 	private SendEmailService mailService;
 
 	@PostMapping("/loginMember")
-	public ModelAndView loginMember(ModelAndView mv, String email, String password) {
+	public ModelAndView loginMember(ModelAndView mv, String email, String password, String flexCheckDefault, 
+			HttpServletResponse res) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("email", email);
 		param.put("password", password);
 		Member m = service.loginMember(param);
+		if(flexCheckDefault!=null) {
+			Cookie c = new Cookie("flexCheckDefault",email);
+			c.setPath("/");
+			c.setMaxAge(24*60*60*7);
+			res.addCookie(c);
+		}else {
+			Cookie c = new Cookie("flexCheckDefault",email);
+			c.setPath("/");
+			c.setMaxAge(0);
+			res.addCookie(c);
+		}
 		if(m!=null) {
 			mv.addObject("loginMember", m);
 			mv.addObject("msg","로그인 성공");
