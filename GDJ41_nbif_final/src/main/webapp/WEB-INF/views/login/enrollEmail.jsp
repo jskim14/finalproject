@@ -31,10 +31,10 @@
 			<div class="col-4">
 				<div class="row">
 					<div class= "col-6">
-						<input type="text" class="form-control" placeholder="ex) nbif@naver.com">
+						<input id="emailText" type="email" class="form-control" placeholder="ex) nbif@naver.com">
 					</div>
 					<div class= "col-6">
-						<button type="button" class="btn btn-primary">인증번호받기</button>
+						<button type="button" class="btn btn-primary" onclick="sendEmail();">인증번호받기</button>
 					</div>
 				</div>
 			</div>
@@ -45,10 +45,10 @@
 			<div class="col-4">
 				<div class="row">
 					<div class="col-6">
-						<input type="text" class="form-control" placeholder="인증번호를 입력해주세요">
+						<input id="checkCode"type="text" class="form-control" placeholder="인증번호를 입력해주세요">
 					</div>
 					<div class="col-6">
-						<button type="button" class="btn btn-primary">인증</button>
+						<button type="button" class="btn btn-primary" onclick="obtainCertification();">인증</button>
 					</div>
 				</div>
 			</div>
@@ -57,10 +57,61 @@
 		<div class="row">
 			<div class="col-4"></div>
 			<div class="col-4">
-				<button class="btn btn-primary" style="width: 100%;">회원가입 진행</button>
+				<button id="goBtn" class="btn btn-primary" style="width: 100%;" disabled onclick="goToEnrollMember();">회원가입 진행</button>
 			</div>
 			<div class="col-4"></div>
 		</div>
 	 </div>
 </section>
+<script>
+	function goToEnrollMember(){
+		location.assign(location.origin+'/member/enrollMemberMainView');
+	}
+
+	function obtainCertification(){
+		const inputCode = $("#checkCode").val();
+		$.ajax({
+			url:location.origin+'/member/certification',
+			type:"POST",
+			data:{'inputCode':inputCode},
+			success:data=>{
+				console.log(data);
+				//alert(data['result']);
+
+				if(data['result']==true){
+					alert('인증 완료');
+					$('#goBtn').attr({disabled:false});
+				}
+			}
+		});
+	}
+
+
+	function sendEmail (){
+		let clientEmail = document.getElementById("emailText").value;
+		let emailYN = isEmail(clientEmail);
+
+		if(emailYN ==true){
+			//alert('이메일 형식입니다');
+
+			$.ajax({
+				url:location.origin+'/member/email',
+				type:'POST',
+				data:{userEmail:clientEmail},
+				success: data=>{
+					console.log(data);
+					alert(data['result']);
+				}
+			});
+		}else{
+			alert("이메일 형식에 맞게 입력해주세요 ");
+		}
+		
+	}
+
+	function isEmail(mail){
+		let reqExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		return reqExp.test(mail);
+	}
+</script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

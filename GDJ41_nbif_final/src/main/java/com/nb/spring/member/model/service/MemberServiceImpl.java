@@ -23,4 +23,16 @@ public class MemberServiceImpl implements MemberService {
 		return dao.loginMember(session, param);
 	}
 
+	@Override
+	public Member selectMemberNickName(String nickName) {
+		
+		return dao.selectMemberNickName(session, nickName);
+	}
+
+	@Override
+	public int insertMember(Member m) {
+		
+		return dao.insertMember(session, m);
+	}
+
 }
