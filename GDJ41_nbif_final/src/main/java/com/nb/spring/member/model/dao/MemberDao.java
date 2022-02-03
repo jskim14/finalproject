@@ -19,4 +19,8 @@ public interface MemberDao {
 	Member selectMemberNickName(SqlSessionTemplate session, String nickName);
 
 	int insertMember(SqlSessionTemplate session, Member m);
+	
+	List<Product> salesWaitSearch(SqlSessionTemplate session, Map param);
+	
+	List<Product> salesSearch(SqlSessionTemplate session, Map param);
 }

@@ -17,4 +17,8 @@ public interface MemberService {
 	Member selectMemberNickName(String nickName);
 
 	int insertMember(Member m);
+	
+	List<Product> salesWaitSearch(Map param);
+	
+	List<Product> salesSearch(Map param);
 }

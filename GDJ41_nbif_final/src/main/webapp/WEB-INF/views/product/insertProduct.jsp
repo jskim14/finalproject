@@ -224,25 +224,13 @@
         }) 
 
     	
-    	
-/*      	$(document).ready(function(){
-    	      $(".aaa").on("keyup", function() {
-    	         $(this).val(addComma($(this).val()));
-
-    	      });
-    	    });
-
-    	//천단위마다 콤마 생성
-    	function addComma(data) {
-    	    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    	}  */
         
       
         /* 입찰시작가, 즉시구매가 값 비교 */
         /* 입찰시작가, 입찰단위 값 비교 */
         
 
-        document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+        $("#currentDate").val(new Date().toISOString().substring(0, 10));
                     
         $(function(){
             $("#maxDate").datepicker({

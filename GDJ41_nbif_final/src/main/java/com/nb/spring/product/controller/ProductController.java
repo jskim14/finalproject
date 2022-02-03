@@ -332,7 +332,7 @@ public class ProductController {
 		
 		if(result>0) {
 			msg = "물품등록 수정에 성공하였습니다. ";
-			loc = "member/salesStates?memberNum="+p.getSeller();
+			loc = "member/salesStates?memberNo="+p.getSeller();
 		}else {
 			msg = "물품등록에 실패하였습니다. 관리자에게 문의하세요.";
 			loc = "/product/updateProduct?productNo="+p.getProductNo();
@@ -344,6 +344,5 @@ public class ProductController {
 		return mv;
 	}
 	
-
 
 }

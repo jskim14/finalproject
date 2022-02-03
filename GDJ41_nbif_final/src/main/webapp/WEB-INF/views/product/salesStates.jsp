@@ -33,7 +33,6 @@
 	                전체<br> 0건
 	            </div>
 	            <div class="subMenuTitle col" >
-	                <input type="hidden" name="waiting">
 	                판매대기<br> 0건
 	            </div>
 	            <div class="subMenuTitle col" >
@@ -46,10 +45,28 @@
 	                종료<br> 0건
 	            </div>
            	</div>
-			<div class="row" style="margin: 0; text-align: center;">
-			    <div style="height: 200px;border: 1px solid gray;">
+			<div class="row" style="">
+			<form action="${path }/member/salesSearch?memberNo=2" method="post">
+			    <div class="row" style="height: 70px; background-color:lightgray; margin: 0; text-align: center; padding: 1% 0 1% 10%;">
 			        <!-- 검색 -->
+			        <div class="col-3"> 
+			        	<select class="form-select" name="status" aria-label="Default select example" style="width: 200px; color: gray; float:right" required>
+	                        <option selected>---물품상태---</option>
+	                        <option value="판매대기">판매대기</option> <!-- 승인 0,2 -->
+	                        <option value="판매중">판매중</option> <!-- 승인1&&상태0 -->
+	                        <option value="판매완료">판매완료</option>
+	                        <option value="종료">종료</option>
+                        </select>
+			        </div>
+			        <div class="col-7">
+			        	경매기간 &nbsp;<input type="date"  id="startDate" class="form-control" name="startDate" style="width: 180px; display:inline;" >&nbsp; ~
+                        &nbsp;<input type="date" id="endDate" class="form-control" name="endDate" style="width: 180px; display:inline;">&nbsp;                        
+			        </div>
+			        <div class="col-2">
+			        	<button type="submit" class="btn btn-secondary btnColor" style="float:left;">조회하기</button>
+			        </div>
 			    </div>
+			</form>
 			</div>
            <!-- ---------------------------------------- -->
            <!-- 
@@ -57,18 +74,20 @@
            		for(product를 돌려 seller가 memberNo인 갯수만큼)           
            -->
 			<c:if test="${empty productList }">
-			<hr>
+				<div style="text-align: center">
+				<hr>
 				판매를 등록한 물품이 없습니다. 
+				</div>
 			</c:if>
 			<c:if test="${not empty productList }">
 				<!-- 상품내용 한줄 -->
 				<c:forEach var="p" items="${productList}">
-     				<div class="row" style="margin: 0; text-align: center; padding-top: 1% ">
+     				<div class="row" style="margin: 0; text-align: center;">
 						<hr>
 						<div class="col-2">
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
-						    <img src="resources/upload/product/29012223120026_683.png" 
+						    <img src="/resources/upload/product/29012223120026_683.png" 
 						    alt="" style="width: 150px; height: 130px;">
 						</div>
 						<div class="col-6">
@@ -77,7 +96,7 @@
 						    		<!-- 
 						    		판매대기[승인여부 0(대기), 2(거부)] 
 						    		판매중[status 0(판매중)], ==> && 승인여부 1
-						    		판매완료[1(입완),2(발완),3(필요없음)],
+						    		판매완료[1(입완),2(발완)],
 						    		종료 [4(구매확정),5(신고)]
 						    		-->
 						        <div>
@@ -88,12 +107,10 @@
 						        	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '0' }">
 					            		<strong><span style="font-size: 18px;float: left; color: #ef6253;">판매중</span></strong>
 						        	</c:when>
-						        	<c:when test="${p.permissionYn eq '1' 
-						        	and (p.productStatus eq '1' or p.productStatus eq '2' or p.productStatus eq '3')}">
+						        	<c:when test="${p.productStatus eq '1' or p.productStatus eq '2' or p.productStatus eq '3'}">
 					            		<strong><span style="font-size: 18px;float: left; color: #ef6253;">판매완료</span></strong>
 						        	</c:when>
-						        	<c:when test="${p.permissionYn eq '1' 
-						        	and (p.productStatus eq '4' or p.productStatus eq '5')}">
+						        	<c:when test="${p.productStatus eq '4' or p.productStatus eq '5'}">
 					            		<strong><span style="font-size: 18px;float: left; color: #ef6253;">종료</span></strong>
 						        	</c:when>
 						        </c:choose>
@@ -152,7 +169,7 @@
 <%-- 							 <div class="row" style="float:right; font-size:12px">
 							 	<c:out value="${p.productNo }"/>
 							 </div> --%>
-							<div class="row" style="padding-top: 10%"> <!--  -->
+							<div class="row" style="padding-top: 13%"> <!--  -->
 							<!-- 
 							분기 7개 
 							 -->
@@ -216,6 +233,16 @@
 			</c:if>
         </div>
     </div>
+    <script>
+	$(()=>{
+	    var date = new Date();
+	    $("#startDate").val(date.toISOString().substring(0, 10));
+	    date.setMonth(date.getMonth() + 1);
+	    $("#endDate").val(date.toISOString().substring(0, 10));
+	});
+
+    
+    </script>
 </section>
 
 

@@ -12,6 +12,7 @@ import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -78,11 +79,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/salesStates")
-	public ModelAndView salesStates(String memberNum, ModelAndView mv) { //string memberNo 를 받아서 프로덕트의 셀러와 연결해서 프로덕트를 받아와 그것을 jsp에 보내줌
-		System.out.println(memberNum);
-		List<Product> pl = service.salesList(memberNum);
+	public ModelAndView salesStates(String memberNo, ModelAndView mv) { //string memberNo 를 받아서 프로덕트의 셀러와 연결해서 프로덕트를 받아와 그것을 jsp에 보내줌
+		System.out.println(memberNo);
+		List<Product> list = service.salesList(memberNo);
 		
-		mv.addObject("productList",pl);
+		mv.addObject("productList",list);
 		mv.setViewName("product/salesStates");
 		return mv;
 	}
@@ -185,6 +186,25 @@ public class MemberController {
 		mv.setViewName("common/msg");
 		return mv;
 	
+	}
+	
+	@RequestMapping(value = "/salesSearch", method=RequestMethod.POST)
+	public ModelAndView salesSearch (@RequestParam Map param, @RequestParam(value ="status", required = false ) String status, 
+			ModelAndView mv) { //memberNo, 상태, 날짜
+		System.out.println(param);
+		//if 판매대기 ---> dao 가서 여기서 0또는 2인거만 가져오고??
+		//else 나머지 
+		if(status.contains("판매대기")) {
+			List<Product> list = service.salesWaitSearch(param);
+			mv.addObject("productList",list);
+		} else {
+			List<Product> list = service.salesSearch(param);
+			mv.addObject("productList",list);
+		}
+		
+		mv.setViewName("product/salesStates");
+		return mv;
+//		return "product/salesStates";
 	}
 	
 	

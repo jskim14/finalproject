@@ -38,4 +38,16 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return session.insert("member.insertMember", m);
 	}
+
+	@Override
+	public List<Product> salesWaitSearch(SqlSessionTemplate session, Map param) {
+		return session.selectList("member.salesWaitSearch", param);
+	}
+
+	@Override
+	public List<Product> salesSearch(SqlSessionTemplate session, Map param) {
+		return session.selectList("member.salesSearch", param);
+	}
+	
+	
 }

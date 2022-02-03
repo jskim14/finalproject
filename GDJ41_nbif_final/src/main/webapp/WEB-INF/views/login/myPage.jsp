@@ -139,7 +139,7 @@ ${myPageMember }
                 <div class="tit_h3 through"> 
                     <span class="lineSpan">판매현황</span>                   
                 </div>
-                <a href="${path }/member/salesStates?memberNum=${loginMember.memberNo}" class="aColor">
+                <a href="${path }/member/salesStates?memberNo=${loginMember.memberNo}" class="aColor">
                     <div class="myMenu card">
                         <div class="card-body salesState">
                             <div class="subMenuTitle" >

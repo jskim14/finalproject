@@ -45,4 +45,16 @@ public class MemberServiceImpl implements MemberService {
 		
 		return dao.insertMember(session, m);
 	}
+
+	@Override
+	public List<Product> salesWaitSearch(Map param) {
+		return dao.salesWaitSearch(session, param);
+	}
+
+	@Override
+	public List<Product> salesSearch(Map param) {
+		return dao.salesSearch(session, param);
+	}
+	
+	
 }
