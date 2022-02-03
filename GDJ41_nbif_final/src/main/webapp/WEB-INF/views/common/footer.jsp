@@ -4,18 +4,40 @@
 	<div id="footer-con">
 	<!-- 채팅아이콘 -->
 	
-	 <img src="${path }/resources/images/chat.png" width="40px" height="40px" 
-			style="position:fixed; bottom:200px; right:60px;" onclick="openchat();">
+	 <%-- <img src="${path }/resources/images/chat.png" width="40px" height="40px" 
+			style="position:fixed; bottom:200px; right:60px;" onclick="openchat();"> --%>
+	<a href="javascript:void(0);" onclick="openchat();" class="float">
+<i class="far fa-comments  fa-lg my-float"></i>
+</a>
 
+<style>
+	.float{
+	position:fixed;
+	width:50px;
+	height:50px;
+	bottom:50px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+	cursor:pointer;
+}
+
+.my-float{
+	margin-top:18px;
+}
+</style>
 	<script>
 	const openchat=()=> {
-		open("${path }/chatting","_blank","width=300, height=500, right=60");
+		open("${path }/chatting","_blank","width=320, height=500, right=60");
 	}
 	</script>
 	<!--  -->
 	
 		<!-- 나중에 지울거 -->
-		<a href="${path}/report/reportList">Report List</a>
+		<button type="button" class="btn btn-info" onclick="location.assign('${path}/report/reportList');">Report List</button>
 		<button type="button" class="btn btn-warning" data-bs-toggle="modal"
 			data-bs-target="#staticBackdrop">상품신고</button>
 		<!-- 모달창 -->

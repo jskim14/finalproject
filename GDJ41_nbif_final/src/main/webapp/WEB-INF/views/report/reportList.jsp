@@ -9,6 +9,7 @@
 <style>
     section{
        padding:200px 10%;
+       min-height:800px;
     }
 </style>
 
@@ -32,8 +33,8 @@
                 <c:if test="${not empty reportList }">
                 <c:forEach items="${reportList }" var="r">
                 <tr>
-                    <td><c:out value="${r.productNo.productNo }"/></td>
-                    <td><c:out value="${r.memberNo.memberNo }"/></td>
+                    <td><c:out value="${r.reportProduct.productNo }"/></td>
+                    <td><c:out value="${r.reportMember.memberNo }"/></td>
                     <td><c:out value="${r.reportReason }"/></td>
                     <td></td>
                     <td><c:out value="${r.reportResult }"/></td>

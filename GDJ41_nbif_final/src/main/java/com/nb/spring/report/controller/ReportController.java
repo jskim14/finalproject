@@ -59,12 +59,13 @@ public class ReportController {
 		
 //		mv.addObject("loc","/");
 //		mv.setViewName("common/msg");
-		System.out.println(r);
 		
-		r.setReportProduct(new Product());
+		//r.setReportProduct(new Product());
 		r.getReportProduct().setProductNo(product);
-		r.setReportMember(new Member());
+		//r.setReportMember(new Member());
 		r.getReportMember().setMemberNo(writer);
+		
+		System.out.println(r);
 		
 		
 		//File upload

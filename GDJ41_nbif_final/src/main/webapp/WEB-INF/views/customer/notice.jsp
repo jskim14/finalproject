@@ -1,17 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
+
+<jsp:include page="${path}/WEB-INF/views/common/header.jsp"/>
+
 <style>
     section{
-       padding:200px 5%;
+       padding:200px 10%;
     }
     #notice-title{text-align: center;}
-    ul{list-style: none; display:flex;}
-    li{margin-right:20px;}
 </style>
 
 
@@ -19,16 +19,16 @@
             
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio1">°øÁö»çÇ×</label>
+                <label class="btn btn-outline-primary" for="btnradio1">ê³µì§€ì‚¬í•­</label>
               
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio2">ÀÚÁÖ ¹¯´Â Áú¹®</label>
+                <label class="btn btn-outline-primary" for="btnradio2">ìžì£¼ ë¬»ëŠ” ì§ˆë¬¸</label>
               
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio3">1:1¹®ÀÇ</label>
+                <label class="btn btn-outline-primary" for="btnradio3">1:1ë¬¸ì˜</label>
               </div>
               <div id="notice-title">
-                <h2>°øÁö»çÇ×</h2>
+                <h2>ê³µì§€ì‚¬í•­</h2>
             </div>
             <br>
             <div style="width:100%; height:3px; background-color: lightskyblue;"></div>
@@ -36,20 +36,20 @@
             <table class="table table-hover">
                 <tr>
                     <td style="padding-left:3%;">1</td>
-                    <td style="padding-left:3%;">[°øÁö] ¿¬ÈÞ ¹è¼Û ¾È³»</td>
-                    <td style="padding-left:3%;">µî·ÏÀÏ</td>
+                    <td style="padding-left:3%;">[ê³µì§€] ì—°íœ´ ë°°ì†¡ ì•ˆë‚´</td>
+                    <td style="padding-left:3%;">ë“±ë¡ì¼</td>
                 </tr>
                 <tr>
                     <td style="padding-left:3%;">2</td>
-                    <td style="padding-left:3%;">[°øÁö] ¿¬ÈÞ ¹è¼Û ¾È³»</td>
-                    <td style="padding-left:3%;">µî·ÏÀÏ</td>
+                    <td style="padding-left:3%;">[ê³µì§€] ì—°íœ´ ë°°ì†¡ ì•ˆë‚´</td>
+                    <td style="padding-left:3%;">ë“±ë¡ì¼</td>
                 </tr>
                 <tr>
                     <td style="padding-left:3%;">3</td>
-                    <td style="padding-left:3%;">[°øÁö] ¿¬ÈÞ ¹è¼Û ¾È³»</td>
-                    <td style="padding-left:3%;">µî·ÏÀÏ</td>
+                    <td style="padding-left:3%;">[ê³µì§€] ì—°íœ´ ë°°ì†¡ ì•ˆë‚´</td>
+                    <td style="padding-left:3%;">ë“±ë¡ì¼</td>
                 </tr>
             </table>
     
         </section>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="${path }/WEB-INF/views/common/footer.jsp"/>
