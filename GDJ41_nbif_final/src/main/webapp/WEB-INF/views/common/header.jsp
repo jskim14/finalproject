@@ -61,11 +61,11 @@
                     </ul>
                 </div>
                 <div id="second-header">
-                    <h2><a href=""><img src="${path}/resources/images/NBIF.png" width="120px" height="40px"></a></h2>
+                    <h2><a href="${path }/"><img src="${path}/resources/images/NBIF.png" width="120px" height="40px"></a></h2>
                     <ul>
                         <li><a href="">SPECIAL AUCTION</a></li>
                         <li><a href="">AUCTION ITEMS</a></li>
-                        <li style="display: none;"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."><span id="search-reset" style="display: none;"><a href="javascript:search_reset()"><img src="images/searchreset.png" width="20px" height="20px"></a></span></li>
+                        <li style="display: none;"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."><span id="search-reset" style="display: none;"><a href="javascript:search_reset()"><img src="${path}/resources/images/searchreset.png" width="20px" height="20px"></a></span></li>
                         <li><a href="javascript:search_btn()"><span><img src="${path}/resources/images/search.png" width="30px" height="30px"></span></a></li>
                         <li style="display: none;"><a href="javascript:search_btn_close()"><span><img src="${path}/resources/images/xxx.png" width="20px" height="20px"></span></a></li>
                     </ul>
