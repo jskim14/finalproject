@@ -36,8 +36,8 @@
                                 <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="Y"> 
                                     설정
                                 </label> 
-                                <input type="text" id="inputTyping1" class="form-control" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
-                                 onChange="checkNumber();" style="width: 250px; display:inline; margin-left: 1%" disabled required>
+                                <input type="text" id="inputTyping1" class="form-control inputBox" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
+                                 style="width: 250px; display:inline; margin-left: 1%" disabled required>
                                 <div class="onlyNumber" style="display: inline; padding: 1%"></div>
                             </div>
                         </div>
@@ -52,8 +52,8 @@
                                 <label><input class="form-check-input" type="radio" name="extendYn" id="flexRadioDefault2" value="Y"> 
                                     설정
                                 </label>
-                                <input type="text" id="inputTyping2" class="form-control" name="nowBidPrice" placeholder="재경매 시작가를 입력해주세요" 
-                                onchange="checkNumber();" style="width: 250px; display:inline; margin-left: 1%" disabled>
+                                <input type="text" id="inputTyping2" class="form-control inputBox" name="nowBidPrice" placeholder="재경매 시작가를 입력해주세요" 
+                                 style="width: 250px; display:inline; margin-left: 1%" disabled>
                                 <div class="onlyNumber" style="display: inline; padding: 1%"> </div>
                                 <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
@@ -64,7 +64,7 @@
                                 <span class="subMenuTitle">입찰 시작가</span> <!-- minBidPrice -->
                             </div>
                             <div class="titleRight">
-                                <input type="text" id="minBidPrice" class="form-control" name="minBidPrice" 
+                                <input type="text" id="minBidPrice" class="form-control inputBox" name="minBidPrice" 
                                 placeholder="" style="width: 250px; display:inline;" required>
                                 <div id="autionStartInfo" style="display: inline; padding: 1%"> *입찰시작가가 즉시구매가보다 높습니다. </div>
                             </div>
@@ -74,7 +74,7 @@
                                 <span class="subMenuTitle">입찰단위</span>
                             </div>
                             <div class="titleRight">
-                                <select id="priceUnit" onchange="unitSelect();" class="form-select" name="bidUnit" aria-label="Default select example" style="width: 200px; color: gray; display:inline;" required>
+                                <select id="priceUnit" onchange="unitSelect();" class="form-select" name="unit" aria-label="Default select example" style="width: 200px; color: gray; display:inline;" required>
                                     <option selected>---선택하세요---</option>
                                     <option value="1000">1,000원</option>
                                     <option value="5000">5,000원</option>
@@ -83,7 +83,7 @@
                                     <option value="100000">100,000원</option>
                                     <option value="typing">직접입력</option>
                                 </select>
-                                <input type="text" id="inputTyping3" class="form-control" name="bidUnit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
+                                <input type="text" id="inputTyping3" class="form-control inputBox" name="unit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
                                 <div id="autionUnitInfo" style="display: inline; padding: 1%"> 
                                 	*입찰단위가 입찰시작가보다 높습니다. 
                                	</div>
@@ -154,7 +154,7 @@
                                         *사진은 4장까지 등록 가능하며, 첫번째 등록한 사진이 메인사진으로 등록됩니다.
                                     </label>
                                     <input class="form-control" type="file" id="formFileMultiple" name="imageFile" onclick="fileUpload();"
-                                    accept=".jpg, .jpeg, .png" multiple>
+                                    accept=".jpg, .jpeg, .png" multiple required>
                                     <div id="showFiles" style="padding-right:50px"></div>
                                     <div class="img_wrap">
                                     	<img id="img"/>
@@ -167,7 +167,6 @@
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-secondary btn-lg btnColor">등록</button>
                         </div>
-                        <button type="button" id="test123">클릭</button>
                     </div>
                 </div>
             </form>
@@ -182,10 +181,11 @@
         $("input[name=flexRadioDefault1]").change(e=>{
             if($(e.target).val()=='Y') {
             	$("#inputTyping1").attr("disabled",false);
-                $("#inputTyping1").focus();            		 
-
+                $("#inputTyping1").focus();
              }else {
                 $("#inputTyping1").attr("disabled",true); 
+                $("#inputTyping1").next().html("");
+                
             } 
         });
         $("input[name=extendYn]").change(e=>{
@@ -207,33 +207,30 @@
             }
         }
         
-        function checkNumber() {
-        	var target = event.target;
+ 
+        
+         $(".inputBox").change(e=>{
     		var numPattern = /([^0-9])/;
-    		var numPattern = $(event.target).val().match(numPattern);
+    		numPattern = $(e.target).val().match(numPattern);
     		if (numPattern != null) {
-    			$(event.target).next().html("숫자만 입력이 가능합니다.").css("color","red");
-    			target.value = "";
-    			target.focus();
+    			$(e.target).val("");
+    			$(e.target).next().html("숫자만 입력이 가능합니다.").css("color","red");
     			return false;
-    		} if($("input[name=flexRadioDefault1]").val()=='N') {
-    			alert("adf");
-    			//$(event.target).next().remove();
+    		} else {
+    			let comma = $(e.target).val().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    			$(e.target).val(comma+"원");
+    			$(e.target).next().html("");
     		}
-    	}
+        }) 
 
-
-
+    	
         
-        
-        
+      
         /* 입찰시작가, 즉시구매가 값 비교 */
         /* 입찰시작가, 입찰단위 값 비교 */
         
-        
-        
 
-        document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+        $("#currentDate").val(new Date().toISOString().substring(0, 10));
                     
         $(function(){
             $("#maxDate").datepicker({
@@ -259,11 +256,16 @@
             target.addEventListener('change', function(){
                 fileList = "";
                 for(i = 0; i < target.files.length; i++){
+                	if(i>3) {
+                		alert("물품이미지는 최대 4장입니다.");
+                		target.value="";
+                		fileList = "";
+                	} else {
                     fileList += ('\u00a0\u00a0'+(i+1)+'.  ')+target.files[i].name+'\u00a0\u00a0\u00a0';
+                	}
                 }
                 target2 = document.getElementById('showFiles');
                 target2.innerHTML = ("등록된 이미지 : ")+fileList;
-                target2.innerHTML('adf');
             });
         }
 

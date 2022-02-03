@@ -1,9 +1,11 @@
 package com.nb.spring.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.service.SendEmailService;
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.product.model.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,13 +47,26 @@ public class MemberController {
 	private PasswordEncoder encoder;
 
 	@PostMapping("/loginMember")
-	public ModelAndView loginMember(ModelAndView mv, String email, String password) {
+	public ModelAndView loginMember(ModelAndView mv, String email, String password, String flexCheckDefault, 
+			HttpServletResponse res) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("email", email);
 		//param.put("password", password);
 		Member m = service.loginMember(param);
+
+		if(flexCheckDefault!=null) {
+			Cookie c = new Cookie("flexCheckDefault",email);
+			c.setPath("/");
+			c.setMaxAge(24*60*60*7);
+			res.addCookie(c);
+		}else {
+			Cookie c = new Cookie("flexCheckDefault",email);
+			c.setPath("/");
+			c.setMaxAge(0);
+			res.addCookie(c);
+		}
 		if(m!=null&&encoder.matches(password, m.getPassword())) {
-		
+
 			mv.addObject("loginMember", m);
 			mv.addObject("msg","로그인 성공");
 			mv.addObject("loc","/");
@@ -76,8 +93,21 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/myPage")
-	public String myPage() {
-		return "login/myPage";
+	public ModelAndView myPage(String memberNo, ModelAndView mv) {
+		Member m = service.selectMember(memberNo);
+		mv.addObject("myPageMember",m);
+		mv.setViewName("login/myPage");
+		return mv;
+	}
+	
+	@RequestMapping("/salesStates")
+	public ModelAndView salesStates(String memberNo, ModelAndView mv) { //string memberNo 를 받아서 프로덕트의 셀러와 연결해서 프로덕트를 받아와 그것을 jsp에 보내줌
+		System.out.println(memberNo);
+		List<Product> list = service.salesList(memberNo);
+		
+		mv.addObject("productList",list);
+		mv.setViewName("product/salesStates");
+		return mv;
 	}
 	
 	@RequestMapping("/enrollMember")
@@ -271,6 +301,25 @@ public class MemberController {
 	
 	
 	
-	
+
+	@RequestMapping(value = "/salesSearch", method=RequestMethod.POST)
+	public ModelAndView salesSearch (@RequestParam Map param, @RequestParam(value ="status", required = false ) String status, 
+			ModelAndView mv) { //memberNo, 상태, 날짜
+		System.out.println(param);
+		//if 판매대기 ---> dao 가서 여기서 0또는 2인거만 가져오고??
+		//else 나머지 
+		if(status.contains("판매대기")) {
+			List<Product> list = service.salesWaitSearch(param);
+			mv.addObject("productList",list);
+		} else {
+			List<Product> list = service.salesSearch(param);
+			mv.addObject("productList",list);
+		}
+		
+		mv.setViewName("product/salesStates");
+		return mv;
+//		return "product/salesStates";
+	}
+
 	
 }

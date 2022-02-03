@@ -67,4 +67,26 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
+	@Override
+	public Product updateProduct(String productNo) {
+		Product p = dao.updateProduct(session, productNo);
+		return p;
+	}
+
+	@Override
+	public int updateProductEnd(Product p) {
+		int result = dao.updateProductEnd(session, p);
+		if(result>0 && !p.getImages().isEmpty()) {
+			try {
+				for(ProductImage pi : p.getImages()) {
+					pi.setProductNo(p.getProductNo());
+					result = dao.updateProductImg(session, pi);
+				}				
+			} catch(RuntimeException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
 }

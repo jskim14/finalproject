@@ -55,4 +55,22 @@ public class ProductDaoImpl implements ProductDao {
 		return session.selectOne("product.selectWishList",param);
 	}
 
+	@Override
+	public Product updateProduct(SqlSessionTemplate session, String productNo) {
+		return session.selectOne("product.updateProduct",productNo);
+	}
+
+	@Override
+	public int updateProductEnd(SqlSessionTemplate session, Product p) {
+		return session.update("product.updateProductEnd",p);
+	}
+
+	@Override
+	public int updateProductImg(SqlSessionTemplate session, ProductImage pi) {
+		System.out.println(pi);
+		return session.update("product.updateProductImg",pi);
+	}
+	
+	
+	
 }

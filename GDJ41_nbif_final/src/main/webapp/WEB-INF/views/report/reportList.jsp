@@ -9,6 +9,7 @@
 <style>
     section{
        padding:200px 10%;
+       min-height:800px;
     }
 </style>
 
@@ -19,19 +20,21 @@
             <p></p>
             <br>
             <table class="table table-hover">
-                <tr>
-                    <th>신고 물품</th>
-                    <th>아이디</th>
-                    <th>신고사유</th>
-                    <th>첨부 이미지</th>
-                    <th>신고결과</th>
-                    <th>신고일</th>
-                </tr>
+                <thead>
+                	<tr>
+	                    <th class="table-dark">신고 물품</th>
+	                    <th class="table-dark">아이디</th>
+	                    <th class="table-dark">신고사유</th>
+	                    <th class="table-dark">첨부 이미지</th>
+	                    <th class="table-dark">신고결과</th>
+	                    <th class="table-dark">신고일</th>
+                    </tr>
+                </thead>
                 <c:if test="${not empty reportList }">
                 <c:forEach items="${reportList }" var="r">
                 <tr>
-                    <td><c:out value="${r.productNo.productNo }"/></td>
-                    <td><c:out value="${r.memberNo.memberNo }"/></td>
+                    <td><c:out value="${r.reportProduct.productNo }"/></td>
+                    <td><c:out value="${r.reportMember.memberNo }"/></td>
                     <td><c:out value="${r.reportReason }"/></td>
                     <td></td>
                     <td><c:out value="${r.reportResult }"/></td>

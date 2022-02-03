@@ -10,6 +10,7 @@
 </style>
 <section>
     <div id="totalContainer">
+${myPageMember }
         <div class="pageTitle">
             <span>MY PAGE</span>
         </div>
@@ -18,8 +19,8 @@
                 <div id="infoLeft" class="card-body infobox" >
                     <div class="subMenuTitle" >
                         <i class="fas fa-user fa-4x" ></i>
-                        <span style="font-size: 25px;">000</span>
-                        <span>님의 등급은 000 입니다.
+                        <span style="font-size: 25px;"><c:out value="${myPageMember.memberName }"/></span>
+                        <span>님의 등급은 <c:out value="${myPageMember.rank }"/> 입니다.
                         </span>
                     </div>
                     <div >
@@ -37,7 +38,8 @@
                 <div id="infoRight" class="card-body infobox" style="margin: 0;">
                     <span class="subTitle" >이머니관리</span><br>
                     <div style="margin-top: 3%;">
-                        <span style="font-size: 20px">사용가능 잔액 </span> <span>00000원</span>
+                        <span style="font-size: 20px">사용가능 잔액 </span> 
+                        <span><c:out value="${myPageMember.balance }"/>원</span>
                         <div style="float: right;">
                             <button type="button" class="btn btn-secondary btnColor">충전</button>
                             <button type="button" class="btn btn-secondary btnColorOther">사용</button>
@@ -104,7 +106,7 @@
                         3. 어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고<br>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-secondary btnColor" style="margin-bottom: 20%;">물품 등록하기</button>
+                        <button type="button" class="btn btn-secondary btnColor" onclick="location.assign('${path}/product/insertProduct')" style="margin-bottom: 20%;">물품 등록하기</button>
                     </div>
                 </div>
             </div>
@@ -137,7 +139,7 @@
                 <div class="tit_h3 through"> 
                     <span class="lineSpan">판매현황</span>                   
                 </div>
-                <a href="#" class="aColor">
+                <a href="${path }/member/salesStates?memberNo=${loginMember.memberNo}" class="aColor">
                     <div class="myMenu card">
                         <div class="card-body salesState">
                             <div class="subMenuTitle" >

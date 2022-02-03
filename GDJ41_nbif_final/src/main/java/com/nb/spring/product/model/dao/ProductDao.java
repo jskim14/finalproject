@@ -24,5 +24,11 @@ public interface ProductDao {
 	int insertWishList(SqlSessionTemplate session, Map<String, String> param);
 
 	int selectWishList(SqlSessionTemplate session, Map<String, String> param);
+	
+	Product updateProduct(SqlSessionTemplate session, String productNo);
+	
+	int updateProductEnd(SqlSessionTemplate session, Product p);
+	
+	int updateProductImg(SqlSessionTemplate session, ProductImage pi);
 
 }

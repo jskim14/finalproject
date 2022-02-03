@@ -16,10 +16,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Report {
-	private Product productNo;
-	private Member memberNo;
+	private Product reportProduct;
+	private Member reportMember;
 	private String reportReason;
 	private String reportResult;
 	private Date reportDate;
 	private List<ReportImage> reportImages;
+	
 }

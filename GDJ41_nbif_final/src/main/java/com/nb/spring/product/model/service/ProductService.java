@@ -19,5 +19,9 @@ public interface ProductService {
 	int insertWishList(Map<String, String> param);
 
 	int selectWishList(Map<String, String> param);
+	
+	Product updateProduct(String productNo);
+	
+	int updateProductEnd(Product p);
 
 }

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.nb.spring.report.model.dao.ReportDao;
 import com.nb.spring.report.model.vo.Report;
+import com.nb.spring.report.model.vo.ReportImage;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ReportServiceImpl implements ReportService {
 	
 	@Autowired
@@ -23,6 +25,24 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public List<Report> selectReportList(){
 		return dao.selectReportList(session);
+	}
+	
+	@Override
+	public int insertReport(Report r) throws RuntimeException {
+		log.debug("전 reportNo: {}", r.getReportProduct());
+		int result=dao.insertReport(session, r);
+		log.debug("후 reportNo: {}", r.getReportProduct());
+		if(result>0 && !r.getReportImages().isEmpty()) {
+			try {
+				for(ReportImage ri: r.getReportImages()) {
+					ri.setReportProduct(r.getReportProduct());
+					result=dao.insertReportImage(session, ri);
+				}
+			}catch(RuntimeException e) {
+				throw new RuntimeException("에러! 등록실패");
+			}
+		}
+		return result;
 	}
 
 }

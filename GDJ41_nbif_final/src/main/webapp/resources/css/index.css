@@ -177,7 +177,10 @@ footer {
 #list-con>ul>li {
     margin: 0;
     width: 25%;
-    border: 2px solid red;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    box-shadow: 2px 2px lightgray;
+    
 }
 #list-con>ul>li:first-child,#list-con>ul>li:nth-child(2),#list-con>ul>li:nth-child(3) {
     margin-right: 20px;

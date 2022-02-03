@@ -1,8 +1,10 @@
 package com.nb.spring.main.controller;
 
+import javax.servlet.http.Cookie;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -46,4 +48,13 @@ public class MainController {
 		return "report/reportList";
 	}
 	
+	@RequestMapping("/chatting")
+	public String openchat() {
+		return "/report/chatting";
+	}
+	
+	@RequestMapping("/cs/notice")
+	public String cs() {
+		return "/customer/notice";
+	}
 }

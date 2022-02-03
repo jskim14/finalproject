@@ -35,7 +35,7 @@
                     <h5><img src="${path}/resources/images/png.png" width="20px" height="20px"><span id="time">0000. 00. 00. 00: 00: 00</span></h5>
                     <ul>
                         <li>
-                            <a href="">고객센터</a>
+                            <a href="${path }/cs/notice">고객센터</a>
                         </li>
                         <li>
 
@@ -43,7 +43,7 @@
                             <a href="${path}/member/enrollMember">회원가입</a>
                             </c:if>
                             <c:if test="${loginMember != null }">
-                            <a href="">마이페이지</a>
+                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a>
                             </c:if>
 
                         </li>
@@ -63,11 +63,11 @@
                     </ul>
                 </div>
                 <div id="second-header">
-                    <h2><a href=""><img src="${path}/resources/images/NBIF.png" width="120px" height="40px"></a></h2>
+                    <h2><a href="${path }/"><img src="${path}/resources/images/NBIF.png" width="120px" height="40px"></a></h2>
                     <ul>
                         <li><a href="">SPECIAL AUCTION</a></li>
                         <li><a href="">AUCTION ITEMS</a></li>
-                        <li style="display: none;"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."><span id="search-reset" style="display: none;"><a href="javascript:search_reset()"><img src="images/searchreset.png" width="20px" height="20px"></a></span></li>
+                        <li style="display: none;"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."><span id="search-reset" style="display: none;"><a href="javascript:search_reset()"><img src="${path}/resources/images/searchreset.png" width="20px" height="20px"></a></span></li>
                         <li><a href="javascript:search_btn()"><span><img src="${path}/resources/images/search.png" width="30px" height="30px"></span></a></li>
                         <li style="display: none;"><a href="javascript:search_btn_close()"><span><img src="${path}/resources/images/xxx.png" width="20px" height="20px"></span></a></li>
                     </ul>

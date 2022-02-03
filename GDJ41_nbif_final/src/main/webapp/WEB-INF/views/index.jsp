@@ -199,8 +199,4 @@
         	}
         </script>
 <jsp:include page="${path}/WEB-INF/views/common/footer.jsp"/>
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/DaBinSeo/finalproject.git
->>>>>>> branch 'master' of https://github.com/DaBinSeo/finalproject.git
