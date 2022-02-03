@@ -5,13 +5,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
+<c:if test="${cookie.flexCheckDefault.value != null }">
+	<c:set value="checked" var="check" />
+	<c:set value="${cookie.flexCheckDefault.value }" var="saveEmail" />
+</c:if>
 <section style="padding: 200px 10%;">
 	<form action="${path}/member/loginMember" method="post">
 		<div class="container-fluid">
 			<div class="row mb-3">
 				<div class="col-3"></div>
 				<div class="col-6">
-					<input type="text" class="form-control" name="email" placeholder="이메일 주소">
+					<input type="text" class="form-control" name="email" placeholder="이메일 주소" value="${saveEmail }">
 				</div>
 				<div class="col-3"></div>
 			</div>
@@ -26,8 +30,8 @@
 				<div class="col-3"></div>
 				<div class="col-6">
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value=""
-							id="flexCheckDefault"> <label class="form-check-label"
+						<input class="form-check-input" type="checkbox" name="flexCheckDefault"
+							id="flexCheckDefault" ${check }> <label class="form-check-label"
 							for="flexCheckDefault"> 아이디 저장 </label>
 					</div>
 				</div>
@@ -77,4 +81,5 @@
 		</div>
 	</form>
 </section>
+${flexCheckDefault }
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
