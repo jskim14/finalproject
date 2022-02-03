@@ -13,4 +13,10 @@ public interface MemberDao {
 	Member selectMemberNickName(SqlSessionTemplate session, String nickName);
 
 	int insertMember(SqlSessionTemplate session, Member m);
+
+	Member selectMemberNamePhone(SqlSessionTemplate session, Map<String, String> param);
+
+	Member selectMemberPhoneEmail(SqlSessionTemplate session, Map<String, String> param);
+
+	int updatePassword(SqlSessionTemplate session, Map<String,String> param);
 }

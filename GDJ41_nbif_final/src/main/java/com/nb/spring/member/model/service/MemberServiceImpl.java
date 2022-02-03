@@ -35,4 +35,22 @@ public class MemberServiceImpl implements MemberService {
 		return dao.insertMember(session, m);
 	}
 
+	@Override
+	public Member selectMemberNamePhone(Map<String, String> param) {
+		
+		return dao.selectMemberNamePhone(session,param);
+	}
+
+	@Override
+	public Member selectMemberPhoneEmail(Map<String, String> param) {
+		
+		return dao.selectMemberPhoneEmail(session,param);
+	}
+
+	@Override
+	public int updatePassword(Map<String, String> param) {
+		
+		return dao.updatePassword(session,param);
+	}
+
 }

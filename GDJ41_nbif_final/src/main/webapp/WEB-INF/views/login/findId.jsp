@@ -6,10 +6,11 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
 <section  style="padding: 200px 10%;">
+<form action="${path}/member/findIdEnd" method="post">
 	<div class="container-fluid">
         <div class="row">
             <div class="col-12" style="display: flex; justify-content: center;">
-               <h1>이메일 찾기</h1>
+               <h1>아이디 찾기</h1>
             </div>
         </div>
         <hr>
@@ -24,25 +25,25 @@
         <div class="row mb-3">
             <div class="col-4"></div>
             <div class="col-4">
-                <input type="text" placeholder="ex)홍길동" class="form-control w-100">
+                <input type="text" name="name" placeholder="ex)홍길동" class="form-control w-100" required>
             </div>
             <div class="col-4"></div>
         </div>
         <div class="row mb-3">
             <div class="col-4"></div>
             <div class="col-4">
-                <input type="text" placeholder="ex)01011112222" class="form-control w-100">
+                <input type="tel" name="phone" placeholder="ex)01011112222" class="form-control w-100" required>
             </div>
             <div class="col-4"></div>
         </div>
         <div class="row mb-3">
             <div class="col-4"></div>
             <div class="col-4">
-                <button type="button" class="btn btn-primary w-100">이메일 아이디 찾기</button>
+                <button type="submit" class="btn btn-primary w-100">아이디 찾기</button>
             </div>
             <div class="col-4"></div>
         </div>
     </div>
-
+</form>
 </section>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

@@ -11,4 +11,10 @@ public interface MemberService {
 	Member selectMemberNickName(String nickName);
 
 	int insertMember(Member m);
+
+	Member selectMemberNamePhone(Map<String, String> param);
+
+	Member selectMemberPhoneEmail(Map<String, String> param);
+
+	int updatePassword(Map<String,String> param);
 }

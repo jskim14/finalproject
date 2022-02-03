@@ -48,10 +48,10 @@
 							<button type="button" class="btn w-100">이메일 가입</button>
 						</div>
 						<div class="col-4">
-							<button type="button" class="btn w-100">이메일 찾기</button>
+							<button type="button" class="btn w-100" onclick="goToFindId()">아이디 찾기</button>
 						</div>
 						<div class="col-4">
-							<button type="button" class="btn w-100">비밀번호 찾기</button>
+							<button type="button" class="btn w-100" onclick="goToFindPassword()">비밀번호 찾기</button>
 						</div>
 					</div>
 				</div>
@@ -77,4 +77,15 @@
 		</div>
 	</form>
 </section>
+<script>
+	function goToFindId(){
+		
+		location.assign(location.origin+"/member/findId");
+	}
+
+	function goToFindPassword(){
+		location.assign(location.origin+"/member/findPassword");
+	}
+	
+</script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

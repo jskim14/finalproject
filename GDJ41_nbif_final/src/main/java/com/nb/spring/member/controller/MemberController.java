@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,25 +31,31 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes({"loginMember"})
 public class MemberController {
 	
+	
+	
 	@Autowired
 	private MemberService service;      
 	
 	@Autowired
 	private SendEmailService mailService;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@PostMapping("/loginMember")
 	public ModelAndView loginMember(ModelAndView mv, String email, String password) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("email", email);
-		param.put("password", password);
+		//param.put("password", password);
 		Member m = service.loginMember(param);
-		if(m!=null) {
+		if(m!=null&&encoder.matches(password, m.getPassword())) {
+		
 			mv.addObject("loginMember", m);
 			mv.addObject("msg","로그인 성공");
 			mv.addObject("loc","/");
 		}else {
 			mv.addObject("msg","로그인 실패, 다시 시도하세요.");
-			mv.addObject("loc","/login");
+			mv.addObject("loc","/member/login");
 		}
 		mv.setViewName("common/msg");
 		return mv;
@@ -146,10 +154,11 @@ public class MemberController {
 		String totalAddress = param.get("address")+" "+ param.get("detailAddress")+" "+param.get("plusAddress");
 		String email = (String)session.getAttribute("userEmail");
 		
-		
+		String encodingPw = encoder.encode(param.get("password"));
+		log.debug(encodingPw);
 		Member m = Member.builder()
 				.memberName(param.get("name"))
-				.password(param.get("password"))
+				.password(encodingPw)
 				.phone(param.get("phone"))
 				.email(email)
 				.nickName(param.get("nickName"))
@@ -171,6 +180,97 @@ public class MemberController {
 		return mv;
 	
 	}
+	
+	@RequestMapping("/findId")
+	public String findId() {
+		return "login/findId";
+	}
+	
+	@PostMapping("/findIdEnd")
+	public ModelAndView findIdEnd(String name, String phone, ModelAndView mv) {
+		log.debug(name,phone);
+		Member m = service.selectMemberNamePhone(Map.of("name",name,"phone",phone));
+		log.debug("{}",m);
+		
+		if(m==null) {
+			String msg = "없는 회원입니다.";
+			String loc = "/login";
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		
+		
+		
+		String email = m.getEmail();
+		String id = email.substring(0, email.indexOf("@"));
+		String address = email.substring(email.indexOf("@"));
+		String idFront = id.substring(0,id.length()-3);
+		String idEnd = id.substring(id.length()-3);
+		String temp="";
+		
+		for(int i=0; i<idEnd.length();i++) {
+			temp+="*";
+		}
+		
+		String modifyEmail = idFront+temp+address;
+		
+		mv.addObject("userId", modifyEmail);
+		mv.addObject("userName",m.getMemberName());
+		mv.setViewName("login/findIdConfirm");
+		
+		
+		return mv;
+	}
+	
+	@RequestMapping("/findPassword")
+	public String findPassword() {
+		return "login/findPassword";
+	}
+	
+	@PostMapping("/findPasswordEnd")
+	public ModelAndView findPasswordEnd(String phone, String email, ModelAndView mv) throws Exception {
+		
+		Map<String, String > param = Map.of("phone",phone,"email",email);
+		Member m = service.selectMemberPhoneEmail(param);
+		String msg = "";
+		String loc = "";
+		if(m==null) {
+			msg = "없는 회원입니다.";
+			loc = "/member/findPassword";
+		}else {
+			
+			String newEncodingPw = encoder.encode(mailService.mailSendNewPassword(m.getEmail()));
+			log.debug(newEncodingPw);
+			Map<String, String> param2 = Map.of("memberNo",m.getMemberNo(),"newPw",newEncodingPw);
+			int result = service.updatePassword(param2);
+			
+			log.debug("{}",result);
+			if(result>0) {
+				msg = "임시 비밀번호 발급완료";
+				loc = "/member/login";
+			}else {
+				msg = "임시 비빌번호 발급 실패";
+				loc = "/member/findPassword";
+			}
+			
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/login")
+	public String loginView() {
+		return "login/loginView";
+	}
+	
+	
+	
+	
 	
 	
 }
