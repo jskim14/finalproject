@@ -4,9 +4,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
 <section style="padding: 200px 10%;">
+	<style>
+		.btn-green{
+			color: #fff;
+			background-color:#41B979;
+			border-color: #41B979;
+		}
+
+	</style>
+	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12">
@@ -131,8 +141,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-12">
-							<strong><c:out value="${ product.nowBidPrice}" /></strong><strong>원</strong>
+						<div class="col-12" >
+							<strong style="float: right;" ><c:out value="${ product.nowBidPrice}" /><span>원</span></strong>
 						</div>
 					</div>
 					<div class="row">
@@ -148,7 +158,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<div id="timer" style="padding-left: 10px;">
+							<div id="timer" style="padding-left: 10px; float: right; font-size: 40px; font-weight: bold;">
 								
 							</div>
 						</div>
@@ -170,7 +180,7 @@
 								
 								if(distDate < 0 ){
 									clearInterval(timer);
-									document.getElementById(id).textContent = "종료";
+									document.getElementById(id).textContent = "종료된 상품입니다.";
 									return;
 								}
 								
@@ -193,23 +203,25 @@
 						
 					</script>
 
+				<c:if test="${isGeneral == true }">
+					
 					<div class="row mb-3">
 						<div class="col-12">
 							<strong>입찰하기</strong>
 						</div>
 					</div>
-					<div id="bidButtons" class="row mb-3">
+					<div id="bidButtons" class="row mb-3" >
 						<div class="col-3">
-							<button type="button" class="w-100 btn btn-primary" value="1000">1000</button>
+							<button type="button" class="w-100 btn btn-green" value="1000" ${!isSell?"disabled":"" }>1000</button>
 						</div>
 						<div class="col-3">
-							<button type="button" class="w-100 btn btn-primary" value="10000">10000</button>
+							<button type="button" class="w-100 btn btn-green" value="10000" ${!isSell?"disabled":"" }>10000</button>
 						</div>
 						<div class="col-3">
-							<button type="button" class="w-100 btn btn-primary" value="100000">100000</button>
+							<button type="button" class="w-100 btn btn-green" value="100000" ${!isSell?"disabled":"" }>100000</button>
 						</div>
 						<div class="col-3">
-							<button type="button" class="w-100 btn btn-primary" value="1000000">1000000</button>
+							<button type="button" class="w-100 btn btn-green" value="1000000" ${!isSell?"disabled":"" }>1000000</button>
 						</div>
 					</div>
 
@@ -217,12 +229,13 @@
 						<div class="col-1"></div>
 						<div class="col-6">
 							<div style="border: 3px solid #41B979">
-								<input id="bidUnitInput" type="number" value="${product.bidUnit }"><span>원</span>
+								<input id="bidUnitInput" type="number" value="${product.bidUnit }" style="font-size: 30px; width: 80%;" ${!isSell?"disabled":"" }>
+								<span>원</span>
 							</div>
 						</div>
 						<div class="col-1"></div>
 						<div class="col-4">
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#biddingModal">입찰하기</button>
+							<button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#biddingModal" ${!isSell?"disabled":"" }>입찰하기</button>
 						</div>
 					</div>
 					<div class="row">
@@ -246,7 +259,7 @@
 						</div>
 						<div class="col-1"></div>
 						<div class="col-4">
-							<button type="button" class="btn btn-primary" onclick="checkBuyNow('${product.productNo}',${loginMember==null?false:true });" >바로구매</button>
+							<button type="button" class="btn btn-green" onclick="checkBuyNow('${product.productNo}','${loginMember==null?false:true }');" ${!isSell?"disabled":"" }>바로구매</button>
 							<button id="buyNowModalBtn" type="button" data-bs-toggle="modal" data-bs-target="#buyNowModal" style="display: none"></button>
 							
 						</div>
@@ -299,14 +312,14 @@
 
 							</div> -->
 							<c:if test="${isWishList == false }">
-								<button id="wishListBtn" type="button" class="btn btn-primary w-100 d-flex justify-content-center align-items-center">
+								<button id="wishListBtn" type="button" class="btn btn-green w-100 d-flex justify-content-center align-items-center">
 									<i class="far fa-bookmark fa-3x"></i>
 									<span>관심등록</span>
 								</button>
 							</c:if>
 							<c:if test="${isWishList == true }">
 								
-								<button id="wishListBtn" type="button" class="btn btn-primary w-100 d-flex justify-content-center align-items-center " disabled>
+								<button id="wishListBtn" type="button" class="btn btn-green w-100 d-flex justify-content-center align-items-center " disabled>
 									<i class="far fa-bookmark fa-3x"></i>
 									<span>관심등록</span>
 								</button>
@@ -371,7 +384,7 @@
 												<div class="col-5">
 													<strong>구매후기</strong>
 												</div>
-												<div class="col-4"><button id="reviewBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewModal">보러가기</button></div>
+												<div class="col-4"><button id="reviewBtn" type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#reviewModal">보러가기</button></div>
 												<div class="col-2"></div>
 												<script>
 
@@ -419,9 +432,24 @@
 
 					</div>
 
+</c:if>
+<c:if test="${isGeneral != true }">
+	<div class="row">
+		<div class="col-12">
+			<button type="button" class="btn btn-green w-100" onclick="goToSpecialAction()">실시간 경매장으로~ </button>
+		</div>
+	</div>
+	<script>
+		function goToSpecialAction(){
+			// 
+			//location.assign(location.origin+"//");
+		}
+	</script>
+
+
+</c:if>
 
 				</div>
-
 
 				<div class="row">
 					<div class="col-12">
@@ -437,6 +465,9 @@
 					</div>
 
 				</div>
+				
+<c:if test="${isGeneral == true }">
+				
 				<div class="row">
 					<div class="col-12">
 						<hr>
@@ -603,6 +634,7 @@
 				</div>
 			</div>
 		</div>
+		</c:if>
 </section>
 <div class="modal fade" id="buyNowModal" tabindex="-1"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -705,7 +737,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
 					data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary">구매하기</button>
+				<button type="button" class="btn btn-green">구매하기</button>
 			</div>
 		</div>
 	</div>
@@ -724,7 +756,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
 					data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="bid('${product.productNo}');">입찰하기</button>
+				<button type="button" class="btn btn-green" onclick="bid('${product.productNo}');">입찰하기</button>
 			</div>
 		</div>
 	</div>

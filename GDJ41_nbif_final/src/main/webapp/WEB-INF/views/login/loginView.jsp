@@ -49,7 +49,7 @@
 				<div class="col-6">
 					<div class="row">
 						<div class="col-4">
-							<button type="button" class="btn w-100">이메일 가입</button>
+							<button type="button" class="btn w-100" onclick="goToEnroll()">이메일 가입</button>
 						</div>
 						<div class="col-4">
 							<button type="button" class="btn w-100" onclick="goToFindId()">아이디 찾기</button>
@@ -82,6 +82,10 @@
 	</form>
 </section>
 <script>
+	function goToEnroll(){
+		location.assign(location.origin+"/member/enrollMember");
+	}
+
 	function goToFindId(){
 		
 		location.assign(location.origin+"/member/findId");
