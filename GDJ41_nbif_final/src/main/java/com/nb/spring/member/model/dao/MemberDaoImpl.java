@@ -40,6 +40,24 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public Member selectMemberNamePhone(SqlSessionTemplate session, Map<String, String> param) {
+		
+		return session.selectOne("member.selectMemberNamePhone",param);
+	}
+
+	@Override
+	public Member selectMemberPhoneEmail(SqlSessionTemplate session, Map<String, String> param) {
+		
+		return session.selectOne("member.selectMemberPhoneEmail",param);
+	}
+
+	@Override
+	public int updatePassword(SqlSessionTemplate session, Map<String,String> param) {
+	
+		return session.update("member.updatePassword", param);
+	}
+
+
 	public List<Product> salesWaitSearch(SqlSessionTemplate session, Map param) {
 		return session.selectList("member.salesWaitSearch", param);
 	}
@@ -49,5 +67,5 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.salesSearch", param);
 	}
 	
-	
+
 }

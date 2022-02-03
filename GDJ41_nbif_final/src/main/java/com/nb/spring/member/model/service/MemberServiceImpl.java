@@ -47,6 +47,24 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public Member selectMemberNamePhone(Map<String, String> param) {
+		
+		return dao.selectMemberNamePhone(session,param);
+	}
+
+	@Override
+	public Member selectMemberPhoneEmail(Map<String, String> param) {
+		
+		return dao.selectMemberPhoneEmail(session,param);
+	}
+
+	@Override
+	public int updatePassword(Map<String, String> param) {
+		
+		return dao.updatePassword(session,param);
+	}
+
+
 	public List<Product> salesWaitSearch(Map param) {
 		return dao.salesWaitSearch(session, param);
 	}
@@ -57,4 +75,5 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
+
 }

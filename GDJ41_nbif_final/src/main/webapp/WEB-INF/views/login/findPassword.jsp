@@ -6,6 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
 <section  style="padding: 200px 10%;">
+    <form action="${path}/member/findPasswordEnd" method="post">
     <div class="container-fluid">
         <div class="row mb-3">
             <div class="col-4"></div>
@@ -20,24 +21,27 @@
         <div class="row mb-3">
             <div class="col-4"></div>
             <div class="col-4">
-                <input type="text" placeholder="ex)01011112222" class="form-control w-100">
+                <input type="text" name="phone" placeholder="ex)01011112222" class="form-control w-100">
             </div>
             <div class="col-4"></div>
         </div>
         <div class="row mb-3">
             <div class="col-4"></div>
             <div class="col-4">
-                <input type="text" placeholder="ex)000@naver.com" class="form-control w-100">
+                <input type="text" name="email" placeholder="ex)000@naver.com" class="form-control w-100">
             </div>
             <div class="col-4"></div>
         </div>
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
-                <button type="button" class="btn btn-primary w-100">인증번호 받기</button>
+                <button type="submit" class="btn btn-primary w-100">임시비밀번호 발급</button>
             </div>
             <div class="col-4"></div>
         </div>
     </div>
+</form>
 </section>
+
+
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

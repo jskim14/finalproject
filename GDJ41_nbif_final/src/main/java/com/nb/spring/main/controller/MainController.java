@@ -16,10 +16,7 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("/login")
-	public String loginView() {
-		return "login/loginView";
-	}
+	
 	
 	@RequestMapping("/enrollEmail")
 	public String enrollEmailView() {

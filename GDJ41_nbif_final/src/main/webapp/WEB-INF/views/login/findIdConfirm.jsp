@@ -23,21 +23,21 @@
         <div class="row mb-3">
             <div class="col-4"></div>
             <div class="col-4 d-flex justify-content-center">
-                <span>000</span><span>님,</span>
+                <span><c:out value="${userName }" /></span><span>님,</span>
             </div>
             <div class="col-4"></div>
         </div>
         <div class="row mb-3">
             <div class="col-4"></div>
             <div class="col-4  d-flex justify-content-center">
-                <span>찾은아이디자리</span>
+                <span><c:out value="${userId}"/></span>
             </div>
             <div class="col-4"></div>
         </div>
         <div class="row mb-3">
             <div class="col-4"></div>
             <div class="col-2">
-                <button type="button" class="btn btn-primary w-100">비밀번호 찾기</button>
+                <button type="button" class="btn btn-primary w-100" onclick="goToFindPassword()">비밀번호 찾기</button>
             </div>
             <div class="col-2">
                 <button type="button" class="btn btn-primary w-100">로그인</button>
@@ -47,4 +47,9 @@
     </div>
 
 </section>
+<script>
+	function goToFindPassword(){
+		location.assign(location.origin+"/member/findPassword");
+	}
+</script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

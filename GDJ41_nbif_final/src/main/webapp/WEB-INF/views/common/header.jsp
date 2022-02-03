@@ -49,7 +49,7 @@
                         </li>
 	                        <li>
                         	<c:if test="${loginMember == null}">
-	                            <a href="${path}/login">로그인</a>
+	                            <a href="${path}/member/login">로그인</a>
                         	</c:if>
 	                        </li>
 	                        <li>
