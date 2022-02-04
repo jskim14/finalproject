@@ -63,8 +63,8 @@ public class MainController {
 	}
 	
 	@RequestMapping("/cs/notice")
-	public String cs() {
-		return "/customer/notice";
+	public String csView() {
+		return "/cs/customerservice";
 	}
 	
 	@RequestMapping("/addLatest")
