@@ -24,4 +24,5 @@ public interface ProductService {
 	
 	int updateProductEnd(Product p);
 
+	List<Product> selectListLatest(int startNum, int finishNum);
 }

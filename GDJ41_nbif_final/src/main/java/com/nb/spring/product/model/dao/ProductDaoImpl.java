@@ -71,6 +71,9 @@ public class ProductDaoImpl implements ProductDao {
 		return session.update("product.updateProductImg",pi);
 	}
 	
-	
+	@Override
+	public List<Product> selectListLatest(SqlSessionTemplate session) {
+		return session.selectList("product.selectListLatest");
+	}
 	
 }

@@ -31,4 +31,5 @@ public interface ProductDao {
 	
 	int updateProductImg(SqlSessionTemplate session, ProductImage pi);
 
+	List<Product> selectListLatest(SqlSessionTemplate session);
 }

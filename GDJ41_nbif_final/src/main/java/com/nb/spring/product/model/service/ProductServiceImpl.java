@@ -1,5 +1,6 @@
 package com.nb.spring.product.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -89,4 +90,18 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
+	@Override
+	public List<Product> selectListLatest(int startNum, int finishNum) {
+		List<Product> result = new ArrayList<Product>();
+		List<Product> list = dao.selectListLatest(session);
+		if(list.size()>finishNum) {
+			for(int i=startNum; i<=finishNum; i++) {
+				Product p = list.get(i);
+				result.add(p);
+			}
+		}else {
+			result = null;
+		}
+		return result;
+	}
 }
