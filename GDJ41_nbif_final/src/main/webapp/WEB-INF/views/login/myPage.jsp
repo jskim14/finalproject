@@ -115,7 +115,7 @@ ${myPageMember }
                 <div class="tit_h3 through"> 
                     <span class="lineSpan">구매현황</span>                   
                 </div>
-                <a href="#" class="aColor">
+                <a href="${path }/member/buyStates?memberNo=${loginMember.memberNo}" class="aColor">
                     <div class="myMenu card">
                         <div class="card-body salesState">
                             <div class="subMenuTitle" >
