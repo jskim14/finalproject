@@ -57,12 +57,12 @@ public class ReportController {
 		log.debug(upFile[0].getOriginalFilename());
 		log.debug("{}", upFile[0].getSize());
 		
-//		mv.addObject("loc","/");
-//		mv.setViewName("common/msg");
+		System.out.println("가져온상품번호"+product);
+		System.out.println("가져온작성자"+writer);
 		
-		//r.setReportProduct(new Product());
+		r.setReportProduct(new Product());
 		r.getReportProduct().setProductNo(product);
-		//r.setReportMember(new Member());
+		r.setReportMember(new Member());
 		r.getReportMember().setMemberNo(writer);
 		
 		System.out.println(r);
