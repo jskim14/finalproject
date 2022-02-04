@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nb.spring.common.BalanceType;
 import com.nb.spring.common.DealType;
+import com.nb.spring.common.MsgModelView;
 import com.nb.spring.common.WalletType;
 import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.vo.Member;
@@ -33,6 +34,7 @@ import com.nb.spring.product.model.vo.ProductImage;
 import com.nb.spring.product.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
+import static com.nb.spring.common.MsgModelView.msgBuild;
 
 @Slf4j
 @Controller
@@ -210,6 +212,79 @@ public class ProductController {
 		response.getWriter().print(isBuy);
 
 	}
+	
+	
+	@PostMapping("/buyNowEnd")
+	public ModelAndView buyNowEnd(@RequestParam Map<String,String> param,HttpSession session,ModelAndView mv) {
+		
+		//기본주소/배송주소 / 새로 입력한 주소 
+		String radio = param.get("radioAddressCheck");
+		String productNo = param.get("productNo");
+		String shipAddress = param.get("shipAddress");
+		String phone = param.get("phone");
+		String name = param.get("name");
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if(loginMember==null) {   //로그인 상태 아님
+			return msgBuild(mv, "/", "로그인후 이용해주세요");
+		}
+		
+		
+		Product product = productService.selectOneProductNo(productNo);
+		Member m = memberService.selectMember(loginMember.getMemberNo());
+		
+		//사용자 잔고 
+		int balance = Integer.parseInt(m.getBalance());
+		//제품 즉시 구매가 
+		int buyNowPrice = Integer.parseInt(product.getBuyNowPrice());
+		
+		if(balance<buyNowPrice) {
+			return msgBuild(mv, "/", "잔고 부족");
+		}
+		
+		
+		
+		String finalDeliveryAddress="";
+		
+		if(radio.equals("ship")) {
+			//배송주소 클릭
+			String userShipAddress = m.getDeliveryAddress();
+			
+			if(shipAddress.equals(userShipAddress)) {
+				//저장된 배송 주소
+				finalDeliveryAddress = m.getDeliveryAddress();
+			}else {
+				//새로 입력
+				finalDeliveryAddress= shipAddress;
+			}
+		}else {
+			//기본주소 
+			finalDeliveryAddress= m.getAddress();
+		}
+		
+		Map<String,String> param2= Map.of("deliveryAddress",finalDeliveryAddress,"memberNo",m.getMemberNo());
+		int result = memberService.updateDeliveryAddress(param2);
+		
+		if(result<=0) {
+			return msgBuild(mv, "/", "Address Update Failure");
+		}
+		
+		//통과
+		
+		
+		
+		
+		
+		
+		
+		
+		log.debug("{}",param);
+		
+		return null;
+	}
+	
+	
 
 	@RequestMapping("/bid")
 	@ResponseBody

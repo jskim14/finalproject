@@ -92,6 +92,13 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 		
 	}
+
+	@Override
+	public int updateDeliveryAddress(Map<String,String> param) {
+		
+		return dao.updateDeliveryAddress(session,param);
+	}
+
 	
 	
 

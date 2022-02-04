@@ -71,13 +71,7 @@ const checkBuyNow=(pNo,isLogin)=>{
 };
 
 
-$("#newInfo").change(e=>{
-	$("#shipAddress").val("");
-});
 
-$("#normalInfo").change(e=>{
-	$("#shipAddress").val($("#hiddenAddress").val());
-});
 
 
 const bid=(pNo)=>{
@@ -94,5 +88,27 @@ const bid=(pNo)=>{
 		}
 	})
 }
+
+$('#normalAddressRadio').change(e=>{
+	$('#shipAddress').removeClass('pick');
+	$('#normalAddress').addClass('pick');
+});
+
+$('#shipAddressRadio').change(e=>{
+	$('#normalAddress').removeClass('pick');
+	$('#shipAddress').addClass('pick');
+});
+
+
+
+function newAddressInput(){
+	$('#shipAddressRadio').click();
+	$('#shipAddress').attr({readonly:false}).val("").focus();
+}
+
+
+
+
+
 
 

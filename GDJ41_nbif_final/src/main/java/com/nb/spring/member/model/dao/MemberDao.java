@@ -36,4 +36,8 @@ public interface MemberDao {
 
 	int insertWallet(SqlSessionTemplate session, Map<String, Object> param);
 
+	int updateDeliveryAddress(SqlSessionTemplate session, Map<String,String>param);
+
+	
+
 }

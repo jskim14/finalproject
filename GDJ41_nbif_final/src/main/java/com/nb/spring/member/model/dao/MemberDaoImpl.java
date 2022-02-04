@@ -84,6 +84,12 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return session.insert("member.insertWallet", param);
 	}
-	
 
+	@Override
+	public int updateDeliveryAddress(SqlSessionTemplate session, Map<String,String> param) {
+		
+		return session.update("member.updateDeliveryAddress", param);
+	}
+
+	
 }

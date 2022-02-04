@@ -9,6 +9,9 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
 <section style="padding: 200px 10%;">
 	<style>
+.pick{
+	border:3px solid #41B979;
+}
 .btn-green {
 	color: #fff;
 	background-color: #41B979;
@@ -19,6 +22,14 @@
 	color: #fff;
 	background-color: #7f47e9;
 	border-color: #7f47e9;
+}
+
+#bidderList {
+	-ms-overflow-style: none;
+}
+
+#bidderList::-webkit-scrollbar {
+	display: none;
 }
 </style>
 
@@ -94,34 +105,36 @@
 						</div>
 
 						<c:if test="${isGeneral ==true }">
-							<div class="row mt-3">
-								<div class="col-11">
-									<strong>입찰자 리스트</strong>
-								</div>
-								<div class="col-1">
-									<a id="renewBtn" href=""> <i class="fas fa-sync-alt"></i></a>
-								</div>
+
+							<div class="col-11">
+								<strong>입찰자 리스트</strong>
+							</div>
+							<div class="col-1">
+								<a id="renewBtn" href=""> <i class="fas fa-sync-alt"></i></a>
 							</div>
 
-							<div class="row mt-1">
-								<div class="col-12" style="height: 100px; overflow: auto">
-									<table class="table table-striped" style="text-align: center;">
+
+
+							<div id="bidderList" class="col-12"
+								style="height: 125px; overflow: auto">
+								<table class="table table-striped" style="text-align: center;">
+									<tr
+										style="position: sticky; top: 0; background-color: #41B979 !important; font-weight: bolder;">
+										<th style="color: white;">입찰자</th>
+										<th style="color: white;">입찰 금액</th>
+									</tr>
+									<c:forEach items="${bidderList }" var="b">
 										<tr>
-											<th>입찰자</th>
-											<th>입찰 금액</th>
+											<td><c:out value="${b['NICKNAME'] }" /></td>
+											<td><strong><c:out value="${b['AMOUNT'] }" /></strong>원</td>
 										</tr>
-										<c:forEach items="${bidderList }" var="b">
-											<tr>
-												<td><c:out value="${b['NICKNAME'] }" /></td>
-												<td><strong><c:out value="${b['AMOUNT'] }" /></strong>원</td>
-											</tr>
 
-										</c:forEach>
+									</c:forEach>
 
 
-									</table>
-								</div>
+								</table>
 							</div>
+
 						</c:if>
 
 					</div>
@@ -282,24 +295,26 @@
 							<div class="col-1"></div>
 							<div class="col-6">
 								<div style="border: 3px solid #41B979; border-radius: 10px">
-									<input id="bidUnitInput" type=text 
+									<input id="bidUnitInput" type=text
 										value="<fmt:formatNumber value="${product.nowBidPrice+product.bidUnit }"/>"
-										style="text-align:right; padding-right:10px; background:none; font-size: 30px; width: 100%;" ${!isSell?"disabled":"" }>
+										style="text-align: right; padding-right: 10px; background: none; font-size: 30px; width: 100%;"
+										${!isSell?"disabled":"" }>
 									<!-- <span>원</span> -->
 								</div>
 							</div>
 							<div class="col-1"></div>
 							<div class="col-4">
 								<button type="button" class="btn btn-green"
-									data-bs-toggle="modal" data-bs-target="#biddingModal" style="height: 100%; width:100%; font-size:20px"
+									data-bs-toggle="modal" data-bs-target="#biddingModal"
+									style="height: 100%; width: 100%; font-size: 20px"
 									${!isSell?"disabled":"" }>입찰하기</button>
 							</div>
 						</div>
 						<div class="row mt-2">
 							<div class="col-12">
 								<small style="font-size: 12px">다음 입찰금액은 <b><c:out
-											value="${product.nowBidPrice+product.bidUnit }" /></b>원 이며 , 그이상을
-									직접입력하여 입찰할 수 있습니다.
+											value="${product.nowBidPrice+product.bidUnit }" /></b>원 이며 ,
+									그이상을 직접입력하여 입찰할 수 있습니다.
 								</small>
 							</div>
 						</div>
@@ -312,16 +327,18 @@
 						<div class="row">
 							<div class="col-1"></div>
 							<div class="col-6">
-								<div style="border: 3px solid #41B979; border-radius:10px; display:flex; justify-content: flex-end;">
-									<span style="font-size: 30px; margin-right: 10px">
-										<fmt:formatNumber value="${product.buyNowPrice }"/>
+								<div
+									style="border: 3px solid #41B979; border-radius: 10px; display: flex; justify-content: flex-end;">
+									<span style="font-size: 30px; margin-right: 10px"> <fmt:formatNumber
+											value="${product.buyNowPrice }" />
 									</span>
 								</div>
 							</div>
 							<div class="col-1"></div>
 							<div class="col-4">
-								<button type="button" class="btn btn-green" style="height: 100%; width:100%; font-size: 20px"
-									onclick="checkBuyNow('${product.productNo}','${loginMember==null?false:true }');" 
+								<button type="button" class="btn btn-green"
+									style="height: 100%; width: 100%; font-size: 20px"
+									onclick="checkBuyNow('${product.productNo}','${loginMember==null?false:true }');"
 									${!isSell?"disabled":"" }>바로구매</button>
 								<button id="buyNowModalBtn" type="button" data-bs-toggle="modal"
 									data-bs-target="#buyNowModal" style="display: none"></button>
@@ -329,7 +346,7 @@
 							</div>
 						</div>
 
-	
+
 						<div class="row mt-3">
 							<div class="col-12">
 								<!-- 	<div style="width: 100%; height: 50px; border: 1px solid black; display: flex; justify-content: center; opacity: 0.3;">
@@ -378,8 +395,8 @@
 						<hr>
 						<div class="row">
 							<div class="col-12">
-								<div class="accordion accordion-flush"  style="border: 2px solid black;"
-									id="accordionFlushExample">
+								<div class="accordion accordion-flush"
+									style="border: 2px solid black;" id="accordionFlushExample">
 									<div class="accordion-item">
 										<h2 class="accordion-header" id="flush-headingOne">
 											<button class="accordion-button collapsed" type="button"
@@ -554,107 +571,113 @@
 					aria-label="Close"></button>
 			</div>
 			<div class="modal-body container-fluid">
-				<div class="row">
-					<span>주문하기</span>
-				</div>
-				<div class="row">
-					<div class="col-12" style="margin: 0 auto; text-align: center;">
-						<img
-							src="${path}/resources/upload/${product.images.get(0).imageName}"
-							alt="..." width="250px">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<span><c:out value="${product.productNo }" /></span>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-6">
-						<span><c:out value="${product.productName }" /></span>
-					</div>
-					<div class="col-6">
-						<span><c:out value="${product.buyNowPrice }" /></span>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-4"></div>
-					<div class="col-8">
+				<form action="${path}/product/buyNowEnd" method="post">
+					<div class="row">
+						<div class="col-12">
+							<span style="font-size: 30px;">주문하기</span>
+						</div>
 
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio"
-								name="radioInfoCheck" id="normalInfo" value="option1" checked>
-							<label class="form-check-label" for="inlineRadio1">기본정보로</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio"
-								name="radioInfoCheck" id="newInfo" value="option2"> <label
-								class="form-check-label" for="inlineRadio2">새로입력</label>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-4">
-						<span>기본주소</span>
-					</div>
-					<div class="col-8">
-						<input id="normalAddress" type="text" class="form-control w-100"
-							readonly value="${loginMember.address }">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-4">
-						<span>배송주소</span>
-					</div>
-					<div class="col-8">
-						<input id="shipAddress" type="text" class="form-control w-100"
-							value="${loginMember.deliveryAddress }"> <input
-							id="hiddenAddress" type="hidden"
-							value="${loginMember.deliveryAddress }" />
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-4"></div>
-					<div class="col-8">
 
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio"
-								name="radioAddressCheck" id="inlineRadio1" value="option1"
-								checked> <label class="form-check-label"
-								for="inlineRadio1">기본주소</label>
+						<div class="col-12" style="margin: 0 auto; text-align: center;">
+							<img
+								src="${path}/resources/upload/product/${product.images.get(0).imageName}"
+								alt="..." width="250px">
 						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio"
-								name="radioAddressCheck" id="inlineRadio2" value="option2">
-							<label class="form-check-label" for="inlineRadio2">배송주소</label>
+
+
+						<div class="col-12">
+							<span><c:out value="${product.productNo }" /></span>
+							<input type="hidden" name="productNo" value="<c:out value="${product.productNo }" />">
 						</div>
+						<div class="col-12 mb-3">
+							<span><c:out value="${product.productName }" /></span>
+						</div>
+
+						<div class="row"
+							style="text-align: center; font-size: 20px; font-weight: bold;">
+							<div class="col-6">
+								<span>구매가</span>
+							</div>
+							<div class="col-6" style="border: 5px solid #41B979;">
+								<span><c:out value="${product.buyNowPrice }" /></span>
+							</div>
+
+						</div>
+
+
+
+
+						<div class="col-12">
+
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio"
+									name="radioAddressCheck" id="normalAddressRadio" value="normal"
+									checked> <label class="form-check-label"
+									for="normalAddressRadio">기본주소</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio"
+									name="radioAddressCheck" id="shipAddressRadio" value="ship">
+								<label class="form-check-label" for="shipAddressRadio">배송주소</label>
+							</div>
+						</div>
+
+
+						<div class="col-12">
+							<span>기본주소</span>
+						</div>
+						<div class="col-12 mb-3">
+							<input id="normalAddress" type="text" class="form-control w-100"
+								readonly value="${loginMember.address }">
+						</div>
+
+
+						<div class="col-12 mb-3">
+							<span>배송주소</span>
+							<button type="button" class="btn btn-green" onclick="newAddressInput(); findAddress()">새로 입력</button>
+						</div>
+						<div class="col-12">
+							<input id="shipAddress" name="shipAddress" type="text" class="form-control w-100"
+								value="${loginMember.deliveryAddress }" readonly>
+							 <input
+								id="hiddenAddress" type="hidden"
+								value="${loginMember.deliveryAddress }" />
+						</div>
+
+
+						<div class="col-12">
+
+						</div>
+
+
+						<div class="col-12">
+							<span>연락처</span>
+						</div>
+						<div class="col-12">
+							<input type="text" name="phone" class="form-control w-100"
+								value="${loginMember.phone }">
+						</div>
+
+
+						<div class="col-12">
+							<span>받는사람</span>
+						</div>
+						<div class="col-12">
+							<input type="text" name="name" class="form-control w-100"
+								value="${loginMember.memberName }">
+						</div>
+
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-4">
-						<span>연락처</span>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn-green">구매하기</button>
 					</div>
-					<div class="col-8">
-						<input type="text" class="form-control w-100"
-							value="${loginMember.phone }">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-4">
-						<span>받는사람</span>
-					</div>
-					<div class="col-8">
-						<input type="text" class="form-control w-100"
-							value="${loginMember.memberName }">
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary"
-					data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-green">구매하기</button>
+				</form>
 			</div>
 		</div>
+
+
 	</div>
 </div>
 
@@ -700,7 +723,44 @@
 		</div>
 	</div>
 </div>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function findAddress() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+              
+                var roadAddr = data.roadAddress; 
+                var extraRoadAddr = ''; 
 
+             
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+              
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+               
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                
+                const totalAddress = roadAddr + extraRoadAddr;
+                
+                
+                if(totalAddress !== ''){
+                    document.getElementById("shipAddress").value = totalAddress;
+                } else {
+                    document.getElementById("shipAddress").value = '';
+                }
+
+              
+            }
+        }).open();
+    }
+</script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${path }/resources/js/productDetail.js"></script>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

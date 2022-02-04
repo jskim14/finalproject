@@ -32,4 +32,8 @@ public interface MemberService {
 
 	int updateBalance(DealType type, Map<String, Object> param);
 
+	int updateDeliveryAddress(Map<String,String> param);
+
+	
+
 }
