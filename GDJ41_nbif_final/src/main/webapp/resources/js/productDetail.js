@@ -53,6 +53,7 @@ const bid=(pNo)=>{
 		success:data=>{
 			console.log("data");
 			alert(data['result']);
+			location.reload();
 		}
 	})
 }

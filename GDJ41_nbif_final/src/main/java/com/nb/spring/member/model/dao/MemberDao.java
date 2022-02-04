@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.vo.Product;
 
@@ -31,5 +32,9 @@ public interface MemberDao {
 	List<Member> buyList(SqlSessionTemplate session, String memberNo);
 	
 	List<Member> buySearch(SqlSessionTemplate session, Map param);
+
+	int updateBalance(SqlSessionTemplate session, DealType type, Map<String, Object> param);
+
+	int insertWallet(SqlSessionTemplate session, Map<String, Object> param);
 
 }

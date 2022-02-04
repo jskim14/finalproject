@@ -22,6 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nb.spring.common.BalanceType;
+import com.nb.spring.common.DealType;
+import com.nb.spring.common.WalletType;
+import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
@@ -38,7 +42,8 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	
+	@Autowired
+	private MemberService memberService;
 
 	@RequestMapping("/productDetail")
 	public ModelAndView productDetail(@RequestParam String productNo, HttpSession session, ModelAndView mv) {
@@ -47,6 +52,34 @@ public class ProductController {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		Product product = productService.selectOneProductNo(productNo);
+		boolean isGeneral = true;
+		if(product.getBannerImageName()==null||product.getBannerImageName().length()<=0) {
+			//일반 판매 상품 
+			isGeneral =true;
+		}else {
+			//실시간 경매 상품 
+			isGeneral = false;
+		}
+		
+		long now = new Date().getTime();
+		long endDate = product.getEndDate().getTime();
+		
+		long gap = now-endDate;
+		
+		boolean isSell = false;
+		
+		if(gap>=0) {
+			//기한 만료 
+			isSell = false;
+		}else {
+			// 진행중 
+			isSell = true;
+		}
+		
+		mv.addObject("isGeneral",isGeneral);
+		mv.addObject("isSell",isSell);
+		
+		
 		
 		if(loginMember!=null) {
 			Map<String, String> param = Map.of("productNo",product.getProductNo(),"memberNo",loginMember.getMemberNo());
@@ -58,7 +91,6 @@ public class ProductController {
 				mv.addObject("isWishList",false);
 			}
 		}
-		
 		
 		
 		System.out.println(product);
@@ -190,6 +222,7 @@ public class ProductController {
 			
 			return Map.of("result","로그인 후 이용해주세요");
 		}
+	
 		
 		Product product = productService.selectOneProductNo(productNo);
 		
@@ -200,13 +233,44 @@ public class ProductController {
 		int bidUnit = Integer.parseInt(product.getBidUnit());
 		
 		if(bidPrice >= nowBidPrice+bidUnit) {
-			//입찰가능 
 			
-			int result = exeBid(productNo,String.valueOf(bidUnit),m.getMemberNo());
+			int balance = Integer.parseInt(m.getBalance());
+			if(balance<bidPrice) {
+				//잔액부족 
+				return Map.of("result","잔액부족");
+			}
+			
+			//입찰가능 
+			log.debug("{}",bidPrice);
+			log.debug("{}",m.getMemberNo());
+			
+			Member exHigher = product.getHighestBidder();
+			String exHigherPrice = product.getNowBidPrice();
+			
+			
+			
+			int result = exeBid(productNo,String.valueOf(bidPrice),m.getMemberNo());
 			
 			if(result>0) {
 				
-				return Map.of("result","입찰성공");
+				Map<String, Object> param = Map.of("dealType",DealType.OUTPUT,"amount",bidPrice,"walletType",WalletType.BID,"productNo",product.getProductNo(),"memberNo",m.getMemberNo(),"bidPrice",String.valueOf(bidPrice));
+				result = memberService.updateBalance(DealType.OUTPUT,param);
+				
+				if(result>0) {
+					param = Map.of("dealType",DealType.INPUT,"amount",exHigherPrice,"walletType",WalletType.FAILURE,"productNo",product.getProductNo(),"memberNo",exHigher.getMemberNo(),"bidPrice",exHigherPrice);
+					result = memberService.updateBalance(DealType.INPUT,param);
+					
+					if(result>0) {
+						return Map.of("result","입찰성공");
+					}else {
+						return Map.of("result","입찰실패");
+					}
+					
+					
+				}else {
+					return Map.of("result","입찰실패");
+				}
+				
 			}else {
 				return Map.of("result","입찰실패");
 			}

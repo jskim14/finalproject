@@ -3,9 +3,6 @@
 <footer>
 	<div id="footer-con">
 	<!-- 채팅아이콘 -->
-	
-	 <%-- <img src="${path }/resources/images/chat.png" width="40px" height="40px" 
-			style="position:fixed; bottom:200px; right:60px;" onclick="openchat();"> --%>
 	<a href="javascript:void(0);" onclick="openchat();" class="float">
 <i class="far fa-comments  fa-lg my-float"></i>
 </a>
@@ -15,7 +12,7 @@
 	position:fixed;
 	width:50px;
 	height:50px;
-	bottom:50px;
+	bottom:40px;
 	right:40px;
 	background-color:#0C9;
 	color:#FFF;

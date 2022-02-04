@@ -6,6 +6,8 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.nb.spring.common.BalanceType;
+import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.vo.Product;
 
@@ -72,6 +74,21 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.buySearch", param);
 	}
 	
+	@Override
+	public int updateBalance(SqlSessionTemplate session, DealType type, Map<String, Object> param) {
+		
+		if(type==DealType.INPUT) {
+			return session.update("member.plusBalance", param);
+		}else {
+			return session.update("member.minusBalance",param);
+		}
+	}
+
+	@Override
+	public int insertWallet(SqlSessionTemplate session, Map<String, Object> param) {
+		
+		return session.insert("member.insertWallet", param);
+	}
 	
 
 }
