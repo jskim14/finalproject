@@ -45,7 +45,7 @@
         
         <script>
         	
-			$(function(){
+			 $(function(){
 				$.ajax({
 					type:'POST',
 					url:'${path}/customerServiceList',
@@ -87,7 +87,7 @@
 						}
 					});
 				});
-			})        	
+ 			})    	
 			
         </script>
         
