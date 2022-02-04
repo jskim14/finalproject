@@ -73,7 +73,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<Product> salesSearch(Map param) {
 		return dao.salesSearch(session, param);
 	}
-	
+
+	@Override
+	public List<Member> buyList(String memberNo) {
+		return dao.buyList(session, memberNo);
+	}
 	
 
 }

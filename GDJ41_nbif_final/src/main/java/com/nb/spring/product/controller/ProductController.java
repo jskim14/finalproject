@@ -78,6 +78,9 @@ public class ProductController {
 			 String sellerNo, String maxDate, String maxTime, String unit,
 			 @RequestParam(value = "imageFile", required = false) MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
 
+		System.out.println("시작가 : "+p.getMinBidPrice());
+		System.out.println(p);
+		
 		//date 
 		String date = maxDate+" "+maxTime;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");

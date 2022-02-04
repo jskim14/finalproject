@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.member.model.vo.Wallet;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

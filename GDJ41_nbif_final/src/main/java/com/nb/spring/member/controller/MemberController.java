@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -297,34 +295,43 @@ public class MemberController {
 	public String loginView() {
 		return "login/loginView";
 	}
-	
-	
-	
-	
 
 	@RequestMapping(value = "/salesSearch", method=RequestMethod.POST)
-	public ModelAndView salesSearch ( @RequestParam(value = "status", required=false ) 
-	String status, String StartDate, String endDate, ModelAndView mv) { //memberNo, 상태, 날짜
+	public String salesSearch ( @RequestParam(value = "status", required=false ) 
+	String status, String startDate, String endDate, String memberNo) { //memberNo, 상태, 날짜
 		System.out.println();
 		//if 판매대기 ---> dao 가서 여기서 0또는 2인거만 가져오고??
 		//else 나머지 
 		System.out.println("status"+status);
 		Map param = new HashMap<>();
-//		if(status.equals("판매대기")) {
-//			param.put("StartDate", StartDate);
-//			param.put("endDate", endDate);
-//			param.put("status", status);
-//			List<Product> list = service.salesWaitSearch(param);
-//			mv.addObject("productList",list);
-//		} else {
-//		}
-		List<Product> list = service.salesSearch(param);
-		mv.addObject("productList",list);
+		if(status.equals("판매대기")) {
+			param.put("startDate", startDate);
+			param.put("endDate", endDate);
+			param.put("status", status);
+			param.put("memberNo", memberNo);
+			List<Product> list = service.salesWaitSearch(param);
+			System.out.println("list "+list);
+		} else {
+		}
+//		List<Product> list = service.salesSearch(param);
+//		mv.addObject("productList",list);
 		System.out.println(param);
-		mv.setViewName("product/salesStates");
-		return mv;
-//		return "product/salesStates";
+//		mv.setViewName("product/salesStates");
+//		return mv;
+		return "product/salesStates";
 	}
+	
+	@RequestMapping("/buyStates")
+	public ModelAndView buyStates(String memberNo, ModelAndView mv) {
+		System.out.println(memberNo);
+		List<Member> list = service.buyList(memberNo);
+		
+		mv.addObject("productList",list);
+		mv.setViewName("product/buyStates");
+		return mv;
+	}
+	
+	
 
 	
 }
