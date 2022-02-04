@@ -2,6 +2,7 @@ package com.nb.spring.member.model.vo;
 
 import java.sql.Date;
 
+import com.nb.spring.product.model.vo.Product;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,6 @@ public class Wallet {
 	private String categoryDetail;
 	private Date tradeDate;
 	private String amount;
-	private String productNo;
+	private Product productNo;
 
 }

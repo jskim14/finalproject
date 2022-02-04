@@ -24,8 +24,6 @@ public interface MemberService {
 
 	int updatePassword(Map<String,String> param);
 	
-	List<Product> salesWaitSearch(Map param);
-	
 	List<Product> salesSearch(Map param);
 	
 	List<Member> buyList(String memberNo);

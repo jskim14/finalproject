@@ -73,7 +73,7 @@
            		product테이블의 seller가 loginMember.memberNo 일치할때
            		for(product를 돌려 seller가 memberNo인 갯수만큼)           
            -->
-			<c:if test="${empty productList }">
+ 			<c:if test="${empty productList }">
 				<div style="text-align: center">
 				<hr>
 				판매를 등록한 물품이 없습니다. 
@@ -166,7 +166,7 @@
 						</div>
 					   	<div class="col-4" >
 					       	<!-- 오른쪽 -->
-<%-- 							 <div class="row" style="float:right; font-size:12px">
+							 <%-- <div class="row" style="float:right; font-size:12px">
 							 	<c:out value="${p.productNo }"/>
 							 </div> --%>
 							<div class="row" style="padding-top: 13%"> <!--  -->
@@ -230,8 +230,8 @@
 					    </div>
 					</div>
 			    </c:forEach>
-			</c:if>
-        </div>
+			</c:if>  
+        </div> 
     </div>
     <script>
 	$(()=>{

@@ -64,11 +64,6 @@ public class MemberServiceImpl implements MemberService {
 		return dao.updatePassword(session,param);
 	}
 
-
-	public List<Product> salesWaitSearch(Map param) {
-		return dao.salesWaitSearch(session, param);
-	}
-
 	@Override
 	public List<Product> salesSearch(Map param) {
 		return dao.salesSearch(session, param);
