@@ -29,5 +29,7 @@ public interface MemberDao {
 	List<Product> salesSearch(SqlSessionTemplate session, Map param);
 	
 	List<Member> buyList(SqlSessionTemplate session, String memberNo);
+	
+	List<Member> buySearch(SqlSessionTemplate session, Map param);
 
 }

@@ -27,5 +27,7 @@ public interface MemberService {
 	List<Product> salesSearch(Map param);
 	
 	List<Member> buyList(String memberNo);
+	
+	List<Member> buySearch(Map param);
 
 }

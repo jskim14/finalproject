@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Wallet {
+	private Member memberNo;
 	private String category;
 	private String categoryDetail;
 	private Date tradeDate;
 	private String amount;
 	private Product productNo;
-
 }

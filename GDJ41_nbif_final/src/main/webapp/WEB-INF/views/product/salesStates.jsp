@@ -200,7 +200,7 @@
 								    	판매가<br><c:out value="${p.finalPrice }"/>
 								    </div>
 							    	<div class="col">
-								        구매자<br><c:out value="${p.highestBidder }"/>
+								        구매자<br><c:out value="${p.highestBidder.nickName }"/>
 								    </div>
 								    <div class="col">
 								        구매일<br><c:out value="${p.endDate }"/>
@@ -225,7 +225,6 @@
 								    </div>
 						        </c:when>
 							 </c:choose>
-							    
 							</div>
 					    </div>
 					</div>

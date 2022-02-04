@@ -299,38 +299,38 @@ public class MemberController {
 
 	@RequestMapping(value = "/salesSearch", method=RequestMethod.POST)
 	public String salesSearch ( @RequestParam(value = "status", required=false ) 
-	String status, String startDate, String endDate, String memberNo, Model m) { //memberNo, 상태, 날짜
-		System.out.println();
-		//if 판매대기 ---> dao 가서 여기서 0또는 2인거만 가져오고??
-		//else 나머지 
-		System.out.println("status"+status);
+	String status, String startDate, String endDate, String memberNo, Model m) {
 		Map param = new HashMap<>();
 			param.put("startDate", startDate);
 			param.put("endDate", endDate);
 			param.put("status", status);
 			param.put("memberNo", memberNo);
 		List<Product> list = service.salesSearch(param);
-		System.out.println("list "+list);
 
-//		mv.addObject("productList",list);
-//		System.out.println(param);
-//		mv.setViewName("product/salesStates");
-//		return mv;
 		m.addAttribute("productList",list);
 		return "product/salesStates";
 	}
 	
 	@RequestMapping("/buyStates")
 	public ModelAndView buyStates(String memberNo, ModelAndView mv) {
-		System.out.println(memberNo);
 		List<Member> list = service.buyList(memberNo);
-		System.out.println(list);
-		mv.addObject("productList",list);
+		mv.addObject("productList",list.get(0).getWalletList());
 		mv.setViewName("product/buyStates");
 		return mv;
 	}
 	
-	
+	@RequestMapping(value = "/buySearch", method=RequestMethod.POST)
+	public String buySearch ( @RequestParam(value = "status", required=false ) 
+	String status, String startDate, String endDate, String memberNo, Model m) {
+		Map param = new HashMap<>();
+			param.put("startDate", startDate);
+			param.put("endDate", endDate);
+			param.put("status", status);
+			param.put("memberNo", memberNo);
+		List<Member> list = service.buySearch(param);
 
+		m.addAttribute("productList",list.get(0).getWalletList());
+		return "product/buyStates";
+	}
 	
 }
