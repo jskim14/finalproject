@@ -19,10 +19,9 @@
         <section>
             
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <button onclick="fn_ajax('notice');">공지사항</button>
-              
-                <button onclick="fn_ajax('qna');">자주 묻는 질문</button>
-
+                <span class="btn btn-outline-dark" value="1">공지사항</span>
+                <span class="btn btn-outline-dark" value="2">자주 묻는 질문</span>
+				
               </div>
               
             <div id="notice-title">
@@ -30,58 +29,66 @@
             </div>
             
             <br>
-            <div style="width:100%; height:3px; background-color: lightskyblue;"></div>
             
-            <div id="table_"></div> 
+            <table class="table table-hover">
+            	<thead>
+            		<tr>
+            		<th class="table-dark">#</th>
+            		<th class="table-dark">제목</th>
+            		<th class="table-dark">날짜</th>
+            		<tr>
+            	</thead>
+            	<tbody id="cslist">
+            	</tbody>
+            </table>
         </section>
         
         <script>
-        	const fn_ajax=(choice)=>{
-        		$.ajax({
-        			url:"${path}/customerserviceList",
-        			data:{"choice":choice},
-        			success:(data)=>{
-        				$("#table_").html("");
-        				switch(choice){
-        				case "notice": noticePrint(data); break;
-        				case "qna": qnaPrint(data); break;
-        				case "one2one": one2onePrint(data); break;
-        				}
-        				$("#table_").html(data);
-        			}
-        		});
-        	}
         	
-        	const noticePrint=(data)=>{
-        		const table=$("<table>").addClass("table table-hover");
-        		const header=$("<tr>");
-        		table.append(header);
-        		
-        		data.forEach((v,i)=>{
-        			let tr=$("<tr>");
-        			let title=$("<td>").html(v["title"]);
-        			let noticeDate=$("<td>").html(v["noticeDate"]);
-        			tr.append(title).append(noticeDate);
-        			table.append(tr);
-        		});
-        		$("#table_"),append(table);
-        	}
-        	
-        	const qnaPrint=(data)=>{
-        		const table=$("<table>").addClass("table table-hover");
-        		const header=$("<tr>");
-        		table.append(header);
-        		
-        		data.forEach((v,i)=>{
-        			let tr=$("<tr>");
-        			let title=$("<td>").html(v["title"]);
-        			let noticeDate=$("<td>").html(v["qnaDate"]);
-        			tr.append(title).append(noticeDate);
-        			table.append(tr);
-        		});
-        		$("#table_"),append(table);
-        	}
-
-        	
+			$(function(){
+				$.ajax({
+					type:'POST',
+					url:'${path}/customerServiceList',
+					success:function(result)
+					{
+						console.log(result);
+						let json=JSON.stringify(result);
+						let res="";
+						for(let i=0; i<json.length; i++)
+							{
+							res+="<tr>"
+							+"<td>"+json[i].noticeNo+"</td>"
+							+"<td>"+json[i].noticeTitle+"</td>"
+							+"<td>"+json[i].noticeWriteDate+"</td>"
+							}
+						$('#cslist').html(res);
+					}
+				});
+				$('span').click(function(){
+					let choice=$(this).attr("value");
+					$.ajax({
+						type:'POST',
+						url:'${path}/customerServiceList',
+						data:{"choice":choice},
+						success:function(result)
+						{
+							console.log(result);
+							let json=JSON.stringify(result);
+							let res="";
+							for(let i=0; i<json.length; i++)
+							{
+							res+="<tr>"
+							+"<td>"+json[i].noticeNo+"</td>"
+							+"<td>"+json[i].noticeTitle+"</td>"
+							+"<td>"+json[i].noticeWriteDate+"</td>"
+							
+							}
+						$('#cslist').html(res);
+						}
+					});
+				});
+			})        	
+			
         </script>
+        
 <jsp:include page="${path }/WEB-INF/views/common/footer.jsp"/>

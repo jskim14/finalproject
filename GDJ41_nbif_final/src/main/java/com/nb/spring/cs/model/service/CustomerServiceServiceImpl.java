@@ -20,12 +20,12 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
 
 	@Override
 	public List<Notice> selectNoticeList() {
-		dao.selectNoticeList(session);
+		return dao.selectNoticeList(session);
 	}
 
 	@Override
 	public List<Qna> selectQnaList() {
-		dao.selectQnaList(session);
+		return dao.selectQnaList(session);
 	}
 	
 	
