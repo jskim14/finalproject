@@ -31,4 +31,6 @@ public interface ProductDao {
 	
 	int updateProductImg(SqlSessionTemplate session, ProductImage pi);
 
+	List<Map<String, String>> selectBidderList(SqlSessionTemplate session, String productNo);
+
 }

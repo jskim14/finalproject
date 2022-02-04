@@ -2,12 +2,49 @@
  * 
  */
 
-//비딩금액 버튼 ++
+
+Number.prototype.format = function(){
+    if(this==0) return 0;
+ 
+    var reg = /(^[+-]?\d+)(\d{3})/;
+    var n = (this + '');
+ 
+    while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+ 
+    return n;
+};
+
+String.prototype.stringNumberToInt = function(){
+	if(this==0) return 0;
+	
+	let strNum = this;
+	
+	return parseInt(strNum.replace(/,/g,'')); 
+};
+
+
 $("#bidButtons>div>button").click(e=>{
    	const plusBidPrice = parseInt($(e.target).val());
-   	const inputVal = parseInt($("#bidUnitInput").val());
-   	$("#bidUnitInput").val(plusBidPrice+inputVal);
+   	const inputVal = $("#bidUnitInput").val().stringNumberToInt();
+   	let sum = inputVal + plusBidPrice;
+   	$("#bidUnitInput").val(sum.format());
 });
+
+$("#bidUnitInput").keyup(e=>{
+	
+	let keyCode = e.keyCode;
+	console.log(keyCode);
+	if ( keyCode == 8 || keyCode == 46 || keyCode == 37 || keyCode == 39 ) { 
+		return; 
+	} else { //숫자만 입력
+		 e.target.value = e.target.value.replace(/[^0-9]/g, ""); 
+	}
+
+
+	const inputVal = $("#bidUnitInput").val().stringNumberToInt();
+	$("#bidUnitInput").val(inputVal.format());
+});
+
 
 
 const checkBuyNow=(pNo,isLogin)=>{
@@ -44,7 +81,7 @@ $("#normalInfo").change(e=>{
 
 
 const bid=(pNo)=>{
-	const userInputPrice = parseInt($("#bidUnitInput").val());
+	const userInputPrice = $("#bidUnitInput").val().stringNumberToInt();
 	
 	$.ajax({
 		url:location.origin+"/product/bid",

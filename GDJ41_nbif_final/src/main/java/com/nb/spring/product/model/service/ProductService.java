@@ -24,4 +24,6 @@ public interface ProductService {
 	
 	int updateProductEnd(Product p);
 
+	List<Map<String, String>> selectBidderList(String productNo);
+
 }

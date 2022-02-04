@@ -92,6 +92,13 @@ public class ProductController {
 			}
 		}
 		
+		List<Map<String, String >> list = productService.selectBidderList(product.getProductNo());
+		
+		mv.addObject("bidderList",list);
+		
+		
+		
+		
 		
 		System.out.println(product);
 		mv.addObject("product", product);

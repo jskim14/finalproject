@@ -89,4 +89,10 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
+	@Override
+	public List<Map<String, String>> selectBidderList(String productNo) {
+		
+		return dao.selectBidderList(session,productNo);
+	}
+
 }

@@ -70,6 +70,13 @@ public class ProductDaoImpl implements ProductDao {
 		System.out.println(pi);
 		return session.update("product.updateProductImg",pi);
 	}
+
+	@Override
+	public List<Map<String, String>> selectBidderList(SqlSessionTemplate session, String productNo) {
+	
+		return session.selectList("product.selectBidderList",productNo);
+		
+	}
 	
 	
 	
