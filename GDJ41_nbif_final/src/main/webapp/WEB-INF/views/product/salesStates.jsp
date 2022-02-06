@@ -29,24 +29,34 @@
            		<span>판매현황</span>
            	</div> 
            	<div id="stateCount" class="row">
-	            <div class="subMenuTitle col" >
-	                전체<br> 0건
-	            </div>
-	            <div class="subMenuTitle col" >
-	                판매대기<br> 0건
-	            </div>
-	            <div class="subMenuTitle col" >
-	                판매 중<br> 0건
-	            </div>
-	            <div class="subMenuTitle col" >
-	                판매완료<br> 0건
-	            </div>
-	            <div class="subMenuTitle col" >
-	                종료<br> 0건
-	            </div>
+	            <dl class="subMenuTitle col" >
+	                <dt>전체</dt>
+	                <dd>${salesCnt.get(0)}건</dd>
+	            </dl>
+	            <dl class="subMenuTitle col" >
+	                <dt>판매대기</dt>
+	                <dd>${salesCnt.get(1)}건</dd>
+	            </dl>
+	            <dl class="subMenuTitle col" >
+	                <dt>판매중</dt>
+	                <dd>${salesCnt.get(2)}건</dd>
+	            </dl>
+	            <dl class="subMenuTitle col" >
+	                <dt>판매완료</dt>
+	                <dd>${salesCnt.get(3)}건</dd>
+	            </dl>
+	            <dl class="subMenuTitle col" >
+	                <dt>종료</dt>
+	                <dd>${salesCnt.get(4)}건</dd>
+	            </dl>
            	</div>
 			<div class="row" style="">
 			<form action="${path }/member/salesSearch?memberNo=2" method="post">
+			<input type="hidden" name="count" value="${salesCnt.get(0) }">
+			<input type="hidden" name="count" value="${salesCnt.get(1) }">
+			<input type="hidden" name="count" value="${salesCnt.get(2) }">
+			<input type="hidden" name="count" value="${salesCnt.get(3) }">
+			<input type="hidden" name="count" value="${salesCnt.get(4) }">
 			    <div class="row" style="height: 70px; background-color:lightgray; margin: 0; text-align: center; padding: 1% 0 1% 10%;">
 			        <!-- 검색 -->
 			        <div class="col-3"> 

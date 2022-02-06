@@ -1,5 +1,8 @@
 package com.nb.spring.member.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -288,10 +291,30 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/salesStates")
-	public ModelAndView salesStates(String memberNo, ModelAndView mv) { //string memberNo 를 받아서 프로덕트의 셀러와 연결해서 프로덕트를 받아와 그것을 jsp에 보내줌
-		System.out.println(memberNo);
+	public ModelAndView salesStates(String memberNo, ModelAndView mv) {
 		List<Product> list = service.salesList(memberNo);
+		int total = list.size();
+		int waiting=0;
+		int sales=0;
+		int soldOut=0;
+		int end=0;
+		for(Product p : list) {
+			if(p.getPermissionYn().equals("0") || p.getPermissionYn().equals("2")) { //판매대기
+				waiting++;
+			}
+			if(p.getPermissionYn().equals("1") && p.getProductStatus().equals("0")) { //판매중
+				sales++;
+			}
+			if(p.getProductStatus().equals("1")|| p.getProductStatus().equals("1")||p.getProductStatus().equals("1")) { //판매완료
+				soldOut++;
+			}
+			if(p.getProductStatus().equals("4") || p.getProductStatus().equals("5")) { //종료
+				end++;
+			}
+		}
 		
+		List<Integer> intList = List.of(total,waiting,sales,soldOut,end);
+		mv.addObject("salesCnt", intList);
 		mv.addObject("productList",list);
 		mv.setViewName("product/salesStates");
 		return mv;
@@ -299,7 +322,9 @@ public class MemberController {
 
 	@RequestMapping(value = "/salesSearch", method=RequestMethod.POST)
 	public String salesSearch ( @RequestParam(value = "status", required=false ) 
-	String status, String startDate, String endDate, String memberNo, Model m) {
+	String status, String startDate, String endDate, String memberNo,
+	@RequestParam(value = "count") List<Integer> count, Model m) {
+		System.out.println(count);
 		Map param = new HashMap<>();
 			param.put("startDate", startDate);
 			param.put("endDate", endDate);
@@ -307,6 +332,7 @@ public class MemberController {
 			param.put("memberNo", memberNo);
 		List<Product> list = service.salesSearch(param);
 
+		m.addAttribute("salesCnt", count);
 		m.addAttribute("productList",list);
 		return "product/salesStates";
 	}
