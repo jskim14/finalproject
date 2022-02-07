@@ -30,23 +30,33 @@
            	</div> 
            	<div id="stateCount" class="row">
 	            <div class="subMenuTitle col" >
-	                전체<br> 0건
+	                <div>전체<br>
+	                <c:out value="${salesCnt.get(0)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
-	                판매대기<br> 0건
+	                <div>판매대기<br>
+	                <c:out value="${salesCnt.get(1)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
-	                판매 중<br> 0건
+	                <div>판매중<br>
+	                <c:out value="${salesCnt.get(2)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
-	                판매완료<br> 0건
+	                <div>판매완료<br>
+	                <c:out value="${salesCnt.get(3)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
-	                종료<br> 0건
+	                <div>종료<br>
+	                <c:out value="${salesCnt.get(4)}"/>건 </div>
 	            </div>
            	</div>
 			<div class="row" style="">
-			<form action="${path }/member/salesSearch?memberNo=2" method="post">
+			<form action="${path }/member/salesSearch?memberNo=${loginMember.memberNo}" method="post">
+			<input type="hidden" name="count" value="${salesCnt.get(0) }">
+			<input type="hidden" name="count" value="${salesCnt.get(1) }">
+			<input type="hidden" name="count" value="${salesCnt.get(2) }">
+			<input type="hidden" name="count" value="${salesCnt.get(3) }">
+			<input type="hidden" name="count" value="${salesCnt.get(4) }">
 			    <div class="row" style="height: 70px; background-color:lightgray; margin: 0; text-align: center; padding: 1% 0 1% 10%;">
 			        <!-- 검색 -->
 			        <div class="col-3"> 
@@ -147,7 +157,31 @@
 						        </c:choose>
 						        <c:choose>
 						        	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '1' }">
-							            <button type="button" class="btn btn-secondary btnColor" style="float: left;">발송하기 </button>
+							            <button type="button" class="btn btn-secondary btnColor" 
+							            data-bs-toggle="modal" data-bs-target="#shipping"
+							            style="float: left;">발송하기 </button>
+										<!-- Modal -->
+										<div class="modal fade" id="shipping" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+										  <div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <!-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> -->
+										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										      </div>
+										      <div class="modal-body">
+										        구매자에게 물품을 발송하시겠습니까? <br>
+										        발송 이후 취소는 불가능하며, <br>
+										        구매자가 물품을 확인한 후 구매확정이 완료됩니다.
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										        <button type="button" class="btn btn-primary btnColor"
+										        onclick="location.assign('${path}/member/shipping?productNo=${p.productNo }')" >발송하기</button>
+										      </div>
+										    </div>
+										  </div>
+										</div>
+
 						        	</c:when>
 						        </c:choose>
 						        <c:choose>
@@ -160,10 +194,10 @@
 							            <span style="font-size: 18px;float: left; color: gray;">구매확정</span>
 						        	</c:when>
 						        </c:choose>
-						        
 						        </div>
 						    </div>
 						</div>
+
 					   	<div class="col-4" >
 					       	<!-- 오른쪽 -->
 							 <%-- <div class="row" style="float:right; font-size:12px">
@@ -186,7 +220,7 @@
 						        </c:when>
 							 	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '0' }"> <!-- 판매중 -->
 								    <div class="col">
-								    	현재최고입찰가<br><c:out value="${p.nowBidPrice }"/>
+								    	현재최고입찰가<br><fmt:formatNumber value="${p.nowBidPrice }" pattern="#,###"/>원
 								    </div>
 							    	<div class="col">
 								        최고입찰자<br><c:out value="${p.highestBidder.nickName }"/>
@@ -197,7 +231,7 @@
 						        </c:when>
 						        <c:when test="${p.permissionYn eq '1' and p.productStatus eq '1' }"> <!-- 입완 -->
 								    <div class="col">
-								    	판매가<br><c:out value="${p.finalPrice }"/>
+								    	판매가<br><fmt:formatNumber value="${p.finalPrice }" pattern="#,###"/>원
 								    </div>
 							    	<div class="col">
 								        구매자<br><c:out value="${p.highestBidder.nickName }"/>
@@ -235,8 +269,9 @@
     <script>
 	$(()=>{
 	    var date = new Date();
+	    date.setMonth(date.getMonth() - 3);
 	    $("#startDate").val(date.toISOString().substring(0, 10));
-	    date.setMonth(date.getMonth() + 1);
+	    var date = new Date();
 	    $("#endDate").val(date.toISOString().substring(0, 10));
 	});
 
