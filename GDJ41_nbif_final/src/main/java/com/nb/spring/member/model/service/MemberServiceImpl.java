@@ -11,6 +11,7 @@ import com.nb.spring.common.BalanceType;
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.dao.MemberDao;
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.member.model.vo.Wallet;
 import com.nb.spring.product.model.vo.Product;
 
 @Service
@@ -90,5 +91,13 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return 0;
 	}
+
+	@Override
+	public int shippingSelect(String productNo) {
+		int result = dao.shippingSelect(session, productNo);
+		return result;
+	}
+	
+	
 
 }

@@ -29,26 +29,26 @@
            		<span>판매현황</span>
            	</div> 
            	<div id="stateCount" class="row">
-	            <dl class="subMenuTitle col" >
-	                <dt>전체</dt>
-	                <dd>${salesCnt.get(0)}건</dd>
-	            </dl>
-	            <dl class="subMenuTitle col" >
-	                <dt>판매대기</dt>
-	                <dd>${salesCnt.get(1)}건</dd>
-	            </dl>
-	            <dl class="subMenuTitle col" >
-	                <dt>판매중</dt>
-	                <dd>${salesCnt.get(2)}건</dd>
-	            </dl>
-	            <dl class="subMenuTitle col" >
-	                <dt>판매완료</dt>
-	                <dd>${salesCnt.get(3)}건</dd>
-	            </dl>
-	            <dl class="subMenuTitle col" >
-	                <dt>종료</dt>
-	                <dd>${salesCnt.get(4)}건</dd>
-	            </dl>
+	            <div class="subMenuTitle col" >
+	                <div>전체<br>
+	                <c:out value="${salesCnt.get(0)}"/>건 </div>
+	            </div>
+	            <div class="subMenuTitle col" >
+	                <div>판매대기<br>
+	                <c:out value="${salesCnt.get(1)}"/>건 </div>
+	            </div>
+	            <div class="subMenuTitle col" >
+	                <div>판매중<br>
+	                <c:out value="${salesCnt.get(2)}"/>건 </div>
+	            </div>
+	            <div class="subMenuTitle col" >
+	                <div>판매완료<br>
+	                <c:out value="${salesCnt.get(3)}"/>건 </div>
+	            </div>
+	            <div class="subMenuTitle col" >
+	                <div>종료<br>
+	                <c:out value="${salesCnt.get(4)}"/>건 </div>
+	            </div>
            	</div>
 			<div class="row" style="">
 			<form action="${path }/member/salesSearch?memberNo=2" method="post">
@@ -157,7 +157,31 @@
 						        </c:choose>
 						        <c:choose>
 						        	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '1' }">
-							            <button type="button" class="btn btn-secondary btnColor" style="float: left;">발송하기 </button>
+							            <button type="button" class="btn btn-secondary btnColor" 
+							            data-bs-toggle="modal" data-bs-target="#shipping"
+							            style="float: left;">발송하기 </button>
+										<!-- Modal -->
+										<div class="modal fade" id="shipping" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+										  <div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <!-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> -->
+										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										      </div>
+										      <div class="modal-body">
+										        구매자에게 물품을 발송하시겠습니까? <br>
+										        발송 이후 취소는 불가능하며, <br>
+										        구매자가 물품을 확인한 후 구매확정이 완료됩니다.
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										        <button type="button" class="btn btn-primary btnColor"
+										        onclick="location.assign('${path}/member/shipping?productNo=${p.productNo }')" >발송하기</button>
+										      </div>
+										    </div>
+										  </div>
+										</div>
+
 						        	</c:when>
 						        </c:choose>
 						        <c:choose>
@@ -170,10 +194,10 @@
 							            <span style="font-size: 18px;float: left; color: gray;">구매확정</span>
 						        	</c:when>
 						        </c:choose>
-						        
 						        </div>
 						    </div>
 						</div>
+
 					   	<div class="col-4" >
 					       	<!-- 오른쪽 -->
 							 <%-- <div class="row" style="float:right; font-size:12px">
@@ -245,8 +269,9 @@
     <script>
 	$(()=>{
 	    var date = new Date();
+	    date.setMonth(date.getMonth() - 3);
 	    $("#startDate").val(date.toISOString().substring(0, 10));
-	    date.setMonth(date.getMonth() + 1);
+	    var date = new Date();
 	    $("#endDate").val(date.toISOString().substring(0, 10));
 	});
 

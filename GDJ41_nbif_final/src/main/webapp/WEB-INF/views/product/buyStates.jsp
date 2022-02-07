@@ -30,20 +30,28 @@
            	</div> 
            	<div id="stateCount" class="row">
 	            <div class="subMenuTitle col" >
-	                전체<br> 0건
+	               <div>전체<br> 
+	               <c:out value="${salesCnt.get(0)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
-	                입찰중<br> 0건
+	               <div>입찰중<br> 
+	               <c:out value="${salesCnt.get(1)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
-	                구매대기<br> 0건
+	               <div>구매대기<br> 
+	               <c:out value="${salesCnt.get(2)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
-	                종료<br> 0건
+	               <div>종료<br> 
+	               <c:out value="${salesCnt.get(3)}"/>건 </div>
 	            </div>
            	</div>
 			<div class="row" style="">
 			<form action="${path }/member/buySearch?memberNo=2" method="post">
+			<input type="hidden" name="count" value="${salesCnt.get(0) }">
+			<input type="hidden" name="count" value="${salesCnt.get(1) }">
+			<input type="hidden" name="count" value="${salesCnt.get(2) }">
+			<input type="hidden" name="count" value="${salesCnt.get(3) }">
 			    <div class="row" style="height: 70px; background-color:lightgray; margin: 0; text-align: center; padding: 1% 0 1% 10%;">
 			        <!-- 검색 -->
 			        <div class="col-3"> 
@@ -69,7 +77,7 @@
            		         
            -->
            
-           ${productList[0].productNo.productStatus } <!-- 이 형태다 -->
+         <!--   ${productList[0].productNo.productStatus } 이 형태다 -->
  			<c:if test="${empty productList }">
 				<div style="text-align: center">
 				<hr>
@@ -201,8 +209,9 @@
     <script>
 	$(()=>{
 	    var date = new Date();
+	    date.setMonth(date.getMonth() - 3);
 	    $("#startDate").val(date.toISOString().substring(0, 10));
-	    date.setMonth(date.getMonth() + 1);
+	    var date = new Date();
 	    $("#endDate").val(date.toISOString().substring(0, 10));
 	});
 

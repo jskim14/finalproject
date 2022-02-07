@@ -118,18 +118,22 @@ ${myPageMember }
                 <a href="${path }/member/buyStates?memberNo=${loginMember.memberNo}" class="aColor">
                     <div class="myMenu card">
                         <div class="card-body salesState">
-                            <div class="subMenuTitle" >
-                                전체<br> 0건
-                            </div>
-                            <div class="subMenuTitle" >
-                                입찰 중<br> 0건
-                            </div>
-                            <div class="subMenuTitle" >
-                                구매대기<br> 0건
-                            </div>
-                            <div class="subMenuTitle" >
-                                종료<br> 0건
-                            </div>
+                            <div class="subMenuTitle col" >
+	               <div>전체<br> 
+	               <c:out value="${buyCnt.get(0)}"/>건 </div>
+	            </div>
+	            <div class="subMenuTitle col" >
+	               <div>입찰중<br> 
+	               <c:out value="${buyCnt.get(1)}"/>건 </div>
+	            </div>
+	            <div class="subMenuTitle col" >
+	               <div>구매대기<br> 
+	               <c:out value="${buyCnt.get(2)}"/>건 </div>
+	            </div>
+	            <div class="subMenuTitle col" >
+	               <div>종료<br> 
+	               <c:out value="${buyCnt.get(3)}"/>건 </div>
+	            </div>
                         </div>  
                     </div>
                 </a>
@@ -142,20 +146,28 @@ ${myPageMember }
                 <a href="${path }/member/salesStates?memberNo=${loginMember.memberNo}" class="aColor">
                     <div class="myMenu card">
                         <div class="card-body salesState">
-                            <div class="subMenuTitle" >
-                                전체<br> 0건
+                            <div class="subMenuTitle col">
+                                <div>전체<br>
+	                			<c:out value="${salesCnt.get(0)}"/>건 </div>
                             </div>
-                            <div class="subMenuTitle" >
-                                판매대기<br> 0건
-                            </div>
-                            <div class="subMenuTitle" >
-                                판매중<br> 0건
-                            </div>
-                            <div class="subMenuTitle" >
-                                종료<br> 0건
-                            </div>
-                        </div>  
-                    </div>
+                            <div class="subMenuTitle col" >
+				                <div>판매대기<br>
+				                <c:out value="${salesCnt.get(1)}"/>건 </div>
+				            </div>
+				            <div class="subMenuTitle col" >
+				                <div>판매중<br>
+				                <c:out value="${salesCnt.get(2)}"/>건 </div>
+				            </div>
+				            <div class="subMenuTitle col" >
+				                <div>판매완료<br>
+				                <c:out value="${salesCnt.get(3)}"/>건 </div>
+				            </div>
+				            <div class="subMenuTitle col" >
+				                <div>종료<br>
+				                <c:out value="${salesCnt.get(4)}"/>건 </div>
+				            </div>
+                    	</div>  
+                   </div>
                 </a>
             </div>
         </div>
