@@ -85,6 +85,11 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	@Override
+	public List<Product> selectListDeadLine(SqlSessionTemplate session) {
+		return session.selectList("product.selectListDeadLine");
+	}
+	
+	@Override
 	public List<Product> selectListLatest(SqlSessionTemplate session) {
 		return session.selectList("product.selectListLatest");
 	}

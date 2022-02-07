@@ -129,18 +129,6 @@
             $("#second-header>ul>li:nth-child(3),#second-header>ul>li:nth-child(5)").css({"display":"none"});
             $("#search-bar").val("");
         }
-        $("#search-bar").keyup(e=> {
-            let keyword = $(e.target).val();
-            if(keyword.length>0) {
-                $("#search-reset").css({"display":"block"});
-            }else if(keyword.length==0) {
-                $("#search-reset").css({"display":"none"});
-            }
-        });
-        $("#search-reset").click(e=> {
-            $("#search-bar").val("");
-            $("#search-reset").css({"display":"none"});
-        });
     </script>
 </body>
 </html>

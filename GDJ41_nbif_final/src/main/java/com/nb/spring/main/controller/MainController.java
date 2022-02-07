@@ -24,6 +24,7 @@ public class MainController {
 	public ModelAndView mainView(ModelAndView mv) {
 		int startNum = 0;
 		int finishNum = 3;
+		mv.addObject("deadLine", service.selectListDeadLine(startNum, finishNum));
 		mv.addObject("latest", service.selectListLatest(startNum, finishNum));
 		mv.setViewName("index");
 		return mv;
@@ -72,6 +73,13 @@ public class MainController {
 	@RequestMapping("/addLatest")
 	public void addLatest(int startNum, int finishNum, HttpServletResponse res) throws IOException {
 		List<Product> list = service.selectListLatest(startNum,finishNum);
+		res.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list, res.getWriter());
+	}
+	
+	@RequestMapping("/addDeatLine")
+	public void addDeatLine(int startNum, int finishNum, HttpServletResponse res) throws IOException {
+		List<Product> list = service.selectListDeadLine(startNum,finishNum);
 		res.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(list, res.getWriter());
 	}

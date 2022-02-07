@@ -89,6 +89,26 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return result;
 	}
+	
+	@Override
+	public List<Product> selectListDeadLine(int startNum, int finishNum) {
+		List<Product> result = new ArrayList<Product>();
+		List<Product> list = dao.selectListDeadLine(session);
+		if(list.size()>finishNum) {
+			for(int i=startNum; i<=finishNum; i++) {
+				Product p = list.get(i);
+				result.add(p);
+			}
+		}else if(list.size()<=startNum){
+			result = null;
+		}else {
+			for(int i=startNum; i<list.size(); i++) {
+				Product p = list.get(i);
+				result.add(p);
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public List<Product> selectListLatest(int startNum, int finishNum) {

@@ -176,10 +176,10 @@ Special Action</h2>
 					</div>
 				</div>
 				<div id="price">
-					<p>현재입찰가 : <span id="nowPrice"><fmt:formatNumber type='currency' value='50000'/></span></p>
+					<p>현재입찰가 : <span id="nowPrice"><fmt:formatNumber value='50000'/></span></p>
 				</div>
 				<div>
-					나의 잔액 : <span id="balance" style="font-weight: bold;"><fmt:formatNumber type="currency" value="${loginMember.balance }"/>원</span>
+					나의 잔액 : <span id="balance" style="font-weight: bold;"><fmt:formatNumber value="${loginMember.balance }"/>원</span>
 				</div>
 				<div style="padding-top:10px; display:flex;">
 					<div style="border:3px solid #C4C4C4; border-radius:20px; width:150px; margin-right:20px;">
@@ -199,19 +199,15 @@ Special Action</h2>
 		const socket = new WebSocket("ws://localhost:9090/ws/chat");
 		$("#sendBtn").click(e=> {
 			let price = $("#inputPrice").val();
-			let nowPrite = $("#nowPrice").text();
+			let nowPrice = $("#nowPrice").text();
 			let balance = $("#balance").text();
-			nowPrite = nowPrite.replace('₩','');
-			nowPrite = nowPrite.replace(',','');
-			balance = balance.replace('₩','');
-			balance = balance.replace(',','');
-			balance = balance.replace(',','');
-			balance = balance.replace('원','');
+			nowPrice = stringFormat(nowPrice);
+			balance = stringFormat(balance);
 			price = Number(price);
-			nowPrite = Number(nowPrite);
+			nowPrice = Number(nowPrice);
 			balance = Number(balance);
 			if(price<balance) {
-				if(price>nowPrite) {
+				if(price>nowPrice) {
 					send(price);
 					$("#inputPrice").val('');
 				}else {
@@ -243,6 +239,7 @@ Special Action</h2>
 					h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
 					userDiv.append(h5);
 					$("#section-right").append(userDiv);
+					$("#nowPrice").html(numberFormat(chat["price"]));
 				}
 			}else {
 				$("#userCount").html(message.data);
@@ -254,6 +251,25 @@ Special Action</h2>
 			$(e.target).parent().css({"border":"2px solid black","box-sizing":"border-box"});
 			$("#img-con-first").find("img").attr("src",imgSrc);
 		});
+		
+		function numberFormat (num) {
+		    if(num==0) return 0;
+		 
+		    var reg = /(^[+-]?\d+)(\d{3})/;
+		    var n = (num + '');
+		 
+		    while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+		 
+		    return n;
+		};
+
+		function stringFormat (num) {
+		   if(num==0) return 0;
+		   
+		   let strNum = num;
+		   
+		   return parseInt(strNum.replace(/,/g,'')); 
+		};
 	</script>
 </body>
 </html>
