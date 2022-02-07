@@ -66,31 +66,19 @@ public class MemberServiceImpl implements MemberService {
 		return dao.updatePassword(session,param);
 	}
 
-
-	public List<Product> salesWaitSearch(Map param) {
-		return dao.salesWaitSearch(session, param);
-	}
-
 	@Override
 	public List<Product> salesSearch(Map param) {
 		return dao.salesSearch(session, param);
 	}
 
 	@Override
-	public int updateBalance(DealType type, Map<String, Object> param) {
-		int result = dao.updateBalance(session, type,param);
-		
-		if(result>0) {
-			
-			
-			result = dao.insertWallet(session,param);
-			
-			return result;
-		}
-		
-		
-		return 0;
-		
+	public List<Member> buyList(String memberNo) {
+		return dao.buyList(session, memberNo);
+	}
+
+	@Override
+	public List<Member> buySearch(Map param) {
+		return dao.buySearch(session, param);
 	}
 
 	@Override
@@ -100,6 +88,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	
-	
+	@Override
+	public int updateBalance(DealType type, Map<String, Object> param) {
+		int result = dao.updateBalance(session, type,param);
+		if(result>0) {
+			result = dao.insertWallet(session,param);
+			return result;
+		}
+		return 0;
+	}
 
 }

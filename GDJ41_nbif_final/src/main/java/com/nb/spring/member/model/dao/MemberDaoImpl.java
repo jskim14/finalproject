@@ -59,16 +59,21 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.updatePassword", param);
 	}
 
-
-	public List<Product> salesWaitSearch(SqlSessionTemplate session, Map param) {
-		return session.selectList("member.salesWaitSearch", param);
-	}
-
 	@Override
 	public List<Product> salesSearch(SqlSessionTemplate session, Map param) {
 		return session.selectList("member.salesSearch", param);
 	}
 
+	@Override
+	public List<Member> buyList(SqlSessionTemplate session, String memberNo) {
+		return session.selectList("member.buyList",memberNo);
+	}
+
+	@Override
+	public List<Member> buySearch(SqlSessionTemplate session, Map param) {
+		return session.selectList("member.buySearch", param);
+	}
+	
 	@Override
 	public int updateBalance(SqlSessionTemplate session, DealType type, Map<String, Object> param) {
 		

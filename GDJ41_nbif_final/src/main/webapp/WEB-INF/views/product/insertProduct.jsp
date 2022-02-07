@@ -209,7 +209,7 @@
         
  
         
-         $(".inputBox").change(e=>{
+          $(".inputBox").change(e=>{
     		var numPattern = /([^0-9])/;
     		numPattern = $(e.target).val().match(numPattern);
     		if (numPattern != null) {
@@ -217,11 +217,11 @@
     			$(e.target).next().html("숫자만 입력이 가능합니다.").css("color","red");
     			return false;
     		} else {
-    			let comma = $(e.target).val().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    			$(e.target).val(comma+"원");
+//    			let comma = $(e.target).val().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//    			$(e.target).val(comma);
     			$(e.target).next().html("");
     		}
-        }) 
+        })  
 
     	
         

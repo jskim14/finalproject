@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -97,16 +96,6 @@ public class MemberController {
 		Member m = service.selectMember(memberNo);
 		mv.addObject("myPageMember",m);
 		mv.setViewName("login/myPage");
-		return mv;
-	}
-	
-	@RequestMapping("/salesStates")
-	public ModelAndView salesStates(String memberNo, ModelAndView mv) { //string memberNo 를 받아서 프로덕트의 셀러와 연결해서 프로덕트를 받아와 그것을 jsp에 보내줌
-		System.out.println(memberNo);
-		List<Product> list = service.salesList(memberNo);
-		
-		mv.addObject("productList",list);
-		mv.setViewName("product/salesStates");
 		return mv;
 	}
 	
@@ -298,28 +287,50 @@ public class MemberController {
 		return "login/loginView";
 	}
 	
-	
-	
-	
-
-	@RequestMapping(value = "/salesSearch", method=RequestMethod.POST)
-	public ModelAndView salesSearch (@RequestParam Map param, @RequestParam(value ="status", required = false ) String status, 
-			ModelAndView mv) { //memberNo, 상태, 날짜
-		System.out.println(param);
-		//if 판매대기 ---> dao 가서 여기서 0또는 2인거만 가져오고??
-		//else 나머지 
-		if(status.contains("판매대기")) {
-			List<Product> list = service.salesWaitSearch(param);
-			mv.addObject("productList",list);
-		} else {
-			List<Product> list = service.salesSearch(param);
-			mv.addObject("productList",list);
-		}
+	@RequestMapping("/salesStates")
+	public ModelAndView salesStates(String memberNo, ModelAndView mv) { //string memberNo 를 받아서 프로덕트의 셀러와 연결해서 프로덕트를 받아와 그것을 jsp에 보내줌
+		System.out.println(memberNo);
+		List<Product> list = service.salesList(memberNo);
 		
+		mv.addObject("productList",list);
 		mv.setViewName("product/salesStates");
 		return mv;
-//		return "product/salesStates";
 	}
 
+	@RequestMapping(value = "/salesSearch", method=RequestMethod.POST)
+	public String salesSearch ( @RequestParam(value = "status", required=false ) 
+	String status, String startDate, String endDate, String memberNo, Model m) {
+		Map param = new HashMap<>();
+			param.put("startDate", startDate);
+			param.put("endDate", endDate);
+			param.put("status", status);
+			param.put("memberNo", memberNo);
+		List<Product> list = service.salesSearch(param);
+
+		m.addAttribute("productList",list);
+		return "product/salesStates";
+	}
+	
+	@RequestMapping("/buyStates")
+	public ModelAndView buyStates(String memberNo, ModelAndView mv) {
+		List<Member> list = service.buyList(memberNo);
+		mv.addObject("productList",list.get(0).getWalletList());
+		mv.setViewName("product/buyStates");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/buySearch", method=RequestMethod.POST)
+	public String buySearch ( @RequestParam(value = "status", required=false ) 
+	String status, String startDate, String endDate, String memberNo, Model m) {
+		Map param = new HashMap<>();
+			param.put("startDate", startDate);
+			param.put("endDate", endDate);
+			param.put("status", status);
+			param.put("memberNo", memberNo);
+		List<Member> list = service.buySearch(param);
+
+		m.addAttribute("productList",list.get(0).getWalletList());
+		return "product/buyStates";
+	}
 	
 }
