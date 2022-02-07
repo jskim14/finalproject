@@ -1,10 +1,12 @@
 package com.nb.spring.cs.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.nb.spring.cs.model.dao.CustomerServiceDao;
 import com.nb.spring.cs.model.vo.Notice;
@@ -19,14 +21,20 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
 	private SqlSessionTemplate session;
 
 	@Override
-	public List<Notice> selectNoticeList() {
-		return dao.selectNoticeList(session);
+	public List<Notice> selectNoticeList(Model model) {
+		return dao.selectNoticeList(session, model);
 	}
 
 	@Override
-	public List<Qna> selectQnaList() {
-		return dao.selectQnaList(session);
+	public List<Qna> selectQnaList(Model model) {
+		return dao.selectQnaList(session, model);
 	}
+
+	@Override
+	public int insertNotice(Map<String,String> param) {
+		return dao.insertNotice(session, param);
+	}
+	
 	
 	
 }

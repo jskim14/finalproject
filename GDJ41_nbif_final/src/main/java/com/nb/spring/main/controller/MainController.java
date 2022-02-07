@@ -65,10 +65,6 @@ public class MainController {
 		return "/report/chatting";
 	}
 	
-	@RequestMapping("/cs/notice")
-	public String csView() {
-		return "/cs/customerservice";
-	}
 	
 	@RequestMapping("/addLatest")
 	public void addLatest(int startNum, int finishNum, HttpServletResponse res) throws IOException {
@@ -84,3 +80,4 @@ public class MainController {
 		new Gson().toJson(list, res.getWriter());
 	}
 }
+
