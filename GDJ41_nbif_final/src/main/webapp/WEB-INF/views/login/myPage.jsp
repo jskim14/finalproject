@@ -37,11 +37,12 @@
                 <div id="infoRight" class="card-body infobox" style="margin: 0;">
                     <span class="subTitle" >이머니관리</span><br>
                     <div style="margin-top: 3%;">
+                        <a href="${path }/member/emoneyDetail?memberNo=${loginMember.memberNo}" class="aColor">
                         <span style="font-size: 20px">사용가능 잔액 </span> 
                         <span><fmt:formatNumber value="${myPageMember.balance }" pattern="#,###"/>원</span>
+                        </a>
                         <div style="float: right;">
-                            <button type="button" class="btn btn-secondary btnColor">충전</button>
-                            <button type="button" class="btn btn-secondary btnColorOther">사용</button>
+                            <button type="button" class="btn btn-secondary btnColor">충전하기</button>
                         </div>
                     </div>
                 </div>

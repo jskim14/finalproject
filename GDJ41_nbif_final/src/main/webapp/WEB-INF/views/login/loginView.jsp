@@ -11,6 +11,12 @@
 </c:if>
 <section style="padding: 200px 10%;">
 	<form action="${path}/member/loginMember" method="post">
+	<div class="row mb-3">
+            <div style="display: flex; justify-content: center;">
+                <h1>로그인</h1>
+            </div>
+        </div>
+        <hr>
 		<div class="container-fluid">
 			<div class="row mb-3">
 				<div class="col-3"></div>

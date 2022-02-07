@@ -478,4 +478,14 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping("/emoneyDetail")
+	public ModelAndView emoneyDetail(String memberNo, ModelAndView mv) {
+		List<Wallet> list = service.emoneyDetail(memberNo);
+		Member m = service.selectMember(memberNo);
+		mv.addObject("m",m);
+		mv.addObject("list",list);
+		mv.setViewName("login/emoneyDetail");
+		return mv;
+	}
+	
 }
