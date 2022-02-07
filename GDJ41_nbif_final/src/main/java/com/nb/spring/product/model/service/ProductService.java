@@ -23,6 +23,8 @@ public interface ProductService {
 	Product updateProduct(String productNo);
 	
 	int updateProductEnd(Product p);
+	
+	List<Product> selectListDeadLine(int startNum, int finishNum);
 
 	List<Product> selectListLatest(int startNum, int finishNum);
 

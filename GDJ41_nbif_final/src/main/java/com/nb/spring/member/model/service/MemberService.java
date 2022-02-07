@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.member.model.vo.Wallet;
 import com.nb.spring.product.model.vo.Product;
 
 public interface MemberService {
@@ -32,9 +33,9 @@ public interface MemberService {
 	List<Member> buySearch(Map param);
 
 	int updateBalance(DealType type, Map<String, Object> param);
+	
+	int shippingSelect(String productNo);
 
 	int updateDeliveryAddress(Map<String,String> param);
-
-	
 
 }

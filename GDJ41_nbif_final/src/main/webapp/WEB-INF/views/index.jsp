@@ -53,92 +53,93 @@
 	<div id="list-con">
 		<h4>DeadLine imminent</h4>
 		<h6>마감임박상품</h6>
-		<ul>
-			<li><a href="${path }/product/productDetail?productNo=FS2401221">
-					<div class="goods-box">
-						<img
-							src="https://image.msscdn.net/images/goods_img/20190723/1100781/1100781_1_500.jpg"
-							width="250" height="200" style="margin-bottom: 12px;">
-						<p>
-							<strong style="font-size: 20px;">레고하우스 심슨</strong><br>
-							현재입찰가&nbsp <span class="price1">280,000</span> 원<br>
-							즉시구매가&nbsp <span class="price2">420,000</span> 원<br>
-							판매자&nbsp <strong>sunny724</strong>
-						</p>
-					</div>
-			</a></li>
-			<li><a href="">
-					<div class="goods-box">
-						<img
-							src="https://image.msscdn.net/images/goods_img/20190723/1100781/1100781_1_500.jpg"
-							width="250" height="200" style="margin-bottom: 12px;">
-						<p>
-							<strong style="font-size: 20px;">레고하우스 심슨</strong><br>
-							현재입찰가&nbsp <span class="price1">280,000</span> 원<br>
-							즉시구매가&nbsp <span class="price2">420,000</span> 원<br>
-							판매자&nbsp <strong>sunny724</strong>
-						</p>
-					</div>
-			</a></li>
-			<li><a href="">
-					<div class="goods-box">
-						<img
-							src="https://image.msscdn.net/images/goods_img/20190723/1100781/1100781_1_500.jpg"
-							width="250" height="200" style="margin-bottom: 12px;">
-						<p>
-							<strong style="font-size: 20px;">레고하우스 심슨</strong><br>
-							현재입찰가&nbsp <span class="price1">280,000</span> 원<br>
-							즉시구매가&nbsp <span class="price2">420,000</span> 원<br>
-							판매자&nbsp <strong>sunny724</strong>
-						</p>
-					</div>
-			</a></li>
-			<li><a href="">
-					<div class="goods-box">
-						<img
-							src="https://image.msscdn.net/images/goods_img/20190723/1100781/1100781_1_500.jpg"
-							width="250" height="200" style="margin-bottom: 12px;">
-						<p>
-							<strong style="font-size: 20px;">레고하우스 심슨</strong><br>
-							현재입찰가&nbsp <span class="price1">280,000</span> 원<br>
-							즉시구매가&nbsp <span class="price2">420,000</span> 원<br>
-							판매자&nbsp <strong>sunny724</strong>
-						</p>
-					</div>
-			</a></li>
-		</ul>
+		<div>
+			<c:if test="${not empty deadLine }">
+			<ul style="overflow: hidden;">
+				<c:forEach var="p" items="${deadLine }">
+					<li style="width: 25%;">
+						<a href="${path }/product/productDetail?productNo=${p.productNo}">
+							<div class="goods-box">
+								<c:if test="${not empty p.images}">
+								<img src="${path }/resources/upload/product/${p.images.get(0).imageName}"
+								width="270" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								</c:if>
+								<c:if test="${empty p.images}">
+								<img src="${path }/resources/images/"
+								width="270" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								</c:if>
+								<p>
+									<strong style="font-size: 15px">${p.productName }</strong><br>
+									<c:if test="${p.nowBidPrice != null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									</c:if>
+									<c:if test="${p.nowBidPrice == null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									</c:if>
+									<c:if test="${p.buyNowPrice != null }">
+									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+									</c:if>
+									<c:if test="${p.buyNowPrice == null }">
+									즉시구매불가<br>
+									</c:if>
+									판매자&nbsp;<strong>${p.seller.nickName }</strong>
+							</div>
+						</a>
+					</li>
+				</c:forEach>
+			</ul>
+			<button id="deadLineBtn">더보기</button>
+			</c:if>
+			<c:if test="${empty deadLine }">
+			<h3 style="text-align: center; padding: 20px 20px;">마감 임박중인 상품이 없습니다.</h3>
+			</c:if>
+		</div>
 		<h4>Latest sale</h4>
 		<h6>최신판매상품</h6>
-		<ul style="overflow: hidden;">
-			<c:forEach var="p" items="${latest }">
-				<li style="width: 25%;">
-					<a href="${path }/product/productDetail?productNo=${p.productNo}">
-						<div class="goods-box">
-							<img src=""
-							width="250" height="200" style="margin-bottom: 12px;">
-							<p>
-								<strong style="font-size: 15px">${p.productName }</strong><br>
-								<c:if test="${p.nowBidPrice != null }">
-								현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+		<div>
+			<c:if test="${not empty latest }">
+			<ul style="overflow: hidden;">
+				<c:forEach var="p" items="${latest }">
+					<li style="width: 25%;">
+						<a href="${path }/product/productDetail?productNo=${p.productNo}">
+							<div class="goods-box">
+								<c:if test="${not empty p.images}">
+								<img src="${path }/resources/upload/product/${p.images.get(0).imageName}"
+								width="270" height="200" style="margin-bottom: 12px; border-radius: 20px;">
 								</c:if>
-								<c:if test="${p.nowBidPrice == null }">
-								현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+								<c:if test="${empty p.images}">
+								<img src="${path }/resources/images/"
+								width="270" height="200" style="margin-bottom: 12px; border-radius: 20px;">
 								</c:if>
-								<c:if test="${p.buyNowPrice != null }">
-								즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
-								</c:if>
-								<c:if test="${p.buyNowPrice == null }">
-								즉시구매불가<br>
-								</c:if>
-								판매자&nbsp;<strong>${p.seller.nickName }</strong>
-						</div>
-					</a>
-				</li>
-			</c:forEach>
-		</ul>
-		<button id="latestBtn">더보기</button>
+								<p>
+									<strong style="font-size: 15px">${p.productName }</strong><br>
+									<c:if test="${p.nowBidPrice != null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									</c:if>
+									<c:if test="${p.nowBidPrice == null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									</c:if>
+									<c:if test="${p.buyNowPrice != null }">
+									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+									</c:if>
+									<c:if test="${p.buyNowPrice == null }">
+									즉시구매불가<br>
+									</c:if>
+									판매자&nbsp;<strong>${p.seller.nickName }</strong>
+							</div>
+						</a>
+					</li>
+				</c:forEach>
+			</ul>
+			<button id="latestBtn">더보기</button>
+			</c:if>
+			<c:if test="${empty latest }">
+			<h3 style="text-align: center; padding: 20px 20px;">최신 판매 등록된 상품이 없습니다.</h3>
+			</c:if>
+		</div>
 		<h4>DeadLine imminent</h4>
 		<h6>마감임박상품</h6>
+		<div>
 		<ul>
 			<li><a href="">
 					<div class="goods-box">
@@ -193,6 +194,7 @@
 					</div>
 			</a></li>
 		</ul>
+		</div>
 	</div>
 	<button onclick="websocket();">버튼</button>
 	<div style="padding-left: 6.7%; background-color: #FFD481;">
@@ -216,65 +218,46 @@
   	const websocket=()=> {
   		open("${path }/product/realtimeaction","_blank","width=1100, height=700, left=150");
   	}
+  	let deadStartNum = 4;
+  	let deadFinishNum = 7;
+  	$("#deadLineBtn").click(e=> {
+  		let div = $(e.target).parent();
+  		if(div.children("ul").length>=2) {
+  			let deadStartNum = deadStartNum + 4;
+  			let deadFinishNum = deadFinishNum + 4;
+  		}
+  		$.ajax({
+  			url : "${path}/addDeatLine",
+  			dataType : "json",
+  			data : {"startNum" : deadStartNum , "finishNum" : deadFinishNum},
+  			success : data => {
+  				if(data!=null) {
+  					addList(data,$(e.target));
+  				}else {
+  					$(e.target).remove();
+  				}
+  				if(data.length<4) {
+						$(e.target).remove();
+				}
+  			}
+  		});
+  	});
+  	
+  	let latestStartNum = 4;
+  	let latestFinishNum = 7;
   	$("#latestBtn").click(e=> {
+  		let div = $(e.target).parent();
+  		if(div.children("ul").length>=2) {
+  			latestStartNum = latestStartNum + 4;
+  			latestFinishNum = latestFinishNum + 4;
+  		}
   		$.ajax({
   			url : "${path}/addLatest",
   			dataType : "json",
-  			data : {"startNum" : 4 , "finishNum" : 7},
+  			data : {"startNum" : latestStartNum , "finishNum" : latestFinishNum},
   			success : data => {
-  				console.log($(e.target).prev("ul"));
   				if(data!=null) {
-  					let ul = $("<ul>");
-  					for(let i=0; i<data.length; i++) {
-  						let pro = data[i];
-  						let li = $("<li>");
-  						li.css("width","25%");
-  						let a = $("<a>");
-  						a.attr("href","${path}/product/productDetail?productNo=" + pro["productNo"]);
-  						let div = $("<div>");
-  						div.attr("class","goods-box");
-  						let img = $("<img>");
-  						img.attr({"src":"","width":"250","height":"200","style":"margin-bottom: 12px"});
-  						let p = $("<p>");
-  						let strong = $("<strong>");
-  						strong.append(pro["productName"]);
-  						p.append(strong);
-  						p.append("<br>");
-  						let span = $("<span>");
-  						span.attr("class","price1");
-  						if(pro["nowBidPrice"]!=null) {
-  							span.append(numberFormat(pro["nowBidPrice"]));
-  							p.append("현재입찰가 &nbsp;");
-  							p.append(span);
-  							p.append("<br>");
-  						}else {
-  							span.append(numberFormat(pro["minBidPrice"]));
-  							p.append("현재입찰가 &nbsp;");
-  							p.append(span);
-  							p.append("<br>");
-  						}
-  						let span2 = $("<span>");
-  						span2.attr("class","price2");
-  						if(pro["buyNowPrice"]!=null) {
-  							span2.append(numberFormat(pro["buyNowPrice"]));
-  							p.append("즉시구매가 &nbsp;");
-  							p.append(span2);
-  							p.append("<br>");
-  						}else {
-  							p.append("즉시구매불가");
-  							p.append("<br>");
-  						}
-  						p.append("판매자 &nbsp;")
-  						let strong2 = $("<strong>");
-  						strong2.append(pro["seller"]["nickName"]);
-  						p.append(strong2);
-  						div.append(img);
-  						div.append(p);
-  						a.append(div);
-  						li.append(a);
-  						ul.append(li);
-  					}
-  					$(e.target).prev().after(ul);
+  					addList(data,$(e.target));
   				}else {
   					$(e.target).remove();
   				}
@@ -294,5 +277,67 @@
   		 
   		    return n;
   	};
+  	function addList(data,btn) {
+  		let ul = $("<ul>");
+			for(let i=0; i<data.length; i++) {
+				let pro = data[i];
+				let li = $("<li>");
+				li.css("width","25%");
+				let a = $("<a>");
+				a.attr("href","${path}/product/productDetail?productNo=" + pro["productNo"]);
+				let div = $("<div>");
+				div.attr("class","goods-box");
+				let img = $("<img>");
+				img.attr({"src":"${path}/resources/images/","width":"270","height":"200","style":"margin-bottom: 12px border-radius: 20px;"});
+				let p = $("<p>");
+				let strong = $("<strong>");
+				strong.append(pro["productName"]);
+				p.append(strong);
+				p.append("<br>");
+				let span = $("<span>");
+				span.attr("class","price1");
+				if(pro["nowBidPrice"]!=null) {
+					span.append(numberFormat(pro["nowBidPrice"]));
+					p.append("현재입찰가 &nbsp;");
+					p.append(span);
+					p.append("<br>");
+				}else {
+					span.append(numberFormat(pro["minBidPrice"]));
+					p.append("현재입찰가 &nbsp;");
+					p.append(span);
+					p.append("<br>");
+				}
+				let span2 = $("<span>");
+				span2.attr("class","price2");
+				if(pro["buyNowPrice"]!=null) {
+					span2.append(numberFormat(pro["buyNowPrice"]));
+					p.append("즉시구매가 &nbsp;");
+					p.append(span2);
+					p.append("<br>");
+				}else {
+					p.append("즉시구매불가");
+					p.append("<br>");
+				}
+				p.append("판매자 &nbsp;")
+				let strong2 = $("<strong>");
+				strong2.append(pro["seller"]["nickName"]);
+				p.append(strong2);
+				div.append(img);
+				div.append(p);
+				a.append(div);
+				li.append(a);
+				ul.append(li);
+			}
+			liList(ul);
+			$(btn).prev().after(ul);
+  	}
+  	function liList(ul) {
+  		let num = ul.children().length;
+  		for(let i=1; i<=(4-num); i++) {
+  			let li = $("<li>");
+  			li.css({"border":"none","box-shadow":"none"});
+  			ul.append(li);
+  		} 
+  	}
 </script>
 <jsp:include page="${path}/WEB-INF/views/common/footer.jsp" />

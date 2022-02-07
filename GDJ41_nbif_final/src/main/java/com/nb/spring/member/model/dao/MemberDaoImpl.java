@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.nb.spring.common.BalanceType;
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.member.model.vo.Wallet;
 import com.nb.spring.product.model.vo.Product;
 
 @Repository
@@ -91,10 +92,14 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public int shippingSelect(SqlSessionTemplate session, String memberNo) {
+		return session.update("member.shippingSelect", memberNo);
+	}
+	
+	@Override
 	public int updateDeliveryAddress(SqlSessionTemplate session, Map<String,String> param) {
 		
 		return session.update("member.updateDeliveryAddress", param);
 	}
 
-	
 }

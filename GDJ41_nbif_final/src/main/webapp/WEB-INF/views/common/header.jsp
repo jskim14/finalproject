@@ -38,14 +38,16 @@
 	                        <li>
 	                            <a href="${path }/cs/noticeList">고객센터</a>
 	                        </li>
-                       		 <li>
-	                        	<c:if test="${loginMember == null }">
+	                       	<c:if test="${loginMember == null }">
+	                        <li>
 	                            <a href="${path}/member/enrollMember">회원가입</a>
-	                            </c:if>
-	                            <c:if test="${loginMember != null }">
+	                        </li>
+	                        </c:if>
+                            <c:if test="${loginMember != null }">
+                            <li>
 	                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a>
-	                            </c:if>
 	                         </li>
+                            </c:if>
 						 </c:if>
 							<c:if test="${admin!=null and admin==true }">
 								<!--관리자 메뉴  -->
@@ -53,28 +55,27 @@
 									<a href="${path}/admin/productManage">물품관리</a>
 								</li>
 							</c:if>
-                       	
-	                        <li>
                         	<c:if test="${loginMember == null}">
-	                            <a href="${path}/member/login">로그인</a>
-                        	</c:if>
-	                        </li>
 	                        <li>
+	                            <a href="${path}/member/login">로그인</a>
+	                        </li>
+                        	</c:if>
 	                        <c:if test="${loginMember != null}">
+	                        <li>
 	                        	<style>
-	                        		#first-header>ul {left:71%;}
+	                        		#first-header>ul {left:72%;}
 	                        	</style>
 		                            <a href="${path}/member/logout">로그아웃</a>
-	                        </c:if>
 	                        </li>
+	                        </c:if>
                     </ul>
                 </div>
                 <div id="second-header">
                     <h2><a href="${path }/"><img src="${path}/resources/images/NBIF.png" width="120px" height="40px"></a></h2>
                     <ul>
-                        <li><a href="">SPECIAL AUCTION</a></li>
-                        <li><a href="">AUCTION ITEMS</a></li>
-                        <li style="display: none;"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."><span id="search-reset" style="display: none;"><a href="javascript:search_reset()"><img src="${path}/resources/images/searchreset.png" width="20px" height="20px"></a></span></li>
+                        <li style="width:200px"><a href="">SPECIAL AUCTION</a></li>
+                        <li style="width:200px"><a href="">AUCTION ITEMS</a></li>
+                        <li style="display: none; width:400px"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></li>
                         <li><a href="javascript:search_btn()"><span><img src="${path}/resources/images/search.png" width="30px" height="30px"></span></a></li>
                         <li style="display: none;"><a href="javascript:search_btn_close()"><span><img src="${path}/resources/images/xxx.png" width="20px" height="20px"></span></a></li>
                     </ul>
