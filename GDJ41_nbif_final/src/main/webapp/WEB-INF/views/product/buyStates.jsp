@@ -28,30 +28,30 @@
            	<div class="pageTitle row">
            		<span>구매현황</span>
            	</div> 
-           	<div id="stateCount" class="row">
+            	<div id="stateCount" class="row">
 	            <div class="subMenuTitle col" >
 	               <div>전체<br> 
-	               <c:out value="${salesCnt.get(0)}"/>건 </div>
+	               <c:out value="${buyCnt.get(0)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
 	               <div>입찰중<br> 
-	               <c:out value="${salesCnt.get(1)}"/>건 </div>
+	               <c:out value="${buyCnt.get(1)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
 	               <div>구매대기<br> 
-	               <c:out value="${salesCnt.get(2)}"/>건 </div>
+	               <c:out value="${buyCnt.get(2)}"/>건 </div>
 	            </div>
 	            <div class="subMenuTitle col" >
 	               <div>종료<br> 
-	               <c:out value="${salesCnt.get(3)}"/>건 </div>
+	               <c:out value="${buyCnt.get(3)}"/>건 </div>
 	            </div>
            	</div>
 			<div class="row" style="">
-			<form action="${path }/member/buySearch?memberNo=2" method="post">
-			<input type="hidden" name="count" value="${salesCnt.get(0) }">
-			<input type="hidden" name="count" value="${salesCnt.get(1) }">
-			<input type="hidden" name="count" value="${salesCnt.get(2) }">
-			<input type="hidden" name="count" value="${salesCnt.get(3) }">
+			<form action="${path }/member/buySearch?memberNo=${loginMember.memberNo}" method="post">
+			<input type="hidden" name="count" value="${buyCnt.get(0) }">
+			<input type="hidden" name="count" value="${buyCnt.get(1) }">
+			<input type="hidden" name="count" value="${buyCnt.get(2) }">
+			<input type="hidden" name="count" value="${buyCnt.get(3) }">
 			    <div class="row" style="height: 70px; background-color:lightgray; margin: 0; text-align: center; padding: 1% 0 1% 10%;">
 			        <!-- 검색 -->
 			        <div class="col-3"> 
@@ -78,10 +78,10 @@
            -->
            
          <!--   ${productList[0].productNo.productStatus } 이 형태다 -->
- 			<c:if test="${empty productList }">
+ 			<c:if test="${empty productList}">
 				<div style="text-align: center">
 				<hr>
-				구매한 물품이 없습니다. 한번 구매해봐~~
+				구매한 물품이 없습니다. 새로운 물품을 구매해보세요.
 				</div>
 			</c:if>
 			<c:if test="${not empty productList }">
@@ -167,16 +167,16 @@
 								    	내가입찰<br><c:out value="${p.amount }"/>
 								    </div>
 							    	<div class="col">
-								        현재입찰가<br><c:out value="${p.productNo.nowBidPrice }"/>
+								        현재입찰가<br><fmt:formatNumber value="${p.productNo.nowBidPrice }" pattern="#,###"/>원
 								    </div>
 								    <div class="col">
 								        마감일<br><c:out value="${p.productNo.endDate }"/>
 								    </div>
 						        </c:when>
-						        <c:when test="${(p.productNo.productStatus eq '2' or p.productNo.productStatus eq '3') 
+						        <c:when test="${(p.productNo.productStatus eq '1' or p.productNo.productStatus eq '2' or p.productNo.productStatus eq '3') 
 						        and p.productNo.highestBidder.memberNo eq loginMember.memberNo }"> <!-- 구매대기(입완) -->
 								    <div class="col">
-								    	최종구매가격<br><c:out value="${p.productNo.finalPrice }"/>
+								    	최종구매가격<br><fmt:formatNumber value="${p.productNo.finalPrice }" pattern="#,###"/>원
 								    </div>
 							    	<div class="col">
 								        판매자<br><c:out value="${p.productNo.seller.nickName }"/>

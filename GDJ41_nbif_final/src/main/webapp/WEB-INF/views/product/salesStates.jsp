@@ -51,7 +51,7 @@
 	            </div>
            	</div>
 			<div class="row" style="">
-			<form action="${path }/member/salesSearch?memberNo=2" method="post">
+			<form action="${path }/member/salesSearch?memberNo=${loginMember.memberNo}" method="post">
 			<input type="hidden" name="count" value="${salesCnt.get(0) }">
 			<input type="hidden" name="count" value="${salesCnt.get(1) }">
 			<input type="hidden" name="count" value="${salesCnt.get(2) }">
@@ -220,7 +220,7 @@
 						        </c:when>
 							 	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '0' }"> <!-- 판매중 -->
 								    <div class="col">
-								    	현재최고입찰가<br><c:out value="${p.nowBidPrice }"/>
+								    	현재최고입찰가<br><fmt:formatNumber value="${p.nowBidPrice }" pattern="#,###"/>원
 								    </div>
 							    	<div class="col">
 								        최고입찰자<br><c:out value="${p.highestBidder.nickName }"/>
@@ -231,7 +231,7 @@
 						        </c:when>
 						        <c:when test="${p.permissionYn eq '1' and p.productStatus eq '1' }"> <!-- 입완 -->
 								    <div class="col">
-								    	판매가<br><c:out value="${p.finalPrice }"/>
+								    	판매가<br><fmt:formatNumber value="${p.finalPrice }" pattern="#,###"/>원
 								    </div>
 							    	<div class="col">
 								        구매자<br><c:out value="${p.highestBidder.nickName }"/>

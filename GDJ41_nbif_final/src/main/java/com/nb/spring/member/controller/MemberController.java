@@ -113,7 +113,7 @@ public class MemberController {
 			if(p.getPermissionYn().equals("1") && p.getProductStatus().equals("0")) { //판매중
 				sales++;
 			}
-			if(p.getProductStatus().equals("1")|| p.getProductStatus().equals("1")||p.getProductStatus().equals("1")) { //판매완료
+			if(p.getProductStatus().equals("1")|| p.getProductStatus().equals("2")||p.getProductStatus().equals("3")) { //판매완료
 				soldOut++;
 			}
 			if(p.getProductStatus().equals("4") || p.getProductStatus().equals("5")) { //종료
@@ -394,7 +394,7 @@ public class MemberController {
 		return "product/salesStates";
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
+//	@SuppressWarnings("unlikely-arg-type")
 	@RequestMapping("/buyStates")
 	public ModelAndView buyStates(String memberNo, ModelAndView mv) {
 		List<Member> list = service.buyList(memberNo);
@@ -418,16 +418,16 @@ public class MemberController {
 						&& p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo)) { //종료
 					status3++;
 				}
-				if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
-						&& !(p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo))) { //종료
-					status3++;
-				}
+//				if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
+//						&& !(p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo))) { //종료
+//					status3++;
+//				}
 
 			}
 		}
-		
 		List<Integer> intList = List.of(total,status1,status2,status3);
-		mv.addObject("salesCnt", intList);
+
+		mv.addObject("buyCnt", intList);
 		mv.addObject("productList",list.get(0).getWalletList());
 //		mv.addObject("productList",list);
 		mv.setViewName("product/buyStates");
@@ -445,7 +445,7 @@ public class MemberController {
 			param.put("memberNo", memberNo);
 		List<Member> list = service.buySearch(param);
 
-		m.addAttribute("salesCnt", count);
+		m.addAttribute("buyCnt", count);
 		m.addAttribute("productList",list.get(0).getWalletList());
 //		m.addAttribute("productList",list);
 		return "product/buyStates";
