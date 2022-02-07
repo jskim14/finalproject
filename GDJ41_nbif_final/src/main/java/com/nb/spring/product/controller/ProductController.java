@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.common.DealType;
 import com.nb.spring.common.MsgModelView;
+import com.nb.spring.common.ProductType;
 import com.nb.spring.common.WalletType;
 import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.vo.Member;
@@ -234,6 +235,12 @@ public class ProductController {
 		Product product = productService.selectOneProductNo(productNo);
 		Member m = memberService.selectMember(loginMember.getMemberNo());
 		
+		
+		if(Integer.parseInt(product.getProductStatus())!=ProductType.SELLING.ordinal()) {
+			return msgBuild(mv,"/","입찰중인 상품이 아닙니다.");
+		}
+		
+		
 		//사용자 잔고 
 		int balance = Integer.parseInt(m.getBalance());
 		//제품 즉시 구매가 
@@ -272,18 +279,51 @@ public class ProductController {
 		
 		//통과
 		
+		//END DATE -> SYSDATE
+		//FINALPRICE -> 즉시 구매가 
+		// WALLET
+		//PRODUCTSTATUS -> 1 
+		//HIGHESTBIDDER -> 구매자 
 		
-		
-		
-		
-		
-		
-		
+		result = exeBuyNow(m,product);
 		log.debug("{}",param);
+	
+		if(result>0) {
+			return msgBuild(mv,"/","구매 완료");
+		}else {
+			return msgBuild(mv,"/","구매 실패-관리자에게 문의하세요!");
+		}
 		
-		return null;
 	}
 	
+	private int exeBuyNow(Member m , Product p) {
+		
+		Map<String,Object> param = Map.of(
+					"highestBidder", m.getMemberNo(),
+					"productStatus", ProductType.SUCCESS,
+					"finalPrice", p.getBuyNowPrice(),
+					"productNo",p.getProductNo()
+				);
+		
+		
+		
+		int result = productService.updateProductBuyNow(param);
+		
+		if(result>0) {
+			Map<String,Object> param2 = Map.of(
+						"bidPrice", p.getBuyNowPrice(),
+						"memberNo", m.getMemberNo(),
+						"dealType", DealType.OUTPUT,
+						"walletType",WalletType.BUYNOW,
+						"productNo",p.getProductNo()
+					);
+			result = memberService.updateBalance(DealType.OUTPUT, param2);
+		}
+		
+		
+		
+		return result;
+	}
 	
 
 	@RequestMapping("/bid")

@@ -33,4 +33,6 @@ public interface ProductDao {
 
 	List<Map<String, String>> selectBidderList(SqlSessionTemplate session, String productNo);
 
+	int updateProductBuyNow(SqlSessionTemplate session, Map<String, Object> param);
+
 }

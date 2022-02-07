@@ -77,6 +77,12 @@ public class ProductDaoImpl implements ProductDao {
 		return session.selectList("product.selectBidderList",productNo);
 		
 	}
+
+	@Override
+	public int updateProductBuyNow(SqlSessionTemplate session, Map<String, Object> param) {
+		
+		return session.update("product.updateProductBuyNow", param);
+	}
 	
 	
 	

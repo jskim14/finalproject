@@ -26,4 +26,6 @@ public interface ProductService {
 
 	List<Map<String, String>> selectBidderList(String productNo);
 
+	int updateProductBuyNow(Map<String, Object> param);
+
 }

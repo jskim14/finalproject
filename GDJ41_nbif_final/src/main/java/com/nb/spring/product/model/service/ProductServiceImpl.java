@@ -95,4 +95,10 @@ public class ProductServiceImpl implements ProductService {
 		return dao.selectBidderList(session,productNo);
 	}
 
+	@Override
+	public int updateProductBuyNow(Map<String, Object> param) {
+		
+		return dao.updateProductBuyNow(session,param);
+	}
+
 }
