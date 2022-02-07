@@ -1,6 +1,7 @@
 package com.nb.spring.member.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,4 +24,5 @@ public class Member {
 	private Date enrollDate;
 	private String balance;
 	private String rank;
+	private List<Wallet> walletList;
 }

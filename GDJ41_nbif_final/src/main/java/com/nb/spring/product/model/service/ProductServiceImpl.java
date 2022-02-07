@@ -109,4 +109,16 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return result;
 	}
+	
+	public List<Map<String, String>> selectBidderList(String productNo) {
+		
+		return dao.selectBidderList(session,productNo);
+	}
+
+	@Override
+	public int updateProductBuyNow(Map<String, Object> param) {
+		
+		return dao.updateProductBuyNow(session,param);
+	}
+
 }

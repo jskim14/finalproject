@@ -24,12 +24,17 @@ public interface MemberService {
 	Member selectMemberPhoneEmail(Map<String, String> param);
 
 	int updatePassword(Map<String,String> param);
-
-	
-	List<Product> salesWaitSearch(Map param);
 	
 	List<Product> salesSearch(Map param);
+	
+	List<Member> buyList(String memberNo);
+	
+	List<Member> buySearch(Map param);
 
 	int updateBalance(DealType type, Map<String, Object> param);
+
+	int updateDeliveryAddress(Map<String,String> param);
+
+	
 
 }
