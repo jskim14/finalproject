@@ -40,4 +40,8 @@ public interface MemberDao {
 	
 	int shippingSelect(SqlSessionTemplate session, String memberNo);
 
+	int updateDeliveryAddress(SqlSessionTemplate session, Map<String,String>param);
+
+	
+
 }

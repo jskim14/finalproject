@@ -81,6 +81,13 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> buySearch(Map param) {
 		return dao.buySearch(session, param);
 	}
+
+	@Override
+	public int updateDeliveryAddress(Map<String,String> param) {
+		
+		return dao.updateDeliveryAddress(session,param);
+	}
+
 	
 	@Override
 	public int updateBalance(DealType type, Map<String, Object> param) {

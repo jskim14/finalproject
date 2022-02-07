@@ -96,6 +96,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.shippingSelect", memberNo);
 	}
 	
-	
+	public int updateDeliveryAddress(SqlSessionTemplate session, Map<String,String> param) {
+		
+		return session.update("member.updateDeliveryAddress", param);
+	}
 
 }

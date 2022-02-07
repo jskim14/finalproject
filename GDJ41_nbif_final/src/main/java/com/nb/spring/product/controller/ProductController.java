@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nb.spring.common.BalanceType;
 import com.nb.spring.common.DealType;
+import com.nb.spring.common.MsgModelView;
+import com.nb.spring.common.ProductType;
 import com.nb.spring.common.WalletType;
 import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.vo.Member;
@@ -33,6 +35,7 @@ import com.nb.spring.product.model.vo.ProductImage;
 import com.nb.spring.product.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
+import static com.nb.spring.common.MsgModelView.msgBuild;
 
 @Slf4j
 @Controller
@@ -91,6 +94,13 @@ public class ProductController {
 				mv.addObject("isWishList",false);
 			}
 		}
+		
+		List<Map<String, String >> list = productService.selectBidderList(product.getProductNo());
+		
+		mv.addObject("bidderList",list);
+		
+		
+		
 		
 		
 		System.out.println(product);
@@ -206,6 +216,118 @@ public class ProductController {
 		response.getWriter().print(isBuy);
 
 	}
+	
+	
+	@PostMapping("/buyNowEnd")
+	public ModelAndView buyNowEnd(@RequestParam Map<String,String> param,HttpSession session,ModelAndView mv) {
+		
+		//기본주소/배송주소 / 새로 입력한 주소 
+		String radio = param.get("radioAddressCheck");
+		String productNo = param.get("productNo");
+		String shipAddress = param.get("shipAddress");
+		String phone = param.get("phone");
+		String name = param.get("name");
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if(loginMember==null) {   //로그인 상태 아님
+			return msgBuild(mv, "/", "로그인후 이용해주세요");
+		}
+		
+		
+		Product product = productService.selectOneProductNo(productNo);
+		Member m = memberService.selectMember(loginMember.getMemberNo());
+		
+		
+		if(Integer.parseInt(product.getProductStatus())!=ProductType.SELLING.ordinal()) {
+			return msgBuild(mv,"/","입찰중인 상품이 아닙니다.");
+		}
+		
+		
+		//사용자 잔고 
+		int balance = Integer.parseInt(m.getBalance());
+		//제품 즉시 구매가 
+		int buyNowPrice = Integer.parseInt(product.getBuyNowPrice());
+		
+		if(balance<buyNowPrice) {
+			return msgBuild(mv, "/", "잔고 부족");
+		}
+		
+		
+		
+		String finalDeliveryAddress="";
+		
+		if(radio.equals("ship")) {
+			//배송주소 클릭
+			String userShipAddress = m.getDeliveryAddress();
+			
+			if(shipAddress.equals(userShipAddress)) {
+				//저장된 배송 주소
+				finalDeliveryAddress = m.getDeliveryAddress();
+			}else {
+				//새로 입력
+				finalDeliveryAddress= shipAddress;
+			}
+		}else {
+			//기본주소 
+			finalDeliveryAddress= m.getAddress();
+		}
+		
+		Map<String,String> param2= Map.of("deliveryAddress",finalDeliveryAddress,"memberNo",m.getMemberNo());
+		int result = memberService.updateDeliveryAddress(param2);
+		
+		if(result<=0) {
+			return msgBuild(mv, "/", "Address Update Failure");
+		}
+		
+		//통과
+		
+		//END DATE -> SYSDATE
+		//FINALPRICE -> 즉시 구매가 
+		// WALLET
+		//PRODUCTSTATUS -> 1 
+		//HIGHESTBIDDER -> 구매자 
+		
+		result = exeBuyNow(m,product);
+		log.debug("{}",param);
+	
+		if(result>0) {
+			return msgBuild(mv,"/","구매 완료");
+		}else {
+			return msgBuild(mv,"/","구매 실패-관리자에게 문의하세요!");
+		}
+		
+	}
+	
+	private int exeBuyNow(Member m , Product p) {
+		
+		Map<String,Object> param = Map.of(
+					"highestBidder", m.getMemberNo(),
+					"productStatus", ProductType.SUCCESS,
+					"finalPrice", p.getBuyNowPrice(),
+					"productNo",p.getProductNo()
+				);
+		
+		
+		
+		int result = productService.updateProductBuyNow(param);
+		
+		if(result>0) {
+			Map<String,Object> param2 = Map.of(
+						"bidPrice", p.getBuyNowPrice(),
+						"memberNo", m.getMemberNo(),
+						"dealType", DealType.OUTPUT,
+						"walletType",WalletType.BUYNOW,
+						"productNo",p.getProductNo()
+					);
+			result = memberService.updateBalance(DealType.OUTPUT, param2);
+		}
+		
+		
+		
+		return result;
+	}
+	
 
 	@RequestMapping("/bid")
 	@ResponseBody
