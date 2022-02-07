@@ -53,8 +53,5 @@ public class MainController {
 		return "/report/chatting";
 	}
 	
-	@RequestMapping("/cs/notice")
-	public String csView() {
-		return "/cs/customerservice";
-	}
+	
 }

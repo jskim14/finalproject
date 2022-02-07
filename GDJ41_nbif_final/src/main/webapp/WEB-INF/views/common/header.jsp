@@ -35,7 +35,7 @@
                     <h5><img src="${path}/resources/images/png.png" width="20px" height="20px"><span id="time">0000. 00. 00. 00: 00: 00</span></h5>
                     <ul>
                         <li>
-                            <a href="${path }/cs/notice">고객센터</a>
+                            <a href="${path }/cs/noticeList">고객센터</a>
                         </li>
                         <li>
 
