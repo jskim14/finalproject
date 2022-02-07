@@ -102,6 +102,9 @@ public class ProductDaoImpl implements ProductDao {
 		return session.selectOne("product.selectWaitingCount");
 	}
 	
-	
+	@Override
+	public List<Product> selectListLatest(SqlSessionTemplate session) {
+		return session.selectList("product.selectListLatest");
+	}
 	
 }

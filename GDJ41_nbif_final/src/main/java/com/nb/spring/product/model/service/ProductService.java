@@ -24,6 +24,8 @@ public interface ProductService {
 	
 	int updateProductEnd(Product p);
 
+	List<Product> selectListLatest(int startNum, int finishNum);
+
 	List<Map<String, String>> selectBidderList(String productNo);
 
 	int updateProductBuyNow(Map<String, Object> param);
