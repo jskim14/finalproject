@@ -141,4 +141,16 @@ public class ProductServiceImpl implements ProductService {
 		return dao.updateProductBuyNow(session,param);
 	}
 
+	@Override
+	public List<Product> selectWaitingPermission(Map<String, Integer> param) {
+		// TODO Auto-generated method stub
+		return dao.selectWaitingPermission(session,param);
+	}
+
+	@Override
+	public int selectWaitingCount() {
+	
+		return dao.selectWaitingCount(session);
+	}
+
 }

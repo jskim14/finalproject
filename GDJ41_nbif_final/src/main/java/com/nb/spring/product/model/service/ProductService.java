@@ -32,4 +32,8 @@ public interface ProductService {
 
 	int updateProductBuyNow(Map<String, Object> param);
 
+	List<Product> selectWaitingPermission(Map<String, Integer> param);
+
+	int selectWaitingCount();
+
 }

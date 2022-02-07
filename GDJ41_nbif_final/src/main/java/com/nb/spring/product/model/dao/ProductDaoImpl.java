@@ -3,6 +3,7 @@ package com.nb.spring.product.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -82,6 +83,23 @@ public class ProductDaoImpl implements ProductDao {
 	public int updateProductBuyNow(SqlSessionTemplate session, Map<String, Object> param) {
 		
 		return session.update("product.updateProductBuyNow", param);
+	}
+
+	@Override
+	public List<Product> selectWaitingPermission(SqlSessionTemplate session,Map<String, Integer> param) {
+		
+		int cPage = param.get("cPage");
+		int numPerPage = param.get("numPerPage");
+		RowBounds rb = new RowBounds((cPage-1)*numPerPage,numPerPage);
+		
+		
+		return session.selectList("product.selectWaitingPermission",null,rb);
+	}
+
+	@Override
+	public int selectWaitingCount(SqlSessionTemplate session) {
+		
+		return session.selectOne("product.selectWaitingCount");
 	}
 	
 	@Override
