@@ -194,3 +194,15 @@ footer {
 .price2{
     color:#41B979; font-weight:bolder; font-size:20px;
 }
+#latestBtn {
+	text-align: center; 
+	margin:auto; 
+	display: block;
+	width:100px;
+	height: 40px;
+	margin-top: 30px;
+	border:2px solid lightgrey;
+	background-color: white;
+	font-weight: bold;
+	border-radius: 10px;
+}

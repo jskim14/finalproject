@@ -31,4 +31,14 @@ public interface ProductDao {
 	
 	int updateProductImg(SqlSessionTemplate session, ProductImage pi);
 
+	List<Product> selectListLatest(SqlSessionTemplate session);
+	
+	List<Map<String, String>> selectBidderList(SqlSessionTemplate session, String productNo);
+
+	int updateProductBuyNow(SqlSessionTemplate session, Map<String, Object> param);
+
+	List<Product> selectWaitingPermission(SqlSessionTemplate session, Map<String, Integer> param);
+
+	int selectWaitingCount(SqlSessionTemplate session);
+
 }

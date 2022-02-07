@@ -1,5 +1,6 @@
 package com.nb.spring.product.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -87,6 +88,49 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public List<Product> selectListLatest(int startNum, int finishNum) {
+		List<Product> result = new ArrayList<Product>();
+		List<Product> list = dao.selectListLatest(session);
+		if(list.size()>finishNum) {
+			for(int i=startNum; i<=finishNum; i++) {
+				Product p = list.get(i);
+				result.add(p);
+			}
+		}else if(list.size()<=startNum){
+			result = null;
+		}else {
+			for(int i=startNum; i<list.size(); i++) {
+				Product p = list.get(i);
+				result.add(p);
+			}
+		}
+		return result;
+	}
+	
+	public List<Map<String, String>> selectBidderList(String productNo) {
+		
+		return dao.selectBidderList(session,productNo);
+	}
+
+	@Override
+	public int updateProductBuyNow(Map<String, Object> param) {
+		
+		return dao.updateProductBuyNow(session,param);
+	}
+
+	@Override
+	public List<Product> selectWaitingPermission(Map<String, Integer> param) {
+		// TODO Auto-generated method stub
+		return dao.selectWaitingPermission(session,param);
+	}
+
+	@Override
+	public int selectWaitingCount() {
+	
+		return dao.selectWaitingCount(session);
 	}
 
 }

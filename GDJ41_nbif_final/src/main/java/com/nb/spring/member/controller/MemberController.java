@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/member")
-@SessionAttributes({"loginMember"})
+@SessionAttributes({"loginMember","admin"})
 public class MemberController {
 	
 	
@@ -66,6 +66,12 @@ public class MemberController {
 		}
 		if(m!=null&&encoder.matches(password, m.getPassword())) {
 
+			if(m.getNickName().equals("admin")) {
+				mv.addObject("admin",true);
+			}else {
+				mv.addObject("admin",false);
+			}
+			
 			mv.addObject("loginMember", m);
 			mv.addObject("msg","로그인 성공");
 			mv.addObject("loc","/");

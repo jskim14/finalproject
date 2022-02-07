@@ -1,22 +1,33 @@
 package com.nb.spring.main.controller;
 
-import javax.servlet.http.Cookie;
+import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.nb.spring.product.model.service.ProductService;
+import com.nb.spring.product.model.vo.Product;
 
 @Controller
 public class MainController {
 	
+	@Autowired
+	private ProductService service;
+	
 	@RequestMapping("/")
 	public ModelAndView mainView(ModelAndView mv) {
+		int startNum = 0;
+		int finishNum = 3;
+		mv.addObject("latest", service.selectListLatest(startNum, finishNum));
 		mv.setViewName("index");
 		return mv;
 	}
-	
-	
 	
 	@RequestMapping("/enrollEmail")
 	public String enrollEmailView() {
@@ -54,4 +65,11 @@ public class MainController {
 	}
 	
 	
+	@RequestMapping("/addLatest")
+	public void addLatest(int startNum, int finishNum, HttpServletResponse res) throws IOException {
+		List<Product> list = service.selectListLatest(startNum,finishNum);
+		res.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list, res.getWriter());
+	}
 }
+
