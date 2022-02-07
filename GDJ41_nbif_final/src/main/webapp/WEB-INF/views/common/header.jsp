@@ -34,19 +34,26 @@
                 <div id="first-header">
                     <h5><img src="${path}/resources/images/png.png" width="20px" height="20px"><span id="time">0000. 00. 00. 00: 00: 00</span></h5>
                     <ul>
-                        <li>
-                            <a href="${path }/cs/notice">고객센터</a>
-                        </li>
-                        <li>
-
-                        	<c:if test="${loginMember == null }">
-                            <a href="${path}/member/enrollMember">회원가입</a>
-                            </c:if>
-                            <c:if test="${loginMember != null }">
-                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a>
-                            </c:if>
-
-                        </li>
+                    	<c:if test="${admin==null or admin==false}">
+	                        <li>
+	                            <a href="${path }/cs/notice">고객센터</a>
+	                        </li>
+                       		 <li>
+	                        	<c:if test="${loginMember == null }">
+	                            <a href="${path}/member/enrollMember">회원가입</a>
+	                            </c:if>
+	                            <c:if test="${loginMember != null }">
+	                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a>
+	                            </c:if>
+	                         </li>
+						 </c:if>
+							<c:if test="${admin!=null and admin==true }">
+								<!--관리자 메뉴  -->
+								<li>
+									<a href="${path}/admin/productManage">물품관리</a>
+								</li>
+							</c:if>
+                       	
 	                        <li>
                         	<c:if test="${loginMember == null}">
 	                            <a href="${path}/member/login">로그인</a>

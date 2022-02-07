@@ -8,7 +8,7 @@
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
 <section style="padding: 200px 10%;">
-	<style>
+<style>
 .pick{
 	border:3px solid #41B979;
 }
@@ -24,13 +24,6 @@
 	border-color: #7f47e9;
 }
 
-#bidderList {
-	-ms-overflow-style: none;
-}
-
-#bidderList::-webkit-scrollbar {
-	display: none;
-}
 </style>
 
 	<div class="container-fluid">
@@ -104,38 +97,7 @@
 							</div>
 						</div>
 
-						<c:if test="${isGeneral ==true }">
-
-							<div class="col-11">
-								<strong>입찰자 리스트</strong>
-							</div>
-							<div class="col-1">
-								<a id="renewBtn" href=""> <i class="fas fa-sync-alt"></i></a>
-							</div>
-
-
-
-							<div id="bidderList" class="col-12"
-								style="height: 125px; overflow: auto">
-								<table class="table table-striped" style="text-align: center;">
-									<tr
-										style="position: sticky; top: 0; background-color: #41B979 !important; font-weight: bolder;">
-										<th style="color: white;">입찰자</th>
-										<th style="color: white;">입찰 금액</th>
-									</tr>
-									<c:forEach items="${bidderList }" var="b">
-										<tr>
-											<td><c:out value="${b['NICKNAME'] }" /></td>
-											<td><strong><c:out value="${b['AMOUNT'] }" /></strong>원</td>
-										</tr>
-
-									</c:forEach>
-
-
-								</table>
-							</div>
-
-						</c:if>
+				
 
 					</div>
 				</div>
@@ -225,72 +187,9 @@
 							</div>
 						</div>
 					</div>
-					<script>
 					
-
-						const countDown=(id , date)=>{
-							let targetDate = new Date(date);
-							const second = 1000;
-							const minute= second * 60;
-							const hour = minute * 60;
-							const day = hour* 24;
-							let timer;
-							
-							function showRemaining(){
-								let now = new Date();
-								let distDate = targetDate-now;
-								
-								if(distDate < 0 ){
-									clearInterval(timer);
-									document.getElementById(id).textContent = "종료된 상품입니다.";
-									return;
-								}
-								
-								let days = Math.floor(distDate/day);
-								let hours = Math.floor((distDate%day)/hour);
-								let minutes = Math.floor((distDate%hour)/minute);
-								let seconds = Math.floor((distDate%minute)/second);
-								
-								document.getElementById(id).textContent = days + '일 ';
-								document.getElementById(id).textContent += hours + '시간 '; 
-								document.getElementById(id).textContent += minutes + '분 '; 
-								document.getElementById(id).textContent += seconds + '초';
-
-							}
-							
-							timer = setInterval(showRemaining,1000);
-							
-						}
-						countDown("timer",new Date('${product.endDate}'));
-						
-					</script>
 					<hr>
-					<c:if test="${isGeneral == true }">
-
-						<div class="row mb-3">
-							<div class="col-12">
-								<strong>입찰하기</strong>
-							</div>
-						</div>
-						<div id="bidButtons" class="row mb-3">
-							<div class="col-3">
-								<button type="button" class="w-100 btn btn-purple" value="1000"
-									${!isSell?"disabled":"" }>1000</button>
-							</div>
-							<div class="col-3">
-								<button type="button" class="w-100 btn btn-purple" value="10000"
-									${!isSell?"disabled":"" }>10000</button>
-							</div>
-							<div class="col-3">
-								<button type="button" class="w-100 btn btn-purple"
-									value="100000" ${!isSell?"disabled":"" }>100000</button>
-							</div>
-							<div class="col-3">
-								<button type="button" class="w-100 btn btn-purple"
-									value="1000000" ${!isSell?"disabled":"" }>1000000</button>
-							</div>
-						</div>
-
+					
 						<div class="row">
 							<div class="col-1"></div>
 							<div class="col-6">
@@ -330,7 +229,7 @@
 								<div
 									style="border: 3px solid #41B979; border-radius: 10px; display: flex; justify-content: flex-end;">
 									<span style="font-size: 30px; margin-right: 10px"> <fmt:formatNumber
-											value="${product.buyNowPrice }" />
+											value="${product.buyNowPrice==null?0 : product.buyNowPrice }" />
 									</span>
 								</div>
 							</div>
@@ -347,51 +246,7 @@
 						</div>
 
 
-						<div class="row mt-3">
-							<div class="col-12">
-								<!-- 	<div style="width: 100%; height: 50px; border: 1px solid black; display: flex; justify-content: center; opacity: 0.3;">
-
-								<i style="margin: 0;" class="far fa-bookmark fa-3x"></i> <strong
-									style="height: 100%; margin: 0; padding-top: 10px; margin-left: 20px; font-size: 20px; font-weight: bold;">관심등록</strong>
-
-
-							</div> -->
-								<c:if test="${isWishList == false }">
-									<button id="wishListBtn" type="button"
-										class="btn btn-green w-100 d-flex justify-content-center align-items-center">
-										<i class="far fa-bookmark fa-3x"></i> <span>관심등록</span>
-									</button>
-								</c:if>
-								<c:if test="${isWishList == true }">
-
-									<button id="wishListBtn" type="button"
-										class="btn btn-green w-100 d-flex justify-content-center align-items-center "
-										disabled>
-										<i class="far fa-bookmark fa-2x"></i> <span>관심등록</span>
-									</button>
-								</c:if>
-							</div>
-							<script>
-
-						$("#wishListBtn").click(e=>{
-							
-							
-
-							$.ajax({
-								url:location.origin+"/product/wishList",
-								data:{productNo:'${product.productNo}',memberNo:'${loginMember.memberNo}'},
-								dataType:'json',
-								success:data=>{
-									console.log(data);
-									alert(data['result']);
-									$("#wishListBtn").attr('disabled',true);
-								}
-							});
-							
-						});
-
-						</script>
-						</div>
+					
 						<hr>
 						<div class="row">
 							<div class="col-12">
@@ -484,25 +339,7 @@
 							</div>
 
 						</div>
-
-					</c:if>
-					<c:if test="${isGeneral != true }">
-						<div class="row">
-							<div class="col-12">
-								<button type="button" class="btn btn-green w-100"
-									onclick="goToSpecialAction()">실시간 경매장으로~</button>
-							</div>
-						</div>
-						<script>
-		function goToSpecialAction(){
-			// 
-			//location.assign(location.origin+"//");
-		}
-	</script>
-
-
-					</c:if>
-
+					
 				</div>
 
 				<div class="row">
@@ -514,192 +351,14 @@
 					</div>
 					<div class="col-12">
 						<p>
-							<c:out value="${product.productContent }" escapeXml="false"/>
+							<c:out value="${product.productContent }" escapeXml="false" />
 						</p>
 					</div>
 
 				</div>
 
-				<c:if test="${isGeneral == true }">
-
-					<div class="row">
-						<div class="col-12">
-							<hr>
-							<h1>
-								<strong><strong><c:out
-											value="${product.seller.nickName}" /></strong>의 다른상품</strong>
-							</h1>
-						</div>
-						<div class="col-12 d-flex" style="overflow: hidden;">
-							<div style="width: 210px;">
-								<div>
-									<img src="${path}/resources/images/exbag.png" width="200px"
-										height="200px">
-								</div>
-								<div class="alignVertical">
-									<div class="nameLine">
-										<div>
-											<strong>카테고리</strong>
-										</div>
-										<div>
-											<strong>제품명</strong>
-										</div>
-									</div>
-									<div class="nameLine fontColorRed">
-										<strong>즉시구매가</strong> <strong>9999999<strong>원</strong></strong>
-									</div>
-									<div class="nameLine fontColorGreen">
-										<strong>현재입찰가</strong> <strong>9999999<strong>원</strong></strong>
-									</div>
-								</div>
-							</div>
-
-
-						</div>
-					</div>
-			</div>
-		</div>
-		</c:if>
 </section>
-<div class="modal fade" id="buyNowModal" tabindex="-1"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">즉시 구매</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"
-					aria-label="Close"></button>
-			</div>
-			<div class="modal-body container-fluid">
-				<form action="${path}/product/buyNowEnd" method="post">
-					<div class="row">
-						<div class="col-12">
-							<span style="font-size: 30px;">주문하기</span>
-						</div>
 
-
-						<div class="col-12" style="margin: 0 auto; text-align: center;">
-							<img
-								src="${path}/resources/upload/product/${product.images.get(0).imageName}"
-								alt="..." width="250px">
-						</div>
-
-
-						<div class="col-12">
-							<span><c:out value="${product.productNo }" /></span>
-							<input type="hidden" name="productNo" value="<c:out value="${product.productNo }" />">
-						</div>
-						<div class="col-12 mb-3">
-							<span><c:out value="${product.productName }" /></span>
-						</div>
-
-						<div class="row"
-							style="text-align: center; font-size: 20px; font-weight: bold;">
-							<div class="col-6">
-								<span>구매가</span>
-							</div>
-							<div class="col-6" style="border: 5px solid #41B979;">
-								<span><c:out value="${product.buyNowPrice }" /></span>
-							</div>
-
-						</div>
-
-
-
-
-						<div class="col-12">
-
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio"
-									name="radioAddressCheck" id="normalAddressRadio" value="normal"
-									checked> <label class="form-check-label"
-									for="normalAddressRadio">기본주소</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio"
-									name="radioAddressCheck" id="shipAddressRadio" value="ship">
-								<label class="form-check-label" for="shipAddressRadio">배송주소</label>
-							</div>
-						</div>
-
-
-						<div class="col-12">
-							<span>기본주소</span>
-						</div>
-						<div class="col-12 mb-3">
-							<input id="normalAddress" type="text" class="form-control w-100"
-								readonly value="${loginMember.address }">
-						</div>
-
-
-						<div class="col-12 mb-3">
-							<span>배송주소</span>
-							<button type="button" class="btn btn-green" onclick="newAddressInput(); findAddress()">새로 입력</button>
-						</div>
-						<div class="col-12">
-							<input id="shipAddress" name="shipAddress" type="text" class="form-control w-100"
-								value="${loginMember.deliveryAddress }" readonly>
-							 <input
-								id="hiddenAddress" type="hidden"
-								value="${loginMember.deliveryAddress }" />
-						</div>
-
-
-						<div class="col-12">
-
-						</div>
-
-
-						<div class="col-12">
-							<span>연락처</span>
-						</div>
-						<div class="col-12">
-							<input type="text" name="phone" class="form-control w-100"
-								value="${loginMember.phone }">
-						</div>
-
-
-						<div class="col-12">
-							<span>받는사람</span>
-						</div>
-						<div class="col-12">
-							<input type="text" name="name" class="form-control w-100"
-								value="${loginMember.memberName }">
-						</div>
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">취소</button>
-						<button type="submit" class="btn btn-green">구매하기</button>
-					</div>
-				</form>
-			</div>
-		</div>
-
-
-	</div>
-</div>
-
-<div class="modal fade" id="biddingModal" tabindex="-1"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">정말입찰하시겠습니까?</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"
-					aria-label="Close"></button>
-			</div>
-			<div class="modal-body container-fluid">신중하시길...</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary"
-					data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-green"
-					onclick="bid('${product.productNo}');">입찰하기</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 <div class="modal fade" id="reviewModal" tabindex="-1"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -723,44 +382,7 @@
 		</div>
 	</div>
 </div>
-<script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    function findAddress() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-              
-                var roadAddr = data.roadAddress; 
-                var extraRoadAddr = ''; 
 
-             
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-              
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-               
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
-
-                
-                const totalAddress = roadAddr + extraRoadAddr;
-                
-                
-                if(totalAddress !== ''){
-                    document.getElementById("shipAddress").value = totalAddress;
-                } else {
-                    document.getElementById("shipAddress").value = '';
-                }
-
-              
-            }
-        }).open();
-    }
-</script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${path }/resources/js/productDetail.js"></script>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
