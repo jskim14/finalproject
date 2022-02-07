@@ -99,8 +99,13 @@ public class ProductServiceImpl implements ProductService {
 				Product p = list.get(i);
 				result.add(p);
 			}
-		}else {
+		}else if(list.size()<=startNum){
 			result = null;
+		}else {
+			for(int i=startNum; i<list.size(); i++) {
+				Product p = list.get(i);
+				result.add(p);
+			}
 		}
 		return result;
 	}

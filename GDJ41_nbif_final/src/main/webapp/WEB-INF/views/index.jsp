@@ -119,13 +119,13 @@
 							<p>
 								<strong style="font-size: 15px">${p.productName }</strong><br>
 								<c:if test="${p.nowBidPrice != null }">
-								현재입찰가&nbsp;<span class="price1"><fmt:formatNumber type="currency" value="${p.nowBidPrice }"/></span><br>
+								현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
 								</c:if>
 								<c:if test="${p.nowBidPrice == null }">
-								현재입찰가&nbsp;<span class="price1"><fmt:formatNumber type="currency" value="${p.minBidPrice }"/></span><br>
+								현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
 								</c:if>
 								<c:if test="${p.buyNowPrice != null }">
-								즉시구매가&nbsp;<span class="price2"><fmt:formatNumber type="currency" value="${p.buyNowPrice }"/></span><br>
+								즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
 								</c:if>
 								<c:if test="${p.buyNowPrice == null }">
 								즉시구매불가<br>
@@ -133,6 +133,7 @@
 								판매자&nbsp;<strong>${p.seller.nickName }</strong>
 						</div>
 					</a>
+				</li>
 			</c:forEach>
 		</ul>
 		<button id="latestBtn">더보기</button>
@@ -216,7 +217,82 @@
   		open("${path }/product/realtimeaction","_blank","width=1100, height=700, left=150");
   	}
   	$("#latestBtn").click(e=> {
-  		
+  		$.ajax({
+  			url : "${path}/addLatest",
+  			dataType : "json",
+  			data : {"startNum" : 4 , "finishNum" : 7},
+  			success : data => {
+  				console.log($(e.target).prev("ul"));
+  				if(data!=null) {
+  					let ul = $("<ul>");
+  					for(let i=0; i<data.length; i++) {
+  						let pro = data[i];
+  						let li = $("<li>");
+  						li.css("width","25%");
+  						let a = $("<a>");
+  						a.attr("href","${path}/product/productDetail?productNo=" + pro["productNo"]);
+  						let div = $("<div>");
+  						div.attr("class","goods-box");
+  						let img = $("<img>");
+  						img.attr({"src":"","width":"250","height":"200","style":"margin-bottom: 12px"});
+  						let p = $("<p>");
+  						let strong = $("<strong>");
+  						strong.append(pro["productName"]);
+  						p.append(strong);
+  						p.append("<br>");
+  						let span = $("<span>");
+  						span.attr("class","price1");
+  						if(pro["nowBidPrice"]!=null) {
+  							span.append(numberFormat(pro["nowBidPrice"]));
+  							p.append("현재입찰가 &nbsp;");
+  							p.append(span);
+  							p.append("<br>");
+  						}else {
+  							span.append(numberFormat(pro["minBidPrice"]));
+  							p.append("현재입찰가 &nbsp;");
+  							p.append(span);
+  							p.append("<br>");
+  						}
+  						let span2 = $("<span>");
+  						span2.attr("class","price2");
+  						if(pro["buyNowPrice"]!=null) {
+  							span2.append(numberFormat(pro["buyNowPrice"]));
+  							p.append("즉시구매가 &nbsp;");
+  							p.append(span2);
+  							p.append("<br>");
+  						}else {
+  							p.append("즉시구매불가");
+  							p.append("<br>");
+  						}
+  						p.append("판매자 &nbsp;")
+  						let strong2 = $("<strong>");
+  						strong2.append(pro["seller"]["nickName"]);
+  						p.append(strong2);
+  						div.append(img);
+  						div.append(p);
+  						a.append(div);
+  						li.append(a);
+  						ul.append(li);
+  					}
+  					$(e.target).prev().after(ul);
+  				}else {
+  					$(e.target).remove();
+  				}
+  				if(data.length<4) {
+						$(e.target).remove();
+				}
+  			}
+  		});
   	});
+  	function numberFormat (num) {
+  		    if(num==0) return 0;
+  		 
+  		    var reg = /(^[+-]?\d+)(\d{3})/;
+  		    var n = (num + '');
+  		 
+  		    while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+  		 
+  		    return n;
+  	};
 </script>
 <jsp:include page="${path}/WEB-INF/views/common/footer.jsp" />

@@ -1,5 +1,6 @@
 package com.nb.spring.main.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
 
@@ -68,8 +70,9 @@ public class MainController {
 	}
 	
 	@RequestMapping("/addLatest")
-	public void addLatest(int startNum, int finishNum, HttpServletResponse res) {
+	public void addLatest(int startNum, int finishNum, HttpServletResponse res) throws IOException {
 		List<Product> list = service.selectListLatest(startNum,finishNum);
 		res.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list, res.getWriter());
 	}
 }
