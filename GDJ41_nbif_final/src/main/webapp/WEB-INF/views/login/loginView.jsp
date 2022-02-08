@@ -75,7 +75,7 @@
 							<button type="button" class="btn btn-secondary w-100">네이버</button>
 						</div>
 						<div class="col-4">
-							<button type="button" class="btn btn-secondary w-100">카카오</button>
+							<button type="button" class="btn btn-secondary w-100" onclick="kakaoLogin()">카카오</button>
 						</div>
 						<div class="col-4">
 							<button type="button" class="btn btn-secondary w-100">구글</button>
@@ -88,6 +88,10 @@
 	</form>
 </section>
 <script>
+
+
+
+
 	function goToEnroll(){
 		location.assign(location.origin+"/member/enrollMember");
 	}

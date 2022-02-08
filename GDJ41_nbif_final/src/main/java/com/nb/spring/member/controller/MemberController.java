@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.nb.spring.common.MsgModelView;
 import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.service.SendEmailService;
 import com.nb.spring.member.model.vo.Member;
@@ -49,6 +52,23 @@ public class MemberController {
 	
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@RequestMapping("/kakaoLogin")
+	public ModelAndView kakaoLogin(@RequestParam Map param, ModelAndView mv) {
+		
+		log.debug("{}",param);
+		
+		Member m = service.loginMember(param);
+		
+		if(m!=null) {
+			mv.addObject("loginMember", m);
+			return MsgModelView.msgBuild(mv, "/", "로그인 성공!");
+		}else {
+		    return MsgModelView.msgBuild(mv, "/member/login", "로그인 실패!");
+		}
+
+		
+	}
 
 	@PostMapping("/loginMember")
 	public ModelAndView loginMember(ModelAndView mv, String email, String password, String flexCheckDefault, 
