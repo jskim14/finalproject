@@ -382,15 +382,22 @@ public class ProductController {
 				result = memberService.updateBalance(DealType.OUTPUT,param);
 				
 				if(result>0) {
-					param = Map.of("dealType",DealType.INPUT,"amount",exHigherPrice,"walletType",WalletType.FAILURE,"productNo",product.getProductNo(),"memberNo",exHigher.getMemberNo(),"bidPrice",exHigherPrice);
-					result = memberService.updateBalance(DealType.INPUT,param);
 					
-					if(result>0) {
-						return Map.of("result","입찰성공");
+					if(exHigher!=null) {
+						
+					
+						param = Map.of("dealType",DealType.INPUT,"amount",exHigherPrice,"walletType",WalletType.FAILURE,"productNo",product.getProductNo(),"memberNo",exHigher.getMemberNo(),"bidPrice",exHigherPrice);
+						result = memberService.updateBalance(DealType.INPUT,param);
+					
+						if(result>0) {
+							return Map.of("result","입찰성공");
+						}else {
+							return Map.of("result","입찰실패");
+						}
+					
 					}else {
-						return Map.of("result","입찰실패");
+						return Map.of("result","입찰성공");
 					}
-					
 					
 				}else {
 					return Map.of("result","입찰실패");
