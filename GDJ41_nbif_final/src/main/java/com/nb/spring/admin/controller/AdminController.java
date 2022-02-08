@@ -119,7 +119,7 @@ public class AdminController {
 		log.debug("{}",imageFiles);
 		
 		//로그인한 상태인지 
-		//Member m = 
+		//Member m = session.
 		
 		
 		

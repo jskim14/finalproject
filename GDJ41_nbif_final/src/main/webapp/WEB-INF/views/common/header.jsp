@@ -35,11 +35,12 @@
                     <h5><img src="${path}/resources/images/png.png" width="20px" height="20px"><span id="time">0000. 00. 00. 00: 00: 00</span></h5>
 
                     <ul>
-                    	<c:if test="${admin==null or admin==false}">
-
-	                        <li>
+                     		<li>
 	                            <a href="${path }/cs/noticeList">고객센터</a>
 	                        </li>
+                    	<c:if test="${admin==null or admin==false}">
+
+	                       
 	                       	<c:if test="${loginMember == null }">
 	                        <li>
 	                            <a href="${path}/member/enrollMember">회원가입</a>
