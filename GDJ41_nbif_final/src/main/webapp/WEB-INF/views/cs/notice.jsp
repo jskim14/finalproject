@@ -32,7 +32,7 @@
             <c:if test="${loginMember.memberNo eq '5' }">
             	<div style="float:right;"> 
 					<button type="button" class="btn btn-warning" data-bs-toggle="modal"
-						data-bs-target="#staticBackdrop">공지사항 등록</button>
+						data-bs-target="#staticBackdrop">공지 등록</button>
 				<!-- 모달창 -->
 					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
 						data-bs-keyboard="false" tabindex="-1"
@@ -80,6 +80,9 @@
 	            		<th style="padding-left:5%" class="table-dark">#</th>
 	            		<th style="padding-left:10%" class="table-dark">제목</th>
 	            		<th style="padding-left:5%" class="table-dark">작성일</th>
+	            		<c:if test="${loginMember.memberNo eq '5' }">
+	            			<th style="padding-left:1.5%" class="table-dark">삭제</th>
+	            		</c:if>
             		</tr> 
             	</thead>
             	
@@ -94,11 +97,22 @@
      						</div>
             			</td>
             			<td style="padding-left:5%"><c:out value="${n.noticeWriteDate}"/></td>
+            			<c:if test="${loginMember.memberNo eq '5' }">
+            			<td>
+            				<button type="button" class="btn btn-outline-danger" style="height:30px;width:50px;padding:0;"
+            				 onclick="location.assign('${path}/cs/deleteNotice?noticeNo=${n.noticeNo}');">삭제</button>
+            			</td>
+	            		</c:if>
+            			
             		</tr>
             	</c:forEach>
             		
             	</tbody>
             </table>
+            
+            <div>
+            	${pageBar }
+            </div>
             
         </section>
         <script>

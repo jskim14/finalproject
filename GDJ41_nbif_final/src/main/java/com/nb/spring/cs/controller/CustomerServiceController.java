@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nb.spring.common.PageFactory;
 import com.nb.spring.cs.model.service.CustomerServiceService;
 import com.nb.spring.cs.model.vo.Notice;
 import com.nb.spring.cs.model.vo.Qna;
@@ -51,17 +53,34 @@ public class CustomerServiceController {
 //	}
 	
 	@RequestMapping("/cs/noticeList")
-	public String noticeView(Model model) {
-		List<Notice> noticeList=service.selectNoticeList(model);
-		model.addAttribute("noticeList",noticeList);
-		return "/cs/notice";
+	public ModelAndView noticeView(
+			@RequestParam(value="cPage", defaultValue="1") int cPage, 
+			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
+			ModelAndView mv) {
+		List<Notice> noticeList=service.selectNoticeList(cPage,numPerPage);
+		
+		int totalNotice=service.noticeCount();
+		mv.addObject("totalNotice",totalNotice);
+		mv.addObject("pageBar", PageFactory.getPageBar(totalNotice, cPage, numPerPage, 5, "/cs/notice"));
+		
+		mv.addObject("noticeList",noticeList);
+		mv.setViewName("cs/notice");
+		return mv;
 	}
 	@RequestMapping("/cs/qnaList")
-	public String qnaView(Model model) {
-		List<Qna> qnaList=service.selectQnaList(model);
-		System.out.println(qnaList);
-		model.addAttribute("qnaList",qnaList);
-		return "/cs/qna";
+	public ModelAndView qnaView(
+			@RequestParam(value="cPage", defaultValue="1") int cPage, 
+			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
+			ModelAndView mv) {
+		List<Qna> qnaList=service.selectQnaList(cPage,numPerPage);
+		
+		int totalQna=service.qnaCount();
+		mv.addObject("totalQna",totalQna);
+		mv.addObject("pageBar", PageFactory.getPageBar(totalQna, cPage, numPerPage, 5, "/cs/qna"));
+		
+		mv.addObject("qnaList",qnaList);
+		mv.setViewName("cs/qna");
+		return mv;
 	}
 	
 	
@@ -99,6 +118,54 @@ public class CustomerServiceController {
 			msg="문의사항 등록 실패";
 			loc="/cs/qnaList";
 		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/cs/deleteNotice")
+	public ModelAndView deleteNotice(int noticeNo, ModelAndView mv) {
+		
+		int result=service.deleteNotice(noticeNo);
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="삭제 완료";
+			loc="/cs/noticeList";
+		}else{
+			msg="삭제 실패";
+			loc="/cs/noticeList";
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+		
+	}
+	
+	@RequestMapping("/cs/qnaContent")
+	public ModelAndView qnaContent(int qnaNo, ModelAndView mv) {
+		mv.addObject("qna", service.qnaContent(qnaNo));
+		mv.setViewName("cs/qnaContent");
+		return mv;
+	}
+	
+	@RequestMapping("/cs/insertAnswer")
+	public ModelAndView insertAnswer(int qnaNo, String qnaAnswer, ModelAndView mv) {
+		Map<String,Object> param= Map.of("qnaNo",qnaNo, "qnaAnswer",qnaAnswer);
+		int result=service.insertAnswer(param);
+		
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="답변 등록 완료";
+			loc="/cs/qnaContent";
+		}else {
+			msg="답변 등록 실패";
+			loc="/cs/qnaContent";
+		}
+		
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");

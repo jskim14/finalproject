@@ -11,9 +11,16 @@ import com.nb.spring.cs.model.vo.Qna;
 
 public interface CustomerServiceDao {
 	
-	List<Notice> selectNoticeList(SqlSessionTemplate session, Model model);
-	List<Qna> selectQnaList(SqlSessionTemplate session, Model model);
+	List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage);
+	int noticeCount(SqlSessionTemplate session);
+	List<Qna> selectQnaList(SqlSessionTemplate session, int cPage, int numPerPage);
+	int qnaCount(SqlSessionTemplate session);
+	
 	int insertNotice(SqlSessionTemplate session, Map<String,String> param);
 	int insertQuestion(SqlSessionTemplate session, Map<String,String> param2);
-
+	
+	int deleteNotice(SqlSessionTemplate session, int noticeNo);
+	Qna qnaContent(SqlSessionTemplate session, int qnaNo);
+	
+	int insertAnswer(SqlSessionTemplate session, Map<String,Object>param);
 }
