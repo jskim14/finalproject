@@ -17,6 +17,7 @@
             </div>
         </div>
         <hr>
+        <br>
 		<div class="container-fluid">
 			<div class="row mb-3">
 				<div class="col-3"></div>
@@ -48,6 +49,7 @@
 				<div class="col-6">
 					<button type="submit" class="btn btn-secondary w-100">로그인</button>
 				</div>
+				<br>
 				<div class="col-3"></div>
 			</div>
 			<div class="row">
@@ -72,13 +74,22 @@
 				<div class="col-6">
 					<div class="row">
 						<div class="col-4">
-							<button type="button" class="btn btn-secondary w-100">네이버</button>
+							<button type="button" class="btn btn-secondary w-100" style="background:#03C75A; border:none;font-size:13px;">
+								<img src="${path }/resources/images/naver.png" style="width:30px;height:30px;padding:0;">
+								네이버 로그인
+							</button>
 						</div>
 						<div class="col-4">
-							<button type="button" class="btn btn-secondary w-100" onclick="kakaoLogin()">카카오</button>
+
+							<button onclick="kakaoLogin()" type="button" class="btn btn-secondary w-100" style="height: 42px; background:#FEE500; font-size:13px;border:none;color:#624A3D;">
+								<img src="${path }/resources/images/kakao.png" style="width:20px;height:20px;padding:0;">
+								카카오 로그인
+							</button>
+
 						</div>
 						<div class="col-4">
-							<button type="button" class="btn btn-secondary w-100">구글</button>
+							<button type="button" class="btn btn-secondary w-100" style="background:#3366CC; border:none; font-size:13px;">
+							<img src="${path }/resources/images/google.png" style="width:30px;height:30px;padding:0;">Google 로그인</button>
 						</div>
 					</div>
 				</div>

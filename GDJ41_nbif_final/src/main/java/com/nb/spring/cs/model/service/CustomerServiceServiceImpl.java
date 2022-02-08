@@ -22,13 +22,22 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
 	private SqlSessionTemplate session;
 
 	@Override
-	public List<Notice> selectNoticeList(Model model) {
-		return dao.selectNoticeList(session, model);
+	public List<Notice> selectNoticeList(int cPage, int numPerPage) {
+		return dao.selectNoticeList(session, cPage, numPerPage);
+	}
+	
+	@Override
+	public int noticeCount() {
+		return dao.noticeCount(session);
 	}
 
 	@Override
-	public List<Qna> selectQnaList(Model model) {
-		return dao.selectQnaList(session, model);
+	public List<Qna> selectQnaList(int cPage, int numPerPage) {
+		return dao.selectQnaList(session, cPage, numPerPage);
+	}
+	@Override
+	public int qnaCount() {
+		return dao.qnaCount(session);
 	}
 
 	@Override
@@ -40,6 +49,24 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
 	public int insertQuestion(Map<String,String> param2) {
 		return dao.insertQuestion(session, param2);
 	}
+
+	@Override
+	public int deleteNotice(int noticeNo) {
+		return dao.deleteNotice(session, noticeNo);
+	}
+
+	@Override
+	public Qna qnaContent(int qnaNo) {
+		return dao.qnaContent(session, qnaNo);
+	}
+
+	@Override
+	public int insertAnswer(Map<String,Object>param) {
+		return dao.insertAnswer(session, param);
+	}
+	
+	
+	
 	
 	
 	

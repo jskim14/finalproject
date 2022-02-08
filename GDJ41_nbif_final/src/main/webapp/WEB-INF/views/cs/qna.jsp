@@ -87,7 +87,7 @@
             		<tr>
             			<td style="padding-left:5%"><c:out value="${q.qnaNo}"/></td>
             			<td style="padding-left:10%">
-            				<a href=""><c:out value="${q.qnaTitle}"/></a>
+            				<a href="${path }/cs/qnaContent?qnaNo=${q.qnaNo}" style="text-decoration:none;color:black;"><c:out value="${q.qnaTitle}"/></a>
             			</td>
             			<td style="padding-left:10%"><c:out value="${q.writer.memberNickName}"/></td>
             			<td style="padding-left:10%"><c:out value="${q.questionDate}"/></td>
@@ -96,6 +96,10 @@
             		
             	</tbody>
             </table>
+            
+            <div>
+            	${pageBar }
+            </div>
             
         </section>
         <script>
