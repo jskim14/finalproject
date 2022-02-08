@@ -14,5 +14,6 @@ public interface CustomerServiceDao {
 	List<Notice> selectNoticeList(SqlSessionTemplate session, Model model);
 	List<Qna> selectQnaList(SqlSessionTemplate session, Model model);
 	int insertNotice(SqlSessionTemplate session, Map<String,String> param);
+	int insertQuestion(SqlSessionTemplate session, Map<String,String> param2);
 
 }

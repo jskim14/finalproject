@@ -27,6 +27,10 @@ public class CustomerServiceDaoImpl implements CustomerServiceDao {
 	public int insertNotice(SqlSessionTemplate session, Map<String,String> param) {
 		return session.insert("cs.insertNotice",param);
 	}
+	@Override
+	public int insertQuestion(SqlSessionTemplate session, Map<String,String> param2) {
+		return session.insert("cs.insertQuestion",param2);
+	}
 	
 	
 

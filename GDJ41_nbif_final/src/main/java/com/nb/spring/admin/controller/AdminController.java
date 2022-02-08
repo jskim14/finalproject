@@ -1,12 +1,18 @@
 package com.nb.spring.admin.controller;
 
+import static com.nb.spring.common.MsgModelView.msgBuild;
+
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.common.PageFactory;
@@ -52,5 +58,67 @@ public class AdminController {
 		mv.setViewName("detail/productConfirmDetail");
 		return mv;
 	}
+	
+	@RequestMapping("/permission")
+	public ModelAndView permission(String productNo,ModelAndView mv) {
+		log.debug(productNo);
+		
+		int result = productService.updateProductPermission(productNo);
+		
+		if(result>0) {
+			mv = msgBuild(mv,"/admin/productManage", "승인완료");
+		}else {
+			mv = msgBuild(mv, "/admin/productManage", "ERROR - 처리 실패 ");
+		}
+		
+		return mv;
+		
+		
+	}
+	
+	@PostMapping("/reject")
+	public ModelAndView reject(String productNo,@RequestParam(defaultValue = "거부") String rejectReason,ModelAndView mv) {
+		log.debug("reject : "+productNo);
+		log.debug("reject : "+rejectReason);
+		
+		Map<String,Object> param = Map.of("productNo",productNo,"rejectReason",rejectReason);
+		
+		int result = productService.updateProductReject(param);
+		
+		if(result>0) {
+			mv = msgBuild(mv,"/admin/productManage", "처리완료");
+		}else {
+			mv = msgBuild(mv, "/admin/productManage", "ERROR - 처리 실패 ");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("/specialProductEnroll")
+	public String specialPoduct() {
+		
+		return "admin/specialProductEnroll";
+	}
+	
+	@PostMapping("/specialProductEnrollEnd")
+	public ModelAndView specialProductEnrollEnd(@RequestParam Map<String,String>param, 
+						@RequestParam(value="bannerImageFile",required=true) MultipartFile bannerImageFile,
+						@RequestParam(value="imageFile",required = true) MultipartFile[] imageFiles, 
+						HttpServletRequest req) throws Exception {
+		
+		log.debug("{}",param);
+		log.debug("{}",bannerImageFile);
+		log.debug("{}",imageFiles);
+		
+		
+		
+		
+		
+		
+		
+		
+		return null;
+	}
+	
 	
 }

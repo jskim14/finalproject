@@ -65,22 +65,39 @@ public class CustomerServiceController {
 	}
 	
 	
-	@RequestMapping("/insertNotice")
+	@RequestMapping("/cs/insertNotice")
 	public ModelAndView insertNotice(ModelAndView mv, String noticeTitle, String noticeContent, String memberNo) {
 		
 		Map<String,String> param= Map.of("noticeTitle",noticeTitle, "noticeContent",noticeContent, "memberNo",memberNo);
-		System.out.println(param);
 		
 		int result=service.insertNotice(param);
-		System.out.println(result);
 		String msg="";
 		String loc="";
 		if(result>0) {
 			msg="공지사항 등록 완료";
-			loc="/cs/customerservice";
+			loc="/cs/noticeList";
 		}else{
 			msg="공지사항 등록 실패";
-			loc="/cs/customerservice";
+			loc="/cs/noticeList";
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	@RequestMapping("/cs/insertQuestion")
+	public ModelAndView insertQuestion(ModelAndView mv, String qnaTitle, String qnaContent, String memberNo) {
+		Map<String,String> param2= Map.of("qnaTitle",qnaTitle, "qnaContent",qnaContent, "memberNo",memberNo);
+		
+		int result=service.insertQuestion(param2);
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="문의사항 등록 완료";
+			loc="/cs/qnaList";
+		}else{
+			msg="문의사항 등록 실패";
+			loc="/cs/qnaList";
 		}
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);

@@ -33,8 +33,10 @@
             <div id="header-container">
                 <div id="first-header">
                     <h5><img src="${path}/resources/images/png.png" width="20px" height="20px"><span id="time">0000. 00. 00. 00: 00: 00</span></h5>
+
                     <ul>
-                    	<c:if test="${admin==null or admin==false}">
+                    	<c:if test="${admin==null}">
+
 	                        <li>
 	                            <a href="${path }/cs/noticeList">고객센터</a>
 	                        </li>
@@ -52,7 +54,10 @@
 							<c:if test="${admin!=null and admin==true }">
 								<!--관리자 메뉴  -->
 								<li>
-									<a href="${path}/admin/productManage">물품관리</a>
+									<a href="${path}/admin/productManage">물품승인</a>
+								</li>
+								<li>
+									<a href="${path}/admin/specialProductEnroll">실시간경매물품등록</a>
 								</li>
 							</c:if>
                         	<c:if test="${loginMember == null}">
