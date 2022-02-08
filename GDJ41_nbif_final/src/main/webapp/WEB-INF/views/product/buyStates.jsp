@@ -147,10 +147,62 @@
 						            	<button type="button" class="btn btn-secondary btnColor" style="float: left; margin-right: 1%;"
 						            	onclick="">
 						            	구매확정 </button> 
-						            	<button type="button" class="btn btn-secondary btnColor" style="float: left;"
-						            	onclick="">
+						            	<button type="button" class="btn btn-secondary btnColor" data-bs-toggle="modal"data-bs-target="#staticBackdrop" style="float: left;">
 						            	신고(환불신청) </button>
-						        	</c:when>
+						            	<!-- 모달창 -->
+										<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+											data-bs-keyboard="false" tabindex="-1"
+											aria-labelledby="staticBackdropLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+												<form name="reportForm" action="${path }/report/insertReport" method="POST"
+										 			enctype="multipart/form-data">
+													<div class="modal-header">
+														<h5 class="modal-title" id="staticBackdropLabel"
+															style="color: black;">상품 신고/반품</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													
+													<div class="modal-body" style="color: black;">
+														<div class="mb-3">
+															<label for="exampleFormControlInput1" class="form-label">상품 번호</label>
+															<input type="text" class="form-control" name="product" readonly
+																id="exampleFormControlInput1" value="${p.productNo.productNo }">
+														</div>
+														<div class="mb-3">
+															<label for="exampleFormControlInput1" class="form-label">상품 명</label>
+															<input type="text" class="form-control" readonly
+																id="exampleFormControlInput1" value="${p.productNo.productName}">
+														</div>
+														<div class="mb-3">
+															<input type="hidden" class="form-control" name="writer" readonly
+																id="exampleFormControlInput1"  value="${loginMember.memberNo }">
+														</div>
+														<div class="mb-3">
+															<label for="exampleFormControlTextarea1" class="form-label">신고/반품
+																사유</label>
+															<textarea class="form-control" id="exampleFormControlTextarea1" name="reportReason"
+																rows="3" autofocus></textarea>
+														</div>
+														<!-- 첨부파일 여러장 선택 -->
+														<div class="mb-3">
+															<label for="formFileMultiple" class="form-label">첨부파일</label> 
+															<input name="upFile" class="form-control" type="file" id="formFileMultiple" multiple>
+														</div>
+													</div>
+													
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">닫기</button>
+														<button type="submit" class="btn btn-warning">등록</button>
+													</div>
+													</form>
+												</div>
+											</div>
+										</div>
+										<!--  -->				        	
+								</c:when>
 						        </c:choose>					        
 						        </div>
 						    </div>
@@ -215,6 +267,12 @@
 	    $("#endDate").val(date.toISOString().substring(0, 10));
 	});
 
+	$(()=>{
+		$("[name=reportImages]").change(e=>{
+			const fileName=$(e.target).prop('files')[0].name;	
+			$(e.target).next(".custom-file-label").html(fileName);
+		})
+	})
     
     </script>
 </section>
