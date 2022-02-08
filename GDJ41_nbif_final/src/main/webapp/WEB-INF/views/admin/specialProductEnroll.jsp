@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<hr>
-		<form action="${path}" method="post" enctype="multipart/form-data">
+		<form action="${path}/admin/specialProductEnrollEnd" method="post" enctype="multipart/form-data">
 			<div class="row ">
 				<div class="col-12 d-flex justify-content-center">
 					<span style="font-size:30px">경매설정</span>

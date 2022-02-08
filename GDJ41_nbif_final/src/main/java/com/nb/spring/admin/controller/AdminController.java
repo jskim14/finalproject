@@ -1,17 +1,21 @@
 package com.nb.spring.admin.controller;
 
+import static com.nb.spring.common.MsgModelView.msgBuild;
+
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.common.PageFactory;
-import static com.nb.spring.common.MsgModelView.msgBuild;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
 
@@ -95,5 +99,26 @@ public class AdminController {
 		
 		return "admin/specialProductEnroll";
 	}
+	
+	@PostMapping("/specialProductEnrollEnd")
+	public ModelAndView specialProductEnrollEnd(@RequestParam Map<String,String>param, 
+						@RequestParam(value="bannerImageFile",required=true) MultipartFile bannerImageFile,
+						@RequestParam(value="imageFile",required = true) MultipartFile[] imageFiles, 
+						HttpServletRequest req) throws Exception {
+		
+		log.debug("{}",param);
+		log.debug("{}",bannerImageFile);
+		log.debug("{}",imageFiles);
+		
+		
+		
+		
+		
+		
+		
+		
+		return null;
+	}
+	
 	
 }
