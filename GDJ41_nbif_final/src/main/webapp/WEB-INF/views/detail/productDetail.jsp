@@ -325,25 +325,32 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-1"></div>
-							<div class="col-6">
-								<div
-									style="border: 3px solid #41B979; border-radius: 10px; display: flex; justify-content: flex-end;">
-									<span style="font-size: 30px; margin-right: 10px"> <fmt:formatNumber
-											value="${product.buyNowPrice }" />
-									</span>
+							<c:if test="${product.buyNowPrice!=null}">
+								<div class="col-1"></div>
+								<div class="col-6">
+									<div
+										style="border: 3px solid #41B979; border-radius: 10px; display: flex; justify-content: flex-end;">
+										<span style="font-size: 30px; margin-right: 10px"> <fmt:formatNumber
+												value="${product.buyNowPrice }" />
+										</span>
+									</div>
 								</div>
-							</div>
-							<div class="col-1"></div>
-							<div class="col-4">
-								<button type="button" class="btn btn-green"
-									style="height: 100%; width: 100%; font-size: 20px"
-									onclick="checkBuyNow('${product.productNo}','${loginMember==null?false:true }');"
-									${!isSell?"disabled":"" }>바로구매</button>
-								<button id="buyNowModalBtn" type="button" data-bs-toggle="modal"
-									data-bs-target="#buyNowModal" style="display: none"></button>
-
-							</div>
+								<div class="col-1"></div>
+								<div class="col-4">
+									<button type="button" class="btn btn-green"
+										style="height: 100%; width: 100%; font-size: 20px"
+										onclick="checkBuyNow('${product.productNo}','${loginMember==null?false:true }');"
+										${!isSell?"disabled":"" }>바로구매</button>
+									<button id="buyNowModalBtn" type="button" data-bs-toggle="modal"
+										data-bs-target="#buyNowModal" style="display: none"></button>
+	
+								</div>
+							</c:if>
+							<c:if test="${product.buyNowPrice==null}">
+								<div class="col-12 d-flex justify-content-center align-items-center" style="opacity:0.3; border-radius:20px; background-color: #41B979; width:100%;height:100px">
+									<span style="font-size:30px;color:white;">즉시구매 불가 상품입니다.</span>
+								</div>
+							</c:if>
 						</div>
 
 
@@ -359,15 +366,15 @@
 								<c:if test="${isWishList == false }">
 									<button id="wishListBtn" type="button"
 										class="btn btn-green w-100 d-flex justify-content-center align-items-center">
-										<i class="far fa-bookmark fa-3x"></i> <span>관심등록</span>
+										<i class="far fa-bookmark fa-3x"></i> &nbsp;&nbsp;<span style="font-size:30px">관심등록</span>
 									</button>
 								</c:if>
 								<c:if test="${isWishList == true }">
 
 									<button id="wishListBtn" type="button"
-										class="btn btn-green w-100 d-flex justify-content-center align-items-center "
+										class="btn btn-green w-100 d-flex justify-content-center align-items-center"
 										disabled>
-										<i class="far fa-bookmark fa-2x"></i> <span>관심등록</span>
+										<i class="far fa-bookmark fa-2x"></i>&nbsp;&nbsp;<span style="font-size:30px">관심등록</span>
 									</button>
 								</c:if>
 							</div>
