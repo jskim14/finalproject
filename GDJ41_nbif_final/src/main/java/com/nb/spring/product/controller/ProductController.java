@@ -121,6 +121,7 @@ public class ProductController {
 			 @RequestParam(value = "imageFile", required = false) MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
 
 		System.out.println("시작가 : "+p.getMinBidPrice());
+		System.out.println("즉구 : "+p.getBuyNowPrice());
 		System.out.println(p);
 		
 		//date 
@@ -134,12 +135,14 @@ public class ProductController {
 		p.setSeller(new Member());
 		p.getSeller().setMemberNo(sellerNo);
 		
+		System.out.println("unit:"+ unit);
 		//bidUnit
-		if(unit.contains(",")) {
+		if(unit.contains("typing")) {
 			String splitUnit[] = unit.split(",");
 			p.setBidUnit(splitUnit[1]);
 		} else {
-			p.setBidUnit(unit);
+			String splitUnit[] = unit.split(",");
+			p.setBidUnit(splitUnit[0]);
 		}
 		
 		//file
@@ -525,6 +528,26 @@ public class ProductController {
 		}else {
 			msg = "물품등록에 실패하였습니다. 관리자에게 문의하세요.";
 			loc = "/product/updateProduct?productNo="+p.getProductNo();
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/waitingDelete")
+	public ModelAndView waitingDelete(String productNo, HttpSession session, ModelAndView mv) {
+		Member login = (Member)session.getAttribute("loginMember");
+		int result = productService.waitingDelete(productNo);
+		
+		String msg = "";
+		String loc = "/member/salesStates?memberNo="+login.getMemberNo();
+		
+		if(result>0) {
+			msg = "물품을 삭제하였습니다.";
+		}else {
+			msg = "물품삭제에 실패하였습니다. 관리자에게 문의하세요.";
 		}
 		
 		mv.addObject("msg",msg);

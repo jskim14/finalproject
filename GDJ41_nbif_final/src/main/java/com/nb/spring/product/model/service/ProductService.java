@@ -39,5 +39,7 @@ public interface ProductService {
 	int updateProductReject(Map<String, Object> param);
 
 	int updateProductPermission(String productNo);
+	
+	int waitingDelete(String productNo);
 
 }

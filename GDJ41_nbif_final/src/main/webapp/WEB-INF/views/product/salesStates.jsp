@@ -145,9 +145,35 @@
 						        <div>
 						        <c:choose>
 						        	<c:when test="${p.permissionYn eq '0' }">
-						            	<button type="button" class="btn btn-secondary btnColor" style="float: left;"
+						        	<div style="float: left;">
+						            	<button type="button" class="btn btn-secondary btnColor"
 						            	onclick="location.assign('${path}/product/updateProduct?productNo=${p.productNo }')">
-						            	수정하기 </button>
+						            	수정하기 </button> 
+						            	<button type="button" class="btn btn-secondary" style="background-color:#7f47e9"
+						            	data-bs-toggle="modal" data-bs-target="#delete">
+						            	삭제 </button>
+						            </div>
+						            <!-- Modal -->
+										<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+										  <div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <!-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> -->
+										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										      </div>
+										      <div class="modal-body">
+										        등록을 요청한 물품을 삭제하시겠습니까? <br>
+										        삭제 후에는 복구가 불가능합니다.
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										        <button type="button" class="btn btn-primary btnColor"
+										        onclick="location.assign('${path}/product/waitingDelete?productNo=${p.productNo }')" >삭제하기</button>
+										      </div>
+										    </div>
+										  </div>
+										</div>
+						            
 						        	</c:when>
 						        </c:choose>
 						        <c:choose>

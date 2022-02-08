@@ -123,5 +123,12 @@ public class ProductDaoImpl implements ProductDao {
 		
 		return session.update("product.updateProductPermission", productNo);
 	}
+
+	@Override
+	public int waitingDelete(SqlSessionTemplate session, String productNo) {
+		return session.delete("product.waitingDelete", productNo);
+	}
+	
+	
 	
 }

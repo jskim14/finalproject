@@ -165,4 +165,11 @@ public class ProductServiceImpl implements ProductService {
 		return dao.updateProductPermission(session,productNo);
 	}
 
+	@Override
+	public int waitingDelete(String productNo) {
+		return dao.waitingDelete(session, productNo);
+	}
+	
+	
+
 }
