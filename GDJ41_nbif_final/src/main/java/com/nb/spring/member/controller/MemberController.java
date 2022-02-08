@@ -73,6 +73,8 @@ public class MemberController {
 
 			if(m.getNickName().equals("admin")) {
 				mv.addObject("admin",true);
+			}else {
+				mv.addObject("admin",false);
 			}
 			
 			mv.addObject("loginMember", m);

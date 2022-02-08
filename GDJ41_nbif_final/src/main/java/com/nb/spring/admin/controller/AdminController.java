@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.common.PageFactory;
+import com.nb.spring.member.model.service.MemberService;
+import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
 
@@ -28,6 +31,9 @@ public class AdminController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping("/productManage")
 	public ModelAndView productManage(@RequestParam(name = "cPage",defaultValue = "1")int cPage,
@@ -104,13 +110,16 @@ public class AdminController {
 	public ModelAndView specialProductEnrollEnd(@RequestParam Map<String,String>param, 
 						@RequestParam(value="bannerImageFile",required=true) MultipartFile bannerImageFile,
 						@RequestParam(value="imageFile",required = true) MultipartFile[] imageFiles, 
+						ModelAndView mv,
+						HttpSession session,
 						HttpServletRequest req) throws Exception {
 		
 		log.debug("{}",param);
 		log.debug("{}",bannerImageFile);
 		log.debug("{}",imageFiles);
 		
-		
+		//로그인한 상태인지 
+		//Member m = 
 		
 		
 		
