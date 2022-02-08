@@ -153,4 +153,16 @@ public class ProductServiceImpl implements ProductService {
 		return dao.selectWaitingCount(session);
 	}
 
+	@Override
+	public int updateProductReject(Map<String, Object> param) {
+		
+		return dao.updateProductReject(session,param);
+	}
+
+	@Override
+	public int updateProductPermission(String productNo) {
+		
+		return dao.updateProductPermission(session,productNo);
+	}
+
 }

@@ -350,7 +350,7 @@ public class ProductController {
 		
 		log.debug("{}",product);
 		
-		int nowBidPrice = Integer.parseInt(product.getNowBidPrice());
+		int nowBidPrice = Integer.parseInt(product.getNowBidPrice()==null?"0":product.getNowBidPrice());
 		
 		int bidUnit = Integer.parseInt(product.getBidUnit());
 		
