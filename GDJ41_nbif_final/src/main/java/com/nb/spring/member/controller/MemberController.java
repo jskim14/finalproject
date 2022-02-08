@@ -126,38 +126,43 @@ public class MemberController {
 		}
 		List<Integer> intList = List.of(total,waiting,sales,soldOut,end);
 		
+		//구매
 		List<Member> buyList = service.buyList(memberNo);
-		int total1 = buyList.size();
+		int buyTotal = buyList.get(0).getWalletList().size();
 		int status1=0;
 		int status2=0;
 		int status3=0;
-		for(Member p : buyList) {
-			for(int i=0; i<buyList.size(); i++) {
-				if(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0")) { //입찰중
-					status1++;
+		if(list.isEmpty()) {
+			List<Integer> zeroList = List.of(0,0,0,0,0);
+			mv.addObject("buyCnt", zeroList);
+		} else {
+			for(Member p : buyList) {
+				for(int i=0; i<p.getWalletList().size(); i++) {
+					if(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0")) { //입찰중
+						status1++;
+					}
+					if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("1")
+							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("2"))
+							&& p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount())) { //구매대기
+						status2++;
+					}
+					if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("3")
+							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("4")
+							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("5"))
+							&& p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount())) { //종료
+						status3++;
+					}
+					if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
+							&& !(p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount()))) { //종료
+						status3++;
+					}
 				}
-				if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("1")
-						||p.getWalletList().get(i).getProductNo().getProductStatus().equals("2"))
-						&& p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo)) { //구매대기
-					status2++;
-				}
-				if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("3")
-						||p.getWalletList().get(i).getProductNo().getProductStatus().equals("4")
-						||p.getWalletList().get(i).getProductNo().getProductStatus().equals("5"))
-						&& p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo)) { //종료
-					status3++;
-				}
-				if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
-						&& !(p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo))) { //종료
-					status3++;
-				}
-
 			}
+			List<Integer> intList1 = List.of(buyTotal,status1,status2,status3);
+			mv.addObject("buyCnt", intList1);
 		}
-		List<Integer> intList1 = List.of(total1,status1,status2,status3);
 		
 		mv.addObject("salesCnt", intList);
-		mv.addObject("buyCnt", intList1);
 		mv.addObject("myPageMember",m);
 		mv.setViewName("login/myPage");
 		return mv;
@@ -403,44 +408,43 @@ public class MemberController {
 		return "product/salesStates";
 	}
 	
-//	@SuppressWarnings("unlikely-arg-type")
 	@RequestMapping("/buyStates")
 	public ModelAndView buyStates(String memberNo, ModelAndView mv) {
-		List<Member> list = service.buyList(memberNo);
-		int total = list.size();
+		List<Member> buyList = service.buyList(memberNo);
+		int buyTotal = buyList.get(0).getWalletList().size();
 		int status1=0;
 		int status2=0;
 		int status3=0;
-		if(list.isEmpty()) {
+		if(buyList.isEmpty()) {
 			List<Integer> zeroList = List.of(0,0,0,0,0);
 			mv.addObject("buyCnt", zeroList);
 		} else {
-			for(Member p : list) {
-				for(int i=0; i<list.size(); i++) {
+			for(Member p : buyList) {
+				for(int i=0; i<p.getWalletList().size(); i++) {
 					if(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0")) { //입찰중
 						status1++;
 					}
 					if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("1")
 							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("2"))
-							&& p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo)) { //구매대기
+							&& p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount())) { //구매대기
 						status2++;
 					}
 					if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("3")
 							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("4")
 							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("5"))
-							&& p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo)) { //종료
+							&& p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount())) { //종료
 						status3++;
 					}
-	//				if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
-	//						&& !(p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo))) { //종료
-	//					status3++;
-	//				}
+					if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
+							&& !(p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount()))) { //종료
+						status3++;
+					}
 				}
 			}
-			List<Integer> intList = List.of(total,status1,status2,status3);
+			List<Integer> intList = List.of(buyTotal,status1,status2,status3);
 			mv.addObject("buyCnt", intList);
 		}
-		mv.addObject("productList",list.get(0).getWalletList());
+		mv.addObject("productList",buyList.get(0).getWalletList());
 //		mv.addObject("productList",list);
 		mv.setViewName("product/buyStates");
 		return mv;
