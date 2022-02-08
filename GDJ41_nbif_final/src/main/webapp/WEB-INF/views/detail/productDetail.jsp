@@ -29,8 +29,17 @@
 }
 
 #bidderList::-webkit-scrollbar {
-	display: none;
-}
+		width:10px;
+	}
+	#bidderList::-webkit-scrollbar-thumb{
+	    height: 30px;
+	    background-color: #C4C4C4;
+	    border-radius: 10px;    
+	}
+	#bidderList::-webkit-scrollbar-track{
+	    background-color: rgba(0,0,0,0);
+	}
+
 </style>
 
 	<div class="container-fluid">
@@ -116,7 +125,7 @@
 
 
 							<div id="bidderList" class="col-12"
-								style="height: 125px; overflow: auto">
+								style="height: 200px; overflow: auto">
 								<table class="table table-striped" style="text-align: center;">
 									<tr
 										style="position: sticky; top: 0; background-color: #41B979 !important; font-weight: bolder;">
@@ -296,7 +305,7 @@
 							<div class="col-6">
 								<div style="border: 3px solid #41B979; border-radius: 10px">
 									<input id="bidUnitInput" type=text
-										value="<fmt:formatNumber value="${product.nowBidPrice+product.bidUnit }"/>"
+										value="<fmt:formatNumber value="${ product.nowBidPrice==null?product.minBidPrice+product.bidUnit:product.nowBidPrice+product.bidUnit }"/>"
 										style="text-align: right; padding-right: 10px; background: none; font-size: 30px; width: 100%;"
 										${!isSell?"disabled":"" }>
 									<!-- <span>원</span> -->
@@ -325,7 +334,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<c:if test="${product.buyNowPrice!=null}">
+							<c:if test="${product.buyNowPrice!=null and product.nowBidPrice<product.buyNowPrice }">
 								<div class="col-1"></div>
 								<div class="col-6">
 									<div
@@ -346,7 +355,7 @@
 	
 								</div>
 							</c:if>
-							<c:if test="${product.buyNowPrice==null}">
+							<c:if test="${product.buyNowPrice==null or product.nowBidPrice>=product.buyNowPrice }">
 								<div class="col-12 d-flex justify-content-center align-items-center" style="opacity:0.3; border-radius:20px; background-color: #41B979; width:100%;height:100px">
 									<span style="font-size:30px;color:white;">즉시구매 불가 상품입니다.</span>
 								</div>

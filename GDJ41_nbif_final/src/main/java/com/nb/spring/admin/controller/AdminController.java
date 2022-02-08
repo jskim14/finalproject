@@ -143,7 +143,7 @@ public class AdminController {
 		
 		String bidUnit = param.get("bidUnit");
 		if(bidUnit=="typing") {
-			
+			bidUnit = param.get("bidUnitInput");
 		}
 		
 		
@@ -164,7 +164,7 @@ public class AdminController {
 				.seller(m)
 				.nowBidPrice("0")
 				.minBidPrice(bidPrice)
-				.bidUnit(param.get("bidUnit"))
+				.bidUnit(bidUnit)
 				.buyNowPrice("0")
 				.extendYn("N")
 				.startDate(startSqlDate)
