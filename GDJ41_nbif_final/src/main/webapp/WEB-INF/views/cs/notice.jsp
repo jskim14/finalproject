@@ -14,10 +14,8 @@
     }
     #cs-title{text-align: center;}
     
-    .accordion_area .btn_toggle{display:block;width:100%;height:30px;padding:0 10px;background:#fff;font-size:16px;text-align:left;line-height:30px;box-sizing:border-box}
-	/* .accordion_area .btn_toggle::before{display:inline;content:'Q: '} */
+    .accordion_area .btn_toggle{display:block;width:80%;height:30px;padding:0 0px;background:#fff;font-size:16px;text-align:left;line-height:30px;box-sizing:border-box}
 	.accordion_area .content_area{display:none;padding:10px;background:#f4f4ff}
-	/* .accordion_area .content_area::before{display:inlnie;content:'A: '} */
 	.accordion_area .content_area.act{display:block; width:80%;}
 </style>
 
@@ -126,7 +124,7 @@
          	         thisContent.classList.add('act');
          	       }else{
          	         let content = area.querySelector('.content_area');
-         	         content.classList.toggle('act');
+         	         content.classList.toggle('act'); 
          	       }
          	     });
          	   });
