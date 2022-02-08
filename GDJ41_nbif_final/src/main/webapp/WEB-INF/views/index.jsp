@@ -281,6 +281,7 @@
   		let ul = $("<ul>");
 			for(let i=0; i<data.length; i++) {
 				let pro = data[i];
+				console.log(pro);
 				let li = $("<li>");
 				li.css("width","25%");
 				let a = $("<a>");
@@ -320,7 +321,7 @@
 				}
 				p.append("판매자 &nbsp;")
 				let strong2 = $("<strong>");
-				strong2.append(pro["seller"]["nickName"]);
+				strong2.append(pro["seller"]);
 				p.append(strong2);
 				div.append(img);
 				div.append(p);
