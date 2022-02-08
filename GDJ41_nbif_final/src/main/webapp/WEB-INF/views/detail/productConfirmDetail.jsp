@@ -357,7 +357,80 @@
 
 				</div>
 
+<div class="container" style="z-index: 999;position: fixed; right:150px; bottom:0px;height: 100px; width: 400px;background-color: white; border: 3px solid #41B979; border-radius: 20px">
+	<div class="row mt-4">
+		<div class="col ">
+			<button type="button" class="btn btn-purple w-100" data-bs-toggle="modal" data-bs-target="#rejectModal">거절</button>
+		</div>
+		<div class="col">
+			<button type="button" class="btn btn-green w-100" onclick="permission()">승인</button>
+		</div>
+	</div>
+	<script>
+		function permission(){
+			location.assign(location.origin+"/admin/permission?productNo=${product.productNo}");
+		}
+	
+	</script>
+	
+	
+</div>
+
+
+
 </section>
+<div class="modal fade" id="rejectModal" tabindex="-1"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">거절 사유</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body container-fluid">
+				<div class="roww">
+					<div class="col-12">
+						<textarea id="rejectReason" class="form-control" rows="3"></textarea>
+					</div>
+				</div>
+	
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-purple" onclick="reject()">거절완료</button>
+				<script>
+				
+					function reject(){
+						//location.assign(location.origin+"/admin/reject?productNo=${product.productNo}");
+						let form = document.createElement('form');
+						form.setAttribute("method",'post');
+						form.setAttribute("action",location.origin+"/admin/reject");
+						document.charset ="utf-8";
+
+						let hiddenInput1 = document.createElement('input');
+						hiddenInput1.setAttribute('type','hidden');
+						hiddenInput1.setAttribute('name','rejectReason');
+						hiddenInput1.setAttribute('value',$('#rejectReason').val());
+						form.appendChild(hiddenInput1);
+
+						let hiddenInput2 = document.createElement('input');
+						hiddenInput2.setAttribute('type','hidden');
+						hiddenInput2.setAttribute('name','productNo');
+						hiddenInput2.setAttribute('value','${product.productNo}');
+						form.appendChild(hiddenInput2);
+
+
+						document.body.appendChild(form);
+						form.submit();
+					}
+				
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <div class="modal fade" id="reviewModal" tabindex="-1"

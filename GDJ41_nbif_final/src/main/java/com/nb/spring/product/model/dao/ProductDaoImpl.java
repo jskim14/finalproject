@@ -111,5 +111,17 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Product> selectListLatest(SqlSessionTemplate session) {
 		return session.selectList("product.selectListLatest");
 	}
+
+	@Override
+	public int updateProductReject(SqlSessionTemplate session, Map<String, Object> param) {
+		
+		return session.update("product.updateProductReject", param);
+	}
+
+	@Override
+	public int updateProductPermission(SqlSessionTemplate session, String productNo) {
+		
+		return session.update("product.updateProductPermission", productNo);
+	}
 	
 }

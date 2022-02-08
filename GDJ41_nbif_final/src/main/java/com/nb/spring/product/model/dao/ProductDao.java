@@ -43,4 +43,8 @@ public interface ProductDao {
 
 	int selectWaitingCount(SqlSessionTemplate session);
 
+	int updateProductReject(SqlSessionTemplate session, Map<String, Object> param);
+
+	int updateProductPermission(SqlSessionTemplate session, String productNo);
+
 }

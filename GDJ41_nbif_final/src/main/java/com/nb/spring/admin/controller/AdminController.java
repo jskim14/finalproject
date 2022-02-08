@@ -5,11 +5,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.common.PageFactory;
+import static com.nb.spring.common.MsgModelView.msgBuild;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
 
@@ -51,6 +53,47 @@ public class AdminController {
 		mv.addObject("product", product);
 		mv.setViewName("detail/productConfirmDetail");
 		return mv;
+	}
+	
+	@RequestMapping("/permission")
+	public ModelAndView permission(String productNo,ModelAndView mv) {
+		log.debug(productNo);
+		
+		int result = productService.updateProductPermission(productNo);
+		
+		if(result>0) {
+			mv = msgBuild(mv,"/admin/productManage", "승인완료");
+		}else {
+			mv = msgBuild(mv, "/admin/productManage", "ERROR - 처리 실패 ");
+		}
+		
+		return mv;
+		
+		
+	}
+	
+	@PostMapping("/reject")
+	public ModelAndView reject(String productNo,@RequestParam(defaultValue = "거부") String rejectReason,ModelAndView mv) {
+		log.debug("reject : "+productNo);
+		log.debug("reject : "+rejectReason);
+		
+		Map<String,Object> param = Map.of("productNo",productNo,"rejectReason",rejectReason);
+		
+		int result = productService.updateProductReject(param);
+		
+		if(result>0) {
+			mv = msgBuild(mv,"/admin/productManage", "처리완료");
+		}else {
+			mv = msgBuild(mv, "/admin/productManage", "ERROR - 처리 실패 ");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("/specialProductEnroll")
+	public String specialPoduct() {
+		
+		return "admin/specialProductEnroll";
 	}
 	
 }
