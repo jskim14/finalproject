@@ -102,4 +102,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.updateDeliveryAddress", param);
 	}
 
+	@Override
+	public List<Wallet> emoneyDetail(SqlSessionTemplate session, String memberNo) {
+		return session.selectList("member.emoneyDetail", memberNo);
+	}
+
 }

@@ -62,11 +62,11 @@
 							<div class="goods-box">
 								<c:if test="${not empty p.images}">
 								<img src="${path }/resources/upload/product/${p.images.get(0).imageName}"
-								width="270" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
 								</c:if>
 								<c:if test="${empty p.images}">
 								<img src="${path }/resources/images/"
-								width="270" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
 								</c:if>
 								<p>
 									<strong style="font-size: 15px">${p.productName }</strong><br>
@@ -105,11 +105,11 @@
 							<div class="goods-box">
 								<c:if test="${not empty p.images}">
 								<img src="${path }/resources/upload/product/${p.images.get(0).imageName}"
-								width="270" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
 								</c:if>
 								<c:if test="${empty p.images}">
 								<img src="${path }/resources/images/"
-								width="270" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
 								</c:if>
 								<p>
 									<strong style="font-size: 15px">${p.productName }</strong><br>
@@ -281,6 +281,7 @@
   		let ul = $("<ul>");
 			for(let i=0; i<data.length; i++) {
 				let pro = data[i];
+				console.log(pro);
 				let li = $("<li>");
 				li.css("width","25%");
 				let a = $("<a>");
@@ -320,7 +321,7 @@
 				}
 				p.append("판매자 &nbsp;")
 				let strong2 = $("<strong>");
-				strong2.append(pro["seller"]["nickName"]);
+				strong2.append(pro["seller"]);
 				p.append(strong2);
 				div.append(img);
 				div.append(p);
