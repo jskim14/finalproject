@@ -37,5 +37,7 @@ public interface MemberService {
 	int shippingSelect(String productNo);
 
 	int updateDeliveryAddress(Map<String,String> param);
+	
+	List<Wallet> emoneyDetail(String memberNo);
 
 }
