@@ -125,10 +125,18 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
+	public int imgDelete(SqlSessionTemplate session, String productNo) {
+		return session.delete("product.imgDelete", productNo);
+	}
+
+	@Override
 	public int waitingDelete(SqlSessionTemplate session, String productNo) {
 		return session.delete("product.waitingDelete", productNo);
 	}
 	
-	
+	@Override
+	public int shippingSelect(SqlSessionTemplate session, String memberNo) {
+		return session.update("product.shippingSelect", memberNo);
+	}
 	
 }

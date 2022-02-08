@@ -97,7 +97,7 @@
 						<div class="col-2">
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
-						    <img src="/resources/upload/product/29012223120026_683.png" 
+						    <img src="/resources/upload/product/${p.images.get(0).imageName }" 
 						    alt="" style="width: 150px; height: 130px;">
 						</div>
 						<div class="col-6">
@@ -150,10 +150,9 @@
 						            	onclick="location.assign('${path}/product/updateProduct?productNo=${p.productNo }')">
 						            	수정하기 </button> 
 						            	<button type="button" class="btn btn-secondary" style="background-color:#7f47e9"
-						            	data-bs-toggle="modal" data-bs-target="#delete">
+						            	data-bs-toggle="modal" data-bs-target="#delete" >
 						            	삭제 </button>
-						            </div>
-						            <!-- Modal -->
+						            	<!-- Modal -->
 										<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 										  <div class="modal-dialog">
 										    <div class="modal-content">
@@ -167,13 +166,13 @@
 										      </div>
 										      <div class="modal-footer">
 										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-										        <button type="button" class="btn btn-primary btnColor"
+										        <button type="submit" class="btn btn-primary btnColor" id="modaltest"
 										        onclick="location.assign('${path}/product/waitingDelete?productNo=${p.productNo }')" >삭제하기</button>
 										      </div>
 										    </div>
 										  </div>
 										</div>
-						            
+						            </div>
 						        	</c:when>
 						        </c:choose>
 						        <c:choose>
@@ -202,7 +201,7 @@
 										      <div class="modal-footer">
 										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 										        <button type="button" class="btn btn-primary btnColor"
-										        onclick="location.assign('${path}/member/shipping?productNo=${p.productNo }')" >발송하기</button>
+										        onclick="location.assign('${path}/product/shipping?productNo=${p.productNo }')" >발송하기</button>
 										      </div>
 										    </div>
 										  </div>
@@ -301,7 +300,6 @@
 	    $("#endDate").val(date.toISOString().substring(0, 10));
 	});
 
-    
     </script>
 </section>
 

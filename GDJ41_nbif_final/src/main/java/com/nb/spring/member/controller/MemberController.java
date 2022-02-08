@@ -463,27 +463,6 @@ public class MemberController {
 		return "product/buyStates";
 	}
 	
-	@RequestMapping("/shipping") 
-	public ModelAndView shippingSelect(String productNo, ModelAndView mv) {
-		System.out.println("productNo:"+ productNo);
-		int result = service.shippingSelect(productNo);
-		String msg = "";
-		String loc = "";
-		
-		if(result>0) {
-			msg = "물품발송이 완료되었습니다.";
-			loc = "/";
-		}else {
-			msg = "실패";
-			loc = "/";
-		}
-		
-		mv.addObject("msg",msg);
-		mv.addObject("loc",loc);
-		mv.setViewName("/common/msg");
-		return mv;
-	}
-	
 	@RequestMapping("/emoneyDetail")
 	public ModelAndView emoneyDetail(String memberNo, ModelAndView mv) {
 		List<Wallet> list = service.emoneyDetail(memberNo);

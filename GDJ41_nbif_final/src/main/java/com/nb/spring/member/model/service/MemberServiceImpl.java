@@ -100,12 +100,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int shippingSelect(String productNo) {
-		int result = dao.shippingSelect(session, productNo);
-		return result;
-	}
-
-	@Override
 	public List<Wallet> emoneyDetail(String memberNo) {
 		List<Wallet> list = dao.emoneyDetail(session, memberNo);
 		return list;

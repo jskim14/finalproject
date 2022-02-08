@@ -47,6 +47,10 @@ public interface ProductDao {
 
 	int updateProductPermission(SqlSessionTemplate session, String productNo);
 	
+	int imgDelete(SqlSessionTemplate session, String productNo);
+	
 	int waitingDelete(SqlSessionTemplate session, String productNo);
+	
+	int shippingSelect(SqlSessionTemplate session, String memberNo);
 
 }

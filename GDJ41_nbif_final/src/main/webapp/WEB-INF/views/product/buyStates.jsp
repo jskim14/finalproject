@@ -87,13 +87,12 @@
 			<c:if test="${not empty productList }">
 				<!-- 상품내용 한줄 -->
 				<c:forEach var="p" items="${productList}">
-				
      				<div class="row" style="margin: 0; text-align: center;">
 						<hr>
 						<div class="col-2">
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
-						    <img src="/resources/upload/product/29012223120026_683.png" 
+						    <img src="/resources/upload/product/${p.productNo.images.get(0).imageName }" 
 						    alt="" style="width: 150px; height: 130px;">
 						</div>
 						<div class="col-6">

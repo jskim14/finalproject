@@ -40,6 +40,10 @@ public interface ProductService {
 
 	int updateProductPermission(String productNo);
 	
+	int imgDelete(String productNo);
+	
 	int waitingDelete(String productNo);
+	
+	int shippingSelect(String productNo);
 
 }

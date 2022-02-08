@@ -457,7 +457,7 @@ public class ProductController {
 	
 	@RequestMapping("/updateProduct")
 	public ModelAndView updateProduct(String productNo, ModelAndView mv) {
-		System.out.println(productNo);
+		System.out.println("수정" + productNo);
 		Product p = productService.updateProduct(productNo);
 		mv.addObject("p",p);
 		mv.setViewName("/product/updateProduct");
@@ -538,8 +538,13 @@ public class ProductController {
 	
 	@RequestMapping("/waitingDelete")
 	public ModelAndView waitingDelete(String productNo, HttpSession session, ModelAndView mv) {
+		System.out.println("삭제"+productNo);
 		Member login = (Member)session.getAttribute("loginMember");
-		int result = productService.waitingDelete(productNo);
+		int imgDelete = productService.imgDelete(productNo);
+		int result = 0;
+		if(imgDelete>0) {
+			result = productService.waitingDelete(productNo);
+		}
 		
 		String msg = "";
 		String loc = "/member/salesStates?memberNo="+login.getMemberNo();
@@ -556,5 +561,25 @@ public class ProductController {
 		return mv;
 	}
 	
+	@RequestMapping("/shipping") 
+	public ModelAndView shippingSelect(String productNo, HttpSession session, ModelAndView mv) {
+		System.out.println("발송:"+ productNo);
+		Member login = (Member)session.getAttribute("loginMember");
+		int result = productService.shippingSelect(productNo);
+		
+		String msg = "";
+		String loc = "/member/salesStates?memberNo="+login.getMemberNo();
+		
+		if(result>0) {
+			msg = "물품발송이 완료되었습니다.";
+		}else {
+			msg = "실패";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
 
 }
