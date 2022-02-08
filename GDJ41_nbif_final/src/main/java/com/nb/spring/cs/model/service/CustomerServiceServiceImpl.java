@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.cs.model.dao.CustomerServiceDao;
 import com.nb.spring.cs.model.vo.Notice;
@@ -33,6 +34,11 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
 	@Override
 	public int insertNotice(Map<String,String> param) {
 		return dao.insertNotice(session, param);
+	}
+	
+	@Override
+	public int insertQuestion(Map<String,String> param2) {
+		return dao.insertQuestion(session, param2);
 	}
 	
 	

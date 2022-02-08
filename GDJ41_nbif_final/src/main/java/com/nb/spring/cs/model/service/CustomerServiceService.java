@@ -16,6 +16,8 @@ public interface CustomerServiceService {
 	List<Qna> selectQnaList(Model model);
 	int insertNotice(Map<String,String> param);
 	
+	int insertQuestion(Map<String,String> param2);
+	
 	
 
 }
