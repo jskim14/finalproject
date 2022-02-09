@@ -28,9 +28,9 @@ public interface MemberService {
 	
 	List<Product> salesSearch(Map param);
 	
-	List<Member> buyList(String memberNo);
+	List<Wallet> buyList(String memberNo);
 	
-	List<Member> buySearch(Map param);
+	List<Wallet> buySearch(Map param);
 
 	int updateBalance(DealType type, Map<String, Object> param);
 	

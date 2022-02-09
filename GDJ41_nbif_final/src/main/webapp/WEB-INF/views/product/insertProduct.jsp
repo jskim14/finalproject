@@ -14,6 +14,7 @@
     <div id="totalContainer">
         <div class="pageTitle">
             <span>판매입찰등록</span>
+            ${salesCnt.get(0) }
         </div> 
         <div class="pageMenu">
             <form action="${path }/product/insertProductEnd" method="post" enctype="multipart/form-data">

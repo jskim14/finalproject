@@ -66,12 +66,12 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Member> buyList(SqlSessionTemplate session, String memberNo) {
+	public List<Wallet> buyList(SqlSessionTemplate session, String memberNo) {
 		return session.selectList("member.buyList",memberNo);
 	}
 
 	@Override
-	public List<Member> buySearch(SqlSessionTemplate session, Map param) {
+	public List<Wallet> buySearch(SqlSessionTemplate session, Map param) {
 		return session.selectList("member.buySearch", param);
 	}
 	

@@ -48,10 +48,6 @@
            	</div>
 			<div class="row" style="">
 			<form action="${path }/member/buySearch?memberNo=${loginMember.memberNo}" method="post">
-			<input type="hidden" name="count" value="${buyCnt.get(0) }">
-			<input type="hidden" name="count" value="${buyCnt.get(1) }">
-			<input type="hidden" name="count" value="${buyCnt.get(2) }">
-			<input type="hidden" name="count" value="${buyCnt.get(3) }">
 			    <div class="row" style="height: 70px; background-color:lightgray; margin: 0; text-align: center; padding: 1% 0 1% 10%;">
 			        <!-- 검색 -->
 			        <div class="col-3"> 
@@ -76,7 +72,6 @@
            <!-- 
            		         
            -->
-           
          <!--   ${productList[0].productNo.productStatus } 이 형태다 -->
  			<c:if test="${empty productList}">
 				<div style="text-align: center">
@@ -84,7 +79,7 @@
 				구매한 물품이 없습니다. 새로운 물품을 구매해보세요.
 				</div>
 			</c:if>
-			<c:if test="${not empty productList }">
+	 		<c:if test="${not empty productList }">
 				<!-- 상품내용 한줄 -->
 				<c:forEach var="p" items="${productList}">
      				<div class="row" style="margin: 0; text-align: center;">
@@ -254,7 +249,7 @@
 					    </div>
 					</div>
 			    </c:forEach>
-			</c:if> 
+			</c:if>   	
         </div>
     </div>
     <script>

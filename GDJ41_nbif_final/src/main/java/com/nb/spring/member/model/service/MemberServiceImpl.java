@@ -73,12 +73,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> buyList(String memberNo) {
+	public List<Wallet> buyList(String memberNo) {
 		return dao.buyList(session, memberNo);
 	}
 
 	@Override
-	public List<Member> buySearch(Map param) {
+	public List<Wallet> buySearch(Map param) {
 		return dao.buySearch(session, param);
 	}
 
