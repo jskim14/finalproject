@@ -75,22 +75,32 @@
             <table class="table table-hover">
             	<thead id="thead">
             		 <tr>
-	            		<th style="padding-left:5%" class="table-dark">#</th>
-	            		<th style="padding-left:10%" class="table-dark">제목</th>
-	            		<th style="padding-left:10%" class="table-dark">작성자</th>
-	            		<th style="padding-left:10%" class="table-dark">작성일</th>
+	            		<th style="text-align:center; min-width:50px;" class="table-dark">#</th>
+	            		<th style="text-align:center; min-width:200px;" class="table-dark">제목</th>
+	            		<th style="text-align:center;" class="table-dark">작성자</th>
+	            		<th style="text-align:center; width:130px;" class="table-dark">작성일</th>
+	            		<th style="text-align:center;" class="table-dark">답변여부</th>
             		</tr> 
             	</thead>
             	
             	<tbody id="cslist">
             	<c:forEach items="${qnaList }" var="q">
             		<tr>
-            			<td style="padding-left:5%"><c:out value="${q.qnaNo}"/></td>
-            			<td style="padding-left:10%">
+            			<td style="text-align:center;"><c:out value="${q.qnaNo}"/></td>
+            			<td style="">
             				<a href="${path }/cs/qnaContent?qnaNo=${q.qnaNo}" style="text-decoration:none;color:black;"><c:out value="${q.qnaTitle}"/></a>
             			</td>
-            			<td style="padding-left:10%"><c:out value="${q.writer.memberNickName}"/></td>
-            			<td style="padding-left:10%"><c:out value="${q.questionDate}"/></td>
+            			<td><c:out value="${q.writer.nickName}"/></td>
+            			<td style="text-align:center;"><c:out value="${q.questionDate}"/></td>
+            			<td style="text-align:center;">
+            				<c:if test="${empty q.qnaAnswer}">
+            					<span style="color:red;">답변대기</span>
+            				</c:if>
+            				<c:if test="${not empty q.qnaAnswer}">
+            					<span style="color:blue;">답변완료</span>
+            				</c:if>
+            				
+            			</td>
             		</tr>
             	</c:forEach>
             		
@@ -107,6 +117,5 @@
         	
         	
         </script>
-        
 
 <jsp:include page="${path }/WEB-INF/views/common/footer.jsp"/>

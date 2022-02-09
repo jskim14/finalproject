@@ -22,6 +22,7 @@
 	color: #fff;
 	background-color: #7f47e9;
 	border-color: #7f47e9;
+	font-size:12px;
 }
 
 #bidderList {
@@ -69,7 +70,7 @@
 													<div class="carousel-item">
 												</c:if>
 												<img src="${path}/resources/upload/product/${img.imageName}"
-													class="d-block" alt="..." width="100%" height="500px">
+													class="d-block" alt="..." width="100%" height="400px">
 									</div>
 									</c:forEach>
 									</c:if>
@@ -87,7 +88,7 @@
 									<strong class="visually-hidden">Next</strong>
 								</button>
 							</div>
-							<div class="d-flex" style="justify-content: space-around;">
+							<div class="d-flex" style="justify-content: space-around; margin-bottom:20px;">
 								<c:if test="${not empty product.images }">
 									<c:forEach items="${product.images }" varStatus="status"
 										var="img">
@@ -96,7 +97,7 @@
 											data-bs-slide-to="${status.index }"
 											aria-label="Slide${status.index+1 }">
 											<img src="${path}/resources/upload/product/${img.imageName}"
-												alt="사진1" width="150px" height="150px">
+												alt="사진1" width="120px" height="120px">
 										</button>
 									</c:forEach>
 								</c:if>
@@ -116,15 +117,15 @@
 
 
 							<div id="bidderList" class="col-12"
-								style="height: 125px; overflow: auto">
+								style="height: 120px; overflow: auto">
 								<table class="table table-striped" style="text-align: center;">
 									<tr
-										style="position: sticky; top: 0; background-color: #41B979 !important; font-weight: bolder;">
+										style="position: sticky; top: 0; background-color:gray !important;font-weight: bolder;font-size:14px;">
 										<th style="color: white;">입찰자</th>
 										<th style="color: white;">입찰 금액</th>
 									</tr>
 									<c:forEach items="${bidderList }" var="b">
-										<tr>
+										<tr style="font-size:14px;">
 											<td><c:out value="${b['NICKNAME'] }" /></td>
 											<td><strong><c:out value="${b['AMOUNT'] }" /></strong>원</td>
 										</tr>
@@ -142,7 +143,7 @@
 				<div class="col-1"></div>
 				<div id="infoBox" class="col-5">
 					<div class="row mb-1">
-						<div class="col-12">
+						<div class="col-8" style="font-size:14px;text-align:center;color:#41B979; width:95px; border:solid 1px #41B979; border-radius:8px; margin-left:10px;">
 							<strong> <c:choose>
 									<c:when test="${product.productCategory eq 'FS' }">
 										<c:out value="패션(${product.productCategory})" />
@@ -164,23 +165,22 @@
 						</div>
 					</div>
 					<div class="row mb-1">
-						<div class="col-12">
+						
+						<div class="col-12" style="color:gray;font-style:italic;">
+							<c:out value="${product.productNo }" />
+						</div>
+						
+					</div>
+					<div class="row mb-1">
+						<div class="col-12" style="font-size:26px;">
 							<strong><c:out value="${product.productName}" /></strong>
 						</div>
 					</div>
-					<div class="row mb-1">
-						<div class="col-6">
-							<strong>물품번호</strong>
-						</div>
-						<div class="col-6">
-							<strong style="float: right;"><c:out
-									value="${product.productNo }" /></strong>
-						</div>
-					</div>
+
 					<hr>
 					<div class="row mb-1">
 						<div class="col-6">
-							<strong>최고입찰자</strong>
+							<strong>최고 입찰자</strong>
 						</div>
 						<div class="col-6">
 							<strong style="float: right;"> <c:if
@@ -196,11 +196,6 @@
 					<div class="row">
 						<div class="col-12">
 							<strong>현재가</strong>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-12">
 							<strong style="float: right;"><c:out
 									value="${ product.nowBidPrice}" /><span>원</span></strong>
 						</div>
@@ -208,19 +203,20 @@
 					<hr>
 					<div class="row mb-1">
 						<div class="col-12">
-							<strong>시작가-</strong><strong><c:out
-									value="${product.minBidPrice }" /></strong><strong>원</strong>
+							<strong>경매 시작가: </strong>
+							<strong style="float:right;"><c:out
+									value="${product.minBidPrice }" /><span>원</span></strong>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<strong>경매종료까지</strong>
+							<strong>경매 종료까지 남은 시간: </strong>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
 							<div id="timer"
-								style="padding-left: 10px; float: right; font-size: 40px; font-weight: bold;">
+								style="padding-left: 10px; float: right; font-size: 28px; font-weight: bold;">
 
 							</div>
 						</div>
@@ -267,88 +263,82 @@
 					<hr>
 					<c:if test="${isGeneral == true }">
 
-						<div class="row mb-3">
-							<div class="col-12">
-								<strong>입찰하기</strong>
-							</div>
-						</div>
-						<div id="bidButtons" class="row mb-3">
-							<div class="col-3">
-								<button type="button" class="w-100 btn btn-purple" value="1000"
-									${!isSell?"disabled":"" }>1000</button>
-							</div>
-							<div class="col-3">
-								<button type="button" class="w-100 btn btn-purple" value="10000"
-									${!isSell?"disabled":"" }>10000</button>
-							</div>
-							<div class="col-3">
-								<button type="button" class="w-100 btn btn-purple"
-									value="100000" ${!isSell?"disabled":"" }>100000</button>
-							</div>
-							<div class="col-3">
-								<button type="button" class="w-100 btn btn-purple"
-									value="1000000" ${!isSell?"disabled":"" }>1000000</button>
-							</div>
-						</div>
-
 						<div class="row">
-							<div class="col-1"></div>
-							<div class="col-6">
-								<div style="border: 3px solid #41B979; border-radius: 10px">
+							<div class="col-7">
+								<div style="border: 2px solid #7f47e9; border-radius: 10px">
 									<input id="bidUnitInput" type=text
 										value="<fmt:formatNumber value="${product.nowBidPrice+product.bidUnit }"/>"
-										style="text-align: right; padding-right: 10px; background: none; font-size: 30px; width: 100%;"
+										style="text-align: right; padding-right: 10px; background: none; font-size: 28px; width: 100%;"
 										${!isSell?"disabled":"" }>
 									<!-- <span>원</span> -->
 								</div>
 							</div>
-							<div class="col-1"></div>
-							<div class="col-4">
-								<button type="button" class="btn btn-green"
+							<div class="col-5">
+								<button type="button" class="btn btn-purple"
 									data-bs-toggle="modal" data-bs-target="#biddingModal"
 									style="height: 100%; width: 100%; font-size: 20px"
 									${!isSell?"disabled":"" }>입찰하기</button>
 							</div>
 						</div>
+						
+						<div id="bidButtons" class="row mb-3" style="margin-top:10px;">
+							<div class="col-3">
+								<button type="button" class="w-100 btn btn-purple"value="1000"
+									${!isSell?"disabled":"" }>₩1,000</button>
+							</div>
+							<div class="col-3">
+								<button type="button" class="w-100 btn btn-purple" value="10000"
+									${!isSell?"disabled":"" }>₩10,000</button>
+							</div>
+							<div class="col-3">
+								<button type="button" class="w-100 btn btn-purple"
+									value="100000" ${!isSell?"disabled":"" }>₩100,000</button>
+							</div>
+							<div class="col-3">
+								<button type="button" class="w-100 btn btn-purple"
+									value="1000000" ${!isSell?"disabled":"" }>₩1,000,000</button>
+							</div>
+						</div>
+						
 						<div class="row mt-2">
 							<div class="col-12">
-								<small style="font-size: 12px">다음 입찰금액은 <b><c:out
-											value="${product.nowBidPrice+product.bidUnit }" /></b>원 이며 ,
-									그이상을 직접입력하여 입찰할 수 있습니다.
+								<small style="font-size: 13px; float:right;">다음 입찰금액은 <b><c:out
+											value="${product.nowBidPrice+product.bidUnit }" /></b>원이며,
+									그이상을 직접 입력하여 입찰할 수 있습니다.
 								</small>
 							</div>
 						</div>
 						<hr>
-						<div class="row mb-3">
+						<!-- <div class="row mb-3">
 							<div class="col-12">
-								<strong>buy now</strong>
+								<strong>즉시 구매하기</strong>
 							</div>
-						</div>
+						</div> -->
 						<div class="row">
 							<c:if test="${product.buyNowPrice!=null}">
-								<div class="col-1"></div>
-								<div class="col-6">
+								<!-- <div class="col-1"></div> -->
+								<div class="col-7">
 									<div
-										style="border: 3px solid #41B979; border-radius: 10px; display: flex; justify-content: flex-end;">
-										<span style="font-size: 30px; margin-right: 10px"> <fmt:formatNumber
+										style="border: 2px solid #41B979; border-radius: 10px; display: flex; justify-content: flex-end;">
+										<span style="font-size: 28px; margin-right: 10px"> <fmt:formatNumber
 												value="${product.buyNowPrice }" />
 										</span>
 									</div>
 								</div>
-								<div class="col-1"></div>
-								<div class="col-4">
+								<!-- <div class="col-1"></div> -->
+								<div class="col-5">
 									<button type="button" class="btn btn-green"
 										style="height: 100%; width: 100%; font-size: 20px"
 										onclick="checkBuyNow('${product.productNo}','${loginMember==null?false:true }');"
-										${!isSell?"disabled":"" }>바로구매</button>
+										${!isSell?"disabled":"" }>즉시 구매하기</button>
 									<button id="buyNowModalBtn" type="button" data-bs-toggle="modal"
 										data-bs-target="#buyNowModal" style="display: none"></button>
 	
 								</div>
 							</c:if>
 							<c:if test="${product.buyNowPrice==null}">
-								<div class="col-12 d-flex justify-content-center align-items-center" style="opacity:0.3; border-radius:20px; background-color: #41B979; width:100%;height:100px">
-									<span style="font-size:30px;color:white;">즉시구매 불가 상품입니다.</span>
+								<div class="col-12 d-flex justify-content-center align-items-center" style="opacity:0.3; border-radius:20px; background-color: #41B979; width:99%;height:60px">
+									<span style="font-size:24px;color:white;">즉시구매 불가 상품입니다.</span>
 								</div>
 							</c:if>
 						</div>
@@ -400,6 +390,7 @@
 						</script>
 						</div>
 						<hr>
+						
 						<div class="row">
 							<div class="col-12">
 								<div class="accordion accordion-flush"
@@ -511,13 +502,13 @@
 					</c:if>
 
 				</div>
-
+				<br>
 				<div class="row">
 					<div class="col-12">
 						<hr>
-						<h1>
-							<strong>상품정보</strong>
-						</h1>
+						<h2>
+							상품정보
+						</h2>
 					</div>
 					<div class="col-12">
 						<p>
@@ -532,10 +523,10 @@
 					<div class="row">
 						<div class="col-12">
 							<hr>
-							<h1>
+							<h2>
 								<strong><strong><c:out
 											value="${product.seller.nickName}" /></strong>의 다른상품</strong>
-							</h1>
+							</h2>
 						</div>
 						<div class="col-12 d-flex" style="overflow: hidden;">
 							<div style="width: 210px;">
@@ -693,7 +684,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">정말입찰하시겠습니까?</h5>
+				<h5 class="modal-title" id="exampleModalLabel">정말 입찰하시겠습니까?</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>

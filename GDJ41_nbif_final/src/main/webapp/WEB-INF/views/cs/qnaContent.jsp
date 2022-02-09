@@ -31,23 +31,23 @@
             <div style="padding:0 10%;">
             	<table class="table">
             	<tr>
-            		<td class="table-active">글번호</td>
+            		<td class="table-active" style="text-align:center;font-weight:bold;">글번호</td>
             		<td width="50%;">${qna.qnaNo }</td>
-            		<td class="table-active">등록일</td>
+            		<td class="table-active" style="text-align:center;font-weight:bold;">등록일</td>
             		<td>${qna.questionDate }</td>
             	</tr>
             	<tr>
-            		<td class="table-active">제목</td>
+            		<td class="table-active" style="text-align:center;font-weight:bold;">제목</td>
             		<td colspan="3">${qna.qnaTitle }</td>
             	</tr>
             	<tr>
-            		<td class="table-active">문의내용</td>
+            		<td class="table-active" style="text-align:center;font-weight:bold;">문의내용</td>
             		<td colspan="3">${qna.qnaContent }</td>
             	</tr>
             	<tr>
-            		<td class="table-active">답변</td>
+            		<td class="table-active" style="text-align:center;vertical-align:middle;font-weight:bold;">답변</td>
             		<c:if test="${empty qna.qnaAnswer }">
-            			<td style="height:200px;">관리자가 확인 중입니다. 조금만 기다려주세요.</td>
+            			<td style="height:200px; color:red;font-style:italic;">관리자가 확인 중입니다. 조금만 기다려주세요.</td>
             		</c:if>
             		<td style="height:200px;" colspan="3">${qna.qnaAnswer }</td>
             	</tr>
@@ -76,12 +76,14 @@
 										<textarea class="form-control" id="exampleFormControlTextarea1" name="qnaAnswer"
 											rows="3" placeholder="답변을 입력하세요."></textarea>
 									</div>
+									<input type="hidden" value="${qna.qnaNo }" name="qnaNo">
 								</div>
 								
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">닫기</button>
 									<button type="submit" class="btn btn-warning">등록</button>
+									
 								</div>
 								</form>
 							</div>

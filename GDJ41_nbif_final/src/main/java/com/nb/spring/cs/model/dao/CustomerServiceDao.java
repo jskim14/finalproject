@@ -22,5 +22,5 @@ public interface CustomerServiceDao {
 	int deleteNotice(SqlSessionTemplate session, int noticeNo);
 	Qna qnaContent(SqlSessionTemplate session, int qnaNo);
 	
-	int insertAnswer(SqlSessionTemplate session, Map<String,Object>param);
+	int insertAnswer(SqlSessionTemplate session, Map<String,String>param);
 }
