@@ -119,3 +119,4 @@ function stringFormat(num) {
 
 	return parseInt(strNum.replace(/,/g, ''));
 };
+console.log(path);

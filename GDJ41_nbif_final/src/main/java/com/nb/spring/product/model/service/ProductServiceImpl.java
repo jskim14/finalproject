@@ -180,5 +180,9 @@ public class ProductServiceImpl implements ProductService {
 		int result = dao.shippingSelect(session, productNo);
 		return result;
 	}
-
+	
+	@Override
+	public int endSellRealTimeAction(Map<String,Object> param) {
+		return dao.endSellRealTimeAction(session, param);
+	}
 }

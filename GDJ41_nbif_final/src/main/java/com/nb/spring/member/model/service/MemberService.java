@@ -37,5 +37,8 @@ public interface MemberService {
 	int updateDeliveryAddress(Map<String,String> param);
 	
 	List<Wallet> emoneyDetail(String memberNo);
-
+	
+	Member findMember(String nickName);
+	
+	int endRealTimeActionWallet(Map<String,Object> param);
 }

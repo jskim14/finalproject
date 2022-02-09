@@ -41,5 +41,8 @@ public interface MemberDao {
 	int updateDeliveryAddress(SqlSessionTemplate session, Map<String,String>param);
 
 	List<Wallet> emoneyDetail(SqlSessionTemplate session, String memberNo);
-
+	
+	Member findMember(SqlSessionTemplate session, String nickName);
+	
+	int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param);
 }

@@ -192,19 +192,22 @@ Special Action</h2>
 				</div>
 			</div>
 			<div id="section-right">
-			
 			</div>
 		</div>
 	</div>
-<form name="endActionForm" action="" method="post" style="display: none;">
-	<input type="hidden" name="nickName" id="nickName">
-	<input type="hidden" name="amount" id="amount">
-	<input type="hidden" name="productNo" id="productNo" value="">
-</form>
 <script src="${path }/resources/js/realtimeaction.js"></script>
 <script>
 function send(price) {
 	socket.send(JSON.stringify({ "nickName": "${loginMember.nickName}", "price": price }));
+}
+function endProductAction (nickName,price) {
+	$.ajax({
+		url : "${path}/product/endProductAction",
+		data : {"nickName":nickName,"price":price,"productNo":"TC080222141")},
+		success : data => {
+			
+		}
+	});
 }
 </script>
 

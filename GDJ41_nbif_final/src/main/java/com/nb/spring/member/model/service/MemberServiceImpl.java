@@ -105,6 +105,13 @@ public class MemberServiceImpl implements MemberService {
 		return list;
 	}
 	
+	@Override
+	public Member findMember(String nickName) {
+		return dao.findMember(session, nickName);
+	}
 	
-
+	@Override
+	public int endRealTimeActionWallet(Map<String,Object> param) {
+		return dao.endRealTimeActionWallet(session, param);
+	}
 }
