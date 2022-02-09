@@ -2,6 +2,11 @@ package com.nb.spring.admin.controller;
 
 import static com.nb.spring.common.MsgModelView.msgBuild;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.common.PageFactory;
+import com.nb.spring.common.StringHandler;
 import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
+import com.nb.spring.product.model.vo.ProductImage;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -106,6 +113,8 @@ public class AdminController {
 		return "admin/specialProductEnroll";
 	}
 	
+	
+	
 	@PostMapping("/specialProductEnrollEnd")
 	public ModelAndView specialProductEnrollEnd(@RequestParam Map<String,String>param, 
 						@RequestParam(value="bannerImageFile",required=true) MultipartFile bannerImageFile,
@@ -119,15 +128,104 @@ public class AdminController {
 		log.debug("{}",imageFiles);
 		
 		//로그인한 상태인지 
-		//Member m = session.
+		Member m = (Member)session.getAttribute("loginMember");
+		
+		if(!m.getNickName().equals("admin")) {
+			return msgBuild(mv, "/", "관리자 계정 로그인후 이용해주세요");
+		}
+		
+		
+	
+		String bidPrice = StringHandler.removeComma(param.get("minBidPrice"));
+		
+		log.debug("bidPrice : " +bidPrice);
+		
+		
+		String bidUnit = param.get("bidUnit");
+		if(bidUnit=="typing") {
+			bidUnit = param.get("bidUnitInput");
+		}
+		
+		
+
+		
+		String dateStr = param.get("startDate")+" "+param.get("startTime");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+
+		Date startDate = sdf.parse(dateStr);
+		
+		java.sql.Date startSqlDate = new java.sql.Date(startDate.getTime());
+		
+		Product product = Product.builder()
+				.productCategory(param.get("category"))
+				.productName(param.get("productName"))
+				.productContent(param.get("productContent"))
+				.seller(m)
+				.nowBidPrice("0")
+				.minBidPrice(bidPrice)
+				.bidUnit(bidUnit)
+				.buyNowPrice("0")
+				.extendYn("N")
+				.startDate(startSqlDate)
+				.endDate(startSqlDate)
+				.images(new ArrayList<ProductImage>()).build();
+			
+		
+		
+		//-----------file
+		String path = req.getServletContext().getRealPath("/resources/upload/product/");
+		File f= new File(path);
+		
+		if(!f.exists()) f.mkdir();
+		
+		
+		String oriName = bannerImageFile.getOriginalFilename();
+		String ext2 = oriName.substring(oriName.lastIndexOf("."));
+		
+		SimpleDateFormat sdf3 = new SimpleDateFormat("ddMMyyHHmmssss");
+		int randNum = (int)(Math.random()*1000);
+		String renameFile2 = sdf3.format(System.currentTimeMillis())+"_"+randNum+ext2;
+		try {
+			bannerImageFile.transferTo(new File(path+renameFile2));
+			product.setBannerImageName(renameFile2);
+			log.debug(renameFile2);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 		
 		
 		
+		for(MultipartFile mf: imageFiles) {
+			if(!mf.isEmpty()) {
+				String originalFileName = mf.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+				
+				SimpleDateFormat sdf2 = new SimpleDateFormat("ddMMyyHHmmssss");
+				int ranNum = (int)(Math.random()*1000);
+				String renameFile = sdf2.format(System.currentTimeMillis())+"_"+ranNum+ext;
+				
+				try {
+					mf.transferTo(new File(path+renameFile));
+					ProductImage productImage = ProductImage.builder().imageName(renameFile).build();
+					product.getImages().add(productImage);
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}
 		
+		int result= productService.insertProduct(product);
 		
-		
-		return null;
+		if(result>0) {
+			return msgBuild(mv, "/admin/specialProductEnroll", "물품등록이 정상적으로 완료되었습니다.");
+		}else {
+			return msgBuild(mv, "/admin/specialProductEnroll", "물품등록에 실패 - 다시시도 ~!");
+		}
+	
 	}
+	
 	
 	
 }

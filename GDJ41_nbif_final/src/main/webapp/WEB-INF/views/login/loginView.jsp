@@ -80,10 +80,12 @@
 							</button>
 						</div>
 						<div class="col-4">
-							<button type="button" class="btn btn-secondary w-100" style="height: 42px; background:#FEE500; font-size:13px;border:none;color:#624A3D;">
+
+							<button onclick="kakaoLogin()" type="button" class="btn btn-secondary w-100" style="height: 42px; background:#FEE500; font-size:13px;border:none;color:#624A3D;">
 								<img src="${path }/resources/images/kakao.png" style="width:20px;height:20px;padding:0;">
 								카카오 로그인
 							</button>
+
 						</div>
 						<div class="col-4">
 							<button type="button" class="btn btn-secondary w-100" style="background:#3366CC; border:none; font-size:13px;">
@@ -97,6 +99,10 @@
 	</form>
 </section>
 <script>
+
+
+
+
 	function goToEnroll(){
 		location.assign(location.origin+"/member/enrollMember");
 	}

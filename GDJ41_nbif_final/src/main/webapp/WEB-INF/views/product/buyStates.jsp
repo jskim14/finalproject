@@ -87,13 +87,12 @@
 			<c:if test="${not empty productList }">
 				<!-- 상품내용 한줄 -->
 				<c:forEach var="p" items="${productList}">
-				
      				<div class="row" style="margin: 0; text-align: center;">
 						<hr>
 						<div class="col-2">
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
-						    <img src="/resources/upload/product/29012223120026_683.png" 
+						    <img src="/resources/upload/product/${p.productNo.images.get(0).imageName }" 
 						    alt="" style="width: 150px; height: 130px;">
 						</div>
 						<div class="col-6">
@@ -112,14 +111,14 @@
 						        		<strong><span style="font-size: 18px;float: left; color: #ef6253;">입찰중</span></strong>
 						        	</c:when>
 						        	<c:when test="${(p.productNo.productStatus eq '1' or p.productNo.productStatus eq '2') 
-						        	and p.productNo.highestBidder.memberNo eq loginMember.memberNo }">
+						        	and p.productNo.finalPrice eq p.amount }">
 						        		<strong><span style="font-size: 18px;float: left; color: #ef6253;">구매대기</span></strong>
 						        	</c:when>
 						        	<c:when test="${(p.productNo.productStatus eq '3' or p.productNo.productStatus eq '4' or p.productNo.productStatus eq '5') 
-						        	and p.productNo.highestBidder.memberNo eq loginMember.memberNo }">
+						        	and p.productNo.finalPrice eq p.amount }">
 						        		<strong><span style="font-size: 18px;float: left; color: #ef6253;">종료</span></strong>
 						        	</c:when>
-						        	<c:when test="${p.productNo.productStatus ne '0' and p.productNo.highestBidder.memberNo ne loginMember.memberNo }">
+						        	<c:when test="${p.productNo.productStatus ne '0' and p.productNo.finalPrice ne p.amount}">
 						        		<strong><span style="font-size: 18px;float: left; color: #ef6253;">종료</span></strong>
 						        	</c:when>
 						        </c:choose>
@@ -140,7 +139,7 @@
 						         -->
 						        <div>
 						        <c:choose>
-						        	<c:when test="${p.productNo.productStatus eq '1' and p.productNo.highestBidder.memberNo eq loginMember.memberNo }">
+						        	<c:when test="${p.productNo.productStatus eq '1' and p.productNo.finalPrice eq p.amount }">
 							            <span style="font-size: 18px;float: left; color: gray;">배송대기</span>
 						        	</c:when>
 						        	<c:when test="${(p.productNo.productStatus eq '2' or p.productNo.productStatus eq '3') and p.productNo.highestBidder.memberNo eq loginMember.memberNo }">
@@ -216,7 +215,7 @@
 							 <c:choose>
 							 	<c:when test="${p.productNo.productStatus eq '0' }"> <!-- 입찰중 -->
 								    <div class="col">
-								    	내가입찰<br><c:out value="${p.amount }"/>
+								    	나의입찰액<br><fmt:formatNumber value="${p.amount }" pattern="#,###"/>원
 								    </div>
 							    	<div class="col">
 								        현재입찰가<br><fmt:formatNumber value="${p.productNo.nowBidPrice }" pattern="#,###"/>원
@@ -226,7 +225,7 @@
 								    </div>
 						        </c:when>
 						        <c:when test="${(p.productNo.productStatus eq '1' or p.productNo.productStatus eq '2' or p.productNo.productStatus eq '3') 
-						        and p.productNo.highestBidder.memberNo eq loginMember.memberNo }"> <!-- 구매대기(입완) -->
+						        and p.productNo.finalPrice eq p.amount }"> <!-- 구매대기(입완) -->
 								    <div class="col">
 								    	최종구매가격<br><fmt:formatNumber value="${p.productNo.finalPrice }" pattern="#,###"/>원
 								    </div>
@@ -245,7 +244,7 @@
 								        <a href="#" class="aColor" style="color: gray;">문의사항 바로가기</a>
 								    </div>
 						        </c:when>
-						        <c:when test="${p.productNo.productStatus ne '0' and p.productNo.highestBidder.memberNo ne loginMember.memberNo }">
+						        <c:when test="${p.productNo.productStatus ne '0' and p.productNo.finalPrice ne p.amount }">
 								    <div class="col">
 								    	낙찰에 실패하였습니다. 
 								    </div>

@@ -37,8 +37,6 @@ public interface MemberDao {
 	int updateBalance(SqlSessionTemplate session, DealType type, Map<String, Object> param);
 
 	int insertWallet(SqlSessionTemplate session, Map<String, Object> param);
-	
-	int shippingSelect(SqlSessionTemplate session, String memberNo);
 
 	int updateDeliveryAddress(SqlSessionTemplate session, Map<String,String>param);
 

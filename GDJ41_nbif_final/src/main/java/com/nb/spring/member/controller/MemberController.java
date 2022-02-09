@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.nb.spring.common.MsgModelView;
 import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.service.SendEmailService;
 import com.nb.spring.member.model.vo.Member;
@@ -49,6 +52,23 @@ public class MemberController {
 	
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@RequestMapping("/kakaoLogin")
+	public ModelAndView kakaoLogin(@RequestParam Map param, ModelAndView mv) {
+		
+		log.debug("{}",param);
+		
+		Member m = service.loginMember(param);
+		
+		if(m!=null) {
+			mv.addObject("loginMember", m);
+			return MsgModelView.msgBuild(mv, "/", "로그인 성공!");
+		}else {
+		    return MsgModelView.msgBuild(mv, "/member/login", "로그인 실패!");
+		}
+
+		
+	}
 
 	@PostMapping("/loginMember")
 	public ModelAndView loginMember(ModelAndView mv, String email, String password, String flexCheckDefault, 
@@ -128,38 +148,43 @@ public class MemberController {
 		}
 		List<Integer> intList = List.of(total,waiting,sales,soldOut,end);
 		
+		//구매
 		List<Member> buyList = service.buyList(memberNo);
-		int total1 = buyList.size();
+		int buyTotal = buyList.get(0).getWalletList().size();
 		int status1=0;
 		int status2=0;
 		int status3=0;
-		for(Member p : buyList) {
-			for(int i=0; i<buyList.size(); i++) {
-				if(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0")) { //입찰중
-					status1++;
+		if(list.isEmpty()) {
+			List<Integer> zeroList = List.of(0,0,0,0,0);
+			mv.addObject("buyCnt", zeroList);
+		} else {
+			for(Member p : buyList) {
+				for(int i=0; i<p.getWalletList().size(); i++) {
+					if(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0")) { //입찰중
+						status1++;
+					}
+					if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("1")
+							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("2"))
+							&& p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount())) { //구매대기
+						status2++;
+					}
+					if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("3")
+							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("4")
+							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("5"))
+							&& p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount())) { //종료
+						status3++;
+					}
+					if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
+							&& !(p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount()))) { //종료
+						status3++;
+					}
 				}
-				if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("1")
-						||p.getWalletList().get(i).getProductNo().getProductStatus().equals("2"))
-						&& p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo)) { //구매대기
-					status2++;
-				}
-				if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("3")
-						||p.getWalletList().get(i).getProductNo().getProductStatus().equals("4")
-						||p.getWalletList().get(i).getProductNo().getProductStatus().equals("5"))
-						&& p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo)) { //종료
-					status3++;
-				}
-				if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
-						&& !(p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo))) { //종료
-					status3++;
-				}
-
 			}
+			List<Integer> intList1 = List.of(buyTotal,status1,status2,status3);
+			mv.addObject("buyCnt", intList1);
 		}
-		List<Integer> intList1 = List.of(total1,status1,status2,status3);
 		
 		mv.addObject("salesCnt", intList);
-		mv.addObject("buyCnt", intList1);
 		mv.addObject("myPageMember",m);
 		mv.setViewName("login/myPage");
 		return mv;
@@ -405,44 +430,43 @@ public class MemberController {
 		return "product/salesStates";
 	}
 	
-//	@SuppressWarnings("unlikely-arg-type")
 	@RequestMapping("/buyStates")
 	public ModelAndView buyStates(String memberNo, ModelAndView mv) {
-		List<Member> list = service.buyList(memberNo);
-		int total = list.size();
+		List<Member> buyList = service.buyList(memberNo);
+		int buyTotal = buyList.get(0).getWalletList().size();
 		int status1=0;
 		int status2=0;
 		int status3=0;
-		if(list.isEmpty()) {
+		if(buyList.isEmpty()) {
 			List<Integer> zeroList = List.of(0,0,0,0,0);
 			mv.addObject("buyCnt", zeroList);
 		} else {
-			for(Member p : list) {
-				for(int i=0; i<list.size(); i++) {
+			for(Member p : buyList) {
+				for(int i=0; i<p.getWalletList().size(); i++) {
 					if(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0")) { //입찰중
 						status1++;
 					}
 					if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("1")
 							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("2"))
-							&& p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo)) { //구매대기
+							&& p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount())) { //구매대기
 						status2++;
 					}
 					if((p.getWalletList().get(i).getProductNo().getProductStatus().equals("3")
 							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("4")
 							||p.getWalletList().get(i).getProductNo().getProductStatus().equals("5"))
-							&& p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo)) { //종료
+							&& p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount())) { //종료
 						status3++;
 					}
-	//				if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
-	//						&& !(p.getWalletList().get(i).getProductNo().getHighestBidder().equals(memberNo))) { //종료
-	//					status3++;
-	//				}
+					if(!(p.getWalletList().get(i).getProductNo().getProductStatus().equals("0"))
+							&& !(p.getWalletList().get(i).getProductNo().getFinalPrice().equals(p.getWalletList().get(i).getAmount()))) { //종료
+						status3++;
+					}
 				}
 			}
-			List<Integer> intList = List.of(total,status1,status2,status3);
+			List<Integer> intList = List.of(buyTotal,status1,status2,status3);
 			mv.addObject("buyCnt", intList);
 		}
-		mv.addObject("productList",list.get(0).getWalletList());
+		mv.addObject("productList",buyList.get(0).getWalletList());
 //		mv.addObject("productList",list);
 		mv.setViewName("product/buyStates");
 		return mv;
@@ -463,27 +487,6 @@ public class MemberController {
 		m.addAttribute("productList",list.get(0).getWalletList());
 //		m.addAttribute("productList",list);
 		return "product/buyStates";
-	}
-	
-	@RequestMapping("/shipping") 
-	public ModelAndView shippingSelect(String productNo, ModelAndView mv) {
-		System.out.println("productNo:"+ productNo);
-		int result = service.shippingSelect(productNo);
-		String msg = "";
-		String loc = "";
-		
-		if(result>0) {
-			msg = "물품발송이 완료되었습니다.";
-			loc = "/";
-		}else {
-			msg = "실패";
-			loc = "/";
-		}
-		
-		mv.addObject("msg",msg);
-		mv.addObject("loc",loc);
-		mv.setViewName("/common/msg");
-		return mv;
 	}
 	
 	@RequestMapping("/emoneyDetail")
