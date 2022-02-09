@@ -138,17 +138,19 @@ public class MemberController {
 			mv.addObject("salesCnt", zeroList);
 		} else {
 			for(Product p : list) {
-				if(p.getPermissionYn().equals("0") || p.getPermissionYn().equals("2")) { //판매대기
-					status1++;
-				}
-				if(p.getPermissionYn().equals("1") && p.getProductStatus().equals("0")) { //판매중
-					status2++;
-				}
-				if(p.getProductStatus().equals("1")|| p.getProductStatus().equals("2")||p.getProductStatus().equals("3")) { //판매완료
-					status3++;
-				}
-				if(p.getProductStatus().equals("4") || p.getProductStatus().equals("5")) { //종료
-					status4++;
+				if(p.getProductNo() != null) {
+					if(p.getPermissionYn().equals("0") || p.getPermissionYn().equals("2")) { //판매대기
+						status1++;
+					}
+					if(p.getPermissionYn().equals("1") && p.getProductStatus().equals("0")) { //판매중
+						status2++;
+					}
+					if(p.getProductStatus().equals("1")|| p.getProductStatus().equals("2")||p.getProductStatus().equals("3")) { //판매완료
+						status3++;
+					}
+					if(p.getProductStatus().equals("4") || p.getProductStatus().equals("5")) { //종료
+						status4++;
+					}
 				}
 			}
 			List<Integer> salesCnt = List.of(total,status1,status2,status3,status4);
@@ -169,23 +171,25 @@ public class MemberController {
 			mv.addObject("buyCnt", zeroList);
 		} else {
 			for(Wallet w : buyList) {
-				if(w.getProductNo().getProductStatus().equals("0")) {
-					buying++;
-				}
-				if((w.getProductNo().getProductStatus().equals("1")
-						||w.getProductNo().getProductStatus().equals("2"))
-						&& w.getProductNo().getFinalPrice().equals(w.getAmount())) { //구매대기
-					waiting++;
-				}
-				if((w.getProductNo().getProductStatus().equals("3")
-						||w.getProductNo().getProductStatus().equals("4")
-						||w.getProductNo().getProductStatus().equals("5"))
-						&& w.getProductNo().getFinalPrice().equals(w.getAmount())) { //종료
-					end++;
-				}
-				if(!(w.getProductNo().getProductStatus().equals("0"))
-						&& !(w.getProductNo().getFinalPrice().equals(w.getAmount()))) { //종료
-					end++;
+				if(w.getProductNo().getProductStatus() != null) {
+					if(w.getProductNo().getProductStatus().equals("0")) {
+						buying++;
+					}
+					if((w.getProductNo().getProductStatus().equals("1")
+							||w.getProductNo().getProductStatus().equals("2"))
+							&& w.getProductNo().getFinalPrice().equals(w.getAmount())) { //구매대기
+						waiting++;
+					}
+					if((w.getProductNo().getProductStatus().equals("3")
+							||w.getProductNo().getProductStatus().equals("4")
+							||w.getProductNo().getProductStatus().equals("5"))
+							&& w.getProductNo().getFinalPrice().equals(w.getAmount()) ) { //종료
+						end++;
+					}
+					if(!(w.getProductNo().getProductStatus().equals("0"))
+							&& !(w.getProductNo().getFinalPrice().equals(w.getAmount()))) { //종료
+						end++;
+					}
 				}
 			}
 			List<Integer> buyCnt = List.of(buyTotal,buying,waiting,end);
