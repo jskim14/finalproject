@@ -223,8 +223,8 @@
   	$("#deadLineBtn").click(e=> {
   		let div = $(e.target).parent();
   		if(div.children("ul").length>=2) {
-  			let deadStartNum = deadStartNum + 4;
-  			let deadFinishNum = deadFinishNum + 4;
+  			deadStartNum = deadStartNum + 4;
+  			deadFinishNum = deadFinishNum + 4;
   		}
   		$.ajax({
   			url : "${path}/addDeatLine",
@@ -289,7 +289,7 @@
 				let div = $("<div>");
 				div.attr("class","goods-box");
 				let img = $("<img>");
-				img.attr({"src":"${path}/resources/images/","width":"270","height":"200","style":"margin-bottom: 12px border-radius: 20px;"});
+				img.attr({"src":"${path}/resources/images/","width":"100%","height":"200","style":"margin-bottom: 12px border-radius: 20px;"});
 				let p = $("<p>");
 				let strong = $("<strong>");
 				strong.append(pro["productName"]);

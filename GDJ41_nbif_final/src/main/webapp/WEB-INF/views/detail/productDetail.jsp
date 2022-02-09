@@ -217,7 +217,7 @@
 					<hr>
 					<div class="row mb-1">
 						<div class="col-12">
-							<strong>시작가-</strong><strong><c:out
+							<strong>시작가 - </strong><strong><c:out
 									value="${product.minBidPrice }" /></strong><strong>원</strong>
 						</div>
 					</div>
