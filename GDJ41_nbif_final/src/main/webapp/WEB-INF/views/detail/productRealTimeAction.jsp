@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+ <c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -195,103 +196,17 @@ Special Action</h2>
 			</div>
 		</div>
 	</div>
-	<script>
-		const socket = new WebSocket("ws://localhost:9090/ws/chat");
-		let min;
-		let sec;
-		socket.onmessage = message=> {
-			console.log(message.data);
-			if(message.data.indexOf("min")) {
-				let time = JSON.parse(message.data);
-				min = time["min"];
-				sec = time["sec"];
-			}else if(message.data.indexOf("nickName")){
-				let mem = JSON.parse(message.data);
-				console.log(mem);
-				if(typeof mem=='object') {
-					$("#section-right").html('');
-					for(let i=0; i<mem.length; i++) {
-						let chat = mem[i];
-						let userDiv = $("<div>");
-						userDiv.css("background-color","white");
-						let h5 = $("<h5>");
-						h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
-						userDiv.append(h5);
-						$("#section-right").append(userDiv);
-						$("#nowPrice").html(numberFormat(chat["price"]));
-					}
-				}
-			}else if(typeof message.data=='number'){
-				$("#userCount").html(message.data);
-			}
-		}
-		$("#sendBtn").click(e=> {
-			let price = $("#inputPrice").val();
-			let nowPrice = $("#nowPrice").text();
-			let balance = $("#balance").text();
-			nowPrice = stringFormat(nowPrice);
-			balance = stringFormat(balance);
-			price = Number(price);
-			nowPrice = Number(nowPrice);
-			balance = Number(balance);
-			if(price<balance) {
-				if(price>nowPrice) {
-					send(price);
-					$("#inputPrice").val('');
-				}else {
-					alert("현재입찰가보다 낮은가격입니다. 다시 입력해주세요.");
-					$("#inputPrice").val('');
-					$("#inputPrice").focus();
-				}	
-			}else {
-				alert("보유잔액이 부족합니다.");
-			}
-		});
-		function send(price) {
-			socket.send(JSON.stringify({"nickName":"${loginMember.nickName}","price":price}));
-		}
-		$("#img-list-con>div>img").click(e=> {
-			let imgSrc = $(e.target).attr("src");
-			$("#img-list-con>div").css({"border":"2px solid white","box-sizing":"border-box"});
-			$(e.target).parent().css({"border":"2px solid black","box-sizing":"border-box"});
-			$("#img-con-first").find("img").attr("src",imgSrc);
-		});
-		var timer = setInterval(() => {
-			if(sec==0) {
-				if(min==0) {
-					clearInterval(timer);
-				}else {
-					sec = 59;
-					min = min - 1;
-				}
-			}else {
-				sec = sec - 1;
-				$("#timeMin").html(min<10?"0" + min:min);
-				$("#timeSec").html(sec<10?"0" + sec:sec);
-				if(min==0 && sec==0) {
-					alert("경매종료");
-				}
-			}
-			//socket.send(JSON.stringify({"min":min,"sec":sec}));
-		},1000);
-		function numberFormat (num) {
-		    if(num==0) return 0;
-		 
-		    var reg = /(^[+-]?\d+)(\d{3})/;
-		    var n = (num + '');
-		 
-		    while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
-		 
-		    return n;
-		};
+<form name="endActionForm" action="" method="post" style="display: none;">
+	<input type="hidden" name="nickName" id="nickName">
+	<input type="hidden" name="amount" id="amount">
+	<input type="hidden" name="productNo" id="productNo" value="">
+</form>
+<script src="${path }/resources/js/realtimeaction.js"></script>
+<script>
+function send(price) {
+	socket.send(JSON.stringify({ "nickName": "${loginMember.nickName}", "price": price }));
+}
+</script>
 
-		function stringFormat (num) {
-		   if(num==0) return 0;
-		   
-		   let strNum = num;
-		   
-		   return parseInt(strNum.replace(/,/g,'')); 
-		};
-	</script>
 </body>
 </html>

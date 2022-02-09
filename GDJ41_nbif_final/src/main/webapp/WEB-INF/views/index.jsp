@@ -223,8 +223,8 @@
   	$("#deadLineBtn").click(e=> {
   		let div = $(e.target).parent();
   		if(div.children("ul").length>=2) {
-  			let deadStartNum = deadStartNum + 4;
-  			let deadFinishNum = deadFinishNum + 4;
+  			deadStartNum = deadStartNum + 4;
+  			deadFinishNum = deadFinishNum + 4;
   		}
   		$.ajax({
   			url : "${path}/addDeatLine",

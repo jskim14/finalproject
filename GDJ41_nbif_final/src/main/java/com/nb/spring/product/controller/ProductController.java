@@ -190,7 +190,7 @@ public class ProductController {
 
 	@RequestMapping("/realtimeaction")
 	public ModelAndView realtimeaction(ModelAndView mv, String productNo) {
-//		mv.addObject(service.selectOneProductNo(productNo));
+//		mv.addObject(productService.selectOneProductNo(productNo));
 		mv.setViewName("detail/productRealTimeAction");
 		return mv;
 	}
