@@ -61,7 +61,7 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
 	}
 
 	@Override
-	public int insertAnswer(Map<String,Object>param) {
+	public int insertAnswer(Map<String,String>param) {
 		return dao.insertAnswer(session, param);
 	}
 	

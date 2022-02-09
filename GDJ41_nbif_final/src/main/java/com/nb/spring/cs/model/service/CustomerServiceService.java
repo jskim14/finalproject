@@ -24,7 +24,7 @@ public interface CustomerServiceService {
 	int deleteNotice(int noticeNo);
 	Qna qnaContent(int qnaNo);
 	
-	int insertAnswer(Map<String,Object>param);
+	int insertAnswer(Map<String,String>param);
 	
 
 }
