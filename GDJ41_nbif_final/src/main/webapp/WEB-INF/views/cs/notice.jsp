@@ -13,6 +13,10 @@
        min-height:800px;
     }
     #cs-title{text-align: center;}
+    
+    .accordion_area .btn_toggle{display:block;width:80%;height:30px;padding:0 0px;background:#fff;font-size:16px;text-align:left;line-height:30px;box-sizing:border-box}
+	.accordion_area .content_area{display:none;padding:10px;background:#f4f4ff}
+	.accordion_area .content_area.act{display:block; width:80%;}
 </style>
 
         <section>
@@ -28,14 +32,14 @@
             <c:if test="${loginMember.memberNo eq '5' }">
             	<div style="float:right;"> 
 					<button type="button" class="btn btn-warning" data-bs-toggle="modal"
-						data-bs-target="#staticBackdrop">공지사항 등록</button>
+						data-bs-target="#staticBackdrop">공지 등록</button>
 				<!-- 모달창 -->
 					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
 						data-bs-keyboard="false" tabindex="-1"
 						aria-labelledby="staticBackdropLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
-							<form name="reportForm" action="${path }/insertNotice" method="POST">
+							<form name="reportForm" action="${path }/cs/insertNotice" method="POST">
 								<div class="modal-header">
 									<h5 class="modal-title" id="staticBackdropLabel"
 										style="color: black;">공지사항 등록</h5>
@@ -76,6 +80,9 @@
 	            		<th style="padding-left:5%" class="table-dark">#</th>
 	            		<th style="padding-left:10%" class="table-dark">제목</th>
 	            		<th style="padding-left:5%" class="table-dark">작성일</th>
+	            		<c:if test="${loginMember.memberNo eq '5' }">
+	            			<th style="padding-left:1.5%" class="table-dark">삭제</th>
+	            		</c:if>
             		</tr> 
             	</thead>
             	
@@ -83,17 +90,62 @@
             	<c:forEach items="${noticeList }" var="n">
             		<tr>
             			<td style="padding-left:5%"><c:out value="${n.noticeNo}"/></td>
-            			<td style="padding-left:10%"><c:out value="${n.noticeTitle}"/></td>
+            			<td class="accordion_area" style="padding-left:10%">
+            			<button class="btn btn_toggle"><c:out value="${n.noticeTitle }"/></button>
+					      	<div class="content_area">
+     						 	<c:out value="${n.noticeContent }"/>
+     						</div>
+            			</td>
             			<td style="padding-left:5%"><c:out value="${n.noticeWriteDate}"/></td>
+            			<c:if test="${loginMember.memberNo eq '5' }">
+            			<td>
+            				<button type="button" class="btn btn-outline-danger" style="height:30px;width:50px;padding:0;"
+            				 onclick="location.assign('${path}/cs/deleteNotice?noticeNo=${n.noticeNo}');">삭제</button>
+            			</td>
+	            		</c:if>
+            			
             		</tr>
             	</c:forEach>
             		
             	</tbody>
             </table>
             
+            <div>
+            	${pageBar }
+            </div>
+            
         </section>
         <script>
         	$("#btn1").addClass("active");
+        	
+        	function bindingAccordionEvent(wrap){
+         	   let areaArr = document.querySelectorAll(wrap);
+         	   
+         	   areaArr.forEach(function(area){
+         	      let hasGroup = area.dataset['group'] !== undefined ? true : false;
+         	      let btn = area.querySelector('.btn_toggle');
+         	     
+         	     btn.addEventListener('click', function(){
+         	       if(hasGroup === true){
+         	         let name = area.dataset['group'];
+         	         let groupArr = document.querySelectorAll(wrap + '[data-group="'+ name +'"]');
+         	         let thisContent = area.querySelector('.content_area');
+         	         
+         	         groupArr.forEach(function(group){
+         	            let content = group.querySelector('.content_area');
+         	           content.classList.remove('act');
+         	         });
+         	         thisContent.classList.add('act');
+         	       }else{
+         	         let content = area.querySelector('.content_area');
+         	         content.classList.toggle('act'); 
+         	       }
+         	     });
+         	   });
+         	 }
+
+         	 bindingAccordionEvent('.accordion_area');
+        	
         </script>
 
 <jsp:include page="${path }/WEB-INF/views/common/footer.jsp"/>

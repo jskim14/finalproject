@@ -34,8 +34,6 @@ public interface MemberService {
 
 	int updateBalance(DealType type, Map<String, Object> param);
 	
-	int shippingSelect(String productNo);
-
 	int updateDeliveryAddress(Map<String,String> param);
 	
 	List<Wallet> emoneyDetail(String memberNo);

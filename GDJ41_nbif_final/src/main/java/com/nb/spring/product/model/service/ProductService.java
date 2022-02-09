@@ -36,4 +36,14 @@ public interface ProductService {
 
 	int selectWaitingCount();
 
+	int updateProductReject(Map<String, Object> param);
+
+	int updateProductPermission(String productNo);
+	
+	int imgDelete(String productNo);
+	
+	int waitingDelete(String productNo);
+	
+	int shippingSelect(String productNo);
+
 }

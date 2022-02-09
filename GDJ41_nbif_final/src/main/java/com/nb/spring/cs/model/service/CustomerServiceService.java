@@ -12,10 +12,19 @@ import com.nb.spring.cs.model.vo.Qna;
 public interface CustomerServiceService {
 	
 	
-	List<Notice> selectNoticeList(Model model);
-	List<Qna> selectQnaList(Model model);
-	int insertNotice(Map<String,String> param);
+	List<Notice> selectNoticeList(int cPage, int numPerPage);
+	int noticeCount();
 	
+	List<Qna> selectQnaList(int cPage, int numPerPage);
+	int qnaCount();
+	
+	int insertNotice(Map<String,String> param);
+	int insertQuestion(Map<String,String> param2);
+	
+	int deleteNotice(int noticeNo);
+	Qna qnaContent(int qnaNo);
+	
+	int insertAnswer(Map<String,Object>param);
 	
 
 }

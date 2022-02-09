@@ -18,6 +18,80 @@
     <link rel="stylesheet" href="${path}/resources/css/inputStyle.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="${path}/resources/css/index.css">
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+	 // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+	    Kakao.init('a6cc0c054f4e92252bfaf5be7f936545');
+	
+	    // SDK 초기화 여부를 판단합니다.
+	    console.log(Kakao.isInitialized());
+	    
+	    let socialFlag = false;
+	    
+		function kakaoLogin(){
+		
+		  Kakao.Auth.login({
+		      success: function (response) {
+		        Kakao.API.request({
+		          url: '/v2/user/me',
+		          success: function (response) {
+		        	  console.log(response)
+		        	  console.log(JSON.stringify(response));
+					  console.log(response['kakao_account']['email']);
+					 sendPost(location.origin+"/member/kakaoLogin",response['kakao_account']['email']);
+		        	/*   Kakao.Auth.authorize({
+		    			  redirectUri: location.origin+"/member/kakaoLogin"
+		    			 
+		    			  
+		    			});  */
+		          },
+		          fail: function (error) {
+		            console.log(error)
+		          },
+		        })
+		      },
+		      fail: function (error) {
+		        console.log(error)
+		      },
+		    })
+		    
+			 
+		}
+		
+		function kakaoLogout() {
+		    if (Kakao.Auth.getAccessToken()) {
+		      Kakao.API.request({
+		        url: '/v1/user/unlink',
+		        success: function (response) {
+		        	console.log(response)
+		        },
+		        fail: function (error) {
+		          console.log(error)
+		        },
+		      })
+		      Kakao.Auth.setAccessToken(undefined)
+		    }
+		  }  
+
+		  function sendPost(url, param){
+			  let form = document.createElement('form');
+			  form.setAttribute('method','post');
+			  form.setAttribute('action',url);
+			  document.charset = 'utf-8';
+
+			 
+			let hiddenField = document.createElement('input');
+			hiddenField.setAttribute('type','hidden');
+			hiddenField.setAttribute('name','email');
+			hiddenField.setAttribute('value',param);
+			form.appendChild(hiddenField);
+	
+
+
+			document.body.appendChild(form);
+			form.submit();
+		  }
+    </script>
     <title>Document</title>
 </head>
 <style>
@@ -33,11 +107,14 @@
             <div id="header-container">
                 <div id="first-header">
                     <h5><img src="${path}/resources/images/png.png" width="20px" height="20px"><span id="time">0000. 00. 00. 00: 00: 00</span></h5>
+
                     <ul>
-                    	<c:if test="${admin==null or admin==false}">
-	                        <li>
+                     		<li>
 	                            <a href="${path }/cs/noticeList">고객센터</a>
 	                        </li>
+                    	<c:if test="${admin==null or admin==false}">
+
+	                       
 	                       	<c:if test="${loginMember == null }">
 	                        <li>
 	                            <a href="${path}/member/enrollMember">회원가입</a>
@@ -52,7 +129,10 @@
 							<c:if test="${admin!=null and admin==true }">
 								<!--관리자 메뉴  -->
 								<li>
-									<a href="${path}/admin/productManage">물품관리</a>
+									<a href="${path}/admin/productManage">물품승인</a>
+								</li>
+								<li>
+									<a href="${path}/admin/specialProductEnroll">실시간경매물품등록</a>
 								</li>
 							</c:if>
                         	<c:if test="${loginMember == null}">
@@ -65,7 +145,7 @@
 	                        	<style>
 	                        		#first-header>ul {left:72%;}
 	                        	</style>
-		                            <a href="${path}/member/logout">로그아웃</a>
+		                            <a onclick="kakaoLogout()" href="${path}/member/logout">로그아웃</a>
 	                        </li>
 	                        </c:if>
                     </ul>

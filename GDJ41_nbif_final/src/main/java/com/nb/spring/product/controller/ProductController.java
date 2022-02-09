@@ -121,6 +121,7 @@ public class ProductController {
 			 @RequestParam(value = "imageFile", required = false) MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
 
 		System.out.println("시작가 : "+p.getMinBidPrice());
+		System.out.println("즉구 : "+p.getBuyNowPrice());
 		System.out.println(p);
 		
 		//date 
@@ -134,12 +135,14 @@ public class ProductController {
 		p.setSeller(new Member());
 		p.getSeller().setMemberNo(sellerNo);
 		
+		System.out.println("unit:"+ unit);
 		//bidUnit
-		if(unit.contains(",")) {
+		if(unit.contains("typing")) {
 			String splitUnit[] = unit.split(",");
 			p.setBidUnit(splitUnit[1]);
 		} else {
-			p.setBidUnit(unit);
+			String splitUnit[] = unit.split(",");
+			p.setBidUnit(splitUnit[0]);
 		}
 		
 		//file
@@ -350,7 +353,7 @@ public class ProductController {
 		
 		log.debug("{}",product);
 		
-		int nowBidPrice = Integer.parseInt(product.getNowBidPrice());
+		int nowBidPrice = Integer.parseInt(product.getNowBidPrice()==null?"0":product.getNowBidPrice());
 		
 		int bidUnit = Integer.parseInt(product.getBidUnit());
 		
@@ -379,15 +382,22 @@ public class ProductController {
 				result = memberService.updateBalance(DealType.OUTPUT,param);
 				
 				if(result>0) {
-					param = Map.of("dealType",DealType.INPUT,"amount",exHigherPrice,"walletType",WalletType.FAILURE,"productNo",product.getProductNo(),"memberNo",exHigher.getMemberNo(),"bidPrice",exHigherPrice);
-					result = memberService.updateBalance(DealType.INPUT,param);
 					
-					if(result>0) {
-						return Map.of("result","입찰성공");
+					if(exHigher!=null) {
+						
+					
+						param = Map.of("dealType",DealType.INPUT,"amount",exHigherPrice,"walletType",WalletType.FAILURE,"productNo",product.getProductNo(),"memberNo",exHigher.getMemberNo(),"bidPrice",exHigherPrice);
+						result = memberService.updateBalance(DealType.INPUT,param);
+					
+						if(result>0) {
+							return Map.of("result","입찰성공");
+						}else {
+							return Map.of("result","입찰실패");
+						}
+					
 					}else {
-						return Map.of("result","입찰실패");
+						return Map.of("result","입찰성공");
 					}
-					
 					
 				}else {
 					return Map.of("result","입찰실패");
@@ -454,7 +464,7 @@ public class ProductController {
 	
 	@RequestMapping("/updateProduct")
 	public ModelAndView updateProduct(String productNo, ModelAndView mv) {
-		System.out.println(productNo);
+		System.out.println("수정" + productNo);
 		Product p = productService.updateProduct(productNo);
 		mv.addObject("p",p);
 		mv.setViewName("/product/updateProduct");
@@ -533,5 +543,50 @@ public class ProductController {
 		return mv;
 	}
 	
+	@RequestMapping("/waitingDelete")
+	public ModelAndView waitingDelete(String productNo, HttpSession session, ModelAndView mv) {
+		System.out.println("삭제"+productNo);
+		Member login = (Member)session.getAttribute("loginMember");
+		int imgDelete = productService.imgDelete(productNo);
+		int result = 0;
+		if(imgDelete>0) {
+			result = productService.waitingDelete(productNo);
+		}
+		
+		String msg = "";
+		String loc = "/member/salesStates?memberNo="+login.getMemberNo();
+		
+		if(result>0) {
+			msg = "물품을 삭제하였습니다.";
+		}else {
+			msg = "물품삭제에 실패하였습니다. 관리자에게 문의하세요.";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/shipping") 
+	public ModelAndView shippingSelect(String productNo, HttpSession session, ModelAndView mv) {
+		System.out.println("발송:"+ productNo);
+		Member login = (Member)session.getAttribute("loginMember");
+		int result = productService.shippingSelect(productNo);
+		
+		String msg = "";
+		String loc = "/member/salesStates?memberNo="+login.getMemberNo();
+		
+		if(result>0) {
+			msg = "물품발송이 완료되었습니다.";
+		}else {
+			msg = "실패";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
 
 }
