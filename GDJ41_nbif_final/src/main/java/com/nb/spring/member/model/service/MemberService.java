@@ -28,20 +28,26 @@ public interface MemberService {
 	
 	List<Product> salesSearch(Map param);
 	
-	List<Member> buyList(String memberNo);
+	List<Wallet> buyList(String memberNo);
 	
-	List<Member> buySearch(Map param);
+	List<Wallet> buySearch(Map param);
 
 	int updateBalance(DealType type, Map<String, Object> param);
 	
 	int updateDeliveryAddress(Map<String,String> param);
 	
-	List<Wallet> emoneyDetail(String memberNo);
+
 
 	Member loginMemberKakao(Map param);
-	
+
+	List<Wallet> emoneyDetail(String memberNo);
+
+	List<Wallet> emoneySelectList(Map param);
+
 	Member findMember(String nickName);
 	
 	int endRealTimeActionWallet(Map<String,Object> param);
 
+
+	
 }

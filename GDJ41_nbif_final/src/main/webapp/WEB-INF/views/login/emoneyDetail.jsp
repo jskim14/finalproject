@@ -37,9 +37,14 @@
 						</span>
 					</div>
 					<div class="col-4" style=" padding: 1% 0 0 5%; ">
-			            <button type="button" class="btn btn-secondary emoneyBtn">입금</button> 
-			            <button type="button" class="btn btn-secondary emoneyBtn">출금</button> 
-			            <button type="button" class="btn btn-secondary emoneyBtn" >충전</button>
+						<form action="${path }/member/emoneySelectList?memberNo=${loginMember.memberNo}" method="post">
+				            <button type="submit" class="btn btn-secondary emoneyBtn" 
+				             name="btnCategory" value="input">입금</button> 
+				            <button type="submit" class="btn btn-secondary emoneyBtn" 
+				             name="btnCategory" value="output">출금</button> 
+				            <button type="submit" class="btn btn-secondary emoneyBtn" 
+				             name="btnCategory" value="charge">충전</button>
+			            </form>
 		        	</div>
 	    		</div>
 			</div>
@@ -47,13 +52,13 @@
 		    <!-- 검색 -->
 		    
 			</div>
-			<div class="row" style="">
+			<div id="listContainer" class="row" style="">
 				<div class="row">
 	        		<hr>
 			        <table class="table table-borderless">
 			            <tbody style="text-align: center;">
 			            <c:if test="${empty list }">
-			            	<div>없음</div>
+			            	<div style="text-align: center">내역이 없습니다.</div>
 			            </c:if>
 			            <c:if test="${not empty list }">
 			            	<c:forEach var="w" items="${list }">
@@ -115,5 +120,30 @@
 	    </div>
 	</div>
 </section>
+
+<script>
+
+/* 	const emoneyBtn=(value=>{
+		console.log(value);
+		$.ajax({
+			url: "/member/emoneySelectList",
+			dataType:"json",
+			data: {"category" : value , "memberNo" : '${loginMember.memberNo}'},
+			success: data =>{
+				console.log(data);
+				for(let i=0; i<data.length; i++) {
+					const category = data[i]['category'];
+					const proName = data[i]['productNo']['productName'];
+					const date = data[i]['tradeDate'];
+					const amount = data[i]['amount'];
+					$("#listContainer").html(category);
+				}
+				
+			},
+		})
+	}) */
+
+
+</script>
 
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
