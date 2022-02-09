@@ -152,18 +152,20 @@ public class CustomerServiceController {
 	}
 	
 	@RequestMapping("/cs/insertAnswer")
-	public ModelAndView insertAnswer(int qnaNo, String qnaAnswer, ModelAndView mv) {
-		Map<String,Object> param= Map.of("qnaNo",qnaNo, "qnaAnswer",qnaAnswer);
+	public ModelAndView insertAnswer(ModelAndView mv, String qnaNo, String qnaAnswer ) {
+		System.out.println("넘어온 데이터: "+qnaNo+qnaAnswer);
+		
+		Map<String,String> param= Map.of("qnaNo",qnaNo, "qnaAnswer",qnaAnswer);
 		int result=service.insertAnswer(param);
 		
 		String msg="";
 		String loc="";
 		if(result>0) {
 			msg="답변 등록 완료";
-			loc="/cs/qnaContent";
+			loc="/cs/qna";
 		}else {
 			msg="답변 등록 실패";
-			loc="/cs/qnaContent";
+			loc="/cs/qna";
 		}
 		
 		mv.addObject("msg",msg);

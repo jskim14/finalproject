@@ -53,7 +53,7 @@ public class CustomerServiceDaoImpl implements CustomerServiceDao {
 	}
 
 	@Override
-	public int insertAnswer(SqlSessionTemplate session, Map<String,Object>param) {
+	public int insertAnswer(SqlSessionTemplate session, Map<String,String>param) {
 		return session.update("cs.insertAnswer", param);
 	}
 	

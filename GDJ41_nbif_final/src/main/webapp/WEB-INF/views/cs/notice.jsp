@@ -77,11 +77,11 @@
             <table class="table table-hover">
             	<thead id="thead">
             		 <tr>
-	            		<th style="padding-left:5%" class="table-dark">#</th>
-	            		<th style="padding-left:10%" class="table-dark">제목</th>
-	            		<th style="padding-left:5%" class="table-dark">작성일</th>
+	            		<th style="" class="table-dark">#</th>
+	            		<th style="" class="table-dark">제목</th>
+	            		<th style="" class="table-dark">작성일</th>
 	            		<c:if test="${loginMember.memberNo eq '5' }">
-	            			<th style="padding-left:1.5%" class="table-dark">삭제</th>
+	            			<th style="" class="table-dark">삭제</th>
 	            		</c:if>
             		</tr> 
             	</thead>
@@ -89,14 +89,14 @@
             	<tbody id="cslist">
             	<c:forEach items="${noticeList }" var="n">
             		<tr>
-            			<td style="padding-left:5%"><c:out value="${n.noticeNo}"/></td>
-            			<td class="accordion_area" style="padding-left:10%">
+            			<td style=""><c:out value="${n.noticeNo}"/></td>
+            			<td class="accordion_area" style="">
             			<button class="btn btn_toggle"><c:out value="${n.noticeTitle }"/></button>
 					      	<div class="content_area">
      						 	<c:out value="${n.noticeContent }"/>
      						</div>
             			</td>
-            			<td style="padding-left:5%"><c:out value="${n.noticeWriteDate}"/></td>
+            			<td style=""><c:out value="${n.noticeWriteDate}"/></td>
             			<c:if test="${loginMember.memberNo eq '5' }">
             			<td>
             				<button type="button" class="btn btn-outline-danger" style="height:30px;width:50px;padding:0;"
