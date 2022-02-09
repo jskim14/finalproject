@@ -21,6 +21,10 @@
    		padding-bottom: 5px;
    }
    
+    #middleDiv>div {
+   	padding-bottom: 5px;
+   }
+   
 </style>
 <section>
     <div class="row" style="padding: 15% 10%;"> 
@@ -84,12 +88,12 @@
 				<c:forEach var="p" items="${productList}">
      				<div class="row" style="margin: 0; text-align: center;">
 						<hr>
-						<div class="col-2">
+						<a href="${path }/product/productDetail?productNo=${p.productNo}" class="col-2">
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
 						    <img src="/resources/upload/product/${p.productNo.images.get(0).imageName }" 
 						    alt="" style="width: 150px; height: 130px;">
-						</div>
+						</a>
 						<div class="col-6">
 						    <!-- 중간 -->
 						    <div id="centerRow" class="row">
@@ -100,6 +104,7 @@
 						    		종료 [디테일4(입찰시)] && 상태 4(구매확정),5(신고)
 						    		종료 [디테일4(입찰시)] && 같지않고 
 						    		-->
+					        <a href="${path }/product/productDetail?productNo=${p.productNo}" class="row aColor" id="middleDiv">
 						        <div>
 						        <c:choose>
 						        	<c:when test="${p.productNo.productStatus eq '0' }">
@@ -128,6 +133,7 @@
 						                <c:out value="${p.productNo.productName }"/>
 						            </span>
 						        </div>
+				        	</a>
 						        <!-- 
 						        배송대기[디테일4(입찰시)], && 상태 1(입완) / 발송전
 						        구매대기 버튼 두개 [디테일4(입찰시)], && 상태 2(발완) => 구매확정, 신고버튼 /발송버튼 눌렀을때
@@ -201,7 +207,7 @@
 						        </div>
 						    </div>
 						</div>
-					   	<div class="col-4" >
+					   	<a href="${path }/product/productDetail?productNo=${p.productNo}" class="col-4 aColor" >
 					       	<!-- 오른쪽 -->
 							<div class="row" style="padding-top: 13%"> <!--  -->
 							<!-- 
@@ -246,7 +252,7 @@
 						        </c:when>
 							 </c:choose>
 							</div>
-					    </div>
+					    </a>
 					</div>
 			    </c:forEach>
 			</c:if>   	

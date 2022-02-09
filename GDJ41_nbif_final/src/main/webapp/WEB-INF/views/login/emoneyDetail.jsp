@@ -116,4 +116,10 @@
 	</div>
 </section>
 
+<script>
+
+
+
+</script>
+
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

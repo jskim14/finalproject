@@ -442,5 +442,4 @@ public class MemberController {
 		mv.setViewName("login/emoneyDetail");
 		return mv;
 	}
-	
 }
