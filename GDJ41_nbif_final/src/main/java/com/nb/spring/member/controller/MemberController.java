@@ -442,4 +442,17 @@ public class MemberController {
 		mv.setViewName("login/emoneyDetail");
 		return mv;
 	}
+	
+	@PostMapping("/emoneySelectList")
+	public String emoneySelectList(String memberNo, @RequestParam(value = "btnCategory", required=false ) 
+	String category, Model m) {
+		Map param = new HashMap<>();
+		param.put("category", category);
+		param.put("memberNo", memberNo);
+		List<Wallet> list = service.emoneySelectList(param);
+		Member mem = service.selectMember(memberNo);
+		m.addAttribute("m",mem);
+		m.addAttribute("list",list);
+		return "login/emoneyDetail";
+	}
 }

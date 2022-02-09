@@ -88,7 +88,7 @@
 				<c:forEach var="p" items="${productList}">
      				<div class="row" style="margin: 0; text-align: center;">
 						<hr>
-						<a href="${path }/product/productDetail?productNo=${p.productNo}" class="col-2">
+						<a href="${path }/product/productDetail?productNo=${p.productNo.productNo}" class="col-2">
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
 						    <img src="/resources/upload/product/${p.productNo.images.get(0).imageName }" 
@@ -104,7 +104,7 @@
 						    		종료 [디테일4(입찰시)] && 상태 4(구매확정),5(신고)
 						    		종료 [디테일4(입찰시)] && 같지않고 
 						    		-->
-					        <a href="${path }/product/productDetail?productNo=${p.productNo}" class="row aColor" id="middleDiv">
+					        <a href="${path }/product/productDetail?productNo=${p.productNo.productNo}" class="row aColor" id="middleDiv">
 						        <div>
 						        <c:choose>
 						        	<c:when test="${p.productNo.productStatus eq '0' }">
@@ -207,7 +207,7 @@
 						        </div>
 						    </div>
 						</div>
-					   	<a href="${path }/product/productDetail?productNo=${p.productNo}" class="col-4 aColor" >
+					   	<a href="${path }/product/productDetail?productNo=${p.productNo.productNo}" class="col-4 aColor" >
 					       	<!-- 오른쪽 -->
 							<div class="row" style="padding-top: 13%"> <!--  -->
 							<!-- 

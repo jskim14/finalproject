@@ -42,4 +42,6 @@ public interface MemberDao {
 
 	List<Wallet> emoneyDetail(SqlSessionTemplate session, String memberNo);
 
+	List<Wallet> emoneySelectList(SqlSessionTemplate session, Map param);
+
 }

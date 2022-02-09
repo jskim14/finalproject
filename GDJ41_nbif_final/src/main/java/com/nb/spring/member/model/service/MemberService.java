@@ -38,4 +38,6 @@ public interface MemberService {
 	
 	List<Wallet> emoneyDetail(String memberNo);
 
+	List<Wallet> emoneySelectList(Map param);
+
 }

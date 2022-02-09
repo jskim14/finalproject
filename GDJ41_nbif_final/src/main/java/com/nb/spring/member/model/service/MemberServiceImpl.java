@@ -104,6 +104,12 @@ public class MemberServiceImpl implements MemberService {
 		List<Wallet> list = dao.emoneyDetail(session, memberNo);
 		return list;
 	}
+
+	@Override
+	public List<Wallet> emoneySelectList(Map param) {
+		List<Wallet> list = dao.emoneySelectList(session, param);
+		return list;
+	}
 	
 	
 
