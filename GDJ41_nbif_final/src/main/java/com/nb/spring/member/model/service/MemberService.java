@@ -38,4 +38,6 @@ public interface MemberService {
 	
 	List<Wallet> emoneyDetail(String memberNo);
 
+	Member loginMemberKakao(Map param);
+
 }

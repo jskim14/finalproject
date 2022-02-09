@@ -32,13 +32,17 @@
 		
 		  Kakao.Auth.login({
 		      success: function (response) {
+				  console.log(response);
+
+				const accessToken = response['access_token'];
+
 		        Kakao.API.request({
 		          url: '/v2/user/me',
 		          success: function (response) {
 		        	  console.log(response)
 		        	  console.log(JSON.stringify(response));
-					  console.log(response['kakao_account']['email']);
-					 sendPost(location.origin+"/member/kakaoLogin",response['kakao_account']['email']);
+					  console.log(response['kakao_account']['id']);
+					sendPost(location.origin+"/member/kakaoLogin",'id',response['id'],'accessToken',accessToken);
 		        	/*   Kakao.Auth.authorize({
 		    			  redirectUri: location.origin+"/member/kakaoLogin"
 		    			 
@@ -73,19 +77,24 @@
 		    }
 		  }  
 
-		  function sendPost(url, param){
+		  function sendPost(url,key,param,key2,param2){
 			  let form = document.createElement('form');
 			  form.setAttribute('method','post');
 			  form.setAttribute('action',url);
 			  document.charset = 'utf-8';
 
 			 
-			let hiddenField = document.createElement('input');
-			hiddenField.setAttribute('type','hidden');
-			hiddenField.setAttribute('name','email');
-			hiddenField.setAttribute('value',param);
-			form.appendChild(hiddenField);
+			let hiddenField1 = document.createElement('input');
+			hiddenField1.setAttribute('type','hidden');
+			hiddenField1.setAttribute('name',key);
+			hiddenField1.setAttribute('value',param);
+			form.appendChild(hiddenField1);
 	
+			let hiddenField2 = document.createElement('input');
+			hiddenField2.setAttribute('type','hidden');
+			hiddenField2.setAttribute('name',key2);
+			hiddenField2.setAttribute('value',param2);
+			form.appendChild(hiddenField2);
 
 
 			document.body.appendChild(form);

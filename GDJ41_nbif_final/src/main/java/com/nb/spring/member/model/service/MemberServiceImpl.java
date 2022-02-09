@@ -104,6 +104,12 @@ public class MemberServiceImpl implements MemberService {
 		List<Wallet> list = dao.emoneyDetail(session, memberNo);
 		return list;
 	}
+
+	@Override
+	public Member loginMemberKakao(Map param) {
+		// TODO Auto-generated method stub
+		return dao.loginMemberKakao(session, param);
+	}
 	
 	
 

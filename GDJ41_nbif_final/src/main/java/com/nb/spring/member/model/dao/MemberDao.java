@@ -42,4 +42,6 @@ public interface MemberDao {
 
 	List<Wallet> emoneyDetail(SqlSessionTemplate session, String memberNo);
 
+	Member loginMemberKakao(SqlSessionTemplate session, Map param);
+
 }
