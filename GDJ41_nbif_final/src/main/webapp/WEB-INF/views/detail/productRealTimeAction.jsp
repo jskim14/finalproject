@@ -153,7 +153,7 @@ Special Action</h2>
 					<div>
 						<i class="fas fa-eye fa-lg"></i><span id="userCount">155</span>
 					</div>
-					<p>경매 남은 시간 : <span>00</span>분 <span>00</span>초</p>
+					<p>경매 남은 시간 : <span id="timeMin"></span>분 <span id="timeSec"></span>초</p>
 				</div>
 				<h3>Apple MacBook Pro 16 Inch Intel Core i7 16GB</h3>
 				<div id="img-con">
@@ -197,6 +197,34 @@ Special Action</h2>
 	</div>
 	<script>
 		const socket = new WebSocket("ws://localhost:9090/ws/chat");
+		let min;
+		let sec;
+		socket.onmessage = message=> {
+			console.log(message.data);
+			if(message.data.indexOf("min")) {
+				let time = JSON.parse(message.data);
+				min = time["min"];
+				sec = time["sec"];
+			}else if(message.data.indexOf("nickName")){
+				let mem = JSON.parse(message.data);
+				console.log(mem);
+				if(typeof mem=='object') {
+					$("#section-right").html('');
+					for(let i=0; i<mem.length; i++) {
+						let chat = mem[i];
+						let userDiv = $("<div>");
+						userDiv.css("background-color","white");
+						let h5 = $("<h5>");
+						h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
+						userDiv.append(h5);
+						$("#section-right").append(userDiv);
+						$("#nowPrice").html(numberFormat(chat["price"]));
+					}
+				}
+			}else if(typeof message.data=='number'){
+				$("#userCount").html(message.data);
+			}
+		}
 		$("#sendBtn").click(e=> {
 			let price = $("#inputPrice").val();
 			let nowPrice = $("#nowPrice").text();
@@ -222,36 +250,30 @@ Special Action</h2>
 		function send(price) {
 			socket.send(JSON.stringify({"nickName":"${loginMember.nickName}","price":price}));
 		}
-/* 		let memberList = [];
-		function Member(nickName,price) {
-			this.nickName = nickName;
-			this.price = price;
-		} */
-		socket.onmessage = message=> {
-			let mem = JSON.parse(message.data);
-			if(typeof mem=='object') {
-				$("#section-right").html('');
-				for(let i=0; i<mem.length; i++) {
-					let chat = mem[i];
-					let userDiv = $("<div>");
-					userDiv.css("background-color","white");
-					let h5 = $("<h5>");
-					h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
-					userDiv.append(h5);
-					$("#section-right").append(userDiv);
-					$("#nowPrice").html(numberFormat(chat["price"]));
-				}
-			}else {
-				$("#userCount").html(message.data);
-			}
-		}
 		$("#img-list-con>div>img").click(e=> {
 			let imgSrc = $(e.target).attr("src");
 			$("#img-list-con>div").css({"border":"2px solid white","box-sizing":"border-box"});
 			$(e.target).parent().css({"border":"2px solid black","box-sizing":"border-box"});
 			$("#img-con-first").find("img").attr("src",imgSrc);
 		});
-		
+		var timer = setInterval(() => {
+			if(sec==0) {
+				if(min==0) {
+					clearInterval(timer);
+				}else {
+					sec = 59;
+					min = min - 1;
+				}
+			}else {
+				sec = sec - 1;
+				$("#timeMin").html(min<10?"0" + min:min);
+				$("#timeSec").html(sec<10?"0" + sec:sec);
+				if(min==0 && sec==0) {
+					alert("경매종료");
+				}
+			}
+			//socket.send(JSON.stringify({"min":min,"sec":sec}));
+		},1000);
 		function numberFormat (num) {
 		    if(num==0) return 0;
 		 
