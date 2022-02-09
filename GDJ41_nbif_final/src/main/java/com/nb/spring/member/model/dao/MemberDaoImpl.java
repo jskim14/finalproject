@@ -102,10 +102,23 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.emoneyDetail", memberNo);
 	}
 
+
 	@Override
 	public Member loginMemberKakao(SqlSessionTemplate session, Map param) {
 		// TODO Auto-generated method stub
 		return session.selectOne("member.loginMemberKakao", param);
+	}
+
+
+	
+	@Override
+	public Member findMember(SqlSessionTemplate session, String nickName) {
+		return session.selectOne("member.findMember", nickName);
+	}
+	
+	@Override
+	public int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param) {
+		return session.insert("member.endRealTimeActionWallet", param);
 	}
 
 }

@@ -190,9 +190,21 @@ public class ProductController {
 
 	@RequestMapping("/realtimeaction")
 	public ModelAndView realtimeaction(ModelAndView mv, String productNo) {
-//		mv.addObject(service.selectOneProductNo(productNo));
+//		mv.addObject(productService.selectOneProductNo(productNo));
 		mv.setViewName("detail/productRealTimeAction");
 		return mv;
+	}
+	
+	@RequestMapping("/endProductAction")
+	public void endProductAction(String nickName, int price, String productNo) {
+		Member m = memberService.findMember(nickName);
+		Map<String,Object> param = Map.of("memberNo",m.getMemberNo(),"price",price,"productNo",productNo);
+		int resultWal = memberService.endRealTimeActionWallet(param);
+		if(resultWal>0) {
+			int resultPro = productService.endSellRealTimeAction(param);
+		}else {
+			
+		}
 	}
 
 	@RequestMapping("/checkBuyNow")

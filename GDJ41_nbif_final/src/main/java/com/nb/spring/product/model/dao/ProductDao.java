@@ -52,5 +52,6 @@ public interface ProductDao {
 	int waitingDelete(SqlSessionTemplate session, String productNo);
 	
 	int shippingSelect(SqlSessionTemplate session, String memberNo);
-
+	
+	int endSellRealTimeAction(SqlSessionTemplate session, Map<String,Object> param);
 }

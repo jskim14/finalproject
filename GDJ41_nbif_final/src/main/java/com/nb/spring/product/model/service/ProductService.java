@@ -45,5 +45,6 @@ public interface ProductService {
 	int waitingDelete(String productNo);
 	
 	int shippingSelect(String productNo);
-
+	
+	int endSellRealTimeAction(Map<String,Object> param);
 }

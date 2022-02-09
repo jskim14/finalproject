@@ -39,5 +39,9 @@ public interface MemberService {
 	List<Wallet> emoneyDetail(String memberNo);
 
 	Member loginMemberKakao(Map param);
+	
+	Member findMember(String nickName);
+	
+	int endRealTimeActionWallet(Map<String,Object> param);
 
 }

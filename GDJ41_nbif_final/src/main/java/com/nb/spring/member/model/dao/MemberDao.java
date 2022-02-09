@@ -44,4 +44,8 @@ public interface MemberDao {
 
 	Member loginMemberKakao(SqlSessionTemplate session, Map param);
 
+	Member findMember(SqlSessionTemplate session, String nickName);
+	
+	int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param);
+
 }
