@@ -106,6 +106,15 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Wallet> emoneySelectList(SqlSessionTemplate session, Map param) {
 		return session.selectList("member.emoneySelectList", param);
 	}
-
+	
+	@Override
+	public Member findMember(SqlSessionTemplate session, String nickName) {
+		return session.selectOne("member.findMember", nickName);
+	}
+	
+	@Override
+	public int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param) {
+		return session.insert("member.endRealTimeActionWallet", param);
+	}
 	
 }

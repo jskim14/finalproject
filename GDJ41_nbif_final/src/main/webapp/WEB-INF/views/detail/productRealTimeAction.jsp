@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+ <c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,7 +154,7 @@ Special Action</h2>
 					<div>
 						<i class="fas fa-eye fa-lg"></i><span id="userCount">155</span>
 					</div>
-					<p>경매 남은 시간 : <span>00</span>분 <span>00</span>초</p>
+					<p>경매 남은 시간 : <span id="timeMin"></span>분 <span id="timeSec"></span>초</p>
 				</div>
 				<h3>Apple MacBook Pro 16 Inch Intel Core i7 16GB</h3>
 				<div id="img-con">
@@ -191,85 +192,24 @@ Special Action</h2>
 				</div>
 			</div>
 			<div id="section-right">
-			
 			</div>
 		</div>
 	</div>
-	<script>
-		const socket = new WebSocket("ws://localhost:9090/ws/chat");
-		$("#sendBtn").click(e=> {
-			let price = $("#inputPrice").val();
-			let nowPrice = $("#nowPrice").text();
-			let balance = $("#balance").text();
-			nowPrice = stringFormat(nowPrice);
-			balance = stringFormat(balance);
-			price = Number(price);
-			nowPrice = Number(nowPrice);
-			balance = Number(balance);
-			if(price<balance) {
-				if(price>nowPrice) {
-					send(price);
-					$("#inputPrice").val('');
-				}else {
-					alert("현재입찰가보다 낮은가격입니다. 다시 입력해주세요.");
-					$("#inputPrice").val('');
-					$("#inputPrice").focus();
-				}	
-			}else {
-				alert("보유잔액이 부족합니다.");
-			}
-		});
-		function send(price) {
-			socket.send(JSON.stringify({"nickName":"${loginMember.nickName}","price":price}));
+<script src="${path }/resources/js/realtimeaction.js"></script>
+<script>
+function send(price) {
+	socket.send(JSON.stringify({ "nickName": "${loginMember.nickName}", "price": price }));
+}
+function endProductAction (nickName,price) {
+	$.ajax({
+		url : "${path}/product/endProductAction",
+		data : {"nickName":nickName,"price":price,"productNo":"TC080222141")},
+		success : data => {
+			
 		}
-/* 		let memberList = [];
-		function Member(nickName,price) {
-			this.nickName = nickName;
-			this.price = price;
-		} */
-		socket.onmessage = message=> {
-			let mem = JSON.parse(message.data);
-			if(typeof mem=='object') {
-				$("#section-right").html('');
-				for(let i=0; i<mem.length; i++) {
-					let chat = mem[i];
-					let userDiv = $("<div>");
-					userDiv.css("background-color","white");
-					let h5 = $("<h5>");
-					h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
-					userDiv.append(h5);
-					$("#section-right").append(userDiv);
-					$("#nowPrice").html(numberFormat(chat["price"]));
-				}
-			}else {
-				$("#userCount").html(message.data);
-			}
-		}
-		$("#img-list-con>div>img").click(e=> {
-			let imgSrc = $(e.target).attr("src");
-			$("#img-list-con>div").css({"border":"2px solid white","box-sizing":"border-box"});
-			$(e.target).parent().css({"border":"2px solid black","box-sizing":"border-box"});
-			$("#img-con-first").find("img").attr("src",imgSrc);
-		});
-		
-		function numberFormat (num) {
-		    if(num==0) return 0;
-		 
-		    var reg = /(^[+-]?\d+)(\d{3})/;
-		    var n = (num + '');
-		 
-		    while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
-		 
-		    return n;
-		};
+	});
+}
+</script>
 
-		function stringFormat (num) {
-		   if(num==0) return 0;
-		   
-		   let strNum = num;
-		   
-		   return parseInt(strNum.replace(/,/g,'')); 
-		};
-	</script>
 </body>
 </html>

@@ -223,8 +223,8 @@
   	$("#deadLineBtn").click(e=> {
   		let div = $(e.target).parent();
   		if(div.children("ul").length>=2) {
-  			let deadStartNum = deadStartNum + 4;
-  			let deadFinishNum = deadFinishNum + 4;
+  			deadStartNum = deadStartNum + 4;
+  			deadFinishNum = deadFinishNum + 4;
   		}
   		$.ajax({
   			url : "${path}/addDeatLine",
@@ -281,7 +281,6 @@
   		let ul = $("<ul>");
 			for(let i=0; i<data.length; i++) {
 				let pro = data[i];
-				console.log(pro);
 				let li = $("<li>");
 				li.css("width","25%");
 				let a = $("<a>");
@@ -289,7 +288,7 @@
 				let div = $("<div>");
 				div.attr("class","goods-box");
 				let img = $("<img>");
-				img.attr({"src":"${path}/resources/images/","width":"270","height":"200","style":"margin-bottom: 12px border-radius: 20px;"});
+				img.attr({"src":"${path}/resources/images/","width":"100%","height":"200","style":"margin-bottom: 12px border-radius: 20px;"});
 				let p = $("<p>");
 				let strong = $("<strong>");
 				strong.append(pro["productName"]);
@@ -321,7 +320,7 @@
 				}
 				p.append("판매자 &nbsp;")
 				let strong2 = $("<strong>");
-				strong2.append(pro["seller"]);
+				strong2.append(pro["seller"]["nickName"]);
 				p.append(strong2);
 				div.append(img);
 				div.append(p);
