@@ -29,7 +29,7 @@ public interface ProductDao {
 	
 	int updateProductEnd(SqlSessionTemplate session, Product p);
 	
-	int updateProductImg(SqlSessionTemplate session, ProductImage pi);
+//	int updateProductImg(SqlSessionTemplate session, ProductImage pi);
 	
 	List<Product> selectListDeadLine(SqlSessionTemplate session);
 

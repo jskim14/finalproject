@@ -191,7 +191,7 @@
                 $("#inputTyping1").next().html("");
             } 
         });
-        $("input[name=extendYn]").change(e=>{ //자동재경매
+/*         $("input[name=extendYn]").change(e=>{ //자동재경매
             if($(e.target).val()=='Y') {
             	$("#inputTyping2").attr("disabled",false);
                 $("#inputTyping2").focus();            		 
@@ -199,7 +199,7 @@
              }else {
                 $("#inputTyping2").attr("disabled",true); 
             } 
-        });
+        }); */
         
         function unitSelect() {
             if($("#priceUnit").val()=="typing") {

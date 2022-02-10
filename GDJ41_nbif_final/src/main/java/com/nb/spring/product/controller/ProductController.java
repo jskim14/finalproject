@@ -534,9 +534,14 @@ public class ProductController {
 				}
 			}
 		}
-		System.out.println("p.getproductno : " + p.getProductNo());
 		
-		int result= productService.updateProductEnd(p);
+		System.out.println("p.getproductno : " + p.getProductNo());
+
+		int imgDelete = productService.imgDelete(productNum);
+		int result = 0;
+		if(imgDelete>0) {
+			result = productService.updateProductEnd(p);
+		}
 		
 		String msg = "";
 		String loc = "";
@@ -680,9 +685,12 @@ public class ProductController {
 				}
 			}
 		}
-		System.out.println("p.getproductno : " + p.getProductNo());
 		
-		int result= productService.reInsertEnd(p);
+		int imgDelete = productService.imgDelete(productNum);
+		int result = 0;
+		if(imgDelete>0) {
+			result = productService.reInsertEnd(p);
+		}
 		
 		String msg = "";
 		String loc = "";

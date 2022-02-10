@@ -81,7 +81,7 @@ public class ProductServiceImpl implements ProductService {
 			try {
 				for(ProductImage pi : p.getImages()) {
 					pi.setProductNo(p.getProductNo());
-					result = dao.updateProductImg(session, pi);
+					result = dao.insertProductImg(session, pi);
 				}				
 			} catch(RuntimeException e) {
 				e.printStackTrace();
