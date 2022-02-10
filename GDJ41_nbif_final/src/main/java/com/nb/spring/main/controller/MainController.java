@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -15,6 +16,7 @@ import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
 
 @Controller
+@SessionAttributes({"specialProduct"})
 public class MainController {
 	
 	@Autowired
@@ -24,46 +26,39 @@ public class MainController {
 	public ModelAndView mainView(ModelAndView mv) {
 		int startNum = 0;
 		int finishNum = 3;
+		
+		Product specialProduct = service.selectOneSpecialProduct();
+		
+		mv.addObject("specialProduct", specialProduct);
+		
 		mv.addObject("deadLine", service.selectListDeadLine(startNum, finishNum));
 		mv.addObject("latest", service.selectListLatest(startNum, finishNum));
 		mv.setViewName("index");
 		return mv;
 	}
 	
-	@RequestMapping("/enrollEmail")
-	public String enrollEmailView() {
-		return "login/enrollEmail";
-	}
-	
-	@RequestMapping("/enrollMember")
-	public String enrollMemberView() {
-		return "login/enrollMember";
-	}
-	
-	@RequestMapping("/findId")
-	public String findIdView() {
-		return "login/findId";
-	}
-	
-	@RequestMapping("/findIdConfirm")
-	public String findIdConfirmView() {
-		return "login/findIdConfirm";
-	}
-	
-	@RequestMapping("/findPassword")
-	public String findPasswordView() {
-		return "login/findPassword";
-	}
-		
-	@RequestMapping("/report")
-	public String reportListView() {
-		return "report/reportList";
-	}
-	
-	@RequestMapping("/chatting")
-	public String openchat() {
-		return "/report/chatting";
-	}
+	/*
+	 * @RequestMapping("/enrollEmail") public String enrollEmailView() { return
+	 * "login/enrollEmail"; }
+	 * 
+	 * @RequestMapping("/enrollMember") public String enrollMemberView() { return
+	 * "login/enrollMember"; }
+	 * 
+	 * @RequestMapping("/findId") public String findIdView() { return
+	 * "login/findId"; }
+	 * 
+	 * @RequestMapping("/findIdConfirm") public String findIdConfirmView() { return
+	 * "login/findIdConfirm"; }
+	 * 
+	 * @RequestMapping("/findPassword") public String findPasswordView() { return
+	 * "login/findPassword"; }
+	 * 
+	 * @RequestMapping("/report") public String reportListView() { return
+	 * "report/reportList"; }
+	 * 
+	 * @RequestMapping("/chatting") public String openchat() { return
+	 * "/report/chatting"; }
+	 */
 	
 	
 	@RequestMapping("/addLatest")

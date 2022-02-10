@@ -56,4 +56,6 @@ public interface ProductDao {
 	int endSellRealTimeAction(SqlSessionTemplate session, Map<String,Object> param);
 
 	int updateStatusFailure(SqlSessionTemplate session);
+
+	Product selectOneSpecialProduct(SqlSessionTemplate session);
 }

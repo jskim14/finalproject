@@ -6,7 +6,8 @@ public enum ProductType {
 	SHIPPING(2),
 	ARRIVAL(3),
 	DONE(4),
-	FAILURE(5)
+	REPORT(5),
+	FAILURE(6)
 	;
 	
 	private final int value;

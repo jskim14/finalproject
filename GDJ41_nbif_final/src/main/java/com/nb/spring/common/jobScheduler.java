@@ -20,6 +20,6 @@ public class jobScheduler {
 	@Scheduled(fixedDelay = ConstantVal.SCHEDULER_FIXED_DELAY, initialDelay = ConstantVal.SCHEDULER_INITIAL_DELAY)
 	public void secheduleEndDate() {
 		int result = productService.updateStatusFailure();
-		log.debug("TIME EXPIRE -result : {}",result);
+		log.debug("기한 만료 상품 갯수 : {}",result);
 	}
 }

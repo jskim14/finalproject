@@ -169,7 +169,7 @@
 									</c:when>
 									<c:otherwise>
 									-
-								</c:otherwise>
+									</c:otherwise>
 								</c:choose>
 							</strong>
 						</div>
@@ -222,7 +222,12 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
+							<c:if test="${isGeneral == true }">
 							<strong>경매 종료까지 남은 시간: </strong>
+							</c:if>
+							<c:if test="${isGeneral == false }">
+							<strong>경매 시작까지 남은 시간: </strong>
+							</c:if>
 						</div>
 					</div>
 					<div class="row">
@@ -499,15 +504,33 @@
 					<c:if test="${isGeneral != true }">
 						<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-green w-100"
-									onclick="goToSpecialAction()">실시간 경매장으로~</button>
+								<button id="goBtn" type="button" class="btn btn-green w-100"
+									onclick="goToSpecialAction()" >실시간 경매장으로~</button>
 							</div>
 						</div>
-						<script>
-		function goToSpecialAction(){
-			// 
-			//location.assign(location.origin+"//");
-		}
+	<script>
+			activeBtn('${product.startDate}');
+			function activeBtn(date){
+				const bidStartDate = new Date(date);
+				const nowDate = new Date();
+
+				let gap = nowDate - bidStartDate;
+
+				if(gap>0){
+					$('#goBtn').attr({disabled:true});
+				}else{
+					$('#goBtn').attr({disabled:false});
+				}
+
+			}
+
+
+			function goToSpecialAction(){
+				open("/product/realtimeaction","_blank","width=1100, height=700, left=150"); 
+				//location.assign(location.origin+"//");
+			}
+
+
 	</script>
 
 

@@ -191,4 +191,10 @@ public class ProductServiceImpl implements ProductService {
 		
 		return dao.updateStatusFailure(session);
 	}
+
+	@Override
+	public Product selectOneSpecialProduct() {
+		
+		return dao.selectOneSpecialProduct(session);
+	}
 }
