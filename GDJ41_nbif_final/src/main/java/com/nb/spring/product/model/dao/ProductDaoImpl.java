@@ -159,5 +159,17 @@ public class ProductDaoImpl implements ProductDao {
 		System.out.println(pi);
 		return session.update("product.reInsertImg",pi);
 	}
+		
+	@Override	
+	public int updateStatusFailure(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateStatusFailure");
+	}
+
+	@Override
+	public Product selectOneSpecialProduct(SqlSessionTemplate session) {
+		
+		return session.selectOne("product.selectOneSpecilProduct");
+	}
 	
 }

@@ -40,6 +40,10 @@ public interface MemberDao {
 
 	int updateDeliveryAddress(SqlSessionTemplate session, Map<String,String>param);
 
+
+
+	Member loginMemberKakao(SqlSessionTemplate session, Map param);
+
 	List<Wallet> emoneyDetail(SqlSessionTemplate session, String memberNo);
 
 	List<Wallet> emoneySelectList(SqlSessionTemplate session, Map param);
@@ -47,5 +51,5 @@ public interface MemberDao {
 	Member findMember(SqlSessionTemplate session, String nickName);
 	
 	int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param);
-	
+
 }

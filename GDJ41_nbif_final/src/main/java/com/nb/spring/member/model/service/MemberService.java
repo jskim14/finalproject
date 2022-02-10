@@ -36,12 +36,18 @@ public interface MemberService {
 	
 	int updateDeliveryAddress(Map<String,String> param);
 	
+
+
+	Member loginMemberKakao(Map param);
+
 	List<Wallet> emoneyDetail(String memberNo);
 
 	List<Wallet> emoneySelectList(Map param);
-	
+
 	Member findMember(String nickName);
 	
 	int endRealTimeActionWallet(Map<String,Object> param);
+
+
 	
 }

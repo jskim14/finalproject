@@ -103,9 +103,17 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public Member loginMemberKakao(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.loginMemberKakao", param);
+	}
+
+
+	@Override
 	public List<Wallet> emoneySelectList(SqlSessionTemplate session, Map param) {
 		return session.selectList("member.emoneySelectList", param);
 	}
+
 	
 	@Override
 	public Member findMember(SqlSessionTemplate session, String nickName) {
@@ -116,5 +124,5 @@ public class MemberDaoImpl implements MemberDao {
 	public int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param) {
 		return session.insert("member.endRealTimeActionWallet", param);
 	}
-	
+
 }

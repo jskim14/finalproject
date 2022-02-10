@@ -60,4 +60,8 @@ public interface ProductDao {
 	int reInsertEnd(SqlSessionTemplate session, Product p);
 	
 	int reInsertImg(SqlSessionTemplate session, ProductImage pi);
+
+	int updateStatusFailure(SqlSessionTemplate session);
+
+	Product selectOneSpecialProduct(SqlSessionTemplate session);
 }

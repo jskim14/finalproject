@@ -51,4 +51,8 @@ public interface ProductService {
 	int buyEnd(String productNo);
 	
 	int reInsertEnd(Product p);
+
+	int updateStatusFailure();
+
+	Product selectOneSpecialProduct();
 }

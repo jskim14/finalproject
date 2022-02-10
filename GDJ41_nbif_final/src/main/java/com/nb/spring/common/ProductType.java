@@ -5,7 +5,10 @@ public enum ProductType {
 	SUCCESS(1),
 	SHIPPING(2),
 	ARRIVAL(3),
-	DONE(4);
+	DONE(4),
+	REPORT(5),
+	FAILURE(6)
+	;
 	
 	private final int value;
 	
