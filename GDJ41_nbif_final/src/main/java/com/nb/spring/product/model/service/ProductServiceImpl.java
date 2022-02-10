@@ -185,4 +185,10 @@ public class ProductServiceImpl implements ProductService {
 	public int endSellRealTimeAction(Map<String,Object> param) {
 		return dao.endSellRealTimeAction(session, param);
 	}
+
+	@Override
+	public int updateStatusFailure() {
+		
+		return dao.updateStatusFailure(session);
+	}
 }
