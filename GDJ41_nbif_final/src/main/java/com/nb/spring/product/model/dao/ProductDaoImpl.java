@@ -149,6 +149,15 @@ public class ProductDaoImpl implements ProductDao {
 		return session.update("product.buyEnd", productNo);
 	}
 	
-	
+	@Override
+	public int reInsertEnd(SqlSessionTemplate session, Product p) {
+		return session.update("product.reInsertEnd",p);
+	}
+
+	@Override
+	public int reInsertImg(SqlSessionTemplate session, ProductImage pi) {
+		System.out.println(pi);
+		return session.update("product.reInsertImg",pi);
+	}
 	
 }

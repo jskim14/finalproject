@@ -179,7 +179,8 @@
 						        </c:choose>
 						        <c:choose>
 						        	<c:when test="${p.permissionYn eq '2' }">
-							            <button type="button" class="btn btn-secondary btnColor" style="float: left;">재등록하기 </button>
+							            <button type="button" class="btn btn-secondary btnColor" style="float: left;"
+							            onclick="location.assign('${path}/product/reInsertProduct?productNo=${p.productNo }')">재등록하기 </button>
 						        	</c:when>
 						        </c:choose>
 						        <c:choose>

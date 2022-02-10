@@ -56,4 +56,8 @@ public interface ProductDao {
 	int endSellRealTimeAction(SqlSessionTemplate session, Map<String,Object> param);
 	
 	int buyEnd(SqlSessionTemplate session, String memberNo);
+	
+	int reInsertEnd(SqlSessionTemplate session, Product p);
+	
+	int reInsertImg(SqlSessionTemplate session, ProductImage pi);
 }

@@ -192,5 +192,21 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 	
+	@Override
+	public int reInsertEnd(Product p) {
+		int result = dao.reInsertEnd(session, p);
+		if(result>0 && !p.getImages().isEmpty()) {
+			try {
+				for(ProductImage pi : p.getImages()) {
+					pi.setProductNo(p.getProductNo());
+					result = dao.reInsertImg(session, pi);
+				}				
+			} catch(RuntimeException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
 	
 }

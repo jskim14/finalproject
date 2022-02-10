@@ -49,4 +49,6 @@ public interface ProductService {
 	int endSellRealTimeAction(Map<String,Object> param);
 	
 	int buyEnd(String productNo);
+	
+	int reInsertEnd(Product p);
 }
