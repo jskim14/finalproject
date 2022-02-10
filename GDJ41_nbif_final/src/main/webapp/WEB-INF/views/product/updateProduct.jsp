@@ -15,7 +15,6 @@
         <div class="pageTitle">
             <span>판매입찰등록</span>
         </div>
-        ${p.images }
         <div class="pageMenu">
             <form action="${path }/product/updateProductEnd" method="post" enctype="multipart/form-data">
             <!-- 판매자 -->
@@ -68,9 +67,9 @@
                                 <label><input class="form-check-input" type="radio" name="extendYn" id="flexRadioDefault2" value="Y"> 
                                     설정
                                 </label>
-                                <input type="text" id="inputTyping2" class="form-control" name="nowBidPrice" placeholder="재경매 시작가를 입력해주세요" 
+                                <!-- <input type="text" id="inputTyping2" class="form-control" name="nowBidPrice" placeholder="재경매 시작가를 입력해주세요" 
                                  style="width: 250px; display:inline; margin-left: 1%" disabled>
-                                <div class="onlyNumber" style="display: inline; padding: 1%"> </div>
+                                <div class="onlyNumber" style="display: inline; padding: 1%"> </div> -->
                                 <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
                             </c:if>

@@ -600,5 +600,25 @@ public class ProductController {
 		mv.setViewName("/common/msg");
 		return mv;
 	}
+	
+	@RequestMapping("/buyEnd")
+	public ModelAndView buyEnd(String productNo, HttpSession session, ModelAndView mv) {
+		Member login = (Member)session.getAttribute("loginMember");
+		int result = productService.buyEnd(productNo);
+		System.out.println(result);
+		String msg = "";
+		String loc = "/member/buyStates?memberNo="+login.getMemberNo();
+		
+		if(result>0) {
+			msg = "구매가 확정되었습니다.";
+		}else {
+			msg = "실패";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
 
 }

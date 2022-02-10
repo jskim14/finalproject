@@ -91,8 +91,14 @@
 						<a href="${path }/product/productDetail?productNo=${p.productNo.productNo}" class="col-2">
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
-						    <img src="/resources/upload/product/${p.productNo.images.get(0).imageName }" 
-						    alt="" style="width: 150px; height: 130px;">
+						    <c:if test="${not empty p.productNo.images }">
+						    	<img src="/resources/upload/product/${p.productNo.images.get(0).imageName }" 
+						   		 alt="" style="width: 150px; height: 130px;">
+						    </c:if>
+						    <c:if test="${empty p.productNo.images}">
+						    	<img src="" 
+						   		 alt="확인중" style="width: 150px; height: 130px;">
+						    </c:if>
 						</a>
 						<div class="col-6">
 						    <!-- 중간 -->
@@ -144,9 +150,29 @@
 							            <span style="font-size: 18px;float: left; color: gray;">배송대기</span>
 						        	</c:when>
 						        	<c:when test="${(p.productNo.productStatus eq '2' or p.productNo.productStatus eq '3') and p.productNo.highestBidder.memberNo eq loginMember.memberNo }">
-						            	<button type="button" class="btn btn-secondary btnColor" style="float: left; margin-right: 1%;"
-						            	onclick="">
+						            	<button type="button" class="btn btn-secondary btnColor" style="float: left; margin-right: 1%;" 
+						            	data-bs-toggle="modal" data-bs-target="#buyEnd">
 						            	구매확정 </button> 
+						            	<!-- Modal -->
+										<div class="modal fade" id="buyEnd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+										  <div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <!-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> -->
+										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										      </div>
+										      <div class="modal-body">
+										        물품에 이상이 없는지 확인을 마치셨습니까? <br>
+										        구매확정 후에는 거래가 완전종료 됩니다.
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										        <button type="submit" class="btn btn-primary btnColor" id="modaltest"
+										        onclick="location.assign('${path}/product/buyEnd?productNo=${p.productNo.productNo }')" >구매확정</button>
+										      </div>
+										    </div>
+										  </div>
+										</div>
 						            	<button type="button" class="btn btn-secondary btnColor" data-bs-toggle="modal"data-bs-target="#staticBackdrop" style="float: left;">
 						            	신고(환불신청) </button>
 						            	<!-- 모달창 -->
