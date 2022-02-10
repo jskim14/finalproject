@@ -52,7 +52,7 @@
 									</div>
 									<div class="mb-3">
 										<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-										<textarea class="form-control" id="exampleFormControlTextarea1" name="qnaContent"
+										<textarea class="form-control" id="exampleFormControlTextarea1" name="qnaContent" required
 											rows="3"></textarea>
 									</div>
 									<input type="hidden" name="memberNo" value="${loginMember.memberNo }">
@@ -90,14 +90,14 @@
             			<td style="">
             				<a href="${path }/cs/qnaContent?qnaNo=${q.qnaNo}" style="text-decoration:none;color:black;"><c:out value="${q.qnaTitle}"/></a>
             			</td>
-            			<td><c:out value="${q.writer.nickName}"/></td>
+            			<td style="text-align:center;"><c:out value="${q.writer.nickName}"/></td>
             			<td style="text-align:center;"><c:out value="${q.questionDate}"/></td>
             			<td style="text-align:center;">
             				<c:if test="${empty q.qnaAnswer}">
-            					<span style="color:red;">답변대기</span>
+            					<span style="color:red;">대기</span>
             				</c:if>
             				<c:if test="${not empty q.qnaAnswer}">
-            					<span style="color:blue;">답변완료</span>
+            					<span style="color:blue;">완료</span>
             				</c:if>
             				
             			</td>
@@ -115,7 +115,7 @@
         <script>
         	$("#btn2").addClass("active");
         	
-        	
+        	$("#n")
         </script>
 
 <jsp:include page="${path }/WEB-INF/views/common/footer.jsp"/>

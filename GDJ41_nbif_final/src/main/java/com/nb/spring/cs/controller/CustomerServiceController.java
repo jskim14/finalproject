@@ -73,7 +73,6 @@ public class CustomerServiceController {
 			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
 			ModelAndView mv) {
 		List<Qna> qnaList=service.selectQnaList(cPage,numPerPage);
-		
 		int totalQna=service.qnaCount();
 		mv.addObject("totalQna",totalQna);
 		mv.addObject("pageBar", PageFactory.getPageBar(totalQna, cPage, numPerPage, 5, "/cs/qna"));
@@ -106,6 +105,8 @@ public class CustomerServiceController {
 	}
 	@RequestMapping("/cs/insertQuestion")
 	public ModelAndView insertQuestion(ModelAndView mv, String qnaTitle, String qnaContent, String memberNo) {
+		System.out.println("넘어온 데이터"+memberNo);
+		
 		Map<String,String> param2= Map.of("qnaTitle",qnaTitle, "qnaContent",qnaContent, "memberNo",memberNo);
 		
 		int result=service.insertQuestion(param2);

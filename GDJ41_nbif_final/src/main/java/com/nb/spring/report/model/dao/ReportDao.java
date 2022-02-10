@@ -9,7 +9,8 @@ import com.nb.spring.report.model.vo.ReportImage;
 
 public interface ReportDao {
 		
-	List<Report> selectReportList(SqlSessionTemplate session);
+	List<Report> selectReportList(SqlSessionTemplate session, int cPage, int numPerPage);
+	int reportCount(SqlSessionTemplate session);
 	
 	int insertReport(SqlSessionTemplate session, Report r);
 	int insertReportImage(SqlSessionTemplate session, ReportImage ri);

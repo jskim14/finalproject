@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nb.spring.common.PageFactory;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.vo.Product;
 import com.nb.spring.report.model.service.ReportService;
@@ -33,20 +34,20 @@ public class ReportController {
 	@Autowired
 	private ReportService service;
 	
-//	@RequestMapping("/reportlist")
-//	public ModelAndView reportlist(@RequestParam String productNo, ModelAndView mv) {
-//		
-//		System.out.println(productNo);
-//		
-//		List<Report> reportList=service.selectReportList();
-//		
-//	}
 	
 	@RequestMapping("/reportList")
-	public String selectReportList(Model model) {
-		List<Report> reportList=service.selectReportList();
-		model.addAttribute("reportList",reportList);
-		return "report/reportList";
+	public ModelAndView selectReportList(
+			@RequestParam(value="cPage", defaultValue="1") int cPage, 
+			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
+			ModelAndView mv) {
+		List<Report> reportList=service.selectReportList(cPage,numPerPage);
+		int totalReport=service.reportCount();
+		mv.addObject("pageBar",PageFactory.getPageBar(totalReport, cPage, numPerPage, 5, "/report/reportList"));
+		
+		mv.addObject("reportList",reportList);
+		mv.addObject("report/reportList");
+		System.out.println("가져온 리스트"+reportList);
+		return mv;
 	}
 	
 	@RequestMapping(value="/insertReport", method=RequestMethod.POST)
@@ -65,46 +66,42 @@ public class ReportController {
 		r.setReportMember(new Member());
 		r.getReportMember().setMemberNo(writer);
 		
-		System.out.println(r);
-		
+		System.out.println("넣은거"+r);
 		
 		//File upload
 		String path=req.getServletContext().getRealPath("/resources/upload/report/");
 		File f=new File(path);
 		if(!f.exists()) f.mkdirs(); //create a folder
-		
 		r.setReportImages(new ArrayList<ReportImage>());
-		
 		for(MultipartFile mf: upFile) {
 			if(!mf.isEmpty()) {
 				String orignalFileName=mf.getOriginalFilename();
 				String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
 				
 				//rename rule
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmsssss");
+				SimpleDateFormat sdf=new SimpleDateFormat("ddMMyyHHmmsssss");
 				int rndNum=(int)(Math.random()*1000);
 				String renameFile=sdf.format(System.currentTimeMillis())+"_"+rndNum+ext;
 				//save renamed file using method of MultipartFile Class
 				try {
 					mf.transferTo(new File(path+renameFile));
-					ReportImage ri=new ReportImage();
-					ri.setFileName(orignalFileName);
+					ReportImage ri=ReportImage.builder().fileName(renameFile).build();
 					r.getReportImages().add(ri);
 				}catch(IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		System.out.println(r.getReportImages());
+		System.out.println("이미지이름"+r.getReportImages());
+		int result=service.insertReport(r);
 		log.debug("reportDate: {}", r);
 		String msg="";
 		String loc="";
-		try {
-			int result=service.insertReport(r);
+		if(result>0) {
 			msg="신고 완료 하였습니다.";
 			loc="/";
-		}catch(RuntimeException e) {
-			msg="신고 실패: "+e.getMessage();
+		}else {
+			msg="신고 실패";
 			loc="/";
 		}
 		mv.addObject("msg",msg);
