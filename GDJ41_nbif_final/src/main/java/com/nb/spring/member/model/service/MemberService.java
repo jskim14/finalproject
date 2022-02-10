@@ -6,6 +6,7 @@ import java.util.Map;
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.member.model.vo.Wallet;
+import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
 
 public interface MemberService {
@@ -48,6 +49,6 @@ public interface MemberService {
 	
 	int endRealTimeActionWallet(Map<String,Object> param);
 
-
+	List<WishList> myWishList(String memberNo);
 	
 }

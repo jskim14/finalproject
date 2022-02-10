@@ -247,7 +247,7 @@
 						        </c:when>
 							 	<c:when test="${p.permissionYn eq '2'}">
 								    <div class="col">
-								    	승인이 거절되었습니다. <br> 사유: 부적절한 사진 포함
+								    	승인이 거절되었습니다. <br> 사유: <c:out value="${p.rejectReason }"></c:out>
 								    </div>
 						        </c:when>
 							 	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '0' }"> <!-- 판매중 -->

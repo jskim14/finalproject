@@ -12,6 +12,7 @@ import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.dao.MemberDao;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.member.model.vo.Wallet;
+import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
 
 @Service
@@ -125,4 +126,11 @@ public class MemberServiceImpl implements MemberService {
 	public int endRealTimeActionWallet(Map<String,Object> param) {
 		return dao.endRealTimeActionWallet(session, param);
 	}
+
+	@Override
+	public List<WishList> myWishList(String memberNo) {
+		return dao.myWishList(session, memberNo);
+	}
+	
+	
 }

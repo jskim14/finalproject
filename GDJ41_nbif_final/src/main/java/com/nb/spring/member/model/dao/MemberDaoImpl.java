@@ -10,6 +10,7 @@ import com.nb.spring.common.BalanceType;
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.member.model.vo.Wallet;
+import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
 
 @Repository
@@ -124,5 +125,12 @@ public class MemberDaoImpl implements MemberDao {
 	public int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param) {
 		return session.insert("member.endRealTimeActionWallet", param);
 	}
+
+	@Override
+	public List<WishList> myWishList(SqlSessionTemplate session, String memberNo) {
+		return session.selectList("member.myWishList", memberNo);
+	}
+	
+	
 
 }

@@ -38,6 +38,7 @@ import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.service.SendEmailService;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.member.model.vo.Wallet;
+import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
@@ -564,6 +565,14 @@ public class MemberController {
 		m.addAttribute("m",mem);
 		m.addAttribute("list",list);
 		return "login/emoneyDetail";
+	}
+	
+	@RequestMapping("/myWishList")
+	public ModelAndView myWishList(String memberNo, ModelAndView mv) {
+		List<WishList> list = service.myWishList(memberNo);
+		mv.addObject("list",list);
+		mv.setViewName("/login/wishList");
+		return mv;
 	}
 
 }

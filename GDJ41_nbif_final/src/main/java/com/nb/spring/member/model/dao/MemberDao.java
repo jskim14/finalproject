@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.member.model.vo.Wallet;
+import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
 
 public interface MemberDao {
@@ -52,4 +53,5 @@ public interface MemberDao {
 	
 	int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param);
 
+	List<WishList> myWishList(SqlSessionTemplate session,String memberNo);
 }
