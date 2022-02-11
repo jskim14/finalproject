@@ -1,16 +1,21 @@
 package com.nb.spring.main.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.nb.spring.common.PageFactory;
 import com.nb.spring.product.model.service.ProductService;
 import com.nb.spring.product.model.vo.Product;
 
@@ -78,6 +83,47 @@ public class MainController {
 		List<Product> list = service.selectListDeadLine(startNum,finishNum);
 		res.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(list, res.getWriter());
+	}
+	
+	@PostMapping("/productSearch")
+	public ModelAndView searchProduct(ModelAndView mv, String keyword,
+			@RequestParam(value="cPage", defaultValue="1") int cPage
+			,@RequestParam(value="numPerPage", defaultValue="4") int numPerPage) {
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("cPage", cPage);
+		param.put("numPerPage", numPerPage);
+		param.put("keyword", keyword);
+		List<Product> totalDataCount = service.searchProductCount(keyword);
+		int totalData = totalDataCount.size();
+		int pageBarSize = 5;
+		System.out.println(service.searchProduct(param).size());
+		System.out.println(totalData);
+		mv.addObject("searchProduct", service.searchProduct(param));
+		mv.addObject("keyword", keyword);
+		mv.addObject("totalData", totalData);
+		mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize, keyword, "/productSearch"));
+		mv.setViewName("/product/searchProduct");
+		return mv;
+	}
+	
+	@PostMapping("/ajax/productSearch")
+	public ModelAndView searchProductAjax(ModelAndView mv, String keyword,
+			@RequestParam(value="cPage", defaultValue="1") int cPage
+			,@RequestParam(value="numPerPage", defaultValue="4") int numPerPage) {
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("cPage", cPage);
+		param.put("numPerPage", numPerPage);
+		param.put("keyword", keyword);
+		List<Product> totalDataCount = service.searchProductCount(keyword);
+		int totalData = totalDataCount.size();
+		int pageBarSize = 5;
+		System.out.println(cPage);
+		mv.addObject("searchProduct", service.searchProduct(param));
+		mv.addObject("keyword", keyword);
+		mv.addObject("totalData", totalData);
+		mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize, keyword, "/productSearch"));
+		mv.setViewName("/product/searchProductPage");
+		return mv;
 	}
 }
 

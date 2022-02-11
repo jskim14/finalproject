@@ -103,13 +103,6 @@
     </script>
     <title>Document</title>
 </head>
-<style>
-/* #first-header>ul {
-	margin: 0;
-	position: absolute;
-	left: 74%;
-} */
-</style>
 <body>
     <div id="container">
         <header>
@@ -164,7 +157,7 @@
                     <ul>
                         <li style="width:200px"><a href="">SPECIAL AUCTION</a></li>
                         <li style="width:200px"><a href="">AUCTION ITEMS</a></li>
-                        <li style="display: none; width:400px"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></li>
+                        <li style="display: none; width:400px"><form action="${path }/productSearch" method="post"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></form></li>
                         <li><a href="javascript:search_btn()"><span><img src="${path}/resources/images/search.png" width="30px" height="30px"></span></a></li>
                         <li style="display: none;"><a href="javascript:search_btn_close()"><span><img src="${path}/resources/images/xxx.png" width="20px" height="20px"></span></a></li>
                     </ul>
