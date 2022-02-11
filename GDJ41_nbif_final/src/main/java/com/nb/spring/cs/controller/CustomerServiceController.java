@@ -160,13 +160,11 @@ public class CustomerServiceController {
 		int result=service.insertAnswer(param);
 		
 		String msg="";
-		String loc="";
+		String loc="/cs/qnaContent?qnaNo="+qnaNo;
 		if(result>0) {
 			msg="답변 등록 완료";
-			loc="/cs/qna";
 		}else {
 			msg="답변 등록 실패";
-			loc="/cs/qna";
 		}
 		
 		mv.addObject("msg",msg);

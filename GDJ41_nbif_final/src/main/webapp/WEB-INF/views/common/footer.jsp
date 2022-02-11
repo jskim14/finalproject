@@ -35,6 +35,7 @@
 	
 		<!-- 나중에 지울거 -->
 		<button type="button" class="btn btn-info" onclick="location.assign('${path}/report/reportList');">Report List</button>
+		<button type="button" class="btn btn-info" onclick="location.assign('${path}/member/sellerrank');">Rank</button>
 		
 		<!-- 여기까지 -->
 		<p>NBIF(버그아니라기능이조)&nbsp;&nbsp;&nbsp;&nbsp;</p>

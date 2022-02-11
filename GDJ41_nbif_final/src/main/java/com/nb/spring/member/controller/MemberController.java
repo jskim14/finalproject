@@ -499,4 +499,15 @@ public class MemberController {
 		return mv;
 	}
 	
+	
+	//셀러랭킹
+//	@RequestMapping("/sellerrank")
+//	public ModelAndView sellerrank(ModelAndView mv) {
+//		Map<String,Object>
+//		
+//		mv.setViewName("member/sellerrank");
+//		return mv;
+//	}
+	
+	
 }

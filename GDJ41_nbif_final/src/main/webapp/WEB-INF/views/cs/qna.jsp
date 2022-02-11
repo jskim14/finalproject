@@ -94,10 +94,10 @@
             			<td style="text-align:center;"><c:out value="${q.questionDate}"/></td>
             			<td style="text-align:center;">
             				<c:if test="${empty q.qnaAnswer}">
-            					<span style="color:red;">대기</span>
+            					<span style="color:tomato;">대기</span>
             				</c:if>
             				<c:if test="${not empty q.qnaAnswer}">
-            					<span style="color:blue;">완료</span>
+            					<span style="color:royalblue;">완료</span>
             				</c:if>
             				
             			</td>
