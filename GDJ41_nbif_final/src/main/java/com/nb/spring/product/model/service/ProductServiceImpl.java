@@ -129,7 +129,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return result;
 	}
-	
+	@Override
 	public List<Map<String, String>> selectBidderList(String productNo) {
 		
 		return dao.selectBidderList(session,productNo);
@@ -199,5 +199,17 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> searchProductCount(String keyword) {
 		return dao.searchProductCount(session, keyword);
+	}
+	
+	@Override
+	public int updateStatusFailure() {
+		
+		return dao.updateStatusFailure(session);
+	}
+
+	@Override
+	public Product selectOneSpecialProduct() {
+		
+		return dao.selectOneSpecialProduct(session);
 	}
 }

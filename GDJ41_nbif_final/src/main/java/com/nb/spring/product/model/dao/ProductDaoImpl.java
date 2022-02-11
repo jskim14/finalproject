@@ -143,6 +143,18 @@ public class ProductDaoImpl implements ProductDao {
 	public int endSellRealTimeAction(SqlSessionTemplate session, Map<String,Object> param) {
 		return session.update("product.endSellRealTimeAction", param);
 	}
+
+	@Override
+	public int updateStatusFailure(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateStatusFailure");
+	}
+
+	@Override
+	public Product selectOneSpecialProduct(SqlSessionTemplate session) {
+		
+		return session.selectOne("product.selectOneSpecilProduct");
+	}
 	
 	@Override
 	public List<Product> searchProduct(SqlSessionTemplate session, Map<String,Object> param) {

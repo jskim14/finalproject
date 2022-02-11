@@ -60,4 +60,8 @@ public interface ProductDao {
 	List<ProductImage> searchProductImg(SqlSessionTemplate session, String productNo);
 	
 	List<Product> searchProductCount(SqlSessionTemplate session, String keyword);
+
+	int updateStatusFailure(SqlSessionTemplate session);
+
+	Product selectOneSpecialProduct(SqlSessionTemplate session);
 }

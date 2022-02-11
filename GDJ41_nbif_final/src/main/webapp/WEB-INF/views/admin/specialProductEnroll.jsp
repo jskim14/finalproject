@@ -84,7 +84,7 @@
 					  <option value="FS">패션</option>
 					  <option value="LF">라이프</option>
 					  <option value="TC">테크</option>
-					  <option value="AR">아트</option>
+					  <option value="AT">아트</option>
 					</select>
 				</div>
 			</div>

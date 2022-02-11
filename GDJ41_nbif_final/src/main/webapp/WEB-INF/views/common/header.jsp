@@ -152,10 +152,11 @@
 	                        </c:if>
                     </ul>
                 </div>
+                
                 <div id="second-header">
                     <h2><a href="${path }/"><img src="${path}/resources/images/NBIF.png" width="120px" height="40px"></a></h2>
                     <ul>
-                        <li style="width:200px"><a href="">SPECIAL AUCTION</a></li>
+                        <li style="width:200px"><a href="javascript:specialAuctionButton('${specialProduct.productNo}')">SPECIAL AUCTION</a></li>
                         <li style="width:200px"><a href="">AUCTION ITEMS</a></li>
                         <li style="display: none; width:400px"><form action="${path }/productSearch" method="post"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></form></li>
                         <li><a href="javascript:search_btn()"><span><img src="${path}/resources/images/search.png" width="30px" height="30px"></span></a></li>
@@ -163,4 +164,15 @@
                     </ul>
                 </div>
             </div>
+            <script>
+            	function specialAuctionButton(productNo){
+            		if(!productNo){
+						alert("준비중인 실시간 경매물품이 없습니다.");
+						return;
+					}
+					
+					location.href = location.origin+"/product/productDetail?productNo="+productNo;
+
+            	}
+            </script>
         </header>
