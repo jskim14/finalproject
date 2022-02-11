@@ -45,5 +45,14 @@ public interface ProductService {
 	int waitingDelete(String productNo);
 	
 	int shippingSelect(String productNo);
+	
+	int endSellRealTimeAction(Map<String,Object> param);
+	
+	List<Product> searchProduct(Map<String,Object> param);
+	
+	List<Product> searchProductCount(String keyword);
 
+	int updateStatusFailure();
+
+	Product selectOneSpecialProduct();
 }

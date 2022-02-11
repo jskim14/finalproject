@@ -32,13 +32,17 @@
 		
 		  Kakao.Auth.login({
 		      success: function (response) {
+				  console.log(response);
+
+				const accessToken = response['access_token'];
+
 		        Kakao.API.request({
 		          url: '/v2/user/me',
 		          success: function (response) {
 		        	  console.log(response)
 		        	  console.log(JSON.stringify(response));
-					  console.log(response['kakao_account']['email']);
-					 sendPost(location.origin+"/member/kakaoLogin",response['kakao_account']['email']);
+					  console.log(response['kakao_account']['id']);
+					sendPost(location.origin+"/member/kakaoLogin",'id',response['id'],'accessToken',accessToken);
 		        	/*   Kakao.Auth.authorize({
 		    			  redirectUri: location.origin+"/member/kakaoLogin"
 		    			 
@@ -73,19 +77,24 @@
 		    }
 		  }  
 
-		  function sendPost(url, param){
+		  function sendPost(url,key,param,key2,param2){
 			  let form = document.createElement('form');
 			  form.setAttribute('method','post');
 			  form.setAttribute('action',url);
 			  document.charset = 'utf-8';
 
 			 
-			let hiddenField = document.createElement('input');
-			hiddenField.setAttribute('type','hidden');
-			hiddenField.setAttribute('name','email');
-			hiddenField.setAttribute('value',param);
-			form.appendChild(hiddenField);
+			let hiddenField1 = document.createElement('input');
+			hiddenField1.setAttribute('type','hidden');
+			hiddenField1.setAttribute('name',key);
+			hiddenField1.setAttribute('value',param);
+			form.appendChild(hiddenField1);
 	
+			let hiddenField2 = document.createElement('input');
+			hiddenField2.setAttribute('type','hidden');
+			hiddenField2.setAttribute('name',key2);
+			hiddenField2.setAttribute('value',param2);
+			form.appendChild(hiddenField2);
 
 
 			document.body.appendChild(form);
@@ -94,13 +103,6 @@
     </script>
     <title>Document</title>
 </head>
-<style>
-/* #first-header>ul {
-	margin: 0;
-	position: absolute;
-	left: 74%;
-} */
-</style>
 <body>
     <div id="container">
         <header>
@@ -150,15 +152,27 @@
 	                        </c:if>
                     </ul>
                 </div>
+                
                 <div id="second-header">
                     <h2><a href="${path }/"><img src="${path}/resources/images/NBIF.png" width="120px" height="40px"></a></h2>
                     <ul>
-                        <li style="width:200px"><a href="">SPECIAL AUCTION</a></li>
+                        <li style="width:200px"><a href="javascript:specialAuctionButton('${specialProduct.productNo}')">SPECIAL AUCTION</a></li>
                         <li style="width:200px"><a href="">AUCTION ITEMS</a></li>
-                        <li style="display: none; width:400px"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></li>
+                        <li style="display: none; width:400px"><form action="${path }/productSearch" method="post"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></form></li>
                         <li><a href="javascript:search_btn()"><span><img src="${path}/resources/images/search.png" width="30px" height="30px"></span></a></li>
                         <li style="display: none;"><a href="javascript:search_btn_close()"><span><img src="${path}/resources/images/xxx.png" width="20px" height="20px"></span></a></li>
                     </ul>
                 </div>
             </div>
+            <script>
+            	function specialAuctionButton(productNo){
+            		if(!productNo){
+						alert("준비중인 실시간 경매물품이 없습니다.");
+						return;
+					}
+					
+					location.href = location.origin+"/product/productDetail?productNo="+productNo;
+
+            	}
+            </script>
         </header>

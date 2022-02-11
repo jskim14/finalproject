@@ -17,8 +17,8 @@
        padding-top: 3%;
    }
    
-   #centerRow>div {
-   		padding-bottom: 5px;
+   #middleDiv>div {
+   	padding-bottom: 5px;
    }
    
 </style>
@@ -52,11 +52,11 @@
            	</div>
 			<div class="row" style="">
 			<form action="${path }/member/salesSearch?memberNo=${loginMember.memberNo}" method="post">
-			<input type="hidden" name="count" value="${salesCnt.get(0) }">
+<%-- 			<input type="hidden" name="count" value="${salesCnt.get(0) }">
 			<input type="hidden" name="count" value="${salesCnt.get(1) }">
 			<input type="hidden" name="count" value="${salesCnt.get(2) }">
 			<input type="hidden" name="count" value="${salesCnt.get(3) }">
-			<input type="hidden" name="count" value="${salesCnt.get(4) }">
+			<input type="hidden" name="count" value="${salesCnt.get(4) }"> --%>
 			    <div class="row" style="height: 70px; background-color:lightgray; margin: 0; text-align: center; padding: 1% 0 1% 10%;">
 			        <!-- 검색 -->
 			        <div class="col-3"> 
@@ -94,12 +94,12 @@
 				<c:forEach var="p" items="${productList}">
      				<div class="row" style="margin: 0; text-align: center;">
 						<hr>
-						<div class="col-2">
+						<a href="${path }/product/productDetail?productNo=${p.productNo}" class="col-2">
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
 						    <img src="/resources/upload/product/${p.images.get(0).imageName }" 
 						    alt="" style="width: 150px; height: 130px;">
-						</div>
+						</a>
 						<div class="col-6">
 						    <!-- 중간 -->
 						    <div id="centerRow" class="row">
@@ -109,6 +109,7 @@
 						    		판매완료[1(입완),2(발완)],
 						    		종료 [4(구매확정),5(신고)]
 						    		-->
+						   <a href="${path }/product/productDetail?productNo=${p.productNo}" class="row aColor" id="middleDiv">
 						        <div>
 						        <c:choose>
 						        	<c:when test="${p.permissionYn eq '0' or p.permissionYn eq '2' }">
@@ -135,6 +136,7 @@
 						                <c:out value="${p.productName }"/>
 						            </span>
 						        </div>
+						    </a> 
 						        <!-- 
 						        수정하기[승인 0]
 						        재등록하기[승인 2]
@@ -213,17 +215,21 @@
 						        	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '2' }">
 							            <span style="font-size: 18px;float: left; color: gray;">발송완료</span>
 						        	</c:when>
-						        </c:choose>
-						        <c:choose>
 						        	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '4' }">
 							            <span style="font-size: 18px;float: left; color: gray;">구매확정</span>
 						        	</c:when>
+						        	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '5' }">
+							            <span style="font-size: 18px;float: left; color: gray;">
+							            <a href="#" class="aColor" style="color: gray;">문의사항 바로가기</a>
+							            </span>
+						        	</c:when>
 						        </c:choose>
+						        
 						        </div>
 						    </div>
 						</div>
 
-					   	<div class="col-4" >
+					   	<a href="${path }/product/productDetail?productNo=${p.productNo}" class="col-4 aColor" >
 					       	<!-- 오른쪽 -->
 							 <%-- <div class="row" style="float:right; font-size:12px">
 							 	<c:out value="${p.productNo }"/>
@@ -280,12 +286,12 @@
 								    	신고가 접수된 물품입니다. <br> 자세한 사항은 1:1 문의사항을 이용하여 주세요.
 								    </div>
 								    <div class="row">
-								        <a href="#" class="aColor" style="color: gray;">문의사항 바로가기</a>
+								        <!--  -->
 								    </div>
 						        </c:when>
 							 </c:choose>
 							</div>
-					    </div>
+					    </a>
 					</div>
 			    </c:forEach>
 			</c:if>  

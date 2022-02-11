@@ -12,24 +12,30 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Component
-@Slf4j
 public class RealTimeActionServer extends TextWebSocketHandler {
 
 	private Map<String,WebSocketSession> clients = new HashMap<String,WebSocketSession>();
 	private List<String> msgList = new ArrayList<String>();
+	private String time = "{\"min\":1,\"sec\":40}";
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		msgList.add(message.getPayload());
+		if(message.getPayload().contains("nickName") || message.getPayload().contains("system")) {
+			msgList.add(message.getPayload());
+			System.out.println(message.getPayload());
+		}else if(message.getPayload().contains("min")) {
+			time = message.getPayload();
+		}
 		Iterator<String> keys = clients.keySet().iterator();
 		while(keys.hasNext()) {
 			String key = keys.next();
 			WebSocketSession ss = clients.get(key);
-			ss.sendMessage(new TextMessage("" + msgList));
+			if(message.getPayload().contains("nickName")) {
+				ss.sendMessage(new TextMessage("" + msgList));
+				ss.sendMessage(new TextMessage("" + time));
+			}
 		}
 	}
 
@@ -42,8 +48,9 @@ public class RealTimeActionServer extends TextWebSocketHandler {
 			String key = keys.next();
 			WebSocketSession ss = clients.get(key);
 			ss.sendMessage(new TextMessage("" + clients.size()));
+			ss.sendMessage(new TextMessage("" + time));
 			if(msgList.size()!=0) {
-				ss.sendMessage(new TextMessage("" + msgList));	
+				ss.sendMessage(new TextMessage("" + msgList));
 			}
 		}
 	}
@@ -57,6 +64,7 @@ public class RealTimeActionServer extends TextWebSocketHandler {
 			String key = keys.next();
 			WebSocketSession ss = clients.get(key);
 			ss.sendMessage(new TextMessage("" + clients.size()));
+			ss.sendMessage(new TextMessage("" + time));
 		}
 	}
 	

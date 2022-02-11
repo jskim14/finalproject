@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+ <c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,30 +154,30 @@ Special Action</h2>
 					<div>
 						<i class="fas fa-eye fa-lg"></i><span id="userCount">155</span>
 					</div>
-					<p>경매 남은 시간 : <span>00</span>분 <span>00</span>초</p>
+					<p>경매 남은 시간 : <span id="timeMin"></span>분 <span id="timeSec"></span>초</p>
 				</div>
-				<h3>Apple MacBook Pro 16 Inch Intel Core i7 16GB</h3>
+				<h3><c:out value="${productOne.productName }" /></h3>
 				<div id="img-con">
 					<div id="img-con-first">
-						<img src="https://images.stockx.com/images/Apple-MacBook-Pro-16-Inch-Intel-Core-i7-16GB-RAM-512GB-SSD-AMD-Radeon-Pro-5300M-Mac-OS-MVVJ2LL-A-Space-Gray.jpg?fit=fill&bg=FFFFFF&w=700&h=500&auto=format,compress&q=90&dpr=2&trim=color&updated_at=1634321432" width="400px" height="300px">
+						<img src="${path }/resources/upload/product/${ productOne.images.get(0).imageName}" width="400px" height="300px">
 					</div>
 					<div id="img-list-con" style="width:400px;">
-						<div style="border:2px solid black; box-sizing: border-box;">
-							<img src="https://images.stockx.com/images/Apple-MacBook-Pro-16-Inch-Intel-Core-i7-16GB-RAM-512GB-SSD-AMD-Radeon-Pro-5300M-Mac-OS-MVVJ2LL-A-Space-Gray.jpg?fit=fill&bg=FFFFFF&w=700&h=500&auto=format,compress&q=90&dpr=2&trim=color&updated_at=1634321432" width="70x" height="70x">
-						</div>
-						<div>
-							<img src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp16-silver-select-202110_GEO_KR?wid=1808&hei=1686&fmt=jpeg&qlt=80&.v=1633657514000" width="70x" height="70x">
-						</div>
-						<div>
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6Hz-Zf4wAPRHuPk4EH2rhUvYpWk0dneJgAA&usqp=CAU" width="70x" height="70x">
-						</div>
-						<div>
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-l95EhXBxIo20EP2lw_bj_kEbjxvTTsZc4w&usqp=CAU" width="70x" height="70x">
-						</div>
+						<c:forEach var="p" items="${productOne.images }" varStatus="status">
+						<c:if test="${status.count == 1 }">
+							<div style="border:2px solid black; box-sizing: border-box;">
+								<img src="${path }/resources/upload/product/${p.imageName }" width="70x" height="70x">
+							</div>
+						</c:if>
+						<c:if test="${status.count != 1 }">
+							<div>
+								<img src="${path }/resources/upload/product/${p.imageName }" width="70x" height="70x">
+							</div>
+						</c:if>
+						</c:forEach>
 					</div>
 				</div>
 				<div id="price">
-					<p>현재입찰가 : <span id="nowPrice"><fmt:formatNumber value='50000'/></span></p>
+					<p>현재입찰가 : <span id="nowPrice"><fmt:formatNumber value='${productOne.minBidPrice }'/></span></p>
 				</div>
 				<div>
 					나의 잔액 : <span id="balance" style="font-weight: bold;"><fmt:formatNumber value="${loginMember.balance }"/>원</span>
@@ -191,85 +192,25 @@ Special Action</h2>
 				</div>
 			</div>
 			<div id="section-right">
-			
 			</div>
 		</div>
 	</div>
-	<script>
-		const socket = new WebSocket("ws://localhost:9090/ws/chat");
-		$("#sendBtn").click(e=> {
-			let price = $("#inputPrice").val();
-			let nowPrice = $("#nowPrice").text();
-			let balance = $("#balance").text();
-			nowPrice = stringFormat(nowPrice);
-			balance = stringFormat(balance);
-			price = Number(price);
-			nowPrice = Number(nowPrice);
-			balance = Number(balance);
-			if(price<balance) {
-				if(price>nowPrice) {
-					send(price);
-					$("#inputPrice").val('');
-				}else {
-					alert("현재입찰가보다 낮은가격입니다. 다시 입력해주세요.");
-					$("#inputPrice").val('');
-					$("#inputPrice").focus();
-				}	
-			}else {
-				alert("보유잔액이 부족합니다.");
-			}
-		});
-		function send(price) {
-			socket.send(JSON.stringify({"nickName":"${loginMember.nickName}","price":price}));
-		}
-/* 		let memberList = [];
-		function Member(nickName,price) {
-			this.nickName = nickName;
-			this.price = price;
-		} */
-		socket.onmessage = message=> {
-			let mem = JSON.parse(message.data);
-			if(typeof mem=='object') {
-				$("#section-right").html('');
-				for(let i=0; i<mem.length; i++) {
-					let chat = mem[i];
-					let userDiv = $("<div>");
-					userDiv.css("background-color","white");
-					let h5 = $("<h5>");
-					h5.html(chat["nickName"] + "님이 " + chat["price"] + "원에 응찰!");
-					userDiv.append(h5);
-					$("#section-right").append(userDiv);
-					$("#nowPrice").html(numberFormat(chat["price"]));
-				}
-			}else {
-				$("#userCount").html(message.data);
-			}
-		}
-		$("#img-list-con>div>img").click(e=> {
-			let imgSrc = $(e.target).attr("src");
-			$("#img-list-con>div").css({"border":"2px solid white","box-sizing":"border-box"});
-			$(e.target).parent().css({"border":"2px solid black","box-sizing":"border-box"});
-			$("#img-con-first").find("img").attr("src",imgSrc);
-		});
-		
-		function numberFormat (num) {
-		    if(num==0) return 0;
-		 
-		    var reg = /(^[+-]?\d+)(\d{3})/;
-		    var n = (num + '');
-		 
-		    while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
-		 
-		    return n;
-		};
+<script>
+function send(price) {
+	socket.send(JSON.stringify({ "nickName": "${loginMember.nickName}", "price": price }));
+}
 
-		function stringFormat (num) {
-		   if(num==0) return 0;
-		   
-		   let strNum = num;
-		   
-		   return parseInt(strNum.replace(/,/g,'')); 
-		};
-	</script>
+function endProductAction (nickName,price) {
+	$.ajax({
+		url : "${path}/product/endProductAction",
+		data : {"nickName":nickName,"price":price,"productNo":"${productOne.productNo}"},
+		success : data => {
+			alert(data);
+			window.close();
+		}
+	});
+}
+</script>
+<script src="${path }/resources/js/realtimeaction.js"></script>
 </body>
 </html>

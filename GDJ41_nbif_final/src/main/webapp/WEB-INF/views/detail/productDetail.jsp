@@ -169,7 +169,7 @@
 									</c:when>
 									<c:otherwise>
 									-
-								</c:otherwise>
+									</c:otherwise>
 								</c:choose>
 							</strong>
 						</div>
@@ -213,14 +213,21 @@
 					<hr>
 					<div class="row mb-1">
 						<div class="col-12">
+
 							<strong>경매 시작가: </strong>
 							<strong style="float:right;"><c:out
 									value="${product.minBidPrice }" /><span>원</span></strong>
+
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
+							<c:if test="${isGeneral == true }">
 							<strong>경매 종료까지 남은 시간: </strong>
+							</c:if>
+							<c:if test="${isGeneral == false }">
+							<strong>경매 시작까지 남은 시간: </strong>
+							</c:if>
 						</div>
 					</div>
 					<div class="row">
@@ -234,7 +241,7 @@
 					<script>
 					
 
-						const countDown=(id , date)=>{
+						const countDown=(id , date,flag)=>{
 							let targetDate = new Date(date);
 							const second = 1000;
 							const minute= second * 60;
@@ -248,7 +255,11 @@
 								
 								if(distDate < 0 ){
 									clearInterval(timer);
-									document.getElementById(id).textContent = "종료된 상품입니다.";
+									if(flag){
+										document.getElementById(id).textContent = "종료된 상품입니다.";
+									}else{
+										document.getElementById(id).textContent = "경매진행중...";
+									}
 									return;
 								}
 								
@@ -267,7 +278,7 @@
 							timer = setInterval(showRemaining,1000);
 							
 						}
-						countDown("timer",new Date('${product.endDate}'));
+						countDown("timer",new Date('${product.endDate}'),'${isGeneral}');
 						
 					</script>
 					<hr>
@@ -497,15 +508,33 @@
 					<c:if test="${isGeneral != true }">
 						<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-green w-100"
-									onclick="goToSpecialAction()">실시간 경매장으로~</button>
+								<button id="goBtn" type="button" class="btn btn-green w-100"
+									onclick="goToSpecialAction()" >실시간 경매장으로~</button>
 							</div>
 						</div>
-						<script>
-		function goToSpecialAction(){
-			// 
-			//location.assign(location.origin+"//");
-		}
+	<script>
+			activeBtn('${product.startDate}');
+			function activeBtn(date){
+				const bidStartDate = new Date(date);
+				const nowDate = new Date();
+
+				let gap = nowDate - bidStartDate;
+
+				if(gap>0){
+					$('#goBtn').attr({disabled:true});
+				}else{
+					$('#goBtn').attr({disabled:false});
+				}
+
+			}
+
+
+			function goToSpecialAction(){
+				open("/product/realtimeaction","_blank","width=1100, height=700, left=150"); 
+				//location.assign(location.origin+"//");
+			}
+
+
 	</script>
 
 

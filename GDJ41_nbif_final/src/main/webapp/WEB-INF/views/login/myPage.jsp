@@ -35,14 +35,16 @@
             </div>
             <div class="col-4 card">
                 <div id="infoRight" class="card-body infobox" style="margin: 0;">
+                <a href="${path }/member/emoneyDetail?memberNo=${loginMember.memberNo}" class="aColor">
                     <span class="subTitle" >이머니관리</span><br>
+                </a>
                     <div style="margin-top: 3%;">
                         <a href="${path }/member/emoneyDetail?memberNo=${loginMember.memberNo}" class="aColor">
                         <span style="font-size: 20px">사용가능 잔액 </span> 
                         <span><fmt:formatNumber value="${myPageMember.balance }" pattern="#,###"/>원</span>
                         </a>
                         <div style="float: right;">
-                            <button type="button" class="btn btn-secondary btnColor">충전하기</button>
+                            <button type="button" class="btn btn-secondary btnColor" onclick="goToCharge()">충전하기</button>
                         </div>
                     </div>
                 </div>
@@ -181,5 +183,9 @@
         </div>
     </div>
 </section>
-
+<script>
+	function goToCharge(){
+		let chargeWindow = window.open(location.origin+'/member/charge','_blank','width=400,height=500');
+	}
+</script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

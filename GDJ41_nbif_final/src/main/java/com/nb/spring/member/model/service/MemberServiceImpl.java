@@ -73,12 +73,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> buyList(String memberNo) {
+	public List<Wallet> buyList(String memberNo) {
 		return dao.buyList(session, memberNo);
 	}
 
 	@Override
-	public List<Member> buySearch(Map param) {
+	public List<Wallet> buySearch(Map param) {
 		return dao.buySearch(session, param);
 	}
 
@@ -104,7 +104,25 @@ public class MemberServiceImpl implements MemberService {
 		List<Wallet> list = dao.emoneyDetail(session, memberNo);
 		return list;
 	}
-	
-	
 
+	@Override
+	public Member loginMemberKakao(Map param) {
+		// TODO Auto-generated method stub
+		return dao.loginMemberKakao(session, param);
+	}
+
+	public List<Wallet> emoneySelectList(Map param) {
+		List<Wallet> list = dao.emoneySelectList(session, param);
+		return list;
+	}
+	
+	@Override
+	public Member findMember(String nickName) {
+		return dao.findMember(session, nickName);
+	}
+	
+	@Override
+	public int endRealTimeActionWallet(Map<String,Object> param) {
+		return dao.endRealTimeActionWallet(session, param);
+	}
 }

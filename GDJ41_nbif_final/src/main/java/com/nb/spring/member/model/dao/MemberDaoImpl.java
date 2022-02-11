@@ -66,12 +66,12 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Member> buyList(SqlSessionTemplate session, String memberNo) {
+	public List<Wallet> buyList(SqlSessionTemplate session, String memberNo) {
 		return session.selectList("member.buyList",memberNo);
 	}
 
 	@Override
-	public List<Member> buySearch(SqlSessionTemplate session, Map param) {
+	public List<Wallet> buySearch(SqlSessionTemplate session, Map param) {
 		return session.selectList("member.buySearch", param);
 	}
 	
@@ -100,6 +100,29 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<Wallet> emoneyDetail(SqlSessionTemplate session, String memberNo) {
 		return session.selectList("member.emoneyDetail", memberNo);
+	}
+
+	@Override
+	public Member loginMemberKakao(SqlSessionTemplate session, Map param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.loginMemberKakao", param);
+	}
+
+
+	@Override
+	public List<Wallet> emoneySelectList(SqlSessionTemplate session, Map param) {
+		return session.selectList("member.emoneySelectList", param);
+	}
+
+	
+	@Override
+	public Member findMember(SqlSessionTemplate session, String nickName) {
+		return session.selectOne("member.findMember", nickName);
+	}
+	
+	@Override
+	public int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param) {
+		return session.insert("member.endRealTimeActionWallet", param);
 	}
 
 }

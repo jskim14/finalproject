@@ -52,5 +52,16 @@ public interface ProductDao {
 	int waitingDelete(SqlSessionTemplate session, String productNo);
 	
 	int shippingSelect(SqlSessionTemplate session, String memberNo);
+	
+	int endSellRealTimeAction(SqlSessionTemplate session, Map<String,Object> param);
+	
+	List<Product> searchProduct(SqlSessionTemplate session, Map<String,Object> param);
+	
+	List<ProductImage> searchProductImg(SqlSessionTemplate session, String productNo);
+	
+	List<Product> searchProductCount(SqlSessionTemplate session, String keyword);
 
+	int updateStatusFailure(SqlSessionTemplate session);
+
+	Product selectOneSpecialProduct(SqlSessionTemplate session);
 }

@@ -139,4 +139,37 @@ public class ProductDaoImpl implements ProductDao {
 		return session.update("product.shippingSelect", memberNo);
 	}
 	
+	@Override
+	public int endSellRealTimeAction(SqlSessionTemplate session, Map<String,Object> param) {
+		return session.update("product.endSellRealTimeAction", param);
+	}
+
+	@Override
+	public int updateStatusFailure(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateStatusFailure");
+	}
+
+	@Override
+	public Product selectOneSpecialProduct(SqlSessionTemplate session) {
+		
+		return session.selectOne("product.selectOneSpecilProduct");
+	}
+	
+	@Override
+	public List<Product> searchProduct(SqlSessionTemplate session, Map<String,Object> param) {
+		int cPage = (int)param.get("cPage");
+		int numPerPage = (int)param.get("numPerPage");
+		return session.selectList("product.searchProduct", param, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+	
+	@Override
+	public List<ProductImage> searchProductImg(SqlSessionTemplate session, String productNo) {
+		return session.selectList("product.searchProductImg", productNo);
+	}
+	
+	@Override
+	public List<Product> searchProductCount(SqlSessionTemplate session, String keyword) {
+		return session.selectList("product.searchProductCount", keyword);
+	}
 }
