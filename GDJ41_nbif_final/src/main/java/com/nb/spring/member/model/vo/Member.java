@@ -25,4 +25,5 @@ public class Member {
 	private String balance;
 	private String rank;
 	private List<Wallet> walletList;
+//	private List<WishList> WishList;
 }

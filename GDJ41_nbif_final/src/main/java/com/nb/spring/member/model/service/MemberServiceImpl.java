@@ -131,6 +131,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<WishList> myWishList(String memberNo) {
 		return dao.myWishList(session, memberNo);
 	}
-	
+
+	@Override
+	public int deleteWish(Map<String,String> param) {
+		System.out.println("service"+param);
+		return dao.deleteWish(session, param);
+	}
 	
 }

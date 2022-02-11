@@ -570,8 +570,29 @@ public class MemberController {
 	@RequestMapping("/myWishList")
 	public ModelAndView myWishList(String memberNo, ModelAndView mv) {
 		List<WishList> list = service.myWishList(memberNo);
+//		List<Member> list = service.myWishList(memberNo);
 		mv.addObject("list",list);
 		mv.setViewName("/login/wishList");
+		return mv;
+	}
+	
+	@RequestMapping("/deleteWish")
+	public ModelAndView deleteWish(@RequestParam Map<String,String> param, ModelAndView mv) {
+		int result = service.deleteWish(param);
+		System.out.println(param.get("memberNo"));
+		
+		String msg = "";
+		String loc = "/member/myWishList?memberNo="+param.get("memberNo");
+		
+		if(result>0) {
+			msg = "삭제가 완료되었습니다.";
+		} else {
+			msg = "실패하였습니다.";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
 		return mv;
 	}
 

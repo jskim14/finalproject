@@ -130,7 +130,10 @@ public class MemberDaoImpl implements MemberDao {
 	public List<WishList> myWishList(SqlSessionTemplate session, String memberNo) {
 		return session.selectList("member.myWishList", memberNo);
 	}
-	
-	
+
+	@Override
+	public int deleteWish(SqlSessionTemplate session, Map<String,String> param) {
+		return session.delete("member.deleteWish", param);
+	}
 
 }

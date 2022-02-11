@@ -54,4 +54,6 @@ public interface MemberDao {
 	int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param);
 
 	List<WishList> myWishList(SqlSessionTemplate session,String memberNo);
+	
+	int deleteWish(SqlSessionTemplate session, Map<String,String> param);
 }

@@ -36,7 +36,6 @@
         <div>
             <h2><i class="fas fa-bookmark"></i>&nbsp;내 관심상품</h2>
             <p>내 관심상품입니다.</p>
-            ${list }
         </div>
         <br>
         <div>
@@ -49,29 +48,46 @@
                 <div class="col">판매자</div>
                 <div class="col"></div>
             </div>
-            <div id="wishBox" class="row wish-box" style="cursor:pointer;">
-                <div class="col"><img src="" width=60px; height=60px;></div>
-                <div class="col-5"><p><strong>Apple 에어팟 프로</strong></p></div>
-                <div class="col"><p>180,000&nbsp원</p></div>
-                <div class="col"><p>132,000&nbsp원</p></div>
-                <div class="col"><p>2022-03-01</p></div>
-                <div class="col"><p>판매자</p></div>
-                <div class="col">
-                    <button type="button" id="delete">
-                        <i class="fas fa-times fa-lg" style="color: #339af0; width:50px;"></i>
-                    </button>
-                </div>
-            </div>
+            <c:forEach var="p" items="${list }">
+	            <div id="wishBox" class="row wish-box" onclick="javascript:wishbox('${p.productNo}');"
+	            style="cursor:pointer;"> <!--  -->
+	                <div class="col"><img src="/resources/upload/product/${p.images[0].imageName }" width=60px; height=60px;></div>
+	                <div class="col-5"><p><strong><c:out value="${p.productName }"></c:out></strong></p></div>
+	                <c:if test="${empty p.buyNowPrice }">
+	                	<div class="col"><p>즉시구매불가</p></div>
+	                </c:if>
+	                <c:if test="${not empty p.buyNowPrice }">
+	                	<div class="col"><p><fmt:formatNumber value="${p.buyNowPrice }"/>원</p></div>
+	                </c:if>
+	                <div class="col"><p><fmt:formatNumber value="${p.nowBidPrice }"/>원</p></div>
+	                <div class="col"><p><c:out value="${p.endDate }"></c:out></p></div>
+	                <div class="col"><p><c:out value="${p.seller.nickName }"></c:out></p></div>
+	                <div class="col">
+	                    <button type="button" id="delete"
+	                    onclick="javascript: deleteWish('${p.productNo}','${loginMember.memberNo }');">
+	                        <i class="fas fa-times fa-lg" style="color: #339af0; width:50px;"></i>
+	                    </button>
+	                </div>
+	            </div>
+            </c:forEach>
         </div>
     </div>
 </section>
 <script>
-    $("#wishBox").click(e=>{
-        alert("adf");
-    })
-    $("#delete").click(e=>{
+
+  	const wishbox=(productNo)=>{
+		location.assign('${path}/product/productDetail?productNo='+productNo);
+	}   
+/* 
+     $("#delete").click(e=>{
         e.stopPropagation();
-    })
+    })  */
+    
+     const deleteWish=(productNo, memberNo)=>{
+    	event.stopPropagation();
+		location.assign('${path}/member/deleteWish?productNo='+productNo+'&memberNo='+memberNo);
+	} 
+    
 
 </script>
 
