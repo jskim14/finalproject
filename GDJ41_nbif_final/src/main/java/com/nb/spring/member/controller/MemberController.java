@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -594,6 +595,13 @@ public class MemberController {
 		mv.addObject("loc",loc);
 		mv.setViewName("/common/msg");
 		return mv;
+	}
+	
+	@RequestMapping("/todayView")
+	public String todayView(@CookieValue(value = "productNum", required = false) Cookie view) {
+		System.out.println(view);
+		System.out.println("member value: "+view.getValue());
+		return "";
 	}
 
 }

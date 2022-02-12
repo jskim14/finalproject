@@ -56,7 +56,7 @@
 			        <!-- 검색 -->
 			        <div class="col-3"> 
 			        	<select class="form-select" name="status" aria-label="Default select example" style="width: 200px; color: gray; float:right" required>
-	                        <option selected>---물품상태---</option>
+	                        <option selected>----- 전체 -----</option>
 	                        <option value="입찰중">입찰중</option> <!-- 승인 0,2 -->
 	                        <option value="구매대기">구매대기</option> <!-- 승인1&&상태0 -->
 	                        <option value="종료">종료</option>

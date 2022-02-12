@@ -52,16 +52,11 @@
            	</div>
 			<div class="row" style="">
 			<form action="${path }/member/salesSearch?memberNo=${loginMember.memberNo}" method="post">
-<%-- 			<input type="hidden" name="count" value="${salesCnt.get(0) }">
-			<input type="hidden" name="count" value="${salesCnt.get(1) }">
-			<input type="hidden" name="count" value="${salesCnt.get(2) }">
-			<input type="hidden" name="count" value="${salesCnt.get(3) }">
-			<input type="hidden" name="count" value="${salesCnt.get(4) }"> --%>
 			    <div class="row" style="height: 70px; background-color:lightgray; margin: 0; text-align: center; padding: 1% 0 1% 10%;">
 			        <!-- 검색 -->
 			        <div class="col-3"> 
 			        	<select class="form-select" name="status" aria-label="Default select example" style="width: 200px; color: gray; float:right" required>
-	                        <option selected>---물품상태---</option>
+	                        <option selected>----- 전체 -----</option>
 	                        <option value="판매대기">판매대기</option> <!-- 승인 0,2 -->
 	                        <option value="판매중">판매중</option> <!-- 승인1&&상태0 -->
 	                        <option value="판매완료">판매완료</option>

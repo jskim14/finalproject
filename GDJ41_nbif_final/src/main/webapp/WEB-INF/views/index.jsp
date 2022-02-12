@@ -196,6 +196,7 @@
 		</ul>
 		</div>
 	</div>
+	<button onclick="location.assign('${path}/member/todayView')">실험실</button>
 	<button onclick="websocket();">버튼</button>
 	<div style="padding-left: 6.7%; background-color: #FFD481;">
 		<div id="banner-con">

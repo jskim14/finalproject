@@ -1,6 +1,8 @@
 package com.nb.spring.product.controller;
 
 
+import static com.nb.spring.common.MsgModelView.msgBuild;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -9,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,12 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.common.DealType;
-import com.nb.spring.common.MsgModelView;
 import com.nb.spring.common.ProductType;
 import com.nb.spring.common.WalletType;
 import com.nb.spring.member.model.service.MemberService;
@@ -36,7 +37,6 @@ import com.nb.spring.product.model.vo.ProductImage;
 import com.nb.spring.product.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
-import static com.nb.spring.common.MsgModelView.msgBuild;
 
 @Slf4j
 @Controller
@@ -48,9 +48,12 @@ public class ProductController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	List<Product> cookieList;
 
 	@RequestMapping("/productDetail")
-	public ModelAndView productDetail(@RequestParam String productNo, HttpSession session, ModelAndView mv) {
+	public ModelAndView productDetail(@RequestParam String productNo, HttpSession session, ModelAndView mv,
+			HttpServletResponse res, HttpServletRequest req) {
 
 		System.out.println(productNo);
 		
@@ -101,7 +104,33 @@ public class ProductController {
 		mv.addObject("bidderList",list);
 		
 		
+//		----------------------------------
+		//productNum
+		Cookie[] cookies = req.getCookies();
+		String readNum =""; //읽는 번호
+		boolean click = false;
 		
+		if(cookies != null) {
+			for(Cookie c : cookies) {
+				if(c.getName().equals("productNum")) {
+					readNum = c.getValue();
+					if(c.getValue().contains(productNo)) {
+						click = true;
+						break;
+					}
+				}
+			}
+		}
+		if(!click) {
+			Cookie view = new Cookie("productNum",readNum);
+			view.setMaxAge(60*60*24);
+			res.addCookie(view);
+			System.out.println("controller value : "+view.getValue());
+		}
+		
+		
+		
+//		----------------------------------
 		
 		
 		System.out.println(product);

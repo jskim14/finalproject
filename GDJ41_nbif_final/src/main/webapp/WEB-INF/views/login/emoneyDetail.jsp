@@ -30,12 +30,13 @@
 		    </div> 
 		    <div class="row" style="background-color:lightgray; margin: 0;"> 
 				<div class="" style="display: flex; justify-content: center;">
-					<div class="col-7" style="font-weight: bold; padding: 0 5% 3% 0; ">
+					<a href="${path }/member/emoneyDetail?memberNo=${loginMember.memberNo}" 
+					class="col-7 aColor" style="font-weight: bold; padding: 0 5% 3% 0; ">
 						<span style="font-size: 20px;">이머니 잔액</span><br>
 						<span style="font-size: 35px;">
 						<fmt:formatNumber value="${m.balance }" pattern="#,###"/>원
 						</span>
-					</div>
+					</a>
 					<div class="col-4" style=" padding: 1% 0 0 5%; ">
 						<form action="${path }/member/emoneySelectList?memberNo=${loginMember.memberNo}" method="post">
 				            <button type="submit" class="btn btn-secondary emoneyBtn" 
