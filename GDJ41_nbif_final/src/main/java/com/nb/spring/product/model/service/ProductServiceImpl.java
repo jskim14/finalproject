@@ -129,7 +129,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return result;
 	}
-	
+	@Override
 	public List<Map<String, String>> selectBidderList(String productNo) {
 		
 		return dao.selectBidderList(session,productNo);
@@ -185,7 +185,22 @@ public class ProductServiceImpl implements ProductService {
 	public int endSellRealTimeAction(Map<String,Object> param) {
 		return dao.endSellRealTimeAction(session, param);
 	}
-
+	
+	@Override
+	public List<Product> searchProduct(Map<String,Object> param) {
+		List<Product> list = dao.searchProduct(session, param);
+		for(Product p : list) {
+			List<ProductImage> proImg = dao.searchProductImg(session, p.getProductNo());
+			p.setImages(proImg);
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Product> searchProductCount(String keyword) {
+		return dao.searchProductCount(session, keyword);
+	}
+	
 	@Override
 	public int updateStatusFailure() {
 		

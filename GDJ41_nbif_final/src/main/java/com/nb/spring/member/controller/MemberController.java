@@ -487,6 +487,7 @@ public class MemberController {
 		return mv;
 	}
 	
+
 	@RequestMapping("/kakaoPay")
 	@ResponseBody
 	public String kakaoPay(String amount) {
@@ -581,4 +582,15 @@ public class MemberController {
 		return "login/emoneyDetail";
 	}
 
+	
+	//셀러랭킹
+//	@RequestMapping("/sellerrank")
+//	public ModelAndView sellerrank(ModelAndView mv) {
+//		Map<String,Object>
+//		
+//		mv.setViewName("member/sellerrank");
+//		return mv;
+//	}
+	
+	
 }

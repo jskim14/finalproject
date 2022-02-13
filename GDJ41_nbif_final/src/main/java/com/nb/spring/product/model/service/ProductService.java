@@ -47,6 +47,10 @@ public interface ProductService {
 	int shippingSelect(String productNo);
 	
 	int endSellRealTimeAction(Map<String,Object> param);
+	
+	List<Product> searchProduct(Map<String,Object> param);
+	
+	List<Product> searchProductCount(String keyword);
 
 	int updateStatusFailure();
 

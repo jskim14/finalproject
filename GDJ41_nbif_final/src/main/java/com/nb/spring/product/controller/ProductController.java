@@ -1,11 +1,14 @@
 package com.nb.spring.product.controller;
 
 
+import static com.nb.spring.common.MsgModelView.msgBuild;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.common.DealType;
-import com.nb.spring.common.MsgModelView;
 import com.nb.spring.common.ProductType;
 import com.nb.spring.common.WalletType;
 import com.nb.spring.member.model.service.MemberService;
@@ -36,7 +38,6 @@ import com.nb.spring.product.model.vo.ProductImage;
 import com.nb.spring.product.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
-import static com.nb.spring.common.MsgModelView.msgBuild;
 
 @Slf4j
 @Controller
@@ -191,21 +192,30 @@ public class ProductController {
 
 	@RequestMapping("/realtimeaction")
 	public ModelAndView realtimeaction(ModelAndView mv, String productNo) {
-//		mv.addObject(productService.selectOneProductNo(productNo));
+		mv.addObject("productOne", productService.selectOneProductNo(productNo));
 		mv.setViewName("detail/productRealTimeAction");
 		return mv;
 	}
 	
 	@RequestMapping("/endProductAction")
-	public void endProductAction(String nickName, int price, String productNo) {
+	@ResponseBody
+	public String endProductAction(String nickName, int price, String productNo, HttpServletResponse res) throws IOException {
+		System.out.println("nickName : " + nickName);
+		System.out.println("price : " + price);
+		System.out.println("productNo : " + productNo);
+		String msg = "";
 		Member m = memberService.findMember(nickName);
 		Map<String,Object> param = Map.of("memberNo",m.getMemberNo(),"price",price,"productNo",productNo);
 		int resultWal = memberService.endRealTimeActionWallet(param);
 		if(resultWal>0) {
 			int resultPro = productService.endSellRealTimeAction(param);
+			if(resultPro>0) {
+				msg = "경매종료!";
+			}
 		}else {
 			
 		}
+		return msg;
 	}
 
 	@RequestMapping("/checkBuyNow")
