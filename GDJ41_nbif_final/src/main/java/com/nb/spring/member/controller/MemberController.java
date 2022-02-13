@@ -59,7 +59,22 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder encoder;
 	
-	@RequestMapping("/kakaoLogin")
+	@PostMapping("/kakaoEnroll")
+	public ModelAndView kakaoEnroll(@RequestParam Map param,HttpSession session, ModelAndView mv) {
+		log.debug("{}",param);
+		Member m = service.loginMemberKakao(param);
+		
+		if(m!=null) {
+			return MsgModelView.msgBuild(mv, "/member/login", "이미 등록된 아이디입니다.");
+		}
+		
+		session.setAttribute("userEmail", param.get("email"));
+		mv.setViewName("login/enrollMember");
+		return mv;
+	}
+	
+	
+	@PostMapping("/kakaoLogin")
 	public ModelAndView kakaoLogin(@RequestParam Map param, ModelAndView mv) {
 		
 		log.debug("{}",param);
@@ -296,7 +311,7 @@ public class MemberController {
 				.build();
 		
 		int result = service.insertMember(m);
-		
+		session.removeAttribute("userEmail");
 		if(result > 0) {
 			
 			mv.addObject("msg","회원가입 성공");
