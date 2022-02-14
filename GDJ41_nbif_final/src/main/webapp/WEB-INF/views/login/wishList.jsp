@@ -14,7 +14,7 @@
     width: 100%;
     height: 100px;
     border: solid 1px lightgray;
-    border-left: solid 8px lightskyblue;
+    border-left: solid 8px #41B979;
     box-shadow: 1px 1px darkgray;
     margin-bottom: 20px;
     display: flex;
@@ -48,6 +48,9 @@
                 <div class="col">판매자</div>
                 <div class="col"></div>
             </div>
+            <c:if test="${empty list }">
+            	<div style="text-align: center; padding-top: 1%;"> 등록한 관심상품이 없습니다. <br> 다양한 상품을 구경해보세요! </div>
+            </c:if>
             <c:forEach var="p" items="${list }">
 	            <div id="wishBox" class="row wish-box" onclick="javascript:wishbox('${p.productNo}');"
 	            style="cursor:pointer;"> <!--  -->
@@ -65,7 +68,7 @@
 	                <div class="col">
 	                    <button type="button" id="delete"
 	                    onclick="javascript: deleteWish('${p.productNo}','${loginMember.memberNo }');">
-	                        <i class="fas fa-times fa-lg" style="color: #339af0; width:50px;"></i>
+	                        <i class="fas fa-times fa-lg" style="color: #41B979; width:50px;"></i>
 	                    </button>
 	                </div>
 	            </div>

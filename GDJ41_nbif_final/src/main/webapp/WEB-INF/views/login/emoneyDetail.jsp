@@ -78,7 +78,7 @@
 											<span>입찰실패로 사용취소</span>
 										</c:if>
 										<c:if test="${w.categoryDetail eq '2' }">
-											<span>포인트 충전</span>
+											<span style="font-weight: bold; font-size: 20px;">포인트 충전</span>
 										</c:if>
 									</td>
 									<td style="width: 15%;">

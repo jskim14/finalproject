@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +53,7 @@ public class ProductController {
 	@Autowired
 	private MemberService memberService;
 	
-	List<Product> cookieList;
+	List<Product> cookieList = new ArrayList<Product>();
 
 	@RequestMapping("/productDetail")
 	public ModelAndView productDetail(@RequestParam String productNo, HttpSession session, ModelAndView mv,
@@ -107,29 +111,25 @@ public class ProductController {
 //		----------------------------------
 		//productNum
 		Cookie[] cookies = req.getCookies();
-		String readNum =""; //읽는 번호
-		boolean click = false;
+		String read="";
+		boolean isRead = false;
 		
 		if(cookies != null) {
 			for(Cookie c : cookies) {
 				if(c.getName().equals("productNum")) {
-					readNum = c.getValue();
-					if(c.getValue().contains(productNo)) {
-						click = true;
-						break;
+					read = c.getValue();
+					if(c.getValue().contains("|"+productNo)) {
+						isRead = true;
+						break; 
 					}
 				}
 			}
 		}
-		if(!click) {
-			Cookie view = new Cookie("productNum",readNum);
+		if(!isRead) {
+			Cookie view = new Cookie("productNum",read+"|"+productNo);
 			view.setMaxAge(60*60*24);
 			res.addCookie(view);
-			System.out.println("controller value : "+view.getValue());
 		}
-		
-		
-		
 //		----------------------------------
 		
 		
@@ -738,5 +738,47 @@ public class ProductController {
 		mv.setViewName("/common/msg");
 		return mv;
 	}
+	
+	@RequestMapping("/todayView")
+	public String todayView(@CookieValue(value = "productNum", required = false) Cookie view, Model m) {
+		
+		if(view != null) {
+			String nums[] = view.getValue().split("\\|");
+			System.out.println("nums"+nums[1]);
+			for(int i=1; i<nums.length; i++) {
+				Product p = productService.selectOneProductNo(nums[i]);
+				if(p != null) {
+					cookieList.add(p);
+				}
+			}
+			List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
+			m.addAttribute("list",todayList);
+		}
+		return "/product/todayView";
+	}
+
+	@RequestMapping("/todayDelete") 
+	public String todayDelete(@CookieValue(value = "productNum") Cookie view, HttpServletResponse res, Model m) {
+///		System.out.println("delete"+productNo);
+		
+		view.setMaxAge(0); 
+		res.addCookie(view);
+		
+		List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
+		todayList = null;
+		
+		m.addAttribute("list",todayList);
+		return "/product/todayView";
+//		int index = 0;
+//		for(int i=0; i<todayList.size(); i++) {
+//			if(todayList.get(i).getProductNo().equals(productNo)) {
+//				index = i;
+//			}
+//		}
+//		System.out.println(index);
+//		todayList.remove(index);
+//		
+	}
+	
 
 }

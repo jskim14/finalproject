@@ -596,12 +596,5 @@ public class MemberController {
 		mv.setViewName("/common/msg");
 		return mv;
 	}
-	
-	@RequestMapping("/todayView")
-	public String todayView(@CookieValue(value = "productNum", required = false) Cookie view) {
-		System.out.println(view);
-		System.out.println("member value: "+view.getValue());
-		return "";
-	}
 
 }

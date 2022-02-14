@@ -71,7 +71,7 @@
                         </ul>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item subMenuTitle "> 
-                                <a href="#" class="aColor">
+                                <a href="${path}/product/todayView" class="aColor">
                                     <i class="fas fa-eye fa-lg"></i> 오늘 본 상품
                                 </a>
                             </li>
