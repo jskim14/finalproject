@@ -568,28 +568,56 @@
 							</h2>
 						</div>
 						<div class="col-12 d-flex" style="overflow: hidden;">
-							<div style="width: 210px;">
-								<div>
-									<img src="${path}/resources/images/exbag.png" width="200px"
-										height="200px">
-								</div>
-								<div class="alignVertical">
-									<div class="nameLine">
-										<div>
-											<strong>카테고리</strong>
+						<%-- 	${otherList } --%>
+							<c:forEach items="${otherList}" var="other">
+								<div class="mx-1" style="width: 210px; border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden;">
+									<div class="d-flex justify-content-center my-2">
+										<img src="${path}/resources/upload/product/${other.images.get(0).imageName}" width="200px"
+											height="200px" style="border-radius: 10px;">
+									</div>
+									<div class="alignVertical">
+										<div class="nameLine">
+											<div>
+												<strong>
+													<c:choose>
+														<c:when test="${other.productCategory == 'AR' }">
+														아트
+														</c:when>
+														<c:when test="${other.productCategory == 'FS' }">
+														패션
+														</c:when>
+														<c:when test="${other.productCategory == 'LF' }">
+														라이프
+														</c:when>
+														<c:when test="${other.productCategory == 'TC' }">
+														테크
+														</c:when>
+													</c:choose>
+												</strong>
+											</div>
+											<div>
+												<strong><c:out value="${other.productName}"/></strong>
+											</div>
 										</div>
-										<div>
-											<strong>제품명</strong>
+										<div class="nameLine fontColorRed">
+											<c:if test="${other.buyNowPrice == null }">
+												<strong style="color:#7f47e9;">즉시구매불가상품</strong>
+											</c:if>
+											<c:if test="${other.buyNowPrice != null }">
+												<strong>즉시구매가</strong> <strong style="color:#7f47e9;"><fmt:formatNumber value="${other.buyNowPrice}"/></strong>
+											</c:if>
+										</div>
+										<div class="nameLine fontColorGreen">
+											<strong>현재입찰가</strong> <strong style="color:#41B979;"><fmt:formatNumber value="${other.nowBidPrice}"/></strong>
 										</div>
 									</div>
-									<div class="nameLine fontColorRed">
-										<strong>즉시구매가</strong> <strong>9999999<strong>원</strong></strong>
-									</div>
-									<div class="nameLine fontColorGreen">
-										<strong>현재입찰가</strong> <strong>9999999<strong>원</strong></strong>
-									</div>
-								</div>
 							</div>
+							
+							</c:forEach>
+						
+						
+						
+							
 
 
 						</div>

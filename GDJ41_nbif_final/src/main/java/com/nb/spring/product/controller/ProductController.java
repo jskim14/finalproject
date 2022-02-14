@@ -64,6 +64,11 @@ public class ProductController {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		Product product = productService.selectOneProductNo(productNo);
+		
+		if(product==null) return msgBuild(mv, "/", "ERROR-제품번호");
+		
+		List<Product> otherList = productService.selectOtherList(product.getSeller().getMemberNo());
+		mv.addObject("otherList",otherList);
 		boolean isGeneral = true;
 		if(product.getBannerImageName()==null||product.getBannerImageName().length()<=0) {
 			//일반 판매 상품 

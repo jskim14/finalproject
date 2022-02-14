@@ -3,6 +3,7 @@ package com.nb.spring.product.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.vo.Product;
 import com.nb.spring.product.model.vo.Review;
 
@@ -59,4 +60,6 @@ public interface ProductService {
 	int updateStatusFailure();
 
 	Product selectOneSpecialProduct();
+
+	List<Product> selectOtherList(String memberNo);
 }
