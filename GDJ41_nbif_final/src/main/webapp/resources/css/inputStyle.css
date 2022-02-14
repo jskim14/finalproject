@@ -15,7 +15,7 @@
 }
 
 #totalContainer {
-    padding: 15% 10%;
+    padding: 15% ;
 }
 
 /* 페이지메뉴의 디브사이 */
@@ -28,8 +28,13 @@
     font-size: 30px;
     font-weight: 1000;
     margin-bottom: 5%;
-    display:flext; 
     text-align:center;
+}
+
+.pageTitle2 {
+    font-size: 35px;
+    font-weight: 1000;
+
 }
 
 .subTitle {

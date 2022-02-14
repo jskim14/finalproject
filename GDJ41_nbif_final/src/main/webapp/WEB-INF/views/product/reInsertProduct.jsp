@@ -38,7 +38,7 @@
                                 <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="Y"> 
                                     설정
                                 </label> 
-                                <input type="text" id="inputTyping1" class="form-control" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
+                                <input type="text" id="inputTyping1" class="form-control inputBox" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
                                  style="width: 250px; display:inline; margin-left: 1%" disabled required>
                                 <div class="onlyNumber" style="display: inline; padding: 1%"></div>
                             </c:if>
@@ -49,7 +49,7 @@
                                 <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="Y" checked> 
                                     설정
                                 </label> 
-                                <input type="text" id="inputTyping1" class="form-control" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
+                                <input type="text" id="inputTyping1" class="form-control inputBox" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
                                  style="width: 250px; display:inline; margin-left: 1%" value="${p.buyNowPrice }" required>
                                 <div class="onlyNumber" style="display: inline; padding: 1%"></div>
                             </c:if> 
@@ -87,7 +87,7 @@
                                 <span class="subMenuTitle">입찰 시작가</span> <!-- minBidPrice -->
                             </div>
                             <div class="titleRight">
-                                <input type="text" id="minBidPrice" class="form-control" name="minBidPrice" 
+                                <input type="text" id="minBidPrice" class="form-control inputBox" name="minBidPrice" 
                                 placeholder="" style="width: 250px; display:inline;" value="${p.minBidPrice }" required>
                                 <div id="autionStartInfo" style="display: inline; padding: 1%"> *입찰시작가가 즉시구매가보다 높습니다. </div>
                             </div>
@@ -106,7 +106,7 @@
                                     <option value="100000">100,000원</option>
                                     <option value="typing">직접입력</option>
                                 </select>
-                                <input type="text" id="inputTyping3" class="form-control" name="unit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
+                                <input type="text" id="inputTyping3" class="form-control inputBox" name="unit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
                                 <div id="autionUnitInfo" style="display: inline; padding: 1%"> 
                                 	*입찰단위가 입찰시작가보다 높습니다. 
                                	</div>
@@ -230,6 +230,39 @@
             }
         }
         
+        Number.prototype.format = function(){
+		    if(this==0) return 0;
+		    var reg = /(^[+-]?\d+)(\d{3})/;
+		    var n = (this + '');
+		    while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+		    return n;
+		};
+		
+		String.prototype.stringNumberToInt = function(){
+		   if(this==0) return 0;
+		   let strNum = this;
+		   return parseInt(strNum.replace(/,/g,'')); 
+		};
+		
+          $(".inputBox").change(e=>{
+    		var numPattern = /([^0-9])/;
+    		numPattern = $(e.target).val().match(numPattern);
+    		if (numPattern != null) {
+    			$(e.target).val("");
+    			$(e.target).next().next().html("숫자만 입력이 가능합니다.").css("color","red");
+    			return false;
+    		} else { //숫자만 입력했을때
+//    			let comma = $(e.target).val().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//    			$(e.target).val(comma);
+				var temp = $(e.target).val().stringNumberToInt();
+				$(e.target).val(temp.format());
+				var temp1 = $(e.target).val().stringNumberToInt();
+				$(e.target).next().val(temp1); //hidden
+    			$(e.target).next().next().html(""); 
+				console.log($("input[name=flexRadioDefault1]").val());
+    		}
+        })  
+        
          $("#inputTyping1").change(e=>{
     		var numPattern = /([^0-9])/;
     		numPattern = $(e.target).val().match(numPattern);
@@ -242,7 +275,7 @@
     		}
         }) 
 
-        document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+        $("#currentDate").val(new Date().toISOString().substring(0, 10));
                     
         $(function(){
             $("#maxDate").datepicker({

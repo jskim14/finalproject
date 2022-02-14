@@ -7,6 +7,7 @@
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
 <style>
 	*{margin:0 auto;}
+
 </style>
 <section>
     <div id="totalContainer">
@@ -33,22 +34,18 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4 card">
+            <a href="${path }/member/emoneyDetail?memberNo=${loginMember.memberNo}" class="col-4 card aColor">
                 <div id="infoRight" class="card-body infobox" style="margin: 0;">
-                <a href="${path }/member/emoneyDetail?memberNo=${loginMember.memberNo}" class="aColor">
-                    <span class="subTitle" >이머니관리</span><br>
-                </a>
+                    <span class="subMenuTitle" >이머니관리</span><br>
                     <div style="margin-top: 3%;">
-                        <a href="${path }/member/emoneyDetail?memberNo=${loginMember.memberNo}" class="aColor">
                         <span style="font-size: 20px">사용가능 잔액 </span> 
                         <span><fmt:formatNumber value="${myPageMember.balance }" pattern="#,###"/>원</span>
-                        </a>
                         <div style="float: right;">
                             <button type="button" class="btn btn-secondary btnColor" onclick="goToCharge()">충전하기</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <div id="myMenuTotal">
@@ -185,7 +182,10 @@
 </section>
 <script>
 	function goToCharge(){
+		event.stopPropagation();
 		let chargeWindow = window.open(location.origin+'/member/charge','_blank','width=400,height=500');
 	}
+	
+	
 </script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
