@@ -60,6 +60,12 @@ public interface ProductDao {
 	int reInsertEnd(SqlSessionTemplate session, Product p);
 	
 //	int reInsertImg(SqlSessionTemplate session, ProductImage pi);
+	
+	List<Product> searchProduct(SqlSessionTemplate session, Map<String,Object> param);
+	
+	List<ProductImage> searchProductImg(SqlSessionTemplate session, String productNo);
+	
+	List<Product> searchProductCount(SqlSessionTemplate session, String keyword);
 
 	int updateStatusFailure(SqlSessionTemplate session);
 

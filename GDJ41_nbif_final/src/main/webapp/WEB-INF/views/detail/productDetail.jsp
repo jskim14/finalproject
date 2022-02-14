@@ -241,7 +241,7 @@
 					<script>
 					
 
-						const countDown=(id , date)=>{
+						const countDown=(id , date,flag)=>{
 							let targetDate = new Date(date);
 							const second = 1000;
 							const minute= second * 60;
@@ -255,7 +255,11 @@
 								
 								if(distDate < 0 ){
 									clearInterval(timer);
-									document.getElementById(id).textContent = "종료된 상품입니다.";
+									if(flag){
+										document.getElementById(id).textContent = "종료된 상품입니다.";
+									}else{
+										document.getElementById(id).textContent = "경매진행중...";
+									}
 									return;
 								}
 								
@@ -274,7 +278,7 @@
 							timer = setInterval(showRemaining,1000);
 							
 						}
-						countDown("timer",new Date('${product.endDate}'));
+						countDown("timer",new Date('${product.endDate}'),'${isGeneral}');
 						
 					</script>
 					<hr>

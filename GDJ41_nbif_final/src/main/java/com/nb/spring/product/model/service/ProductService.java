@@ -52,6 +52,10 @@ public interface ProductService {
 	
 	int reInsertEnd(Product p);
 
+	List<Product> searchProduct(Map<String,Object> param);
+	
+	List<Product> searchProductCount(String keyword);
+
 	int updateStatusFailure();
 
 	Product selectOneSpecialProduct();

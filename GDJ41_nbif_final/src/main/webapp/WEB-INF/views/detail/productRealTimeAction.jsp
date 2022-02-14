@@ -156,28 +156,28 @@ Special Action</h2>
 					</div>
 					<p>경매 남은 시간 : <span id="timeMin"></span>분 <span id="timeSec"></span>초</p>
 				</div>
-				<h3>Apple MacBook Pro 16 Inch Intel Core i7 16GB</h3>
+				<h3><c:out value="${productOne.productName }" /></h3>
 				<div id="img-con">
 					<div id="img-con-first">
-						<img src="https://images.stockx.com/images/Apple-MacBook-Pro-16-Inch-Intel-Core-i7-16GB-RAM-512GB-SSD-AMD-Radeon-Pro-5300M-Mac-OS-MVVJ2LL-A-Space-Gray.jpg?fit=fill&bg=FFFFFF&w=700&h=500&auto=format,compress&q=90&dpr=2&trim=color&updated_at=1634321432" width="400px" height="300px">
+						<img src="${path }/resources/upload/product/${ productOne.images.get(0).imageName}" width="400px" height="300px">
 					</div>
 					<div id="img-list-con" style="width:400px;">
-						<div style="border:2px solid black; box-sizing: border-box;">
-							<img src="https://images.stockx.com/images/Apple-MacBook-Pro-16-Inch-Intel-Core-i7-16GB-RAM-512GB-SSD-AMD-Radeon-Pro-5300M-Mac-OS-MVVJ2LL-A-Space-Gray.jpg?fit=fill&bg=FFFFFF&w=700&h=500&auto=format,compress&q=90&dpr=2&trim=color&updated_at=1634321432" width="70x" height="70x">
-						</div>
-						<div>
-							<img src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp16-silver-select-202110_GEO_KR?wid=1808&hei=1686&fmt=jpeg&qlt=80&.v=1633657514000" width="70x" height="70x">
-						</div>
-						<div>
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6Hz-Zf4wAPRHuPk4EH2rhUvYpWk0dneJgAA&usqp=CAU" width="70x" height="70x">
-						</div>
-						<div>
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-l95EhXBxIo20EP2lw_bj_kEbjxvTTsZc4w&usqp=CAU" width="70x" height="70x">
-						</div>
+						<c:forEach var="p" items="${productOne.images }" varStatus="status">
+						<c:if test="${status.count == 1 }">
+							<div style="border:2px solid black; box-sizing: border-box;">
+								<img src="${path }/resources/upload/product/${p.imageName }" width="70x" height="70x">
+							</div>
+						</c:if>
+						<c:if test="${status.count != 1 }">
+							<div>
+								<img src="${path }/resources/upload/product/${p.imageName }" width="70x" height="70x">
+							</div>
+						</c:if>
+						</c:forEach>
 					</div>
 				</div>
 				<div id="price">
-					<p>현재입찰가 : <span id="nowPrice"><fmt:formatNumber value='50000'/></span></p>
+					<p>현재입찰가 : <span id="nowPrice"><fmt:formatNumber value='${productOne.minBidPrice }'/></span></p>
 				</div>
 				<div>
 					나의 잔액 : <span id="balance" style="font-weight: bold;"><fmt:formatNumber value="${loginMember.balance }"/>원</span>
@@ -195,21 +195,22 @@ Special Action</h2>
 			</div>
 		</div>
 	</div>
-<script src="${path }/resources/js/realtimeaction.js"></script>
 <script>
 function send(price) {
 	socket.send(JSON.stringify({ "nickName": "${loginMember.nickName}", "price": price }));
 }
+
 function endProductAction (nickName,price) {
 	$.ajax({
 		url : "${path}/product/endProductAction",
-		data : {"nickName":nickName,"price":price,"productNo":"TC080222141")},
+		data : {"nickName":nickName,"price":price,"productNo":"${productOne.productNo}"},
 		success : data => {
-			
+			alert(data);
+			window.close();
 		}
 	});
 }
 </script>
-
+<script src="${path }/resources/js/realtimeaction.js"></script>
 </body>
 </html>

@@ -7,7 +7,8 @@ import com.nb.spring.report.model.vo.ReportImage;
 
 public interface ReportService {
 	
-	List<Report> selectReportList();
+	List<Report> selectReportList(int cPage, int numPerPage);
+	int reportCount();
 	int insertReport(Report r);
-
+	
 }

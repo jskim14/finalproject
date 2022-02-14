@@ -217,7 +217,7 @@
 </section>
 <script>
   	const websocket=()=> {
-  		open("${path }/product/realtimeaction","_blank","width=1100, height=700, left=150");
+  		open("${path }/product/realtimeaction?productNo=LF100222147","_blank","width=1100, height=700, left=150");
   	}
   	let deadStartNum = 4;
   	let deadFinishNum = 7;
@@ -289,7 +289,13 @@
 				let div = $("<div>");
 				div.attr("class","goods-box");
 				let img = $("<img>");
-				img.attr({"src":"${path}/resources/images/","width":"100%","height":"200","style":"margin-bottom: 12px border-radius: 20px;"});
+				let imgSrc;
+				if(pro["images"].length!=0) {
+					imgSrc = "${path}/resources/images/" + pro["images"][0]["imageName"];
+				}else {
+					imgSrc = "${path}/resources/images/";
+				}
+				img.attr({"src":imgSrc,"width":"100%","height":"200","style":"margin-bottom: 12px border-radius: 20px;"});
 				let p = $("<p>");
 				let strong = $("<strong>");
 				strong.append(pro["productName"]);

@@ -77,9 +77,9 @@
             <table class="table table-hover">
             	<thead id="thead">
             		 <tr>
-	            		<th style="" class="table-dark">#</th>
-	            		<th style="" class="table-dark">제목</th>
-	            		<th style="" class="table-dark">작성일</th>
+	            		<th style="text-align:center; min-width:50px;" class="table-dark">#</th>
+	            		<th style="text-align:center; min-width:200px;" class="table-dark">제목</th>
+	            		<th style="text-align:center; min-width:130px;" class="table-dark">작성일</th>
 	            		<c:if test="${loginMember.memberNo eq '5' }">
 	            			<th style="" class="table-dark">삭제</th>
 	            		</c:if>
@@ -89,18 +89,18 @@
             	<tbody id="cslist">
             	<c:forEach items="${noticeList }" var="n">
             		<tr>
-            			<td style=""><c:out value="${n.noticeNo}"/></td>
+            			<td style="text-align:center; min-width:50px;"><c:out value="${n.noticeNo}"/></td>
             			<td class="accordion_area" style="">
             			<button class="btn btn_toggle"><c:out value="${n.noticeTitle }"/></button>
 					      	<div class="content_area">
      						 	<c:out value="${n.noticeContent }"/>
      						</div>
             			</td>
-            			<td style=""><c:out value="${n.noticeWriteDate}"/></td>
+            			<td style="text-align:center; min-width:130px;"><c:out value="${n.noticeWriteDate}"/></td>
             			<c:if test="${loginMember.memberNo eq '5' }">
             			<td>
             				<button type="button" class="btn btn-outline-danger" style="height:30px;width:50px;padding:0;"
-            				 onclick="location.assign('${path}/cs/deleteNotice?noticeNo=${n.noticeNo}');">삭제</button>
+            				  id="delete" onclick="location.assign('${path}/cs/deleteNotice?noticeNo=${n.noticeNo}');">삭제</button>
             			</td>
 	            		</c:if>
             			
@@ -117,6 +117,14 @@
         </section>
         <script>
         	$("#btn1").addClass("active");
+        	
+        	$("#delete").click(function(){
+        		if(confirm("정말 삭제하시겠습니까? ")==true){
+        			return true;
+        		}else{
+        			return false;
+        		}
+        	})
         	
         	function bindingAccordionEvent(wrap){
          	   let areaArr = document.querySelectorAll(wrap);

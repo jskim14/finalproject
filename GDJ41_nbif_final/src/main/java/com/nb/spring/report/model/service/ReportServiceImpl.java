@@ -21,17 +21,20 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Autowired
 	private SqlSessionTemplate session;
-
-	@Override
-	public List<Report> selectReportList(){
-		return dao.selectReportList(session);
-	}
 	
 	@Override
+	public List<Report> selectReportList(int cPage, int numPerPage) {
+		return dao.selectReportList(session, cPage, numPerPage);
+	}
+
+	@Override
+	public int reportCount() {
+		return dao.reportCount(session);
+	}
+
+	@Override
 	public int insertReport(Report r) throws RuntimeException {
-		log.debug("전 reportNo: {}", r.getReportProduct());
 		int result=dao.insertReport(session, r);
-		log.debug("후 reportNo: {}", r.getReportProduct());
 		if(result>0 && !r.getReportImages().isEmpty()) {
 			try {
 				for(ReportImage ri: r.getReportImages()) {

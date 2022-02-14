@@ -90,6 +90,7 @@ var timer = setInterval(() => {
 			systemH5.css({ "color": "red" });
 			systemDiv.append(systemH5);
 			$("#section-right").append(systemDiv);
+			endProductAction(nickName,stringFormat(price));
 		} else {
 			sec = 59;
 			min = min - 1;
@@ -119,4 +120,3 @@ function stringFormat(num) {
 
 	return parseInt(strNum.replace(/,/g, ''));
 };
-console.log(path);
