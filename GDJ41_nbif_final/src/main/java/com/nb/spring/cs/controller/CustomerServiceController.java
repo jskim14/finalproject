@@ -173,5 +173,13 @@ public class CustomerServiceController {
 		return mv;
 	}
 	
+	@RequestMapping("/cs/myQna")
+	public ModelAndView myQnaView(ModelAndView mv, String memberNo) {
+		List<Qna> myQnaList=service.myQnaList(memberNo);
+		
+		mv.addObject("myQnaList",myQnaList);
+		mv.setViewName("cs/myQna");
+		return mv;
+	}
 	
 }

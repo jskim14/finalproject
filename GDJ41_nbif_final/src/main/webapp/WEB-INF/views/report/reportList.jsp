@@ -31,15 +31,15 @@
 	                    <th class="table-dark">신고일</th>
                     </tr>
                 </thead>
-               
+              
                 <c:if test="${not empty reportList }">
                 <c:forEach items="${reportList }" var="r">
                 <tr>
                     <td><c:out value="${r.reportProduct.productNo }"/></td>
                     <td><c:out value="${r.reportProduct.productName }"/></td>
                     <td></td>
-                   <%--  <c:if test="${not empty r.get(0).filename}">
-                    	<td><img src="${path }/resources/upload/report/${r.get(0).filename}"></td>
+                  <%--  <c:if test="${not empty r.get(0).filename}">
+                    	<td><img src="${path }/resources/upload/report/${r.filename}"></td>
                     </c:if> --%>
                     <td><c:out value="${r.reportMember.nickName }"/></td>
                     <td><c:out value="${r.reportReason }"/></td>

@@ -623,13 +623,25 @@ public class MemberController {
 
 	
 	//셀러랭킹
-//	@RequestMapping("/sellerrank")
-//	public ModelAndView sellerrank(ModelAndView mv) {
-//		Map<String,Object>
-//		
-//		mv.setViewName("member/sellerrank");
-//		return mv;
-//	}
+	@RequestMapping("/sellerrank")
+	public ModelAndView sellerrank(ModelAndView mv) {
+		List<Map<String,Object>> sellerList;
+		int index=0;
+		sellerList=service.sellerrank();
+		
+		mv.addObject("sellerList",sellerList);
+		mv.setViewName("member/sellerrank");
+		return mv;
+	}
+	//셀러상품
+	@RequestMapping("/sellList")
+	public ModelAndView sellList(ModelAndView mv, String memberNo) {
+		List<Product> sellList=service.sellList(memberNo);
+		
+		mv.addObject("sellList",sellList);
+		mv.setViewName("member/sellList");
+		return mv;
+	}
 	
 	
 }
