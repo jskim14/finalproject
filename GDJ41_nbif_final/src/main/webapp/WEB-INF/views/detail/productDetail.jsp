@@ -32,14 +32,28 @@
 #bidderList::-webkit-scrollbar {
 		width:10px;
 	}
-	#bidderList::-webkit-scrollbar-thumb{
-	    height: 30px;
-	    background-color: #C4C4C4;
-	    border-radius: 10px;    
-	}
-	#bidderList::-webkit-scrollbar-track{
-	    background-color: rgba(0,0,0,0);
-	}
+#bidderList::-webkit-scrollbar-thumb{
+    height: 30px;
+    background-color: #C4C4C4;
+    border-radius: 10px;    
+}
+#bidderList::-webkit-scrollbar-track{
+    background-color: rgba(0,0,0,0);
+}
+
+.other{
+}
+.other:active{
+	margin-left:5px;
+	margin-top:5px;
+	box-shadow:none;
+}
+.other:hover{
+	cursor: pointer;
+}
+
+
+
 
 </style>
 
@@ -567,10 +581,11 @@
 											value="${product.seller.nickName}" /></strong>의 다른상품</strong>
 							</h2>
 						</div>
-						<div class="col-12 d-flex" style="overflow: hidden;">
-						<%-- 	${otherList } --%>
-							<c:forEach items="${otherList}" var="other">
-								<div class="mx-1" style="width: 210px; border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden;">
+						
+						<div class="col-12 d-flex" style="overflow-x:auto; " >
+						
+							<c:forEach items="${otherList }" var="other">
+								<div class="other m-1" onclick="goToDetail('${other.productNo}')" style="width:210px; border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; box-shadow: 3px 3px 3px black; transition-duration:0.3s">
 									<div class="d-flex justify-content-center my-2">
 										<img src="${path}/resources/upload/product/${other.images.get(0).imageName}" width="200px"
 											height="200px" style="border-radius: 10px;">
@@ -789,6 +804,12 @@
 	</div>
 </div>
 <script>
+	
+	function goToDetail(productNo){
+		location.href = location.origin+"/product/productDetail?productNo="+productNo;
+	}
+
+
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function findAddress() {
         new daum.Postcode({

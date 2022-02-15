@@ -237,6 +237,15 @@ public class MemberController {
 		log.debug(userEmail);
 		String result="";
 		String code="";
+		Map<String,String> param = Map.of("email", userEmail);
+		Member m = service.selectMemberPhoneEmail(param);
+		
+		if(m!=null) {
+			return Map.of("result","이미 가입된 회원입니다.");
+		}
+		
+		
+		
 		session.removeAttribute("userEmail");
 		try {
 			code = mailService.mailSend(userEmail);			
