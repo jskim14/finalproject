@@ -59,7 +59,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item subMenuTitle ">
                                 <i class="fas fa-info-circle fa-lg"></i> 회원정보</li>
-                            <a href="#" class="aColor">
+                            <a href="${path }/member/updateMyPage?memberNo=${loginMember.memberNo}" class="aColor">
                                 <li class="list-group-item" > 나의정보 관리</li>
                             </a>
                             <a href="#" class="aColor">

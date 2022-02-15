@@ -136,4 +136,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.delete("member.deleteWish", param);
 	}
 
+	@Override
+	public int updateMember(SqlSessionTemplate session, Map<String, String> param) {
+		return session.update("member.updateMember", param);
+	}
+
 }

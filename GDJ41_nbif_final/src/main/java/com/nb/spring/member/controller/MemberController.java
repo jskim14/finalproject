@@ -623,5 +623,22 @@ public class MemberController {
 //		return mv;
 //	}
 	
+	@RequestMapping("/updateMyPage")
+	public String updateMyPage(String memberNo, Model m) {
+		Member member = service.selectMember(memberNo);
+		m.addAttribute("m",member);
+		return "login/updateMyPage";
+	}
+	
+	@RequestMapping("/updateMyPageEnd") 
+	public ModelAndView updateMyPageEnd(@RequestParam Map<String,String> param, ModelAndView mv) {
+		System.out.println(param);
+		String totalAddress = param.get("shipAddress")+" "+param.get("detailAddress");
+		param.put("address", totalAddress);
+		int result = service.updateMember(param); //닉네임으로 찾아서 수정 
+		
+		mv.setViewName("login/myPage");
+		return mv;
+	}
 	
 }

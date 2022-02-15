@@ -56,4 +56,5 @@ public interface MemberDao {
 	List<WishList> myWishList(SqlSessionTemplate session,String memberNo);
 	
 	int deleteWish(SqlSessionTemplate session, Map<String,String> param);
+	int updateMember(SqlSessionTemplate session, Map<String,String> param);
 }

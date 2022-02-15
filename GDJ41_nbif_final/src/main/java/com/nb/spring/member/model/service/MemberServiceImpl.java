@@ -134,8 +134,12 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int deleteWish(Map<String,String> param) {
-		System.out.println("service"+param);
 		return dao.deleteWish(session, param);
+	}
+
+	@Override
+	public int updateMember(Map<String, String> param) {
+		return dao.updateMember(session, param);
 	}
 	
 }
