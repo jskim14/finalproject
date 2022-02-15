@@ -113,7 +113,7 @@
                     <ul>
                     		<c:if test="${loginMember != null }">
                     		<li>
-                    			<a href="javascript:msgBox(${loginMember.memberNo });">쪽찌함</a>
+                    			<a href="javascript:msgBox(${loginMember.memberNo });">쪽지함</a>
                     		</li>
                     		</c:if>
                      		<li>

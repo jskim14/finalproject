@@ -35,7 +35,7 @@
 				<thead>
 					<tr>
 						<th width="25"><input id="checkAll" type="checkbox"></th>
-						<th width="310">쪽찌내용</th>
+						<th width="310">쪽지내용</th>
 						<c:if test="${msgbox == 'receiv' }">
 						<th width="105">보낸사람</th>
 						</c:if>

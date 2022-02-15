@@ -291,7 +291,7 @@
 				let img = $("<img>");
 				let imgSrc;
 				if(pro["images"].length!=0) {
-					imgSrc = "${path}/resources/images/" + pro["images"][0]["imageName"];
+					imgSrc = "${path }/resources/upload/product/" + pro["images"][0]["imageName"];
 				}else {
 					imgSrc = "${path}/resources/images/";
 				}
