@@ -20,8 +20,8 @@
 		<hr>
 		<div class="row mb-3">
 			<div class="col-4"></div>
-			<div class="col-4">
-				<span>이메일 인증 후 회원가입이 진행됩니다.</span>
+			<div class="col-4" style="text-align:center;">
+				<span>이메일 인증 후 회원가입이 진행됩니다.</span><br>
 				<span>가입할 이메일 주소와 전송받은 인증번호를 입력해주세요.</span>
 			</div>
 			<div class="col-4"></div>
@@ -30,10 +30,10 @@
 			<div class="col-4"></div>
 			<div class="col-4">
 				<div class="row">
-					<div class= "col-6">
-						<input id="emailText" type="email" class="form-control" placeholder="ex) nbif@naver.com">
+					<div class= "col-7">
+						<input id="emailText" type="email" class="form-control" placeholder="ex) nbif@naver.com" autofocus>
 					</div>
-					<div class= "col-6">
+					<div class= "col-5">
 						<button type="button" class="btn btn-primary" onclick="sendEmail();">인증번호받기</button>
 					</div>
 				</div>
@@ -44,10 +44,10 @@
 			<div class="col-4"></div>
 			<div class="col-4">
 				<div class="row">
-					<div class="col-6">
+					<div class="col-7">
 						<input id="checkCode"type="text" class="form-control" placeholder="인증번호를 입력해주세요">
 					</div>
-					<div class="col-6">
+					<div class="col-5">
 						<button type="button" class="btn btn-primary" onclick="obtainCertification();">인증</button>
 					</div>
 				</div>

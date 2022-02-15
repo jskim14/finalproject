@@ -23,4 +23,6 @@ public interface CustomerServiceDao {
 	Qna qnaContent(SqlSessionTemplate session, int qnaNo);
 	
 	int insertAnswer(SqlSessionTemplate session, Map<String,String>param);
+	
+	List<Qna> myQnaList(SqlSessionTemplate session, String memberNo);
 }

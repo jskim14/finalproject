@@ -125,4 +125,17 @@ public class MemberServiceImpl implements MemberService {
 	public int endRealTimeActionWallet(Map<String,Object> param) {
 		return dao.endRealTimeActionWallet(session, param);
 	}
+
+	@Override
+	public List<Map<String, Object>> sellerrank() {
+		return dao.sellerrank(session);
+	}
+
+	@Override
+	public List<Product> sellList(String memberNo) {
+		return dao.sellList(session, memberNo);
+	}
+	
+	
+	
 }

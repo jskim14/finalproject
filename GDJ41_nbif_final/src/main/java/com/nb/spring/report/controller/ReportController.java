@@ -53,7 +53,7 @@ public class ReportController {
 	@RequestMapping(value="/insertReport", method=RequestMethod.POST)
 	public ModelAndView insertReport(Report r, String product, String writer, ModelAndView mv,
 			@RequestParam(value="upFile", required=false) MultipartFile[] upFile,
-			HttpServletRequest req) {
+			HttpServletRequest req) throws Exception{
 		
 		log.debug(upFile[0].getOriginalFilename());
 		log.debug("{}", upFile[0].getSize());
@@ -75,21 +75,25 @@ public class ReportController {
 		r.setReportImages(new ArrayList<ReportImage>());
 		for(MultipartFile mf: upFile) {
 			if(!mf.isEmpty()) {
+				//create file
 				String orignalFileName=mf.getOriginalFilename();
+				//확장자
 				String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
-				
 				//rename rule
 				SimpleDateFormat sdf=new SimpleDateFormat("ddMMyyHHmmsssss");
 				int rndNum=(int)(Math.random()*1000);
+				
 				String renameFile=sdf.format(System.currentTimeMillis())+"_"+rndNum+ext;
+				
 				//save renamed file using method of MultipartFile Class
 				try {
 					mf.transferTo(new File(path+renameFile));
-					ReportImage ri=ReportImage.builder().fileName(renameFile).build();
-					r.getReportImages().add(ri);
 				}catch(IOException e) {
 					e.printStackTrace();
 				}
+				ReportImage ri=ReportImage.builder().fileName(renameFile).build();
+				r.getReportImages().add(ri);
+				
 			}
 		}
 		System.out.println("이미지이름"+r.getReportImages());

@@ -21,11 +21,19 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <title>Document</title>
 </head>
-<body>
+<body style="background:#EBECF0">
 	<div class="container-fluid p-3">
 		<div class="row">
 			<div class="col-12 d-flex justify-content-center">
-				<span>충전</span>
+				<h3>e-money 충전</h3>
+			</div>
+		</div>
+		<div class="col-12 my-3" style="background:white; width:99%; height:80px; box-shadow:0px 0px 10px 2px lightgray; border-radius:8px; padding:8px 20px;">
+			<div class="col-3">
+				<span>현재 잔고</span>
+			</div>
+			<div class="col-9">
+				<span style="font-size:26px;"><fmt:formatNumber value="${member.balance }" type="number"/>원</span>
 			</div>
 		</div>
 		<div class="row">
@@ -33,15 +41,7 @@
 				<input type="text" id="moneyInput" name="money"  placeholder="금액을 입력해주세요." class="form-control form-control-lg">
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-3">
-				<span>현재 잔고:</span>
-			</div>
-			<div class="col-9">
-				<span><fmt:formatNumber value="${member.balance }" type="number"/>원</span>
-			</div>
-		</div>
-		<div class="row my-3">
+		<div class="row my-2">
 			<div class="col-12 d-flex justify-content-center">
 				<div id="buttons" class="btn-group w-100" role="group">
 					<button type="button" class="btn btn-outline-primary" value="10000">+1만원</button>
@@ -51,11 +51,13 @@
 				</div>
 			</div>
 		</div>
+		
+		
 		<div class="row">
 			<div class="col-12">
 				<span>충전수단</span>
 			</div>
-			<div class="col-12 mt-3">
+			<div class="col-12 mt-2">
 				<select id="payWithSelect" class="form-select" id="">
 					<option value="kakao" selected>카카오페이</option>
 					<option value="" disabled>-</option>
@@ -64,8 +66,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12 fixed-bottom">
-				<button type="button" class="btn btn-primary w-100" onclick="exeCharge()">충전하기</button>
+			<div class="col-12 fixed-bottom" style="padding-bottom:20px;">
+				<button type="button" class="btn btn-warning w-100" onclick="exeCharge()">충전하기</button>
 			</div>
 		</div>
 	</div>

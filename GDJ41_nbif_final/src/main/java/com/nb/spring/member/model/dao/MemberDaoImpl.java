@@ -125,4 +125,16 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.endRealTimeActionWallet", param);
 	}
 
+	@Override
+	public List<Map<String, Object>> sellerrank(SqlSessionTemplate session) {
+		return session.selectList("member.sellerrank");
+	}
+
+	@Override
+	public List<Product> sellList(SqlSessionTemplate session, String memberNo) {
+		return session.selectList("member.sellList",memberNo);
+	}
+	
+	
+
 }

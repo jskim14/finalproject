@@ -52,4 +52,7 @@ public interface MemberDao {
 	
 	int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param);
 
+	
+	List<Map<String,Object>> sellerrank(SqlSessionTemplate session);
+	List<Product> sellList(SqlSessionTemplate session, String memberNo);
 }

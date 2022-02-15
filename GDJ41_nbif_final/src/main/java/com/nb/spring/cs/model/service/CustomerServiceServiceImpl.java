@@ -64,6 +64,12 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
 	public int insertAnswer(Map<String,String>param) {
 		return dao.insertAnswer(session, param);
 	}
+
+	@Override
+	public List<Qna> myQnaList(String memberNo) {
+		return dao.myQnaList(session, memberNo);
+	}
+	
 	
 	
 	
