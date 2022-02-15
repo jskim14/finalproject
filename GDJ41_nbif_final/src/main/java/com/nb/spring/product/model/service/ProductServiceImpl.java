@@ -81,7 +81,7 @@ public class ProductServiceImpl implements ProductService {
 			try {
 				for(ProductImage pi : p.getImages()) {
 					pi.setProductNo(p.getProductNo());
-					result = dao.updateProductImg(session, pi);
+					result = dao.insertProductImg(session, pi);
 				}				
 			} catch(RuntimeException e) {
 				e.printStackTrace();
@@ -202,6 +202,27 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
+	public int buyEnd(String productNo) {
+		int result = dao.buyEnd(session, productNo);
+		return result;
+	}
+	
+	@Override
+	public int reInsertEnd(Product p) {
+		int result = dao.reInsertEnd(session, p);
+		if(result>0 && !p.getImages().isEmpty()) {
+			try {
+				for(ProductImage pi : p.getImages()) {
+					pi.setProductNo(p.getProductNo());
+					result = dao.insertProductImg(session, pi);
+				}				
+			} catch(RuntimeException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
 	public int updateStatusFailure() {
 		
 		return dao.updateStatusFailure(session);

@@ -11,19 +11,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,9 +53,12 @@ public class ProductController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	List<Product> cookieList = new ArrayList<Product>();
 
 	@RequestMapping("/productDetail")
-	public ModelAndView productDetail(@RequestParam String productNo, HttpSession session, ModelAndView mv) {
+	public ModelAndView productDetail(@RequestParam String productNo, HttpSession session, ModelAndView mv,
+			HttpServletResponse res, HttpServletRequest req) {
 
 		System.out.println(productNo);
 		
@@ -102,7 +109,29 @@ public class ProductController {
 		mv.addObject("bidderList",list);
 		
 		
+//		----------------------------------
+		//productNum
+		Cookie[] cookies = req.getCookies();
+		String read="";
+		boolean isRead = false;
 		
+		if(cookies != null) {
+			for(Cookie c : cookies) {
+				if(c.getName().equals("productNum")) {
+					read = c.getValue();
+					if(c.getValue().contains("|"+productNo)) {
+						isRead = true;
+						break; 
+					}
+				}
+			}
+		}
+		if(!isRead) {
+			Cookie view = new Cookie("productNum",read+"|"+productNo);
+			view.setMaxAge(60*60*24);
+			res.addCookie(view);
+		}
+//		----------------------------------
 		
 		
 		System.out.println(product);
@@ -494,7 +523,7 @@ public class ProductController {
 		return mv;
 	}
 	
-	@RequestMapping("/updateProductEnd")
+	@PostMapping("/updateProductEnd")
 	public ModelAndView updateProductEnd(ModelAndView mv, Product p,
 			 String sellerNo, String productNum, String maxDate, String maxTime, String unit,
 			 @RequestParam(value = "imageFile", required = false) MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
@@ -545,16 +574,21 @@ public class ProductController {
 				}
 			}
 		}
-		System.out.println("p.getproductno : " + p.getProductNo());
 		
-		int result= productService.updateProductEnd(p);
+		System.out.println("p.getproductno : " + p.getProductNo());
+
+		int imgDelete = productService.imgDelete(productNum);
+		int result = 0;
+		if(imgDelete>0) {
+			result = productService.updateProductEnd(p);
+		}
 		
 		String msg = "";
 		String loc = "";
 		
 		if(result>0) {
 			msg = "물품등록 수정에 성공하였습니다. ";
-			loc = "/member/salesStates?memberNo="+p.getSeller();
+			loc = "/member/salesStates?memberNo="+p.getSeller().getMemberNo();
 		}else {
 			msg = "물품등록에 실패하였습니다. 관리자에게 문의하세요.";
 			loc = "/product/updateProduct?productNo="+p.getProductNo();
@@ -611,5 +645,150 @@ public class ProductController {
 		mv.setViewName("/common/msg");
 		return mv;
 	}
+	
+	@RequestMapping("/buyEnd")
+	public ModelAndView buyEnd(String productNo, HttpSession session, ModelAndView mv) {
+		Member login = (Member)session.getAttribute("loginMember");
+		int result = productService.buyEnd(productNo);
+		System.out.println(result);
+		String msg = "";
+		String loc = "/member/buyStates?memberNo="+login.getMemberNo();
+		
+		if(result>0) {
+			msg = "구매가 확정되었습니다.";
+		}else {
+			msg = "실패";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/reInsertProduct")
+	public ModelAndView reInsertProduct(String productNo, ModelAndView mv) {
+		Product p = productService.updateProduct(productNo);
+		mv.addObject("p",p);
+		mv.setViewName("/product/reInsertProduct");
+		return mv;
+	}
+	
+	@PostMapping("/reInsertEnd")
+	public ModelAndView reInsertEnd(ModelAndView mv, Product p,
+			 String sellerNo, String productNum, String maxDate, String maxTime, String unit,
+			 @RequestParam(value = "imageFile", required = false) MultipartFile[] imageFile, HttpServletRequest req) throws Exception {
+		System.out.println("p.getproductno : " + p.getProductNo());
+		//date 
+		String date = maxDate+" "+maxTime;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date utilDate = sdf.parse(date);
+		java.sql.Date endDate = new java.sql.Date(utilDate.getTime());
+		p.setEndDate(endDate);
+		
+		//seller 
+		p.setSeller(new Member());
+		p.getSeller().setMemberNo(sellerNo);
+		
+		//productNo
+		p.setProductNo(productNum);
+		System.out.println("p.getproductno : " + p.getProductNo());
+		
+		//bidUnit
+		if(unit.contains(",")) {
+			String splitUnit[] = unit.split(",");
+			p.setBidUnit(splitUnit[1]);
+		} else {
+			p.setBidUnit(unit);
+		}
+		
+		//file
+		String path = req.getServletContext().getRealPath("/resources/upload/product/"); 
+		File f = new File(path);
+		if(!f.exists()) f.mkdir();
+		p.setImages(new ArrayList<ProductImage>());
+		for(MultipartFile mf : imageFile) {
+			if(!mf.isEmpty()) {
+				String originalFileName = mf.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+				
+				SimpleDateFormat sdf2 = new SimpleDateFormat("ddMMyyHHmmssss"); 
+				int ranNum = (int)(Math.random()*1000);
+				String renameFile = sdf2.format(System.currentTimeMillis())+"_"+ranNum+ext;
+				try {
+					mf.transferTo(new File(path+renameFile));
+					ProductImage pi = ProductImage.builder().productNo(productNum).imageName(renameFile).build();
+					p.getImages().add(pi);
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		int imgDelete = productService.imgDelete(productNum);
+		int result = 0;
+		if(imgDelete>0) {
+			result = productService.reInsertEnd(p);
+		}
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result>0) {
+			msg = "물품등록이 정상적으로 요청되었습니다.";
+			loc = "/member/salesStates?memberNo="+p.getSeller().getMemberNo();
+		}else {
+			msg = "물품등록에 실패하였습니다. 관리자에게 문의하세요.";
+			loc = "/product/reInsertProduct?productNo="+p.getProductNo();
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/todayView")
+	public String todayView(@CookieValue(value = "productNum", required = false) Cookie view, Model m) {
+		
+		if(view != null) {
+			String nums[] = view.getValue().split("\\|");
+			System.out.println("nums"+nums[1]);
+			for(int i=1; i<nums.length; i++) {
+				Product p = productService.selectOneProductNo(nums[i]);
+				if(p != null) {
+					cookieList.add(p);
+				}
+			}
+			List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
+			m.addAttribute("list",todayList);
+		}
+		return "/product/todayView";
+	}
+
+	@RequestMapping("/todayDelete") 
+	public String todayDelete(@CookieValue(value = "productNum") Cookie view, HttpServletResponse res, Model m) {
+///		System.out.println("delete"+productNo);
+		
+		view.setMaxAge(0); 
+		res.addCookie(view);
+		
+		List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
+		todayList = null;
+		
+		m.addAttribute("list",todayList);
+		return "/product/todayView";
+//		int index = 0;
+//		for(int i=0; i<todayList.size(); i++) {
+//			if(todayList.get(i).getProductNo().equals(productNo)) {
+//				index = i;
+//			}
+//		}
+//		System.out.println(index);
+//		todayList.remove(index);
+//		
+	}
+	
 
 }

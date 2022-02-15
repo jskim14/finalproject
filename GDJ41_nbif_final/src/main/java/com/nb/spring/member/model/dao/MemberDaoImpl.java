@@ -11,6 +11,7 @@ import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.member.model.vo.MessageBox;
 import com.nb.spring.member.model.vo.Wallet;
+import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
 
 @Repository
@@ -175,4 +176,15 @@ public class MemberDaoImpl implements MemberDao {
 	public int deleteMessageBox(SqlSessionTemplate session,Map<String,Object> param) {
 		return session.delete("member.deleteMessageBox", param);
 	}
+
+	@Override
+	public List<WishList> myWishList(SqlSessionTemplate session, String memberNo) {
+		return session.selectList("member.myWishList", memberNo);
+	}
+
+	@Override
+	public int deleteWish(SqlSessionTemplate session, Map<String,String> param) {
+		return session.delete("member.deleteWish", param);
+	}
+
 }

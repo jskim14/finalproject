@@ -129,7 +129,8 @@
 	                        </c:if>
                             <c:if test="${loginMember != null }">
                             <li>
-	                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a>
+	                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지
+	                            ${loginMember.memberName }</a>
 	                         </li>
                             </c:if>
 						 </c:if>

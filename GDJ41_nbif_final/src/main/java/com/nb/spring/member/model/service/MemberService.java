@@ -7,6 +7,7 @@ import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.member.model.vo.MessageBox;
 import com.nb.spring.member.model.vo.Wallet;
+import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
 
 public interface MemberService {
@@ -66,4 +67,9 @@ public interface MemberService {
 	int deleteMessageBoxList(List<Integer> msgNoArr, String msgbox);
 	
 	int deleteMessageBoxOne(int msgNo, String msgbox);
+	
+	List<WishList> myWishList(String memberNo);
+	
+	int deleteWish(Map<String,String> param);
+	
 }

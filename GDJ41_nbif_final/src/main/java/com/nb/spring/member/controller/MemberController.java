@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +39,7 @@ import com.nb.spring.member.model.service.MemberService;
 import com.nb.spring.member.model.service.SendEmailService;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.member.model.vo.Wallet;
+import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +61,22 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder encoder;
 	
-	@RequestMapping("/kakaoLogin")
+	@PostMapping("/kakaoEnroll")
+	public ModelAndView kakaoEnroll(@RequestParam Map param,HttpSession session, ModelAndView mv) {
+		log.debug("{}",param);
+		Member m = service.loginMemberKakao(param);
+		
+		if(m!=null) {
+			return MsgModelView.msgBuild(mv, "/member/login", "이미 등록된 아이디입니다.");
+		}
+		
+		session.setAttribute("userEmail", param.get("email"));
+		mv.setViewName("login/enrollMember");
+		return mv;
+	}
+	
+	
+	@PostMapping("/kakaoLogin")
 	public ModelAndView kakaoLogin(@RequestParam Map param, ModelAndView mv) {
 		
 		log.debug("{}",param);
@@ -295,7 +312,7 @@ public class MemberController {
 				.build();
 		
 		int result = service.insertMember(m);
-		
+		session.removeAttribute("userEmail");
 		if(result > 0) {
 			
 			mv.addObject("msg","회원가입 성공");
@@ -471,6 +488,7 @@ public class MemberController {
 		return mv;
 	}
 	
+
 	@RequestMapping("/kakaoPay")
 	@ResponseBody
 	public String kakaoPay(String amount) {
@@ -564,5 +582,45 @@ public class MemberController {
 		m.addAttribute("list",list);
 		return "login/emoneyDetail";
 	}
+	
+	@RequestMapping("/myWishList")
+	public ModelAndView myWishList(String memberNo, ModelAndView mv) {
+		List<WishList> list = service.myWishList(memberNo);
+//		List<Member> list = service.myWishList(memberNo);
+		mv.addObject("list",list);
+		mv.setViewName("/login/wishList");
+		return mv;
+	}
+	
+	@RequestMapping("/deleteWish")
+	public ModelAndView deleteWish(@RequestParam Map<String,String> param, ModelAndView mv) {
+		int result = service.deleteWish(param);
+		System.out.println(param.get("memberNo"));
+		
+		String msg = "";
+		String loc = "/member/myWishList?memberNo="+param.get("memberNo");
+		
+		if(result>0) {
+			msg = "삭제가 완료되었습니다.";
+		} else {
+			msg = "실패하였습니다.";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
 
+	
+	//셀러랭킹
+//	@RequestMapping("/sellerrank")
+//	public ModelAndView sellerrank(ModelAndView mv) {
+//		Map<String,Object>
+//		
+//		mv.setViewName("member/sellerrank");
+//		return mv;
+//	}
+	
+	
 }

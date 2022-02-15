@@ -7,17 +7,7 @@
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
 <section>
 <script>
-	Kakao.Auth.setAccessToken('${code}');
-	Kakao.API.request({
-	    url: '/v2/user/me',
-	    success: function(response) {
-	        console.log(response);
-	    },
-	    fail: function(error) {
-	        console.log(error);
-	    }
-	});
-	/* location.replace(location.origin); */
+	
 </script>
 </section>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

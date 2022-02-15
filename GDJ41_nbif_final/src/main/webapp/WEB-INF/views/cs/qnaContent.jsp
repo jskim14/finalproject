@@ -14,7 +14,6 @@
     }
     #cs-title{text-align: center;}
     
-    
 </style>
 
         <section>
@@ -27,6 +26,8 @@
             <div id="cs-title">
             	<h2 id="title">1:1 문의</h2>
             </div>
+            <br>
+            <hr>
             <br>
             <div style="padding:0 10%;">
             	<table class="table">
@@ -42,14 +43,21 @@
             	</tr>
             	<tr>
             		<td class="table-active" style="text-align:center;font-weight:bold;">문의내용</td>
-            		<td colspan="3">${qna.qnaContent }</td>
+            		<td style="height:150px;" colspan="3";>${qna.qnaContent }</td>
             	</tr>
             	<tr>
             		<td class="table-active" style="text-align:center;vertical-align:middle;font-weight:bold;">답변</td>
             		<c:if test="${empty qna.qnaAnswer }">
-            			<td style="height:200px; color:red;font-style:italic;">관리자가 확인 중입니다. 조금만 기다려주세요.</td>
+            			<td style="height:150px; color:red;font-style:italic;">관리자가 확인 중입니다. 조금만 기다려주세요.</td>
             		</c:if>
-            		<td style="height:200px;" colspan="3">${qna.qnaAnswer }</td>
+            		<td style="height:150px;" colspan="3">${qna.qnaAnswer }</td>
+            	</tr>
+            	<tr>
+            		<td class="table-active" style="text-align:center;font-weight:bold;">답변 완료일</td>
+            		<c:if test="${empty qna.answerDate }">
+            			<td style=" color:red;font-style:italic;">-</td>
+            		</c:if>
+            		<td colspan="3">${qna.answerDate }</td>
             	</tr>
             	
             	</table>

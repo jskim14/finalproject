@@ -29,7 +29,7 @@ public interface ProductDao {
 	
 	int updateProductEnd(SqlSessionTemplate session, Product p);
 	
-	int updateProductImg(SqlSessionTemplate session, ProductImage pi);
+//	int updateProductImg(SqlSessionTemplate session, ProductImage pi);
 	
 	List<Product> selectListDeadLine(SqlSessionTemplate session);
 
@@ -54,6 +54,12 @@ public interface ProductDao {
 	int shippingSelect(SqlSessionTemplate session, String memberNo);
 	
 	int endSellRealTimeAction(SqlSessionTemplate session, Map<String,Object> param);
+	
+	int buyEnd(SqlSessionTemplate session, String memberNo);
+	
+	int reInsertEnd(SqlSessionTemplate session, Product p);
+	
+//	int reInsertImg(SqlSessionTemplate session, ProductImage pi);
 	
 	List<Product> searchProduct(SqlSessionTemplate session, Map<String,Object> param);
 	

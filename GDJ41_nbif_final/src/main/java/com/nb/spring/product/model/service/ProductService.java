@@ -48,6 +48,10 @@ public interface ProductService {
 	
 	int endSellRealTimeAction(Map<String,Object> param);
 	
+	int buyEnd(String productNo);
+	
+	int reInsertEnd(Product p);
+
 	List<Product> searchProduct(Map<String,Object> param);
 	
 	List<Product> searchProductCount(String keyword);

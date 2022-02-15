@@ -13,6 +13,7 @@ import com.nb.spring.member.model.dao.MemberDao;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.member.model.vo.MessageBox;
 import com.nb.spring.member.model.vo.Wallet;
+import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
 
 @Service
@@ -192,4 +193,16 @@ public class MemberServiceImpl implements MemberService {
 		param.put("msgNo", msgNo);
 		return dao.deleteMessageBox(session, param);
 	}
+
+	@Override
+	public List<WishList> myWishList(String memberNo) {
+		return dao.myWishList(session, memberNo);
+	}
+
+	@Override
+	public int deleteWish(Map<String,String> param) {
+		System.out.println("service"+param);
+		return dao.deleteWish(session, param);
+	}
+	
 }
