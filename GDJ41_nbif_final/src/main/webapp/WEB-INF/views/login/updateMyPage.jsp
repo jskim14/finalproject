@@ -39,7 +39,7 @@
                         <span class="subMenuTitle">닉네임</span>
                     </div>
                     <div class="inputRight">
-                        <input type="text" name="nickName" class="form-control" value="${m.nickName }" style="width: 250px; display:inline;">
+                        <input type="text" name="nickName" class="form-control" value="${m.nickName }" style="width: 250px; display:inline;" required>
                     </div>
                        <button type="button" class="btn btn-secondary btnColor" onclick="checkDuplication();">중복확인</button>
                     <span id="nickSpan" class="inputNextSpan">닉네임은 띄어쓰기 없이 8글자 이하까지 가능합니다. </span>
@@ -189,11 +189,13 @@ function checkDuplication(){
         success:data=>{
             console.log(data['result']);
             $("#nickSpan").html("");
-            if(data['result']){
+            if(data['result'] && nickName!="" ){
                 $("#nickSpan").css('color','#41B979').html('사용가능합니다.');
                 isDuplicationCheck = true;
-               
-            }else{
+            } else if(nickName =="") {
+            	$("#nickSpan").css('color','red').html('1글자 이상 입력해주세요.');
+                isDuplicationCheck = false;
+            } else{
                 $("#nickSpan").css('color','red').html('이미 존재하는 닉네임입니다.');
                 isDuplicationCheck = false;
             }

@@ -194,7 +194,7 @@ public class MemberController {
 			mv.addObject("buyCnt", zeroList);
 		} else {
 			for(Wallet w : buyList) {
-				if(w.getProductNo().getProductStatus() != null) {
+				if(w.getProductNo().getProductStatus() != null && w.getProductNo().getFinalPrice() != null) {
 					if(w.getProductNo().getProductStatus().equals("0")) {
 						buying++;
 					}

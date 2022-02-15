@@ -196,16 +196,16 @@
         </div>
     </div>
     <script>
-        $("input[name=flexRadioDefault1]").change(e=>{
-            if($(e.target).val()=='Y') {
-            	$("#inputTyping1").attr("disabled",false);
-                $("#inputTyping1").focus();
-             }else {
-                $("#inputTyping1").attr("disabled",true); 
-                $("#inputTyping1").next().html("");
-                
-            } 
-        });
+    $("input[name=flexRadioDefault1]").change(e=>{ //즉시구매여부
+        if($(e.target).val()=='Y') {
+        	$("#inputTyping1").attr("disabled",false);
+            $("#inputTyping1").focus();
+         }else {
+        	$("#inputTyping1").val("");
+            $("#inputTyping1").attr("disabled",true); 
+            $("#inputTyping1").next().html("");
+        } 
+    });
 /*         $("input[name=extendYn]").change(e=>{
             if($(e.target).val()=='Y') {
             	$("#inputTyping2").attr("disabled",false);
@@ -227,6 +227,7 @@
                 $("#inputTyping3").focus();
             } else {
                 $("#inputTyping3").attr("disabled",true);
+                $("#inputTyping3").val("");
             }
         }
         
@@ -263,7 +264,26 @@
     		}
         })  
         
-         $("#inputTyping1").change(e=>{
+        /* 입찰시작가, 즉시구매가 값 비교 */
+        
+
+        $("#inputTyping3, #inputTyping1").change(e=>{
+        	if($("#inputTyping1").val() != "") {
+        		if($("input[name=minBidPrice]").val() > $("input[name=buyNowPrice]").val()) {
+		        	$("#autionStartInfo").css('color','red').html('입찰시작가가 즉시구매가보다 높습니다.');
+		        } else {
+		        	$("#autionStartInfo").html("");
+		        }
+        	}
+        	
+        });
+
+        
+        /* 입찰시작가, 입찰단위 값 비교 */
+
+        
+
+/*          $("#inputTyping1").change(e=>{
     		var numPattern = /([^0-9])/;
     		numPattern = $(e.target).val().match(numPattern);
     		if (numPattern != null) {
@@ -274,7 +294,7 @@
     			$(e.target).next().html("");
     		}
         }) 
-
+ */
         $("#currentDate").val(new Date().toISOString().substring(0, 10));
                     
         $(function(){
