@@ -178,7 +178,7 @@
 									<c:when test="${product.productCategory eq 'TC' }">
 										<c:out value="테크(${product.productCategory})" />
 									</c:when>
-									<c:when test="${product.productCategory eq 'AT' }">
+									<c:when test="${product.productCategory eq 'AR' }">
 										<c:out value="아트(${product.productCategory})" />
 									</c:when>
 									<c:otherwise>
@@ -338,7 +338,7 @@
 						<div class="row mt-2">
 							<div class="col-12">
 								<small style="font-size: 13px; float:right;">다음 입찰금액은 <b><c:out
-											value="${product.nowBidPrice+product.bidUnit }" /></b>원이며,
+											value="${(product.nowBidPrice==null?product.minBidPrice:product.nowBidPrice)+product.bidUnit }" /></b>원이며,
 									그이상을 직접 입력하여 입찰할 수 있습니다.
 								</small>
 							</div>
@@ -350,32 +350,35 @@
 							</div>
 						</div> -->
 						<div class="row">
-
-							<c:if test="${product.buyNowPrice!=null and product.nowBidPrice<product.buyNowPrice }">
-								<div class="col-7">
-									<div
-										style="border: 2px solid #41B979; border-radius: 10px; display: flex; justify-content: flex-end;">
-										<span style="font-size: 28px; margin-right: 10px"> <fmt:formatNumber
-												value="${product.buyNowPrice }" />
-										</span>
+							<c:choose>
+								<c:when test="${product.buyNowPrice!=null and product.nowBidPrice==null?true:product.nowBidPrice<product.buyNowPrice}">
+									<div class="col-7">
+										<div
+											style="border: 2px solid #41B979; border-radius: 10px; display: flex; justify-content: flex-end;">
+											<span style="font-size: 28px; margin-right: 10px"> <fmt:formatNumber
+													value="${product.buyNowPrice }" />
+											</span>
+										</div>
 									</div>
-								</div>
-								<!-- <div class="col-1"></div> -->
-								<div class="col-5">
-									<button type="button" class="btn btn-green"
-										style="height: 100%; width: 100%; font-size: 20px"
-										onclick="checkBuyNow('${product.productNo}','${loginMember==null?false:true }');"
-										${!isSell?"disabled":"" }>즉시 구매하기</button>
-									<button id="buyNowModalBtn" type="button" data-bs-toggle="modal"
-										data-bs-target="#buyNowModal" style="display: none"></button>
-	
-								</div>
-							</c:if>
-							<c:if test="${product.buyNowPrice==null or product.nowBidPrice>=product.buyNowPrice }">
-								<div class="col-12 d-flex justify-content-center align-items-center" style="opacity:0.3; border-radius:20px; background-color: #41B979; width:99%;height:60px">
-									<span style="font-size:24px;color:white;">즉시구매 불가 상품입니다.</span>
-								</div>
-							</c:if>
+
+									<div class="col-5">
+										<button type="button" class="btn btn-green"
+											style="height: 100%; width: 100%; font-size: 20px"
+											onclick="checkBuyNow('${product.productNo}','${loginMember==null?false:true }');"
+											${!isSell?"disabled":"" }>즉시 구매하기</button>
+										<button id="buyNowModalBtn" type="button"
+											data-bs-toggle="modal" data-bs-target="#buyNowModal"
+											style="display: none"></button>
+
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="col-12 d-flex justify-content-center align-items-center" style="opacity:0.3; border-radius:20px; background-color: #41B979; width:99%;height:60px">
+										<span style="font-size:24px;color:white;">즉시구매 불가 상품입니다.</span>
+									</div>
+								</c:otherwise>
+							</c:choose>
+
 						</div>
 
 

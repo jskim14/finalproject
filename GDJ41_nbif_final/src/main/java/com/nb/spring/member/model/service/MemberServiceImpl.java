@@ -220,4 +220,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.updateMember(session, param);
 	}
 	
+	@Override
+	public List<Member> selectMemberList(Map param) {
+		return dao.selectMemberList(session,param);
+	}
+	
 }

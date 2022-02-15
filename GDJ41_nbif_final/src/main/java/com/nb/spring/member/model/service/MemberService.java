@@ -77,4 +77,7 @@ public interface MemberService {
 	int deleteWish(Map<String,String> param);
 	
 	int updateMember(Map<String,String> param);
+
+	List<Member> selectMemberList(Map param);
+	
 }
