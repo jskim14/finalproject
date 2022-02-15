@@ -3,12 +3,13 @@ package com.nb.spring.member.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nb.spring.common.BalanceType;
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.member.model.vo.MessageBox;
 import com.nb.spring.member.model.vo.Wallet;
 import com.nb.spring.product.model.vo.Product;
 
@@ -124,5 +125,54 @@ public class MemberDaoImpl implements MemberDao {
 	public int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param) {
 		return session.insert("member.endRealTimeActionWallet", param);
 	}
-
+	
+	@Override
+	public List<MessageBox> messageReceivList(SqlSessionTemplate session, String memberNo, int cPage, int numPerPage) {
+		return session.selectList("member.messageReceivList", memberNo, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+	
+	@Override
+	public int messageReceivListCount(SqlSessionTemplate session, String memberNo) {
+		return session.selectOne("member.messageReceivListCount", memberNo);
+	}
+	
+	@Override
+	public int noCheckMsgCount(SqlSessionTemplate session, String memberNo) {
+		return session.selectOne("member.noCheckMsgCount", memberNo);
+	}
+	
+	@Override
+	public List<MessageBox> messageSendList(SqlSessionTemplate session, String memberNo, int cPage, int numPerPage) {
+		return session.selectList("member.messageSendList", memberNo, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+	
+	@Override
+	public int messageSendListCount(SqlSessionTemplate session, String memberNo) {
+		return session.selectOne("member.messageSendListCount", memberNo);
+	}
+	
+	@Override
+	public MessageBox messageOne(SqlSessionTemplate session, int msgNo) {
+		return session.selectOne("member.messageOne", msgNo);
+	}
+	
+	@Override
+	public int messageOneCheck(SqlSessionTemplate session, int msgNo) {
+		return session.update("member.messageOneCheck", msgNo);
+	}
+	
+	@Override
+	public int insertSendMessageBox(SqlSessionTemplate session,MessageBox mb) {
+		return session.insert("member.insertSendMessageBox", mb);
+	}
+	
+	@Override
+	public int insertReceivMessageBox(SqlSessionTemplate session,MessageBox mb) {
+		return session.insert("member.insertReceivMessageBox", mb);
+	}
+	
+	@Override
+	public int deleteMessageBox(SqlSessionTemplate session,Map<String,Object> param) {
+		return session.delete("member.deleteMessageBox", param);
+	}
 }
