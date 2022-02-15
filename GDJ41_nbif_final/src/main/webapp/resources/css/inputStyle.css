@@ -14,6 +14,11 @@
     border-color:#41B979;
 }
 
+.btnP{
+	background-color: #7f47e9;
+    border-color:#7f47e9;
+}
+
 #totalContainer {
     padding: 15% ;
 }
@@ -81,6 +86,8 @@
 
 .inputNextSpan {
     margin-left: 1%;
+    margin-top: 0.5%;
+    font-size : 14px;
 }
 
 .timeInput {
