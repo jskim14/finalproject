@@ -26,5 +26,6 @@ public interface CustomerServiceService {
 	
 	int insertAnswer(Map<String,String>param);
 	
+	List<Qna> myQnaList(String memberNo);
 
 }

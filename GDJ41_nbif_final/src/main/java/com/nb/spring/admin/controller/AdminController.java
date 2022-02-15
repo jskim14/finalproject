@@ -226,6 +226,11 @@ public class AdminController {
 	
 	}
 	
+	@RequestMapping("/adminMain")
+	public String adminMainView() {
+		return "admin/adminMain";
+	}
+	
 	
 	
 }

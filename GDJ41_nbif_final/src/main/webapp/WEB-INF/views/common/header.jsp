@@ -136,12 +136,7 @@
 						 </c:if>
 							<c:if test="${admin!=null and admin==true }">
 								<!--관리자 메뉴  -->
-								<li>
-									<a href="${path}/admin/productManage">물품승인</a>
-								</li>
-								<li>
-									<a href="${path}/admin/specialProductEnroll">실시간경매물품등록</a>
-								</li>
+								<li><a href="${path }/admin/adminMain">관리자메뉴</a></li>
 							</c:if>
                         	<c:if test="${loginMember == null}">
 	                        <li>

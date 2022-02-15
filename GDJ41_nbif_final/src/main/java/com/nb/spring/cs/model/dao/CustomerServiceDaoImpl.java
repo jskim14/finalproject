@@ -56,6 +56,12 @@ public class CustomerServiceDaoImpl implements CustomerServiceDao {
 	public int insertAnswer(SqlSessionTemplate session, Map<String,String>param) {
 		return session.update("cs.insertAnswer", param);
 	}
+
+	@Override
+	public List<Qna> myQnaList(SqlSessionTemplate session, String memberNo) {
+		return session.selectList("cs.myQna", memberNo);
+	}
+	
 	
 	
 	

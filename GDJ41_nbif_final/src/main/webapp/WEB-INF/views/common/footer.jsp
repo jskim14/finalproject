@@ -34,7 +34,6 @@
 	<!--  -->
 	
 		<!-- 나중에 지울거 -->
-		<button type="button" class="btn btn-info" onclick="location.assign('${path}/report/reportList');">Report List</button>
 		<button type="button" class="btn btn-info" onclick="location.assign('${path}/member/sellerrank');">Rank</button>
 		
 		<!-- 여기까지 -->
