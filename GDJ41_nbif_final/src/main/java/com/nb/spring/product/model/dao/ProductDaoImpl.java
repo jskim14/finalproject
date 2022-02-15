@@ -66,11 +66,11 @@ public class ProductDaoImpl implements ProductDao {
 		return session.update("product.updateProductEnd",p);
 	}
 
-	@Override
-	public int updateProductImg(SqlSessionTemplate session, ProductImage pi) {
-		System.out.println(pi);
-		return session.update("product.updateProductImg",pi);
-	}
+//	@Override
+//	public int updateProductImg(SqlSessionTemplate session, ProductImage pi) {
+//		System.out.println(pi);
+//		return session.update("product.updateProductImg",pi);
+//	}
 
 	@Override
 	public List<Map<String, String>> selectBidderList(SqlSessionTemplate session, String productNo) {
@@ -145,6 +145,22 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
+	public int buyEnd(SqlSessionTemplate session, String productNo) {
+		return session.update("product.buyEnd", productNo);
+	}
+	
+	@Override
+	public int reInsertEnd(SqlSessionTemplate session, Product p) {
+		return session.update("product.reInsertEnd",p);
+	}
+
+//	@Override
+//	public int reInsertImg(SqlSessionTemplate session, ProductImage pi) {
+//		System.out.println(pi);
+//		return session.update("product.reInsertImg",pi);
+//	}
+		
+	@Override	
 	public int updateStatusFailure(SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
 		return session.update("product.updateStatusFailure");

@@ -61,9 +61,70 @@
 			</div>
 			<div class="col-4"></div>
 		</div>
+		
+		<div class="row my-3 justify-content-center">
+			<div class="col-3">
+				<button onclick="kakaoEnroll()" type="button" class="btn btn-secondary w-100" style="height: 42px; background:#FEE500; font-size:13px;border:none;color:#624A3D;">
+					<img src="/resources/images/kakao.png" style="width:20px;height:20px;padding:0;">
+								카카오 ID로 회원가입
+				</button>
+			</div>
+		</div>
 	 </div>
 </section>
 <script>
+
+	function kakaoEnroll(){
+		  Kakao.Auth.login({
+		      success: function (response) {
+				  console.log(response);
+
+				const accessToken = response['access_token'];
+
+		        Kakao.API.request({
+		          url: '/v2/user/me',
+		          success: function (response) {
+		        	  console.log(response)
+		        	  console.log(JSON.stringify(response));
+					  console.log(response['kakao_account']['id']);
+					sendPost2(location.origin+"/member/kakaoEnroll",'id',response['id'],'email',response['kakao_account']['email']);
+		        
+		          },
+		          fail: function (error) {
+		            console.log(error)
+		          },
+		        })
+		      },
+		      fail: function (error) {
+		        console.log(error)
+		      },
+		    })
+		    
+	}
+	
+	 function sendPost2(url,key,param, key2, param2 ){
+		  let form = document.createElement('form');
+		  form.setAttribute('method','post');
+		  form.setAttribute('action',url);
+		  document.charset = 'utf-8';
+
+		 
+		let hiddenField1 = document.createElement('input');
+		hiddenField1.setAttribute('type','hidden');
+		hiddenField1.setAttribute('name',key);
+		hiddenField1.setAttribute('value',param);
+		form.appendChild(hiddenField1);
+		
+		let hiddenField2 = document.createElement('input');
+		hiddenField2.setAttribute('type','hidden');
+		hiddenField2.setAttribute('name',key2);
+		hiddenField2.setAttribute('value',param2);
+		form.appendChild(hiddenField2);
+		
+		document.body.appendChild(form);
+		form.submit();
+	  }
+
 	function goToEnrollMember(){
 		location.assign(location.origin+'/member/enrollMemberMainView');
 	}

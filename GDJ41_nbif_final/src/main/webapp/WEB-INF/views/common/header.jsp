@@ -111,6 +111,11 @@
                     <h5><img src="${path}/resources/images/png.png" width="20px" height="20px"><span id="time">0000. 00. 00. 00: 00: 00</span></h5>
 
                     <ul>
+                    		<c:if test="${loginMember != null }">
+                    		<li>
+                    			<a href="javascript:msgBox(${loginMember.memberNo });">쪽찌함</a>
+                    		</li>
+                    		</c:if>
                      		<li>
 	                            <a href="${path }/cs/noticeList">고객센터</a>
 	                        </li>
@@ -124,7 +129,8 @@
 	                        </c:if>
                             <c:if test="${loginMember != null }">
                             <li>
-	                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a>
+	                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지
+	                            ${loginMember.memberName }</a>
 	                         </li>
                             </c:if>
 						 </c:if>
@@ -153,13 +159,16 @@
                     <ul>
                         <li style="width:200px"><a href="javascript:specialAuctionButton('${specialProduct.productNo}')">SPECIAL AUCTION</a></li>
                         <li style="width:200px"><a href="">AUCTION ITEMS</a></li>
-                        <li style="display: none; width:400px"><form action="${path }/productSearch" method="post"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></form></li>
+                        <li style="display: none; width:400px"><form action="${path }/productSearch" method="get"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></form></li>
                         <li><a href="javascript:search_btn()"><span><img src="${path}/resources/images/search.png" width="30px" height="30px"></span></a></li>
                         <li style="display: none;"><a href="javascript:search_btn_close()"><span><img src="${path}/resources/images/xxx.png" width="20px" height="20px"></span></a></li>
                     </ul>
                 </div>
             </div>
             <script>
+            	let loginMember = "${loginMember}";
+            	let nickName = "${loginMember.nickName}";
+				let path = "${path}";
             	function specialAuctionButton(productNo){
             		if(!productNo){
 						alert("준비중인 실시간 경매물품이 없습니다.");
@@ -170,4 +179,5 @@
 
             	}
             </script>
+            <script src="${path }/resources/js/messageBox.js"></script>
         </header>
