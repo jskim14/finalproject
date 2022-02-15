@@ -48,11 +48,10 @@ public interface MemberService {
 	
 	int endRealTimeActionWallet(Map<String,Object> param);
 
-<<<<<<< HEAD
 	
 	List<Map<String,Object>> sellerrank();
 	List<Product> sellList(String memberNo);
-=======
+	
 	List<MessageBox> messageReceivList(String memberNo, int cPage, int numPerPage);
 	
 	int messageReceivListCount(String memberNo);
@@ -77,5 +76,4 @@ public interface MemberService {
 	
 	int deleteWish(Map<String,String> param);
 	
->>>>>>> branch 'master' of https://github.com/DaBinSeo/finalproject.git
 }
