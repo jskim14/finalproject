@@ -153,8 +153,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
-	public MessageBox messageOne(SqlSessionTemplate session, int msgNo) {
-		return session.selectOne("member.messageOne", msgNo);
+	public MessageBox messageOne(SqlSessionTemplate session, Map<String,Object> param) {
+		return session.selectOne("member.messageOne", param);
 	}
 	
 	@Override

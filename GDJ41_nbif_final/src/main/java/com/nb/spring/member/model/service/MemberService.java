@@ -58,7 +58,7 @@ public interface MemberService {
 	
 	int messageSendListCount(String memberNo);
 	
-	MessageBox messageOne(int msgNo);
+	MessageBox messageOne(Map<String,Object> param);
 	
 	int messageOneCheck(int msgNo);
 	

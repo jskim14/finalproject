@@ -64,7 +64,7 @@ public interface MemberDao {
 	
 	int messageSendListCount(SqlSessionTemplate session, String memberNo);
 	
-	MessageBox messageOne(SqlSessionTemplate session, int msgNo);
+	MessageBox messageOne(SqlSessionTemplate session, Map<String,Object> param);
 	
 	int messageOneCheck(SqlSessionTemplate session, int msgNo);
 	

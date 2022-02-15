@@ -154,8 +154,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public MessageBox messageOne(int msgNo) {
-		return dao.messageOne(session, msgNo);
+	public MessageBox messageOne(Map<String,Object> param) {
+		return dao.messageOne(session, param);
 	}
 	
 	@Override
