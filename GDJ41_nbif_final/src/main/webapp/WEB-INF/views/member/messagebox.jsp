@@ -14,8 +14,8 @@
 </head>
 <body style="margin:0;">
 	<div id="btn-contaier">
-		<button class="${msgbox == 'receiv'?'msgBoxBtnActive':'msgBoxBtn'}" onclick="pageMove(this.value);" value="receiv">받은쪽찌함</button>
-		<button class="${msgbox != 'receiv'?'msgBoxBtnActive':'msgBoxBtn'}" onclick="pageMove(this.value);" value="send">보낸쪽찌함</button>
+		<button class="${msgbox == 'receiv'?'msgBoxBtnActive':'msgBoxBtn'}" onclick="pageMove(this.value);" value="receiv">받은쪽지함</button>
+		<button class="${msgbox != 'receiv'?'msgBoxBtnActive':'msgBoxBtn'}" onclick="pageMove(this.value);" value="send">보낸쪽지함</button>
 		<button class="msgBoxBtn" onclick="pageMove(this.value);" value="sendMsg">쪽지보내기</button>
 	</div>
 	<div id="container">

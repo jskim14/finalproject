@@ -142,7 +142,10 @@ public class MainController {
 		if(msgbox.equals("receiv")) {
 			memberService.messageOneCheck(msgNo);
 		}
-		mv.addObject("messageOne",memberService.messageOne(msgNo));
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("msgNo", msgNo);
+		param.put("msgbox", msgbox);
+		mv.addObject("messageOne",memberService.messageOne(param));
 		mv.addObject("msgbox",msgbox);
 		mv.setViewName("member/messageboxView");
 		return mv;
