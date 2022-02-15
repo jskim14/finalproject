@@ -101,7 +101,6 @@ public class MemberController {
 		param.put("email", email);
 		//param.put("password", password);
 		Member m = service.loginMember(param);
-
 		if(flexCheckDefault!=null) {
 			Cookie c = new Cookie("flexCheckDefault",email);
 			c.setPath("/");
