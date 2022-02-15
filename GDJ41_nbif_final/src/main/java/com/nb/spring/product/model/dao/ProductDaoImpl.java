@@ -188,4 +188,10 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Product> searchProductCount(SqlSessionTemplate session, String keyword) {
 		return session.selectList("product.searchProductCount", keyword);
 	}
+
+	@Override
+	public List<Product> selectOtherList(SqlSessionTemplate session, String memberNo) {
+		
+		return session.selectList("product.selectOtherList",memberNo);
+	}
 }

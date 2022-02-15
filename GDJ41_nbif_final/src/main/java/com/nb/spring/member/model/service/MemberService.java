@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.member.model.vo.MessageBox;
 import com.nb.spring.member.model.vo.Wallet;
 import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
@@ -37,8 +38,6 @@ public interface MemberService {
 	
 	int updateDeliveryAddress(Map<String,String> param);
 	
-
-
 	Member loginMemberKakao(Map param);
 
 	List<Wallet> emoneyDetail(String memberNo);
@@ -49,6 +48,30 @@ public interface MemberService {
 	
 	int endRealTimeActionWallet(Map<String,Object> param);
 
+	
+	List<Map<String,Object>> sellerrank();
+	List<Product> sellList(String memberNo);
+	
+	List<MessageBox> messageReceivList(String memberNo, int cPage, int numPerPage);
+	
+	int messageReceivListCount(String memberNo);
+	
+	int noCheckMsgCount(String memberNo);
+	
+	List<MessageBox> messageSendList(String memberNo, int cPage, int numPerPage);
+	
+	int messageSendListCount(String memberNo);
+	
+	MessageBox messageOne(Map<String,Object> param);
+	
+	int messageOneCheck(int msgNo);
+	
+	int insertMessageBox(MessageBox mb);
+	
+	int deleteMessageBoxList(List<Integer> msgNoArr, String msgbox);
+	
+	int deleteMessageBoxOne(int msgNo, String msgbox);
+	
 	List<WishList> myWishList(String memberNo);
 	
 	int deleteWish(Map<String,String> param);

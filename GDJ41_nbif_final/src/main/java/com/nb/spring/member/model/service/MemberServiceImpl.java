@@ -1,5 +1,6 @@
 package com.nb.spring.member.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,10 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nb.spring.common.BalanceType;
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.dao.MemberDao;
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.member.model.vo.MessageBox;
 import com.nb.spring.member.model.vo.Wallet;
 import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
@@ -125,6 +126,83 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int endRealTimeActionWallet(Map<String,Object> param) {
 		return dao.endRealTimeActionWallet(session, param);
+	}
+
+	@Override
+	public List<Map<String, Object>> sellerrank() {
+		return dao.sellerrank(session);
+	}
+
+	@Override
+	public List<Product> sellList(String memberNo) {
+		return dao.sellList(session, memberNo);
+	}
+	
+	
+	@Override
+	public List<MessageBox> messageReceivList(String memberNo, int cPage, int numPerPage) {
+		return dao.messageReceivList(session, memberNo, cPage, numPerPage);
+	}
+	
+	@Override
+	public int messageReceivListCount(String memberNo) {
+		return dao.messageReceivListCount(session, memberNo);
+	}
+	
+	@Override
+	public int noCheckMsgCount(String memberNo) {
+		return dao.noCheckMsgCount(session, memberNo);
+	}
+	
+	@Override
+	public List<MessageBox> messageSendList(String memberNo, int cPgage, int numPerPage) {
+		return dao.messageSendList(session, memberNo, cPgage, numPerPage);
+	}
+	
+	@Override
+	public int messageSendListCount(String memberNo) {
+		return dao.messageSendListCount(session, memberNo);
+	}
+	
+	@Override
+	public MessageBox messageOne(Map<String,Object> param) {
+		return dao.messageOne(session, param);
+	}
+	
+	@Override
+	public int messageOneCheck(int msgNo) {
+		return dao.messageOneCheck(session, msgNo);
+	}
+	
+	@Override
+	public int insertMessageBox(MessageBox mb) {
+		int result = dao.insertSendMessageBox(session, mb);
+		System.out.println("전 : " + mb);
+		if(result>0) {
+			System.out.println("후 : " + mb);
+			result = dao.insertReceivMessageBox(session, mb);
+		}
+		return result;
+	}
+	
+	@Override
+	public int deleteMessageBoxList(List<Integer> msgNoArr, String msgbox) {
+		int result = 0;
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("msgbox", msgbox);
+		for(Integer i : msgNoArr) {
+			param.put("msgNo", i);
+			result = dao.deleteMessageBox(session, param);
+		}
+		return result;
+	}
+	
+	@Override
+	public int deleteMessageBoxOne(int msgNo, String msgbox) {
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("msgbox", msgbox);
+		param.put("msgNo", msgNo);
+		return dao.deleteMessageBox(session, param);
 	}
 
 	@Override

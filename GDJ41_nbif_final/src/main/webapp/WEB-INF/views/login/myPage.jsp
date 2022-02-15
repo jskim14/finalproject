@@ -83,7 +83,7 @@
                         </ul>  
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item subMenuTitle">
-                                <a href="#" class="aColor">
+                                <a href="${path }/cs/myQna?memberNo=${loginMember.memberNo}" class="aColor">
                                     <i class="fas fa-headset fa-lg"></i> 내 문의내역
                                 </a>
                             </li>

@@ -101,7 +101,6 @@ public class MemberController {
 		param.put("email", email);
 		//param.put("password", password);
 		Member m = service.loginMember(param);
-
 		if(flexCheckDefault!=null) {
 			Cookie c = new Cookie("flexCheckDefault",email);
 			c.setPath("/");
@@ -237,6 +236,15 @@ public class MemberController {
 		log.debug(userEmail);
 		String result="";
 		String code="";
+		Map<String,String> param = Map.of("email", userEmail);
+		Member m = service.selectMemberPhoneEmail(param);
+		
+		if(m!=null) {
+			return Map.of("result","이미 가입된 회원입니다.");
+		}
+		
+		
+		
 		session.removeAttribute("userEmail");
 		try {
 			code = mailService.mailSend(userEmail);			
@@ -615,13 +623,25 @@ public class MemberController {
 
 	
 	//셀러랭킹
-//	@RequestMapping("/sellerrank")
-//	public ModelAndView sellerrank(ModelAndView mv) {
-//		Map<String,Object>
-//		
-//		mv.setViewName("member/sellerrank");
-//		return mv;
-//	}
+	@RequestMapping("/sellerrank")
+	public ModelAndView sellerrank(ModelAndView mv) {
+		List<Map<String,Object>> sellerList;
+		int index=0;
+		sellerList=service.sellerrank();
+		
+		mv.addObject("sellerList",sellerList);
+		mv.setViewName("member/sellerrank");
+		return mv;
+	}
+	//셀러상품
+	@RequestMapping("/sellList")
+	public ModelAndView sellList(ModelAndView mv, String memberNo) {
+		List<Product> sellList=service.sellList(memberNo);
+		
+		mv.addObject("sellList",sellList);
+		mv.setViewName("member/sellList");
+		return mv;
+	}
 	
 	@RequestMapping("/updateMyPage")
 	public String updateMyPage(String memberNo, Model m) {

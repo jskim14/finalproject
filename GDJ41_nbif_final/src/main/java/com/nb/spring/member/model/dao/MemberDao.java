@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.nb.spring.common.DealType;
 import com.nb.spring.member.model.vo.Member;
+import com.nb.spring.member.model.vo.MessageBox;
 import com.nb.spring.member.model.vo.Wallet;
 import com.nb.spring.member.model.vo.WishList;
 import com.nb.spring.product.model.vo.Product;
@@ -53,6 +54,29 @@ public interface MemberDao {
 	
 	int endRealTimeActionWallet(SqlSessionTemplate session, Map<String,Object> param);
 
+	
+	List<Map<String,Object>> sellerrank(SqlSessionTemplate session);
+	List<Product> sellList(SqlSessionTemplate session, String memberNo);
+	List<MessageBox> messageReceivList(SqlSessionTemplate session, String memberNo, int cPage, int numPerPage);
+	
+	int messageReceivListCount(SqlSessionTemplate session, String memberNo);
+	
+	int noCheckMsgCount(SqlSessionTemplate session, String memberNo);
+	
+	List<MessageBox> messageSendList(SqlSessionTemplate session, String memberNo, int cPage, int numPerPage);
+	
+	int messageSendListCount(SqlSessionTemplate session, String memberNo);
+	
+	MessageBox messageOne(SqlSessionTemplate session, Map<String,Object> param);
+	
+	int messageOneCheck(SqlSessionTemplate session, int msgNo);
+	
+	int insertSendMessageBox(SqlSessionTemplate session,MessageBox mb);
+	
+	int insertReceivMessageBox(SqlSessionTemplate session,MessageBox mb);
+	
+	int deleteMessageBox(SqlSessionTemplate session, Map<String,Object> param);
+	
 	List<WishList> myWishList(SqlSessionTemplate session,String memberNo);
 	
 	int deleteWish(SqlSessionTemplate session, Map<String,String> param);
