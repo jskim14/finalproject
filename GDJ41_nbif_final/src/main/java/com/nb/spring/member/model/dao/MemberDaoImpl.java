@@ -199,4 +199,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.delete("member.deleteWish", param);
 	}
 
+	@Override
+	public List<Member> selectMemberList(SqlSessionTemplate session, Map param) {
+		return session.selectList("member.selectMemberList",param);
+	}
+
 }
