@@ -182,7 +182,7 @@
 </section>
 <script>
 	function goToCharge(){
-		event.stopPropagation();
+		/* event.stopPropagation(); */
 		let chargeWindow = window.open(location.origin+'/member/charge','_blank','width=400,height=500');
 	}
 	

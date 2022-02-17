@@ -40,7 +40,7 @@ public interface MemberService {
 	
 	Member loginMemberKakao(Map param);
 
-	List<Wallet> emoneyDetail(String memberNo);
+	List<Wallet> emoneyDetail(int cPage, int numPerPage, String memberNo);
 
 	List<Wallet> emoneySelectList(Map param);
 
@@ -80,4 +80,5 @@ public interface MemberService {
 
 	List<Member> selectMemberList(Map param);
 	
+	int emoneyCount(String memberNo);
 }

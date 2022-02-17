@@ -102,8 +102,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Wallet> emoneyDetail(String memberNo) {
-		List<Wallet> list = dao.emoneyDetail(session, memberNo);
+	public List<Wallet> emoneyDetail(int cPage, int numPerPage, String memberNo) {
+		List<Wallet> list = dao.emoneyDetail(session, cPage, numPerPage, memberNo);
 		return list;
 	}
 
@@ -223,6 +223,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Member> selectMemberList(Map param) {
 		return dao.selectMemberList(session,param);
+	}
+
+	@Override
+	public int emoneyCount(String memberNo) {
+		return dao.emoneyCount(session,memberNo);
 	}
 	
 }

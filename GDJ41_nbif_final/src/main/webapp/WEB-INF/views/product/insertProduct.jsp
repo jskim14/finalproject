@@ -89,7 +89,7 @@
                                 <input type="text" id="inputTyping3" class="form-control inputBox" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
                                 <input type="hidden" name="unit" id="inputUnit">
                                 <div id="autionUnitInfo" class="inputNextSpan" style="display: inline; padding: 1%"> 
-                                	*입찰단위가 입찰시작가보다 높습니다. 
+                                	*입찰단위는 입찰시작가보다 클 수 없습니다.
                                	</div>
                             </div>
                         </div>
@@ -202,15 +202,15 @@
             } 
         }); */
         
-        function unitSelect() {
-            if($("#priceUnit").val()=="typing") {
-                $("#inputTyping3").attr("disabled",false);
-                $("#inputTyping3").focus();
-            } else {
-                $("#inputTyping3").attr("disabled",true);
-                $("#inputTyping3").val("");
-            }
-        }
+         function unitSelect() {
+	       	 if($("#priceUnit").val()=="typing") {
+	             $("#inputTyping3").attr("disabled",false);
+	             $("#inputTyping3").focus();
+	         } else {
+	             $("#inputTyping3").attr("disabled",true);
+	             $("#inputTyping3").val("");
+	         }
+        } 
         
  
         
@@ -249,22 +249,35 @@
       
         /* 입찰시작가, 즉시구매가 값 비교 */
         
-        $("#inputTyping3, #inputTyping1").change(e=>{
-        	if($("#inputTyping1").val() != "") {
-        		if($("input[name=minBidPrice]").val() > $("input[name=buyNowPrice]").val()) {
+        $("#inputTyping1, #minBidPrice").change(e=>{
+        	var minBid = Number($("input[name=minBidPrice]").val());
+        	var buyNow = Number($("input[name=buyNowPrice]").val());
+        	if(minBid != "" && buyNow !="") {
+        		if( minBid > buyNow ) {
 		        	$("#autionStartInfo").css('color','red').html('입찰시작가가 즉시구매가보다 높습니다.');
 		        } else {
 		        	$("#autionStartInfo").html("");
 		        }
         	}
-        	
         });
-
         
         /* 입찰시작가, 입찰단위 값 비교 */
+        
+/*          $("#inputTyping3, #minBidPrice").change(e=>{
 
+	        	var minBid = Number($("input[name=minBidPrice]").val());
+	        	var unit = Number($("#inputUnit").val());
+	        	if(minBid != "" && unit !="") {
+	        		if( minBid < unit ) {
+			        	$("#autionUnitInfo").css('color','red').html('입찰단위가 입찰시작가보다 높습니다.');
+			        } else {
+			        	$("#autionUnitInfo").html("");
+			        }
+	        	}
+        }); */
         
 
+        /**/
         $("#currentDate").val(new Date().toISOString().substring(0, 10));
                     
         $(function(){

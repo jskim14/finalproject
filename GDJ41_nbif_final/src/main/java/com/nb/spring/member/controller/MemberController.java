@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nb.spring.common.DealType;
 import com.nb.spring.common.MsgModelView;
+import com.nb.spring.common.PageFactory;
 import com.nb.spring.common.StringHandler;
 import com.nb.spring.common.WalletType;
 import com.nb.spring.member.model.service.MemberService;
@@ -470,11 +471,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/emoneyDetail")
-	public ModelAndView emoneyDetail(String memberNo, ModelAndView mv) {		
-		List<Wallet> list = service.emoneyDetail(memberNo);
+	public ModelAndView emoneyDetail(@RequestParam(name = "cPage",defaultValue = "1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="15") int numPerPage, String memberNo, ModelAndView mv) {	
+		
+		int pageBarSize = 5;
+		int totalData = service.emoneyCount(memberNo);
+		List<Wallet> list = service.emoneyDetail(cPage, numPerPage, memberNo);
 		Member m = service.selectMember(memberNo);
+		System.out.println(list);
+		
 		mv.addObject("m",m);
 		mv.addObject("list",list);
+		mv.addObject("numPerPage",numPerPage);
+		mv.addObject("pageBar", PageFactory.getPageBar(totalData, cPage, numPerPage, pageBarSize, "emoneyDetail"));
 		mv.setViewName("login/emoneyDetail");
 		return mv;
 	}
@@ -579,16 +588,27 @@ public class MemberController {
 		
 	}
 	
-	@PostMapping("/emoneySelectList")
-	public String emoneySelectList(String memberNo, @RequestParam(value = "btnCategory", required=false ) 
-	String category, Model m) {
+	@RequestMapping("/emoneySelectList")
+	public String emoneySelectList(HttpSession session, @RequestParam(value = "btnCategory", required=false ) String category,
+			@RequestParam(name = "cPage",defaultValue = "1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="15") int numPerPage, Model m) {
+		Member sessionMem = (Member) session.getAttribute("loginMember");
 		Map param = new HashMap<>();
 		param.put("category", category);
-		param.put("memberNo", memberNo);
+		param.put("memberNo", sessionMem.getMemberNo());
+		param.put("cPage", cPage);
+		param.put("numPerPage", numPerPage);
+		
+		int pageBarSize = 5;
+		int totalData = service.emoneyCount(sessionMem.getMemberNo());
+
 		List<Wallet> list = service.emoneySelectList(param);
-		Member mem = service.selectMember(memberNo);
+		Member mem = service.selectMember(sessionMem.getMemberNo());
+		System.out.println("select : "+category+ mem+ list);
 		m.addAttribute("m",mem);
 		m.addAttribute("list",list);
+		m.addAttribute("numPerPage",numPerPage);
+		m.addAttribute("pageBar", PageFactory.emoneySearch(totalData, cPage, numPerPage, pageBarSize, "emoneySelectList", category));
 		return "login/emoneyDetail";
 	}
 	

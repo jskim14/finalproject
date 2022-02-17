@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
+
 <style>
 .emoneyBtn {
     width: 95px;
@@ -34,7 +35,7 @@
 						</span>
 					</a>
 					<div class="col-4" style=" padding: 1% 0 0 5%; ">
-						<form action="${path }/member/emoneySelectList?memberNo=${loginMember.memberNo}" method="post">
+						<form action="${path }/member/emoneySelectList" method="get">
 				            <button type="submit" class="btn btn-secondary emoneyBtn" 
 				             name="btnCategory" value="input">입금</button> 
 				            <button type="submit" class="btn btn-secondary emoneyBtn" 
@@ -45,9 +46,15 @@
 		        	</div>
 	    		</div>
 			</div>
-			<div class="row" >
+			<div class="col-1" style="float: right;">
 		    <!-- 검색 -->
-		    
+ 		    	<select class="form-select" id="selectNum" >
+				  <option value="15" ${numPerPage==15?"selected":"" }>15</option>
+				  <option value="30" ${numPerPage==30?"selected":"" }>30</option>
+				  <option value="50" ${numPerPage==50?"selected":"" }>50</option>
+				  <option value="70" ${numPerPage==70?"selected":"" }>70</option>
+				  <option value="100" ${numPerPage==100?"selected":"" }>100</option>
+				</select> 
 			</div>
 			<div id="listContainer" class="row" style="">
 				<div class="row">
@@ -114,11 +121,55 @@
 		            </table>
 				</div>
 	        </div>
+	        <div id="pageBar" class="col-12">
+				${pageBar }
+			</div>
 	    </div>
 	</div>
 </section>
 
+<style>
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #41B979;
+    border-color: #41B979;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #41B979;
+    border-color: #41B979;
+}
+
+.page-link:hover {
+    z-index: 2;
+    color: #41B979;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    color: #41B979;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+</style>
 <script>
+ 	function fn_paging(cPage,numPerPage) {
+		location.assign("${path}/member/emoneyDetail?cPage=" + cPage + "&numPerPage="+ numPerPage+
+					"&memberNo=" + ${loginMember.memberNo});
+	} 
+ 	function fn_paging2(cPage,numPerPage,btnCategory) {
+ 		
+ 		location.assign("${path}/member/emoneySelectList?cPage=" + cPage + "&numPerPage="+ numPerPage+
+				"&btnCategory="+ btnCategory);
+	} 
 
 /* 	const emoneyBtn=(value=>{
 		console.log(value);

@@ -46,7 +46,7 @@ public interface MemberDao {
 
 	Member loginMemberKakao(SqlSessionTemplate session, Map param);
 
-	List<Wallet> emoneyDetail(SqlSessionTemplate session, String memberNo);
+	List<Wallet> emoneyDetail(SqlSessionTemplate session, int cPage, int numPerPage, String memberNo);
 
 	List<Wallet> emoneySelectList(SqlSessionTemplate session, Map param);
 	
@@ -84,4 +84,6 @@ public interface MemberDao {
 	int updateMember(SqlSessionTemplate session, Map<String,String> param);
 
 	List<Member> selectMemberList(SqlSessionTemplate session,Map param);
+	
+	int emoneyCount (SqlSessionTemplate session, String memberNo);
 }
