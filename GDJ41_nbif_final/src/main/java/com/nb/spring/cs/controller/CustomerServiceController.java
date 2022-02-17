@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+@RequestMapping("/cs")
 public class CustomerServiceController {
 
 	@Autowired
@@ -52,30 +53,30 @@ public class CustomerServiceController {
 //		
 //	}
 	
-	@RequestMapping("/cs/noticeList")
+	@RequestMapping("/noticeList")
 	public ModelAndView noticeView(
 			@RequestParam(value="cPage", defaultValue="1") int cPage, 
-			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
+			@RequestParam(value="numPerPage", defaultValue="5") int numPerPage,
 			ModelAndView mv) {
 		List<Notice> noticeList=service.selectNoticeList(cPage,numPerPage);
 		
 		int totalNotice=service.noticeCount();
 		mv.addObject("totalNotice",totalNotice);
-		mv.addObject("pageBar", PageFactory.getPageBar(totalNotice, cPage, numPerPage, 5, "/cs/notice"));
+		mv.addObject("pageBar", PageFactory.getPageBar(totalNotice,cPage,numPerPage,5,"noticeList"));
 		
 		mv.addObject("noticeList",noticeList);
 		mv.setViewName("cs/notice");
 		return mv;
 	}
-	@RequestMapping("/cs/qnaList")
+	@RequestMapping("/qnaList")
 	public ModelAndView qnaView(
 			@RequestParam(value="cPage", defaultValue="1") int cPage, 
-			@RequestParam(value="numPerPage", defaultValue="10") int numPerPage,
+			@RequestParam(value="numPerPage", defaultValue="5") int numPerPage,
 			ModelAndView mv) {
 		List<Qna> qnaList=service.selectQnaList(cPage,numPerPage);
 		int totalQna=service.qnaCount();
 		mv.addObject("totalQna",totalQna);
-		mv.addObject("pageBar", PageFactory.getPageBar(totalQna, cPage, numPerPage, 5, "/cs/qna"));
+		mv.addObject("pageBar", PageFactory.getPageBar(totalQna, cPage, numPerPage, 5, "qnaList"));
 		
 		mv.addObject("qnaList",qnaList);
 		mv.setViewName("cs/qna");
@@ -83,7 +84,7 @@ public class CustomerServiceController {
 	}
 	
 	
-	@RequestMapping("/cs/insertNotice")
+	@RequestMapping("/insertNotice")
 	public ModelAndView insertNotice(ModelAndView mv, String noticeTitle, String noticeContent, String memberNo) {
 		
 		Map<String,String> param= Map.of("noticeTitle",noticeTitle, "noticeContent",noticeContent, "memberNo",memberNo);
@@ -103,7 +104,7 @@ public class CustomerServiceController {
 		mv.setViewName("common/msg");
 		return mv;
 	}
-	@RequestMapping("/cs/insertQuestion")
+	@RequestMapping("/insertQuestion")
 	public ModelAndView insertQuestion(ModelAndView mv, String qnaTitle, String qnaContent, String memberNo) {
 		System.out.println("넘어온 데이터"+memberNo);
 		
@@ -125,7 +126,7 @@ public class CustomerServiceController {
 		return mv;
 	}
 	
-	@RequestMapping("/cs/deleteNotice")
+	@RequestMapping("/deleteNotice")
 	public ModelAndView deleteNotice(int noticeNo, ModelAndView mv) {
 		
 		int result=service.deleteNotice(noticeNo);
@@ -145,14 +146,14 @@ public class CustomerServiceController {
 		
 	}
 	
-	@RequestMapping("/cs/qnaContent")
+	@RequestMapping("/qnaContent")
 	public ModelAndView qnaContent(int qnaNo, ModelAndView mv) {
 		mv.addObject("qna", service.qnaContent(qnaNo));
 		mv.setViewName("cs/qnaContent");
 		return mv;
 	}
 	
-	@RequestMapping("/cs/insertAnswer")
+	@RequestMapping("/insertAnswer")
 	public ModelAndView insertAnswer(ModelAndView mv, String qnaNo, String qnaAnswer ) {
 		System.out.println("넘어온 데이터: "+qnaNo+qnaAnswer);
 		
@@ -173,7 +174,7 @@ public class CustomerServiceController {
 		return mv;
 	}
 	
-	@RequestMapping("/cs/myQna")
+	@RequestMapping("/myQna")
 	public ModelAndView myQnaView(ModelAndView mv, String memberNo) {
 		List<Qna> myQnaList=service.myQnaList(memberNo);
 		

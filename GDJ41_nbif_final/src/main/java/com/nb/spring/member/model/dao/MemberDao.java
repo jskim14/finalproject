@@ -80,4 +80,10 @@ public interface MemberDao {
 	List<WishList> myWishList(SqlSessionTemplate session,String memberNo);
 	
 	int deleteWish(SqlSessionTemplate session, Map<String,String> param);
+	
+	
+	List<Map<String,Object>> beforeDelete(SqlSessionTemplate session, String memberNo);
+	String pwCheck(SqlSessionTemplate session, String memberNo);
+	int deleteMember(SqlSessionTemplate session, String memberNo);
+	
 }
