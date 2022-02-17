@@ -12,9 +12,23 @@
   
 <section>
     <div id="totalContainer">
-        <div class="pageTitle">
-            <span><i class="fas fa-archive"></i>&nbsp;판매입찰등록</span>
-        </div> 
+    	<h2 style="text-align:center;">판매입찰등록</h2><hr>
+        <div class="card-body">
+                    	<div style="text-align: center">
+	                        물품을 등록하여 경매에 판매할 수 있습니다.
+	                        등록 전, 아래 주의사항을 꼭 확인하여 주세요. <br><br>
+	                        <span style="color:red; font-weight: bold;text-align: center">
+	                        - 주의사항 -</span><br>
+                        </div>
+                        <div>
+                        	<ol style="display:table; margin-left:auto;margin-right:auto;">
+                        		<li>경매기간은 최대 14일까지 가능하며 재경매는 1회 가능합니다.</li>
+                        		<li>물품등록이 요청된 후 관리자의 승인 후에 게시되며 관리자 승인 전 수정이 가능합니다.</li>
+                        		<li>물품등록시 직거래를 유도하는 문구나 개인정보는 게시할 수 없습니다.</li>
+                        		<li>부정확한 정보로 인하여 구매자의 신고를 받을 시에 제제를 받을 수 있습니다.</li>
+                        	</ol>
+                        </div>
+                    </div>
         <div class="pageMenu">
             <form action="${path }/product/insertProductEnd" method="post" enctype="multipart/form-data">
             <!-- 판매자 -->

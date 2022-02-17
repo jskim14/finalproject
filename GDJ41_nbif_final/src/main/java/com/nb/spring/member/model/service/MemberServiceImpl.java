@@ -215,6 +215,25 @@ public class MemberServiceImpl implements MemberService {
 		return dao.deleteWish(session, param);
 	}
 
+	
+	@Override
+	public List<Map<String,Object>> beforeDelete(String memberNo) {
+		return dao.beforeDelete(session,memberNo);
+	}
+	
+	@Override
+	public String pwCheck(String memberNo) {
+		return dao.pwCheck(session,memberNo);
+	}
+	
+	@Override
+	public int deleteMember(String memberNo) {
+		return dao.deleteMember(session, memberNo);
+	}
+
+	
+	
+	
 	@Override
 	public int updateMember(Map<String, String> param) {
 		return dao.updateMember(session, param);

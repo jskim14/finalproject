@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,10 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nb.spring.common.DealType;
 import com.nb.spring.common.MsgModelView;
@@ -662,6 +664,60 @@ public class MemberController {
 		mv.setViewName("member/sellList");
 		return mv;
 	}
+	
+	//회원탈퇴화면
+	@RequestMapping("/deleteMemberView")
+	public String deleteMemberView() {
+		return "member/deleteMemberView";
+	}
+	
+	//탈퇴가능 여부
+	@RequestMapping("/beforeDelete")
+	@ResponseBody
+	public void beforeDelete(HttpServletResponse response, String memberNo) throws IOException{
+		List<Map<String,Object>> list=service.beforeDelete(memberNo);
+		int result;
+		if(list.isEmpty()) {
+			result=0;
+		}else {
+			result=1;
+		}
+		System.out.println("result="+result);
+		PrintWriter out=response.getWriter();
+		out.write(result+"");
+	}
+	
+	@RequestMapping(value="/checkPw", method=RequestMethod.POST)
+	@ResponseBody
+	public void pwCheck(HttpServletResponse response, String memberNo, String password) throws Exception{
+		
+		System.out.println("넘어온 데이터"+memberNo+password);
+		
+		String pw = service.pwCheck(memberNo);
+		
+		System.out.println("가져온 비밀번호"+pw);
+		int result;
+		if(pw!=null&&encoder.matches(password, pw)){
+			result= 1;
+		}else {
+			result=0;
+		}
+		PrintWriter out=response.getWriter();
+		out.write(result+"");
+	}
+	
+	@RequestMapping("/deleteMember")
+	public String deleteMember(String memberNo, RedirectAttributes redirectAttr, 
+			SessionStatus sessionSatus) {
+		int result=service.deleteMember(memberNo);
+		if(result>0) {
+			redirectAttr.addFlashAttribute("msg","성공적으로 탈퇴했습니다. SEE YOU!");
+			SecurityContextHolder.clearContext();
+		}
+		return "redirect:/";
+		
+	}
+	
 	
 	@RequestMapping("/updateMyPage")
 	public String updateMyPage(String memberNo, Model m) {
