@@ -196,7 +196,7 @@ public class MemberController {
 			mv.addObject("buyCnt", zeroList);
 		} else {
 			for(Wallet w : buyList) {
-				if(w.getProductNo().getProductStatus() != null) {
+				if(w.getProductNo().getProductStatus() != null && w.getProductNo().getFinalPrice() != null) {
 					if(w.getProductNo().getProductStatus().equals("0")) {
 						buying++;
 					}
@@ -238,6 +238,15 @@ public class MemberController {
 		log.debug(userEmail);
 		String result="";
 		String code="";
+		Map<String,String> param = Map.of("email", userEmail);
+		Member m = service.selectMemberPhoneEmail(param);
+		
+		if(m!=null) {
+			return Map.of("result","이미 가입된 회원입니다.");
+		}
+		
+		
+		
 		session.removeAttribute("userEmail");
 		try {
 			code = mailService.mailSend(userEmail);			
@@ -690,5 +699,62 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping("/updateMyPage")
+	public String updateMyPage(String memberNo, Model m) {
+		Member member = service.selectMember(memberNo);
+		m.addAttribute("m",member);
+		return "login/updateMyPage";
+	}
+	
+	@RequestMapping("/updateMyPageEnd") 
+	public ModelAndView updateMyPageEnd(HttpSession session, @RequestParam Map<String,String> param, ModelAndView mv) {
+		Member m = (Member) session.getAttribute("loginMember");
+		System.out.println(param);
+		String totalAddress = param.get("shipAddress")+" "+param.get("detailAddress");
+		param.put("address", totalAddress);
+		int result = service.updateMember(param); //닉네임으로 찾아서 수정 
+		
+		String msg = "";
+		String loc = "/member/myPage?memberNo="+m.getMemberNo();
+		
+		if(result>0) {
+			msg = "수정이 완료되었습니다.";
+		} else {
+			msg = "실패하였습니다. 관리자에게 문의하세요.";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/updatePassword")
+	public String updatePassword() {
+		return "/login/updatePassword";
+	}
+	
+	@RequestMapping("/updatePasswordEnd")
+	@ResponseBody
+	public Map updatePasswordEnd(HttpSession session, String pw, String newPw) {
+		Member m = (Member) session.getAttribute("loginMember");
+
+		String msg = "";
+		if(encoder.matches(pw,m.getPassword())) { //일치하면
+			newPw = encoder.encode(newPw);
+			Map<String, String> param = new HashMap<>();
+			param.put("newPw", newPw);
+			param.put("memberNo", m.getMemberNo());
+			int result = service.updatePassword(param);
+			if(result>0) {
+				msg = "비밀번호 변경이 완료되었습니다.";
+			} else {
+				msg = "비밀번호 변경에 실패하였습니다. 관리자에 문의하세요.";
+			}
+		} else {
+			msg = "현재비밀번호와 일치하지 않습니다.";
+		}
+		return Map.of("result",msg);
+	}
 	
 }

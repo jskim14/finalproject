@@ -7,28 +7,24 @@
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
 <style>
 .emoneyBtn {
-    width: 110px;
-    height: 65px;
+    width: 95px;
+    height: 55px;
     font-size: 20px;
 }
-#stateCount {
-    margin: 0 ;
-    text-align: center;
-    border: 1px solid gray;
-    padding: 3% 0 3% 0;
-}
+
 
 #stateContainer>div {
     padding-top: 3%;
 }
 </style>
 <section>
-	<div class="row" style="padding: 15% 10%;">
+	<div class="row" style="padding: 15%;">
 		<div id="stateContainer" class="row">
-		    <div class="pageTitle row">
-		        <span>사용가능 잔액</span>
-		    </div> 
-		    <div class="row" style="background-color:lightgray; margin: 0;"> 
+		    <div style="margin-bottom:5%;">
+	            <span class="pageTitle2"><i class="fas fa-coins"></i>&nbsp;MY EMONEY</span>
+	            <p>현재 나의 이머니 잔액과 내역을 확인할 수 있습니다.</p>
+        	</div>
+		    <div class="row" style="border:1px solid rgba(0,0,0,.125); margin: 0; border-radius: 0.25rem;"> 
 				<div class="" style="display: flex; justify-content: center;">
 					<a href="${path }/member/emoneyDetail?memberNo=${loginMember.memberNo}" 
 					class="col-7 aColor" style="font-weight: bold; padding: 0 5% 3% 0; ">

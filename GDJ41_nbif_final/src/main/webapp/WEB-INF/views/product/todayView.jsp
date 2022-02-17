@@ -8,7 +8,7 @@
 
 <style>
 #wishContainer{
-   padding:200px 10%;
+   padding:15%;
 }
 .wish-box{
     width: 100%;
@@ -33,9 +33,9 @@
 </style>
 <section>
     <div id="wishContainer">
-        <div>
-            <h2><i class="fas fa-bookmark"></i>&nbsp;오늘 본 상품</h2>
-            <p>오늘 본 상품입니다.<br> 삭제되니까 관심상품에 담으세요~!~!</p>
+        <div style="margin-bottom:5%;">
+            <h2 class="pageTitle2"><i class="fas fa-eye"></i>&nbsp;오늘 본 상품</h2>
+            <p>오늘 본 상품입니다.<br> 일정시간 이후 삭제되니 관심상품에 담으세요~!~!</p>
         </div>
         <br>
         <div>

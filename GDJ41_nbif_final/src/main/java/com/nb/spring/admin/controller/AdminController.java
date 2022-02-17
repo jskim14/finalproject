@@ -231,6 +231,14 @@ public class AdminController {
 		return "admin/adminMain";
 	}
 	
+	@RequestMapping("/memberManagement")
+	public String memberManageMent(@RequestParam Map param) {
+		
+		List<Member> memberList = memberService.selectMemberList(param);
+		
+		
+		return "admin/memberManagement";
+	}
 	
 	
 }

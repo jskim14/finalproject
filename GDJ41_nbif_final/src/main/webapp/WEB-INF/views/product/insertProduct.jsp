@@ -71,7 +71,7 @@
                                  style="width: 250px; display:inline; margin-left: 1%" disabled>
                                  <input type="hidden" name="nowBidPrice"> -->
                                 <div class="onlyNumber" style="display: inline; padding: 1%"> </div>
-                                <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
+                                <div class="inputNextSpan" style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 <input type="text" id="minBidPrice" class="form-control inputBox" 
                                 placeholder="" style="width: 250px; display:inline;" required>
                                 <input type="hidden" name="minBidPrice">
-                                <div id="autionStartInfo" style="display: inline; padding: 1%"> *입찰시작가가 즉시구매가보다 높습니다. </div>
+                                <div id="autionStartInfo" class="inputNextSpan" style="display: inline; padding: 1%"> *입찰시작가는 즉시구매가보다 높을 수 없습니다. </div>
                             </div>
                         </div>
                         <div class="subMenu">
@@ -102,7 +102,7 @@
                                 </select>
                                 <input type="text" id="inputTyping3" class="form-control inputBox" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
                                 <input type="hidden" name="unit" id="inputUnit">
-                                <div id="autionUnitInfo" style="display: inline; padding: 1%"> 
+                                <div id="autionUnitInfo" class="inputNextSpan" style="display: inline; padding: 1%"> 
                                 	*입찰단위가 입찰시작가보다 높습니다. 
                                	</div>
                             </div>
@@ -201,6 +201,7 @@
             	$("#inputTyping1").attr("disabled",false);
                 $("#inputTyping1").focus();
              }else {
+            	$("#inputTyping1").val("");
                 $("#inputTyping1").attr("disabled",true); 
                 $("#inputTyping1").next().html("");
             } 
@@ -221,6 +222,7 @@
                 $("#inputTyping3").focus();
             } else {
                 $("#inputTyping3").attr("disabled",true);
+                $("#inputTyping3").val("");
             }
         }
         
@@ -253,24 +255,25 @@
 				var temp = $(e.target).val().stringNumberToInt();
 				$(e.target).val(temp.format());
 				var temp1 = $(e.target).val().stringNumberToInt();
-				$(e.target).next().val(temp1); //hidden
+				$(e.target).next().val(temp1); //hidden에 넣어주는것
     			$(e.target).next().next().html(""); 
-				console.log($("input[name=flexRadioDefault1]").val());
+				//console.log($("input[name=flexRadioDefault1]").val());
     		}
         })  
       
         /* 입찰시작가, 즉시구매가 값 비교 */
         
-        $("#inputTyping1,#inputTyping3").change(e=>{
+        $("#inputTyping3, #inputTyping1").change(e=>{
         	if($("#inputTyping1").val() != "") {
-        		console.log($("input[name=minBidPrice]").val());
-        		console.log($("input[name=buyNowPrice]").val());
         		if($("input[name=minBidPrice]").val() > $("input[name=buyNowPrice]").val()) {
-        			
-		        	alert("adf");
+		        	$("#autionStartInfo").css('color','red').html('입찰시작가가 즉시구매가보다 높습니다.');
+		        } else {
+		        	$("#autionStartInfo").html("");
 		        }
         	}
-        })
+        	
+        });
+
         
         /* 입찰시작가, 입찰단위 값 비교 */
 

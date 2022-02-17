@@ -9,8 +9,17 @@
    #stateCount {
        margin: 0 ;
        text-align: center;
-       border: 1px solid gray;
+       border:1px solid rgba(0,0,0,.125); 
+       border-radius: 0.25rem;
        padding: 3% 0 3% 0;
+   }
+   
+      #searchBox{
+   	height: 70px; 
+   	background-color: #fafafa; 
+   	margin: 0; 
+   	text-align: center; 
+   	padding: 1% 0 1% 10%;
    }
 
    #stateContainer>div {
@@ -23,10 +32,10 @@
    
 </style>
 <section>
-    <div class="row" style="padding: 15% 10%;"> 
+    <div class="row" style="padding: 15%;"> 
        	<div id="stateContainer" class="row"> 
            	<div class="pageTitle row">
-           		<span>판매현황</span>
+           		<span><i class="fas fa-store"></i>&nbsp;판매현황</span>
            	</div> 
            	<div id="stateCount" class="row">
 	            <div class="subMenuTitle col" >
@@ -52,7 +61,7 @@
            	</div>
 			<div class="row" style="">
 			<form action="${path }/member/salesSearch?memberNo=${loginMember.memberNo}" method="post">
-			    <div class="row" style="height: 70px; background-color:lightgray; margin: 0; text-align: center; padding: 1% 0 1% 10%;">
+			    <div id="searchBox" class="row" >
 			        <!-- 검색 -->
 			        <div class="col-3"> 
 			        	<select class="form-select" name="status" aria-label="Default select example" style="width: 200px; color: gray; float:right" required>
@@ -127,7 +136,7 @@
 							 	</span>
 							 	</div>
 						        <div>
-						            <span style="font-size: 23px; color:#333; float: left; font-weight: 550;   ">
+						            <span style="font-size: 21px; color:#333; float: left; font-weight: 550;   ">
 						                <c:out value="${p.productName }"/>
 						            </span>
 						        </div>
@@ -247,24 +256,24 @@
 						        </c:when>
 							 	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '0' }"> <!-- 판매중 -->
 								    <div class="col">
-								    	현재최고입찰가<br><fmt:formatNumber value="${p.nowBidPrice }" pattern="#,###"/>원
+								    	<span style="font-size:14px;">현재최고입찰가</span><br><fmt:formatNumber value="${p.nowBidPrice }" pattern="#,###"/>원
 								    </div>
 							    	<div class="col">
-								        최고입찰자<br><c:out value="${p.highestBidder.nickName }"/>
+								        <span style="font-size:14px;">최고입찰자</span><br><c:out value="${p.highestBidder.nickName }"/>
 								    </div>
 								    <div class="col">
-								        마감일<br><c:out value="${p.endDate }"/>
+								        <span style="font-size:14px;">마감일</span><br><c:out value="${p.endDate }"/>
 								    </div>
 						        </c:when>
 						        <c:when test="${p.permissionYn eq '1' and p.productStatus eq '1' }"> <!-- 입완 -->
 								    <div class="col">
-								    	판매가<br><fmt:formatNumber value="${p.finalPrice }" pattern="#,###"/>원
+								    	<span style="font-size:14px;">판매가</span><br><fmt:formatNumber value="${p.finalPrice }" pattern="#,###"/>원
 								    </div>
 							    	<div class="col">
-								        구매자<br><c:out value="${p.highestBidder.nickName }"/>
+								        <span style="font-size:14px;">구매자</span><br><c:out value="${p.highestBidder.nickName }"/>
 								    </div>
 								    <div class="col">
-								        구매일<br><c:out value="${p.endDate }"/>
+								        <span style="font-size:14px;">구매일</span><br><c:out value="${p.endDate }"/>
 								    </div>
 						        </c:when>
 						        <c:when test="${p.permissionYn eq '1' and p.productStatus eq '2' }"> <!-- 발완 -->

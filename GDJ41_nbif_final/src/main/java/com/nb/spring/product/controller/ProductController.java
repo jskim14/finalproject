@@ -54,7 +54,7 @@ public class ProductController {
 	@Autowired
 	private MemberService memberService;
 	
-	List<Product> cookieList = new ArrayList<Product>();
+	List<Product> cookieList = new ArrayList<>();
 
 	@RequestMapping("/productDetail")
 	public ModelAndView productDetail(@RequestParam String productNo, HttpSession session, ModelAndView mv,
@@ -64,6 +64,11 @@ public class ProductController {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		Product product = productService.selectOneProductNo(productNo);
+		
+		if(product==null) return msgBuild(mv, "/", "ERROR-제품번호");
+		
+		List<Product> otherList = productService.selectOtherList(product.getSeller().getMemberNo());
+		mv.addObject("otherList",otherList);
 		boolean isGeneral = true;
 		if(product.getBannerImageName()==null||product.getBannerImageName().length()<=0) {
 			//일반 판매 상품 
@@ -759,23 +764,21 @@ public class ProductController {
 				Product p = productService.selectOneProductNo(nums[i]);
 				if(p != null) {
 					cookieList.add(p);
+					List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
+					m.addAttribute("list",todayList);
 				}
 			}
-			List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
-			m.addAttribute("list",todayList);
-		}
+		} 
 		return "/product/todayView";
 	}
 
 	@RequestMapping("/todayDelete") 
-	public String todayDelete(@CookieValue(value = "productNum") Cookie view, HttpServletResponse res, Model m) {
-///		System.out.println("delete"+productNo);
-		
-		view.setMaxAge(0); 
-		res.addCookie(view);
-		
+	public String todayDelete(@CookieValue(value = "productNum", required = false) Cookie view, HttpServletResponse res, Model m) {
+		System.out.println("delete"+view.getValue());
 		List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
 		todayList = null;
+		view.setMaxAge(0); 
+		res.addCookie(view);
 		
 		m.addAttribute("list",todayList);
 		return "/product/todayView";

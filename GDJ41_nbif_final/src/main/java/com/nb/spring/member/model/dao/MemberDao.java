@@ -86,4 +86,7 @@ public interface MemberDao {
 	String pwCheck(SqlSessionTemplate session, String memberNo);
 	int deleteMember(SqlSessionTemplate session, String memberNo);
 	
+	int updateMember(SqlSessionTemplate session, Map<String,String> param);
+
+	List<Member> selectMemberList(SqlSessionTemplate session,Map param);
 }
