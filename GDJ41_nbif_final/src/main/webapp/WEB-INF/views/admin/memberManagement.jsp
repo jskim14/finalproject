@@ -14,13 +14,87 @@
 		</div>
 	</div>
 	<div class="row ">
-		<div class="col d-flex justify-content-end">
-			<select id="rowCount" name="rowCount">
+		<div class="col-11">
+			<form action="" method="get">
+				<div class="row">
+					<div class="col-2">
+						 <select class="form-select" name="selectedCol" id="typeSelect">
+						    <option selected>Choose...</option>
+						    <option value="1">회원번호</option>
+						    <option value="2">이름</option>
+						    <option value="3">전화번호</option>
+						    <option value="4">Email</option>
+						    <option value="5">닉네임</option>
+						    <option value="6">주소</option>
+						    <option value="7">배송주소</option>
+						    <option value="8">가입일</option>
+    					    <option value="9">등급</option>
+						</select>
+					</div>
+					<div class="col-5">
+						<div class="input-group mb-3">	 
+							  <input id="searchWord" type="text" class="form-control" >
+							  <button class="btn btn-outline-secondary" type="submit" id="fixedSearchBtn">검색</button>
+						</div>
+					</div>		
+				</div>
+			</form>
+			
+			
+		</div>
+		<script>
+			$('#typeSelect').change(e=>{
+				const typeValue=$('#typeSelect').val();
+				
+				switch(typeValue){
+					case '1': $('#searchWord').attr({'type':'number'}); break;
+					case '3': $('#searchWord').attr({'type':'tel'}); break;
+					case '4': $('#searchWord').attr({'type':'email'}); break;
+					case '8': $('#searchWord').attr({'type':'date'}); break;
+					default: $('#searchWord').attr({'type':'text'}); 
+				}
+			});
+		</script>
+		<div class="col-1">
+			<select id="rowCount" name="rowCount" class="form-control">
 				<option value="10" selected>10</option>
 				<option value="20">20</option>
 				<option value="50">50</option>
 				<option value="100">100</option>
 			</select>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		
+		<div class="col-7">
+			<form action="" method="get">
+				<div class="row my-1">
+					<div class="col-2">
+						<span>잔고</span>
+					</div>
+					<div class="col-5">
+						<input type="number" class="form-control" placeholder="이상">
+					</div>
+					<div class="col-5">
+						<input type="number" class="form-control" placeholder="이하">
+					</div>
+				</div>
+				<div class="row my-1">
+					<div class="col-2">
+						<span>가입일</span>
+					</div>
+					<div class="col-5">
+						<input type="date" class="form-control">
+					</div>
+					<div class="col-5">
+						<input type="date" class="form-control">
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col mt-1">
+			<button type="submit" class="btn btn-outline-secondary">검색</button>
 		</div>
 	</div>
 	<div class="row">
@@ -36,14 +110,15 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <td>1</td>
-			      <td>Mark</td>
-			      <td>Otto</td>
-			      <td>@mdo</td>
-			      <td>@mdo</td>
-			    </tr>
-			   
+			  	<c:forEach items="${memberList}" var="m">
+				    <tr>
+				      <th scope="row"><c:out value="${m.memberNo }"/></th>
+				      <td><c:out value="${m.email }"/></td>
+				      <td><c:out value="${m.nickName}"/></td>
+				      <td><c:out value="${m.phone }"/></td>
+				      <td><c:out value="${m.enrollDate}"/></td>
+				    </tr>
+			   </c:forEach>
 			  </tbody>
 			</table>
 		</div>
