@@ -33,9 +33,14 @@ section {
 
 
 <section>
-	<h2><strong style="color:royalblue">${sellList.get(0).seller.nickName}</strong>님의 판매 상품</h2>
-	<br>
+	
+	<c:if test="${empty sellList}">
+		<h2>현재 판매 중인 상품이 없습니다.</h2>
+	</c:if> 
+	
 	<c:if test="${not empty sellList }">
+	<h2><strong style="color:royalblue">${sellList.get(0).seller.nickName}</strong> 님의 판매 상품</h2>
+	<br>
 		<div id="goods-div">
 			<c:forEach items="${sellList }" var="sl">
 				<a href="${path }/product/productDetail?productNo=${sl.productNo}">
