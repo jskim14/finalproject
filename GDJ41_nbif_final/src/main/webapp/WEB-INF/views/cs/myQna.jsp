@@ -34,6 +34,12 @@
             		</tr> 
             	</thead>
             	<tbody id="cslist">
+            	<c:if test="${empty myQnaList }">
+            	<tr>
+            		<td colspan="5" style="text-align:center;">문의하신 내역이 없습니다.</td>
+            	</tr>
+            	</c:if>
+            	<c:if test="${not empty myQnaList }">
             	<c:forEach items="${myQnaList }" var="q">
             		<tr>
             			<td style="text-align:center;"><c:out value="${q.qnaNo}"/></td>
@@ -53,7 +59,7 @@
             			</td>
             		</tr>
             	</c:forEach>
-            		
+            		</c:if>
             	</tbody>
             </table>
             
@@ -62,10 +68,6 @@
             </div>
             
         </section>
-        <script>
-        	$("#btn2").addClass("active");
-        	
-        	$("#n")
-        </script>
+        
 
 <jsp:include page="${path }/WEB-INF/views/common/footer.jsp"/>

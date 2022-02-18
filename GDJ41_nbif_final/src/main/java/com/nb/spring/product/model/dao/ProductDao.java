@@ -78,4 +78,6 @@ public interface ProductDao {
 	List<Product> endAuction(SqlSessionTemplate session);
 	
 	int successfulBidUpdate(SqlSessionTemplate session, Product key);
+
+	List<Product> selectOtherList(SqlSessionTemplate session, String memberNo);
 }

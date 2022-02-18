@@ -14,8 +14,13 @@
     border-color:#41B979;
 }
 
+.btnP{
+	background-color: #7f47e9;
+    border-color:#7f47e9;
+}
+
 #totalContainer {
-    padding: 15% 10%;
+    padding: 15% ;
 }
 
 /* 페이지메뉴의 디브사이 */
@@ -28,8 +33,13 @@
     font-size: 30px;
     font-weight: 1000;
     margin-bottom: 5%;
-    display:flext; 
     text-align:center;
+}
+
+.pageTitle2 {
+    font-size: 35px;
+    font-weight: 1000;
+
 }
 
 .subTitle {
@@ -76,6 +86,8 @@
 
 .inputNextSpan {
     margin-left: 1%;
+    margin-top: 0.5%;
+    font-size : 14px;
 }
 
 .timeInput {

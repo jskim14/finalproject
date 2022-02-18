@@ -102,8 +102,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Wallet> emoneyDetail(String memberNo) {
-		List<Wallet> list = dao.emoneyDetail(session, memberNo);
+	public List<Wallet> emoneyDetail(int cPage, int numPerPage, String memberNo) {
+		List<Wallet> list = dao.emoneyDetail(session, cPage, numPerPage, memberNo);
 		return list;
 	}
 
@@ -212,7 +212,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int deleteWish(Map<String,String> param) {
-		System.out.println("service"+param);
 		return dao.deleteWish(session, param);
 	}
 	
@@ -224,6 +223,39 @@ public class MemberServiceImpl implements MemberService {
 			result = dao.insertReceivMessageBoxAction(session, param);
 		}
 		return result;
+	}
+	
+	@Override
+	public List<Map<String,Object>> beforeDelete(String memberNo) {
+		return dao.beforeDelete(session,memberNo);
+	}
+	
+	@Override
+	public String pwCheck(String memberNo) {
+		return dao.pwCheck(session,memberNo);
+	}
+	
+	@Override
+	public int deleteMember(String memberNo) {
+		return dao.deleteMember(session, memberNo);
+	}
+
+	
+	
+	
+	@Override
+	public int updateMember(Map<String, String> param) {
+		return dao.updateMember(session, param);
+	}
+	
+	@Override
+	public List<Member> selectMemberList(Map param) {
+		return dao.selectMemberList(session,param);
+	}
+
+	@Override
+	public int emoneyCount(String memberNo) {
+		return dao.emoneyCount(session,memberNo);
 	}
 	
 }

@@ -46,7 +46,7 @@ public interface MemberDao {
 
 	Member loginMemberKakao(SqlSessionTemplate session, Map param);
 
-	List<Wallet> emoneyDetail(SqlSessionTemplate session, String memberNo);
+	List<Wallet> emoneyDetail(SqlSessionTemplate session, int cPage, int numPerPage, String memberNo);
 
 	List<Wallet> emoneySelectList(SqlSessionTemplate session, Map param);
 	
@@ -84,4 +84,16 @@ public interface MemberDao {
 	int memberBalanceUpdate(SqlSessionTemplate session, Map<String,Object> param);
 	
 	int insertReceivMessageBoxAction(SqlSessionTemplate session, Map<String,Object> param);
+	
+	List<Map<String,Object>> beforeDelete(SqlSessionTemplate session, String memberNo);
+	
+	String pwCheck(SqlSessionTemplate session, String memberNo);
+	
+	int deleteMember(SqlSessionTemplate session, String memberNo);
+	
+	int updateMember(SqlSessionTemplate session, Map<String,String> param);
+
+	List<Member> selectMemberList(SqlSessionTemplate session,Map param);
+	
+	int emoneyCount (SqlSessionTemplate session, String memberNo);
 }

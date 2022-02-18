@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.dao.ProductDao;
 import com.nb.spring.product.model.vo.Product;
 import com.nb.spring.product.model.vo.ProductImage;
@@ -258,10 +259,16 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return result;
 	}
-	
+	@Override
 	public int successfulBidUpdate() {
 		List<Product> list = dao.endAuction(session);
 		String msg = "{\"nickName\":\"" + list.get(0).getHighestBidder().getNickName() + "\"}";
 		return 1;
+	}
+	
+	@Override
+	public List<Product> selectOtherList(String memberNo) {
+		
+		return dao.selectOtherList(session,memberNo);
 	}
 }

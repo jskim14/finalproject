@@ -34,7 +34,7 @@
 	 			물품 신고 관리<br><br>
 	 			<i class="far fa-angry" style="font-size:5rem;"></i>
 	 		</button>
-	 		<button type="button" class="menu-box">
+	 		<button type="button" class="menu-box" onclick="location.assign('${path}/admin/memberManagement');">
 	 			회원관리<br><br>
 	 			<i class="fas fa-users" style="font-size:5rem;"></i>
 	 		</button>

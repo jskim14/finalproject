@@ -231,6 +231,19 @@ public class AdminController {
 		return "admin/adminMain";
 	}
 	
+	@RequestMapping("/memberManagement")
+	public ModelAndView memberManageMent(@RequestParam Map param, ModelAndView mv) {
+		
+		if(!param.containsKey("type")) param.put("type", 1);
+		
+		
+		
+		List<Member> memberList = memberService.selectMemberList(param);
+		
+		mv.addObject("memberList",memberList);
+		mv.setViewName("admin/memberManagement");
+		return mv;
+	}
 	
 	
 }

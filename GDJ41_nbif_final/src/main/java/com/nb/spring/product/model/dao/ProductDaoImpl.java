@@ -208,4 +208,10 @@ public class ProductDaoImpl implements ProductDao {
 	public int successfulBidUpdate(SqlSessionTemplate session, Product key) {
 		return session.update("product.successfulBidUpdate");
 	}
+	
+	@Override
+	public List<Product> selectOtherList(SqlSessionTemplate session, String memberNo) {
+		
+		return session.selectList("product.selectOtherList",memberNo);
+	}
 }

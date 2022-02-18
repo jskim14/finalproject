@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,10 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +31,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nb.spring.common.DealType;
 import com.nb.spring.common.MsgModelView;
+import com.nb.spring.common.PageFactory;
 import com.nb.spring.common.StringHandler;
 import com.nb.spring.common.WalletType;
 import com.nb.spring.member.model.service.MemberService;
@@ -194,7 +197,7 @@ public class MemberController {
 			mv.addObject("buyCnt", zeroList);
 		} else {
 			for(Wallet w : buyList) {
-				if(w.getProductNo().getProductStatus() != null) {
+				if(w.getProductNo().getProductStatus() != null && w.getProductNo().getFinalPrice() != null) {
 					if(w.getProductNo().getProductStatus().equals("0")) {
 						buying++;
 					}
@@ -236,6 +239,15 @@ public class MemberController {
 		log.debug(userEmail);
 		String result="";
 		String code="";
+		Map<String,String> param = Map.of("email", userEmail);
+		Member m = service.selectMemberPhoneEmail(param);
+		
+		if(m!=null) {
+			return Map.of("result","이미 가입된 회원입니다.");
+		}
+		
+		
+		
 		session.removeAttribute("userEmail");
 		try {
 			code = mailService.mailSend(userEmail);			
@@ -461,11 +473,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/emoneyDetail")
-	public ModelAndView emoneyDetail(String memberNo, ModelAndView mv) {		
-		List<Wallet> list = service.emoneyDetail(memberNo);
+	public ModelAndView emoneyDetail(@RequestParam(name = "cPage",defaultValue = "1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="15") int numPerPage, String memberNo, ModelAndView mv) {	
+		
+		int pageBarSize = 5;
+		int totalData = service.emoneyCount(memberNo);
+		List<Wallet> list = service.emoneyDetail(cPage, numPerPage, memberNo);
 		Member m = service.selectMember(memberNo);
+		System.out.println(list);
+		
 		mv.addObject("m",m);
 		mv.addObject("list",list);
+		mv.addObject("numPerPage",numPerPage);
+		mv.addObject("pageBar", PageFactory.getPageBar(totalData, cPage, numPerPage, pageBarSize, "emoneyDetail"));
 		mv.setViewName("login/emoneyDetail");
 		return mv;
 	}
@@ -570,16 +590,27 @@ public class MemberController {
 		
 	}
 	
-	@PostMapping("/emoneySelectList")
-	public String emoneySelectList(String memberNo, @RequestParam(value = "btnCategory", required=false ) 
-	String category, Model m) {
+	@RequestMapping("/emoneySelectList")
+	public String emoneySelectList(HttpSession session, @RequestParam(value = "btnCategory", required=false ) String category,
+			@RequestParam(name = "cPage",defaultValue = "1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="15") int numPerPage, Model m) {
+		Member sessionMem = (Member) session.getAttribute("loginMember");
 		Map param = new HashMap<>();
 		param.put("category", category);
-		param.put("memberNo", memberNo);
+		param.put("memberNo", sessionMem.getMemberNo());
+		param.put("cPage", cPage);
+		param.put("numPerPage", numPerPage);
+		
+		int pageBarSize = 5;
+		int totalData = service.emoneyCount(sessionMem.getMemberNo());
+
 		List<Wallet> list = service.emoneySelectList(param);
-		Member mem = service.selectMember(memberNo);
+		Member mem = service.selectMember(sessionMem.getMemberNo());
+		System.out.println("select : "+category+ mem+ list);
 		m.addAttribute("m",mem);
 		m.addAttribute("list",list);
+		m.addAttribute("numPerPage",numPerPage);
+		m.addAttribute("pageBar", PageFactory.emoneySearch(totalData, cPage, numPerPage, pageBarSize, "emoneySelectList", category));
 		return "login/emoneyDetail";
 	}
 	
@@ -634,5 +665,116 @@ public class MemberController {
 		return mv;
 	}
 	
+	//회원탈퇴화면
+	@RequestMapping("/deleteMemberView")
+	public String deleteMemberView() {
+		return "member/deleteMemberView";
+	}
+	
+	//탈퇴가능 여부
+	@RequestMapping("/beforeDelete")
+	@ResponseBody
+	public void beforeDelete(HttpServletResponse response, String memberNo) throws IOException{
+		List<Map<String,Object>> list=service.beforeDelete(memberNo);
+		int result;
+		if(list.isEmpty()) {
+			result=0;
+		}else {
+			result=1;
+		}
+		System.out.println("result="+result);
+		PrintWriter out=response.getWriter();
+		out.write(result+"");
+	}
+	
+	@RequestMapping(value="/checkPw", method=RequestMethod.POST)
+	@ResponseBody
+	public void pwCheck(HttpServletResponse response, String memberNo, String password) throws Exception{
+		
+		System.out.println("넘어온 데이터"+memberNo+password);
+		
+		String pw = service.pwCheck(memberNo);
+		
+		System.out.println("가져온 비밀번호"+pw);
+		int result;
+		if(pw!=null&&encoder.matches(password, pw)){
+			result= 1;
+		}else {
+			result=0;
+		}
+		PrintWriter out=response.getWriter();
+		out.write(result+"");
+	}
+	
+	@RequestMapping("/deleteMember")
+	public String deleteMember(String memberNo, RedirectAttributes redirectAttr, 
+			SessionStatus sessionSatus) {
+		int result=service.deleteMember(memberNo);
+		if(result>0) {
+			redirectAttr.addFlashAttribute("msg","성공적으로 탈퇴했습니다. SEE YOU!");
+			SecurityContextHolder.clearContext();
+		}
+		return "redirect:/";
+		
+	}
+	
+	
+	@RequestMapping("/updateMyPage")
+	public String updateMyPage(String memberNo, Model m) {
+		Member member = service.selectMember(memberNo);
+		m.addAttribute("m",member);
+		return "login/updateMyPage";
+	}
+	
+	@RequestMapping("/updateMyPageEnd") 
+	public ModelAndView updateMyPageEnd(HttpSession session, @RequestParam Map<String,String> param, ModelAndView mv) {
+		Member m = (Member) session.getAttribute("loginMember");
+		System.out.println(param);
+		String totalAddress = param.get("shipAddress")+" "+param.get("detailAddress");
+		param.put("address", totalAddress);
+		int result = service.updateMember(param); //닉네임으로 찾아서 수정 
+		
+		String msg = "";
+		String loc = "/member/myPage?memberNo="+m.getMemberNo();
+		
+		if(result>0) {
+			msg = "수정이 완료되었습니다.";
+		} else {
+			msg = "실패하였습니다. 관리자에게 문의하세요.";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/updatePassword")
+	public String updatePassword() {
+		return "/login/updatePassword";
+	}
+	
+	@RequestMapping("/updatePasswordEnd")
+	@ResponseBody
+	public Map updatePasswordEnd(HttpSession session, String pw, String newPw) {
+		Member m = (Member) session.getAttribute("loginMember");
+
+		String msg = "";
+		if(encoder.matches(pw,m.getPassword())) { //일치하면
+			newPw = encoder.encode(newPw);
+			Map<String, String> param = new HashMap<>();
+			param.put("newPw", newPw);
+			param.put("memberNo", m.getMemberNo());
+			int result = service.updatePassword(param);
+			if(result>0) {
+				msg = "비밀번호 변경이 완료되었습니다.";
+			} else {
+				msg = "비밀번호 변경에 실패하였습니다. 관리자에 문의하세요.";
+			}
+		} else {
+			msg = "현재비밀번호와 일치하지 않습니다.";
+		}
+		return Map.of("result",msg);
+	}
 	
 }
