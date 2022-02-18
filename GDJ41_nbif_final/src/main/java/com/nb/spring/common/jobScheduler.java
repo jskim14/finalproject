@@ -20,6 +20,8 @@ public class jobScheduler {
 	@Scheduled(fixedDelay = ConstantVal.SCHEDULER_FIXED_DELAY, initialDelay = ConstantVal.SCHEDULER_INITIAL_DELAY)
 	public void secheduleEndDate() {
 		int result = productService.updateStatusFailure();
+		int result2 = productService.successfulBidUpdate();
 		log.debug("기한 만료 상품 갯수 : {}",result);
+		log.debug("낙찰 완료 상품 갯수 : {}",result2);
 	}
 }

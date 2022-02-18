@@ -54,6 +54,8 @@ button.btn-choice {
 			<c:if test="${not empty searchProduct }">
 			<ul style="overflow: hidden;">
 				<c:forEach var="p" items="${searchProduct }">
+				<fmt:parseNumber value="${p.nowBidPrice}" var="nowBidPrice"/>
+				<fmt:parseNumber value="${p.buyNowPrice}" var="buyNowPrice"/>
 					<li style="width: 25%;">
 						<a href="${path }/product/productDetail?productNo=${p.productNo}">
 							<div class="goods-box">
@@ -65,21 +67,29 @@ button.btn-choice {
 								<img src="${path }/resources/images/"
 								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
 								</c:if>
+								<c:if test="${p.productStatus == 0 }">
 								<p>
 									<strong style="font-size: 15px">${p.productName }</strong><br>
-									<c:if test="${p.nowBidPrice != null }">
+									<c:if test="${nowBidPrice != null }">
 									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
 									</c:if>
-									<c:if test="${p.nowBidPrice == null }">
+									<c:if test="${nowBidPrice == null }">
 									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
 									</c:if>
-									<c:if test="${p.buyNowPrice != null }">
+									<c:if test="${buyNowPrice != null && nowBidPrice<buyNowPrice }">
 									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
 									</c:if>
-									<c:if test="${p.buyNowPrice == null }">
+									<c:if test="${buyNowPrice == null ||  nowBidPrice>buyNowPrice}">
 									즉시구매불가<br>
 									</c:if>
 									판매자&nbsp;<strong>${p.seller.nickName }</strong>
+								</p>
+								</c:if>
+								<c:if test="${p.productStatus != 0 }">
+								<p>
+									판매 완료 상품
+								</p>
+								</c:if>
 							</div>
 						</a>
 					</li>
