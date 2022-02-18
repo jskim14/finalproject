@@ -229,9 +229,6 @@ public class ProductController {
 	@RequestMapping("/endProductAction")
 	@ResponseBody
 	public String endProductAction(String nickName, int price, String productNo, HttpServletResponse res) throws IOException {
-		System.out.println("nickName : " + nickName);
-		System.out.println("price : " + price);
-		System.out.println("productNo : " + productNo);
 		String msg = "";
 		Member m = memberService.findMember(nickName);
 		Map<String,Object> param = Map.of("memberNo",m.getMemberNo(),"price",price,"productNo",productNo);
@@ -239,7 +236,10 @@ public class ProductController {
 		if(resultWal>0) {
 			int resultPro = productService.endSellRealTimeAction(param);
 			if(resultPro>0) {
-				msg = "경매종료!";
+				int result = memberService.memberBalanceUpdate(param);
+				if(result>0) {
+					msg = "실시간 경매가 종료되었습니다!";					
+				}
 			}
 		}else {
 			

@@ -20,11 +20,21 @@ public class MessageBox extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println(message);
 		Iterator<String> keys = clients.keySet().iterator();
 		while(keys.hasNext()) {
 			String key = keys.next();
 			WebSocketSession ss = clients.get(key);
 			ss.sendMessage(message);
+		}
+	}
+	
+	public void actionMessage(String msg) throws Exception{
+		Iterator<String> keys = clients.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			WebSocketSession ss = clients.get(key);
+			ss.sendMessage(new TextMessage(msg));
 		}
 	}
 

@@ -70,9 +70,11 @@
 					success : data => {
 						if(data) {
 							alert("쪽지를 성공적으로 보냈습니다.");
+							opener.send($("#receiver").val());
+							location.replace("${path}/member/messagebox?memberNo=${loginMember.memberNo}&msgbox=send");
+						}else {
+							alert("쪽지 전송 실패");
 						}
-						opener.send($("#receiver").val());
-						location.replace("${path}/member/messagebox?memberNo=${loginMember.memberNo}&msgbox=send");
 					}
 				});
 			}else if($("#receiver").val()=="") {

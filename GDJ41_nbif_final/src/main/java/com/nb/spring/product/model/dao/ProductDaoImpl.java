@@ -188,4 +188,24 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Product> searchProductCount(SqlSessionTemplate session, String keyword) {
 		return session.selectList("product.searchProductCount", keyword);
 	}
+	
+	@Override
+	public List<Product> selectSpecialProductList(SqlSessionTemplate session) {
+		return session.selectList("product.selectSpecialProductList");
+	}
+	
+	@Override
+	public List<Product> selectListHighPrice(SqlSessionTemplate session) {
+		return session.selectList("product.selectListHighPrice");
+	}
+	
+	@Override
+	public List<Product> endAuction(SqlSessionTemplate session) {
+		return session.selectList("product.endAuction");
+	}
+	
+	@Override
+	public int successfulBidUpdate(SqlSessionTemplate session, Product key) {
+		return session.update("product.successfulBidUpdate");
+	}
 }

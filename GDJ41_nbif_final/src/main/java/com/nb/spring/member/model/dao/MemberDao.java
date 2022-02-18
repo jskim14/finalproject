@@ -80,4 +80,8 @@ public interface MemberDao {
 	List<WishList> myWishList(SqlSessionTemplate session,String memberNo);
 	
 	int deleteWish(SqlSessionTemplate session, Map<String,String> param);
+	
+	int memberBalanceUpdate(SqlSessionTemplate session, Map<String,Object> param);
+	
+	int insertReceivMessageBoxAction(SqlSessionTemplate session, Map<String,Object> param);
 }

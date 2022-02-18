@@ -198,5 +198,15 @@ public class MemberDaoImpl implements MemberDao {
 	public int deleteWish(SqlSessionTemplate session, Map<String,String> param) {
 		return session.delete("member.deleteWish", param);
 	}
+	
+	@Override
+	public int memberBalanceUpdate(SqlSessionTemplate session, Map<String,Object> param) {
+		return session.update("member.memberBalanceUpdate", param);
+	}
+	
+	@Override
+	public int insertReceivMessageBoxAction(SqlSessionTemplate session, Map<String,Object> param) {
+		return session.insert("member.insertReceivMessageBoxAction", param);
+	}
 
 }

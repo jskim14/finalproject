@@ -1,9 +1,10 @@
 if(loginMember!="") {
 	const socket = new WebSocket("ws://localhost:9090/ws/messagebox");
 	socket.onmessage = message => {
+		console.log(message.data);
 		let msgbox = JSON.parse(message.data);
 		if(msgbox["nickName"]==nickName) {
-			alert("쪽지도착!");
+			$("#msgBoxBtn").click();
 		}
 	}
 	function send(nickName) {

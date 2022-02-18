@@ -17,7 +17,7 @@ public class RealTimeActionServer extends TextWebSocketHandler {
 
 	private Map<String,WebSocketSession> clients = new HashMap<String,WebSocketSession>();
 	private List<String> msgList = new ArrayList<String>();
-	private String time = "{\"min\":1,\"sec\":40}";
+	private String time = "{\"min\":1,\"sec\":11}";
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {

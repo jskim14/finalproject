@@ -76,4 +76,5 @@ public interface MemberService {
 	
 	int deleteWish(Map<String,String> param);
 	
+	int memberBalanceUpdate(Map<String,Object> param);
 }

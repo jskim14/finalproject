@@ -216,4 +216,14 @@ public class MemberServiceImpl implements MemberService {
 		return dao.deleteWish(session, param);
 	}
 	
+	@Override
+	public int memberBalanceUpdate(Map<String,Object> param) {
+		int result = 0;
+		result = dao.memberBalanceUpdate(session, param);
+		if(result>0) {
+			result = dao.insertReceivMessageBoxAction(session, param);
+		}
+		return result;
+	}
+	
 }
