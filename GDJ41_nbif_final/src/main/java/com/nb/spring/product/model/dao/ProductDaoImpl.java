@@ -214,4 +214,9 @@ public class ProductDaoImpl implements ProductDao {
 		
 		return session.selectList("product.selectOtherList",memberNo);
 	}
+	
+	@Override
+	public int updateendAuction(SqlSessionTemplate session, String productNo) {
+		return session.update("product.updateendAuction", productNo);
+	}
 }

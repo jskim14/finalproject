@@ -262,8 +262,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int successfulBidUpdate() {
 		List<Product> list = dao.endAuction(session);
-		String msg = "{\"nickName\":\"" + list.get(0).getHighestBidder().getNickName() + "\"}";
-		return 1;
+		int result = 0;
+		for(Product p : list) {
+			if(p.getProductStatus().equals("0")) {
+				result += dao.updateendAuction(session,p.getProductNo());
+			}
+		}
+		return result;
 	}
 	
 	@Override
