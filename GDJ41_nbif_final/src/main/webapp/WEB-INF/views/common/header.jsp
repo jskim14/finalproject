@@ -130,29 +130,28 @@
                     <h5><img src="${path}/resources/images/png.png" width="20px" height="20px"><span id="time">0000. 00. 00. 00: 00: 00</span></h5>
 
                     <ul>
-                    		<c:if test="${loginMember != null }">
-                    		<li>
-                    			<a href="javascript:msgBox(${loginMember.memberNo });">쪽지함</a>
-                    		</li>
-                    		</c:if>
                      		<li>
 	                            <a href="${path }/cs/noticeList">고객센터</a>
 	                        </li>
-                    	<c:if test="${admin==null or admin==false}">
-
-	                       
-	                       	<c:if test="${loginMember == null }">
-	                        <li>
-	                            <a href="${path}/member/enrollMember">회원가입</a>
-	                        </li>
-	                        </c:if>
-                            <c:if test="${loginMember != null }">
-                            <li>
-	                            <a href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지
-	                            ${loginMember.memberName }</a>
-	                         </li>
-                            </c:if>
-						 </c:if>
+                    		<c:if test="${admin==null or admin==false}">
+		                       	<c:if test="${loginMember == null }">
+		                        <li>
+		                            <a href="${path}/member/enrollMember">회원가입</a>
+		                        </li>
+		                        </c:if>
+	                            <c:if test="${loginMember != null }">
+	                            <li>
+		                            <div class="btn-group" role="group">
+	    								<span style="vertical-align: middle; font-size: 15px; color: white; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false"><c:out value="${loginMember.memberName }"/>님 ▼</span>
+									    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="width:100px;">
+										    <li><a class="dropdown-item" href="javascript:msgBox(${loginMember.memberNo });">쪽지함</a><i class="fas fa-bell"></i></li>
+										    <li><a class="dropdown-item" href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a></li>
+										    <li><a class="dropdown-item" onclick="kakaoLogout()" href="${path}/member/logout">로그아웃</a></li>
+									    </ul>
+									</div>
+		                         </li>
+	                            </c:if>
+						 	</c:if>
 							<c:if test="${admin!=null and admin==true }">
 								<!--관리자 메뉴  -->
 								<li><a href="${path }/admin/adminMain">관리자메뉴</a></li>
@@ -162,14 +161,6 @@
 	                            <a href="${path}/member/login">로그인</a>
 	                        </li>
                         	</c:if>
-	                        <c:if test="${loginMember != null}">
-	                        <li>
-	                        	<style>
-	                        		#first-header>ul {left:72%;}
-	                        	</style>
-		                            <a onclick="kakaoLogout()" href="${path}/member/logout">로그아웃</a>
-	                        </li>
-	                        </c:if>
                     </ul>
                 </div>
                 
