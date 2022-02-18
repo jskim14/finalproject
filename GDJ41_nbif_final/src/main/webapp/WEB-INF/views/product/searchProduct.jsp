@@ -37,7 +37,9 @@ button.btn-choice {
 	background-color: #7CBBE8;
 	color: white;
 }
-
+.goods-box p {
+	height: 108px;
+}
 </style>
 <section style="padding-bottom: 5%;">
 	<div style="height: 140px;"></div>
@@ -70,6 +72,7 @@ button.btn-choice {
 								<c:if test="${p.productStatus == 0 }">
 								<p>
 									<strong style="font-size: 15px">${p.productName }</strong><br>
+									판매자&nbsp;<strong>${p.seller.nickName }</strong><br>
 									<c:if test="${nowBidPrice != null }">
 									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
 									</c:if>
@@ -82,12 +85,13 @@ button.btn-choice {
 									<c:if test="${buyNowPrice == null ||  nowBidPrice>buyNowPrice}">
 									즉시구매불가<br>
 									</c:if>
-									판매자&nbsp;<strong>${p.seller.nickName }</strong>
 								</p>
 								</c:if>
 								<c:if test="${p.productStatus != 0 }">
 								<p>
-									판매 완료 상품
+									<strong style="font-size: 15px">${p.productName }</strong><br>
+									<span style="margin-top: 10px;">판매자&nbsp;<strong>${p.seller.nickName }</strong></span><br>
+									<span style="padding-bottom: 30px;">판매 완료 상품</span><br><br>
 								</p>
 								</c:if>
 							</div>
@@ -95,6 +99,9 @@ button.btn-choice {
 					</li>
 				</c:forEach>
 			</ul>
+			</c:if>
+			<c:if test="${empty searchProduct }">
+			<h3 style="text-align: center; padding-top:100px;">검색 결과가 없습니다.</h3>
 			</c:if>
 	</div>
 	</div>

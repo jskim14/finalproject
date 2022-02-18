@@ -198,8 +198,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Product> searchProductCount(String keyword) {
-		return dao.searchProductCount(session, keyword);
+	public List<Product> searchProductCount(Map<String,Object> param) {
+		return dao.searchProductCount(session, param);
 	}
 	
 	@Override

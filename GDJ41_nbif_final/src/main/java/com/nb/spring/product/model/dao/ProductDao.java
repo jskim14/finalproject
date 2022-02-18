@@ -65,7 +65,7 @@ public interface ProductDao {
 	
 	List<ProductImage> searchProductImg(SqlSessionTemplate session, String productNo);
 	
-	List<Product> searchProductCount(SqlSessionTemplate session, String keyword);
+	List<Product> searchProductCount(SqlSessionTemplate session, Map<String,Object> param);
 
 	int updateStatusFailure(SqlSessionTemplate session);
 

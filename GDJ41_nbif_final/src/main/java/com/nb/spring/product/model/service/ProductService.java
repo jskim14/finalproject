@@ -55,7 +55,7 @@ public interface ProductService {
 
 	List<Product> searchProduct(Map<String,Object> param);
 	
-	List<Product> searchProductCount(String keyword);
+	List<Product> searchProductCount(Map<String,Object> param);
 
 	int updateStatusFailure();
 
