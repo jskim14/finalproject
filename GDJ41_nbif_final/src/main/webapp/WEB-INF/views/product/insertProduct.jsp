@@ -12,9 +12,23 @@
   
 <section>
     <div id="totalContainer">
-        <div class="pageTitle">
-            <span>판매입찰등록</span>
-        </div> 
+    	<h2 style="text-align:center;">판매입찰등록</h2><hr>
+        <div class="card-body">
+                    	<div style="text-align: center">
+	                        물품을 등록하여 경매에 판매할 수 있습니다.
+	                        등록 전, 아래 주의사항을 꼭 확인하여 주세요. <br><br>
+	                        <span style="color:red; font-weight: bold;text-align: center">
+	                        - 주의사항 -</span><br>
+                        </div>
+                        <div>
+                        	<ol style="display:table; margin-left:auto;margin-right:auto;">
+                        		<li>경매기간은 최대 14일까지 가능하며 재경매는 1회 가능합니다.</li>
+                        		<li>물품등록이 요청된 후 관리자의 승인 후에 게시되며 관리자 승인 전 수정이 가능합니다.</li>
+                        		<li>물품등록시 직거래를 유도하는 문구나 개인정보는 게시할 수 없습니다.</li>
+                        		<li>부정확한 정보로 인하여 구매자의 신고를 받을 시에 제제를 받을 수 있습니다.</li>
+                        	</ol>
+                        </div>
+                    </div>
         <div class="pageMenu">
             <form action="${path }/product/insertProductEnd" method="post" enctype="multipart/form-data">
             <!-- 판매자 -->
@@ -57,7 +71,7 @@
                                  style="width: 250px; display:inline; margin-left: 1%" disabled>
                                  <input type="hidden" name="nowBidPrice"> -->
                                 <div class="onlyNumber" style="display: inline; padding: 1%"> </div>
-                                <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
+                                <div class="inputNextSpan" style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +83,7 @@
                                 <input type="text" id="minBidPrice" class="form-control inputBox" 
                                 placeholder="" style="width: 250px; display:inline;" required>
                                 <input type="hidden" name="minBidPrice">
-                                <div id="autionStartInfo" style="display: inline; padding: 1%"> *입찰시작가가 즉시구매가보다 높습니다. </div>
+                                <div id="autionStartInfo" class="inputNextSpan" style="display: inline; padding: 1%"> *입찰시작가는 즉시구매가보다 높을 수 없습니다. </div>
                             </div>
                         </div>
                         <div class="subMenu">
@@ -88,8 +102,8 @@
                                 </select>
                                 <input type="text" id="inputTyping3" class="form-control inputBox" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
                                 <input type="hidden" name="unit" id="inputUnit">
-                                <div id="autionUnitInfo" style="display: inline; padding: 1%"> 
-                                	*입찰단위가 입찰시작가보다 높습니다. 
+                                <div id="autionUnitInfo" class="inputNextSpan" style="display: inline; padding: 1%"> 
+                                	*입찰단위는 입찰시작가보다 클 수 없습니다.
                                	</div>
                             </div>
                         </div>
@@ -187,6 +201,7 @@
             	$("#inputTyping1").attr("disabled",false);
                 $("#inputTyping1").focus();
              }else {
+            	$("#inputTyping1").val("");
                 $("#inputTyping1").attr("disabled",true); 
                 $("#inputTyping1").next().html("");
             } 
@@ -201,14 +216,15 @@
             } 
         }); */
         
-        function unitSelect() {
-            if($("#priceUnit").val()=="typing") {
-                $("#inputTyping3").attr("disabled",false);
-                $("#inputTyping3").focus();
-            } else {
-                $("#inputTyping3").attr("disabled",true);
-            }
-        }
+         function unitSelect() {
+	       	 if($("#priceUnit").val()=="typing") {
+	             $("#inputTyping3").attr("disabled",false);
+	             $("#inputTyping3").focus();
+	         } else {
+	             $("#inputTyping3").attr("disabled",true);
+	             $("#inputTyping3").val("");
+	         }
+        } 
         
  
         
@@ -239,29 +255,43 @@
 				var temp = $(e.target).val().stringNumberToInt();
 				$(e.target).val(temp.format());
 				var temp1 = $(e.target).val().stringNumberToInt();
-				$(e.target).next().val(temp1); //hidden
+				$(e.target).next().val(temp1); //hidden에 넣어주는것
     			$(e.target).next().next().html(""); 
-				console.log($("input[name=flexRadioDefault1]").val());
+				//console.log($("input[name=flexRadioDefault1]").val());
     		}
         })  
       
         /* 입찰시작가, 즉시구매가 값 비교 */
         
-        $("#inputTyping1,#inputTyping3").change(e=>{
-        	if($("#inputTyping1").val() != "") {
-        		console.log($("input[name=minBidPrice]").val());
-        		console.log($("input[name=buyNowPrice]").val());
-        		if($("input[name=minBidPrice]").val() > $("input[name=buyNowPrice]").val()) {
-        			
-		        	alert("adf");
+        $("#inputTyping1, #minBidPrice").change(e=>{
+        	var minBid = Number($("input[name=minBidPrice]").val());
+        	var buyNow = Number($("input[name=buyNowPrice]").val());
+        	if(minBid != "" && buyNow !="") {
+        		if( minBid > buyNow ) {
+		        	$("#autionStartInfo").css('color','red').html('입찰시작가가 즉시구매가보다 높습니다.');
+		        } else {
+		        	$("#autionStartInfo").html("");
 		        }
         	}
-        })
+        });
         
         /* 입찰시작가, 입찰단위 값 비교 */
+        
+/*          $("#inputTyping3, #minBidPrice").change(e=>{
 
+	        	var minBid = Number($("input[name=minBidPrice]").val());
+	        	var unit = Number($("#inputUnit").val());
+	        	if(minBid != "" && unit !="") {
+	        		if( minBid < unit ) {
+			        	$("#autionUnitInfo").css('color','red').html('입찰단위가 입찰시작가보다 높습니다.');
+			        } else {
+			        	$("#autionUnitInfo").html("");
+			        }
+	        	}
+        }); */
         
 
+        /**/
         $("#currentDate").val(new Date().toISOString().substring(0, 10));
                     
         $(function(){

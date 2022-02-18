@@ -100,8 +100,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Wallet> emoneyDetail(SqlSessionTemplate session, String memberNo) {
-		return session.selectList("member.emoneyDetail", memberNo);
+	public List<Wallet> emoneyDetail(SqlSessionTemplate session, int cPage, int numPerPage, String memberNo) {
+		return session.selectList("member.emoneyDetail", memberNo, new RowBounds((cPage-1)*numPerPage,numPerPage));
 	}
 
 	@Override
@@ -113,7 +113,9 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<Wallet> emoneySelectList(SqlSessionTemplate session, Map param) {
-		return session.selectList("member.emoneySelectList", param);
+		int cPage = (int)param.get("cPage");
+		int numPerPage = (int)param.get("numPerPage");
+		return session.selectList("member.emoneySelectList",param, new RowBounds((cPage-1)*numPerPage,numPerPage));
 	}
 
 	
@@ -199,9 +201,35 @@ public class MemberDaoImpl implements MemberDao {
 		return session.delete("member.deleteWish", param);
 	}
 
+	
+	@Override
+	public List<Map<String,Object>> beforeDelete(SqlSessionTemplate session, String memberNo) {
+		return session.selectList("member.beforeDelete",memberNo);
+	}
+
+	@Override
+	public String pwCheck(SqlSessionTemplate session, String memberNo) {
+		return session.selectOne("member.pwCheck", memberNo);
+	}
+
+	@Override
+	public int deleteMember(SqlSessionTemplate session, String memberNo) {
+		return session.delete("member.deleteMember", memberNo);
+	}
+	
+	@Override
+	public int updateMember(SqlSessionTemplate session, Map<String, String> param) {
+		return session.update("member.updateMember", param);
+	}
+
 	@Override
 	public List<Member> selectMemberList(SqlSessionTemplate session, Map param) {
 		return session.selectList("member.selectMemberList",param);
+	}
+
+	@Override
+	public int emoneyCount(SqlSessionTemplate session, String memberNo) {
+		return session.selectOne("member.emoneyCount", memberNo);
 	}
 
 }

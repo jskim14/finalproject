@@ -54,7 +54,7 @@ public class ProductController {
 	@Autowired
 	private MemberService memberService;
 	
-	List<Product> cookieList = new ArrayList<Product>();
+	List<Product> cookieList = new ArrayList<>();
 
 	@RequestMapping("/productDetail")
 	public ModelAndView productDetail(@RequestParam String productNo, HttpSession session, ModelAndView mv,
@@ -764,23 +764,21 @@ public class ProductController {
 				Product p = productService.selectOneProductNo(nums[i]);
 				if(p != null) {
 					cookieList.add(p);
+					List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
+					m.addAttribute("list",todayList);
 				}
 			}
-			List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
-			m.addAttribute("list",todayList);
-		}
+		} 
 		return "/product/todayView";
 	}
 
 	@RequestMapping("/todayDelete") 
-	public String todayDelete(@CookieValue(value = "productNum") Cookie view, HttpServletResponse res, Model m) {
-///		System.out.println("delete"+productNo);
-		
-		view.setMaxAge(0); 
-		res.addCookie(view);
-		
+	public String todayDelete(@CookieValue(value = "productNum", required = false) Cookie view, HttpServletResponse res, Model m) {
+		System.out.println("delete"+view.getValue());
 		List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
 		todayList = null;
+		view.setMaxAge(0); 
+		res.addCookie(view);
 		
 		m.addAttribute("list",todayList);
 		return "/product/todayView";
