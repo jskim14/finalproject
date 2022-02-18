@@ -11,7 +11,7 @@
 <body>
 <script>
 	alert("${msg}");
-	location.assign("${path}${loc}");
+	location.replace("${path}${loc}");
 </script>
 </body>
 </html>

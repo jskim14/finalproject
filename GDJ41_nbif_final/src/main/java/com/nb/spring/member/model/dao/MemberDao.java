@@ -81,9 +81,14 @@ public interface MemberDao {
 	
 	int deleteWish(SqlSessionTemplate session, Map<String,String> param);
 	
+	int memberBalanceUpdate(SqlSessionTemplate session, Map<String,Object> param);
+	
+	int insertReceivMessageBoxAction(SqlSessionTemplate session, Map<String,Object> param);
 	
 	List<Map<String,Object>> beforeDelete(SqlSessionTemplate session, String memberNo);
+	
 	String pwCheck(SqlSessionTemplate session, String memberNo);
+	
 	int deleteMember(SqlSessionTemplate session, String memberNo);
 	
 	int updateMember(SqlSessionTemplate session, Map<String,String> param);

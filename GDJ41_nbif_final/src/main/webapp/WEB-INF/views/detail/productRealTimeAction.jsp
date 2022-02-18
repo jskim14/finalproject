@@ -141,7 +141,7 @@
 	    background-color: rgba(0,0,0,0);
 	}
 </style>
-<body>
+<body oncontextmenu="return false">
 	<div id="container">
 		<header>
 		<h2>
@@ -205,11 +205,27 @@ function endProductAction (nickName,price) {
 		url : "${path}/product/endProductAction",
 		data : {"nickName":nickName,"price":price,"productNo":"${productOne.productNo}"},
 		success : data => {
-			alert(data);
-			window.close();
+			$("#inputPrice").attr("readonly","readonly");
+			$("#sendBtn").off("click");
+			alert(data + "5초후 창이 꺼집니다.");
+			setTimeout(()=> {
+				opener.send(nickName);
+				window.close();
+	        },5000);
 		}
 	});
 }
+function noEvent() {
+    if (event.keyCode == 116) {
+        event.keyCode= 2;
+        return false;
+    }
+    else if(event.ctrlKey && (event.keyCode==78 || event.keyCode == 82))
+    {
+        return false;
+    }
+}
+document.onkeydown = noEvent;
 </script>
 <script src="${path }/resources/js/realtimeaction.js"></script>
 </body>

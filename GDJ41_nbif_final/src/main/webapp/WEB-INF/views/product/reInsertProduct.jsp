@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
@@ -345,4 +345,4 @@
     
 </section>
 
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

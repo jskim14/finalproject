@@ -43,9 +43,10 @@ public class MainController {
 		Product specialProduct = service.selectOneSpecialProduct();
 		
 		mv.addObject("specialProduct", specialProduct);
-		
+		mv.addObject("specialProductList", service.selectSpecialProductList());
 		mv.addObject("deadLine", service.selectListDeadLine(startNum, finishNum));
 		mv.addObject("latest", service.selectListLatest(startNum, finishNum));
+		mv.addObject("highPrice",service.selectListHighPrice(startNum, finishNum));
 		mv.setViewName("index");
 		return mv;
 	}
@@ -88,6 +89,13 @@ public class MainController {
 		new Gson().toJson(list, res.getWriter());
 	}
 	
+	@RequestMapping("/addHighPirce")
+	public void addHighPirce(int startNum, int finishNum, HttpServletResponse res) throws IOException {
+		List<Product> list = service.selectListHighPrice(startNum,finishNum);
+		res.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list, res.getWriter());
+	}
+	
 	@RequestMapping("/productSearch")
 	public ModelAndView searchProduct(ModelAndView mv, String keyword,
 			@RequestParam(value="cPage", defaultValue="1") int cPage
@@ -115,7 +123,6 @@ public class MainController {
 			@RequestParam(value = "msgbox", defaultValue = "receiv")String msgbox,
 			@RequestParam(value = "cPage", defaultValue = "1") int cPage
 			,@RequestParam(value = "numPerPage", defaultValue = "10") int numPerPage) {
-		System.out.println(cPage);
 		int pageBarSize = 5;
 		List<MessageBox> list = new ArrayList<MessageBox>();
 		int totalData = 0;
@@ -193,6 +200,13 @@ public class MainController {
 			if(result>0) flag = true;
 		}
 		return flag;
+	}
+	@RequestMapping("/btnBtn")
+	@ResponseBody
+	public String btnBtn() {
+		String str = "gd";
+		int result = service.successfulBidUpdate();
+		return str;
 	}
 }
 

@@ -52,7 +52,7 @@
 	</div>
 	<div id="list-con">
 		<h4>DeadLine imminent</h4>
-		<h6>마감임박상품</h6>
+		<h6>마감임박 상품</h6>
 		<div>
 			<c:if test="${not empty deadLine }">
 			<ul style="overflow: hidden;">
@@ -76,12 +76,19 @@
 									<c:if test="${p.nowBidPrice == null }">
 									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
 									</c:if>
-									<c:if test="${p.buyNowPrice != null }">
-									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
-									</c:if>
-									<c:if test="${p.buyNowPrice == null }">
-									즉시구매불가<br>
-									</c:if>
+									<fmt:parseNumber value="${p.nowBidPrice}" var="nowBidPrice"/>
+									<fmt:parseNumber value="${p.buyNowPrice}" var="buyNowPrice"/>
+									<c:choose>
+										<c:when test="${nowBidPrice<buyNowPrice }" >
+											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+										</c:when>
+										<c:when test="${nowBidPrice>=buyNowPrice }">
+											즉시구매불가가<br>
+										</c:when>
+										<c:otherwise>
+											즉시구매불가<br>
+										</c:otherwise>
+									</c:choose>
 									판매자&nbsp;<strong>${p.seller.nickName }</strong>
 							</div>
 						</a>
@@ -95,7 +102,7 @@
 			</c:if>
 		</div>
 		<h4>Latest sale</h4>
-		<h6>최신판매상품</h6>
+		<h6>최신 판매 상품</h6>
 		<div>
 			<c:if test="${not empty latest }">
 			<ul style="overflow: hidden;">
@@ -119,12 +126,19 @@
 									<c:if test="${p.nowBidPrice == null }">
 									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
 									</c:if>
-									<c:if test="${p.buyNowPrice != null }">
-									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
-									</c:if>
-									<c:if test="${p.buyNowPrice == null }">
-									즉시구매불가<br>
-									</c:if>
+									<fmt:parseNumber value="${p.nowBidPrice}" var="nowBidPrice"/>
+									<fmt:parseNumber value="${p.buyNowPrice}" var="buyNowPrice"/>
+									<c:choose>
+										<c:when test="${nowBidPrice<buyNowPrice }" >
+											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+										</c:when>
+										<c:when test="${nowBidPrice>=buyNowPrice }">
+											즉시구매불가가<br>
+										</c:when>
+										<c:otherwise>
+											즉시구매불가<br>
+										</c:otherwise>
+									</c:choose>
 									판매자&nbsp;<strong>${p.seller.nickName }</strong>
 							</div>
 						</a>
@@ -137,63 +151,50 @@
 			<h3 style="text-align: center; padding: 20px 20px;">최신 판매 등록된 상품이 없습니다.</h3>
 			</c:if>
 		</div>
-		<h4>DeadLine imminent</h4>
-		<h6>마감임박상품</h6>
+		<h4>Highprice Product</h4>
+		<h6>최고가 입찰 상품</h6>
 		<div>
 		<ul>
-			<li><a href="">
-					<div class="goods-box">
-						<img
-							src="https://image.msscdn.net/images/goods_img/20190723/1100781/1100781_1_500.jpg"
-							width="250" height="200" style="margin-bottom: 12px;">
-						<p>
-							<strong style="font-size: 20px;">레고하우스 심슨</strong><br>
-							현재입찰가&nbsp <span class="price1">280,000</span> 원<br>
-							즉시구매가&nbsp <span class="price2">420,000</span> 원<br>
-							판매자&nbsp <strong>sunny724</strong>
-						</p>
-					</div>
-			</a></li>
-			<li><a href="">
-					<div class="goods-box">
-						<img
-							src="https://image.msscdn.net/images/goods_img/20190723/1100781/1100781_1_500.jpg"
-							width="250" height="200" style="margin-bottom: 12px;">
-						<p>
-							<strong style="font-size: 20px;">레고하우스 심슨</strong><br>
-							현재입찰가&nbsp <span class="price1">280,000</span> 원<br>
-							즉시구매가&nbsp <span class="price2">420,000</span> 원<br>
-							판매자&nbsp <strong>sunny724</strong>
-						</p>
-					</div>
-			</a></li>
-			<li><a href="">
-					<div class="goods-box">
-						<img
-							src="https://image.msscdn.net/images/goods_img/20190723/1100781/1100781_1_500.jpg"
-							width="250" height="200" style="margin-bottom: 12px;">
-						<p>
-							<strong style="font-size: 20px;">레고하우스 심슨</strong><br>
-							현재입찰가&nbsp <span class="price1">280,000</span> 원<br>
-							즉시구매가&nbsp <span class="price2">420,000</span> 원<br>
-							판매자&nbsp <strong>sunny724</strong>
-						</p>
-					</div>
-			</a></li>
-			<li><a href="">
-					<div class="goods-box">
-						<img
-							src="https://image.msscdn.net/images/goods_img/20190723/1100781/1100781_1_500.jpg"
-							width="250" height="200" style="margin-bottom: 12px;">
-						<p>
-							<strong style="font-size: 20px;">레고하우스 심슨</strong><br>
-							현재입찰가&nbsp <span class="price1">280,000</span> 원<br>
-							즉시구매가&nbsp <span class="price2">420,000</span> 원<br>
-							판매자&nbsp <strong>sunny724</strong>
-						</p>
-					</div>
-			</a></li>
+			<c:forEach var="p" items="${highPrice }">
+					<li style="width: 25%;">
+						<a href="${path }/product/productDetail?productNo=${p.productNo}">
+							<div class="goods-box">
+								<c:if test="${not empty p.images}">
+								<img src="${path }/resources/upload/product/${p.images.get(0).imageName}"
+								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								</c:if>
+								<c:if test="${empty p.images}">
+								<img src="${path }/resources/images/"
+								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								</c:if>
+								<p>
+									<strong style="font-size: 15px">${p.productName }</strong><br>
+									<c:if test="${p.nowBidPrice != null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									</c:if>
+									<c:if test="${p.nowBidPrice == null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									</c:if>
+									<fmt:parseNumber value="${p.nowBidPrice}" var="nowBidPrice"/>
+									<fmt:parseNumber value="${p.buyNowPrice}" var="buyNowPrice"/>
+									<c:choose>
+										<c:when test="${nowBidPrice<buyNowPrice }" >
+											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+										</c:when>
+										<c:when test="${nowBidPrice>=buyNowPrice }">
+											즉시구매불가가<br>
+										</c:when>
+										<c:otherwise>
+											즉시구매불가<br>
+										</c:otherwise>
+									</c:choose>
+									판매자&nbsp;<strong>${p.seller.nickName }</strong>
+							</div>
+						</a>
+					</li>
+				</c:forEach>
 		</ul>
+		<button id="highPirceBtn" style="margin-bottom: 80px;">더보기</button>
 		</div>
 	</div>
 	<button onclick="">실험실</button>
@@ -214,8 +215,17 @@
 			</div>
 		</div>
 	</div>
+	<button id="btnBtn">실험버튼</button>
 </section>
 <script>
+	$("#btnBtn").click(e=> {
+		$.ajax({
+			url : "${path}/btnBtn",
+			success : data => {
+				
+			}
+		});
+	});
   	const websocket=()=> {
   		open("${path }/product/realtimeaction?productNo=LF100222147","_blank","width=1100, height=700, left=150");
   	}
@@ -268,6 +278,30 @@
   			}
   		});
   	});
+  	let highPirceStartNum = 4;
+  	let highPirceFinishNum = 7;
+  	$("#highPirceBtn").click(e=> {
+  		let div = $(e.target).parent();
+  		if(div.children("ul").length>=2) {
+  			highPirceStartNum = highPirceStartNum + 4;
+  			highPirceFinishNum = highPirceFinishNum + 4;
+  		}
+  		$.ajax({
+  			url : "${path}/addHighPirce",
+  			dataType : "json",
+  			data : {"startNum" : highPirceStartNum , "finishNum" : highPirceFinishNum},
+  			success : data => {
+  				if(data!=null) {
+  					addList(data,$(e.target));
+  				}else {
+  					$(e.target).remove();
+  				}
+  				if(data.length<4) {
+						$(e.target).remove();
+				}
+  			}
+  		});
+  	});
   	function numberFormat (num) {
   		    if(num==0) return 0;
   		 
@@ -291,7 +325,7 @@
 				let img = $("<img>");
 				let imgSrc;
 				if(pro["images"].length!=0) {
-					imgSrc = "${path}/resources/images/" + pro["images"][0]["imageName"];
+					imgSrc = "${path }/resources/upload/product/" + pro["images"][0]["imageName"];
 				}else {
 					imgSrc = "${path}/resources/images/";
 				}
@@ -317,10 +351,15 @@
 				let span2 = $("<span>");
 				span2.attr("class","price2");
 				if(pro["buyNowPrice"]!=null) {
-					span2.append(numberFormat(pro["buyNowPrice"]));
-					p.append("즉시구매가 &nbsp;");
-					p.append(span2);
-					p.append("<br>");
+					if(Number(pro["buyNowPrice"])<Number(pro["nowBidPrice"])) {
+						p.append("즉시구매불가");
+						p.append("<br>");
+					}else {
+						span2.append(numberFormat(pro["buyNowPrice"]));
+						p.append("즉시구매가 &nbsp;");
+						p.append(span2);
+						p.append("<br>");
+					}
 				}else {
 					p.append("즉시구매불가");
 					p.append("<br>");

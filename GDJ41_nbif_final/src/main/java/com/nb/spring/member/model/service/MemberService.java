@@ -76,10 +76,13 @@ public interface MemberService {
 	
 	int deleteWish(Map<String,String> param);
 	
+	int memberBalanceUpdate(Map<String,Object> param);
 	
 	List<Map<String,Object>> beforeDelete(String memberNo);
 	String pwCheck(String memberNo);
+	
 	int deleteMember(String memberNo);
+	
 	int updateMember(Map<String,String> param);
 
 	List<Member> selectMemberList(Map param);

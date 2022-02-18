@@ -234,7 +234,38 @@ public class ProductServiceImpl implements ProductService {
 		
 		return dao.selectOneSpecialProduct(session);
 	}
-
+	
+	@Override
+	public List<Product> selectSpecialProductList() {
+		return dao.selectSpecialProductList(session);
+	}
+	
+	@Override
+	public List<Product> selectListHighPrice(int startNum, int finishNum) {
+		List<Product> result = new ArrayList<Product>();
+		List<Product> list = dao.selectListHighPrice(session);
+		if(list.size()>finishNum) {
+			for(int i=startNum; i<=finishNum; i++) {
+				Product p = list.get(i);
+				result.add(p);
+			}
+		}else if(list.size()<=startNum){
+			result = null;
+		}else {
+			for(int i=startNum; i<list.size(); i++) {
+				Product p = list.get(i);
+				result.add(p);
+			}
+		}
+		return result;
+	}
+	@Override
+	public int successfulBidUpdate() {
+		List<Product> list = dao.endAuction(session);
+		String msg = "{\"nickName\":\"" + list.get(0).getHighestBidder().getNickName() + "\"}";
+		return 1;
+	}
+	
 	@Override
 	public List<Product> selectOtherList(String memberNo) {
 		

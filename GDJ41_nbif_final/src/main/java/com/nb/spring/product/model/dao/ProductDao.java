@@ -70,6 +70,14 @@ public interface ProductDao {
 	int updateStatusFailure(SqlSessionTemplate session);
 
 	Product selectOneSpecialProduct(SqlSessionTemplate session);
+	
+	List<Product> selectSpecialProductList(SqlSessionTemplate session);
+	
+	List<Product> selectListHighPrice(SqlSessionTemplate session);
+	
+	List<Product> endAuction(SqlSessionTemplate session);
+	
+	int successfulBidUpdate(SqlSessionTemplate session, Product key);
 
 	List<Product> selectOtherList(SqlSessionTemplate session, String memberNo);
 }

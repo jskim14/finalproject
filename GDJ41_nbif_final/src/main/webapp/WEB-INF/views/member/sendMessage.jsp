@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="${path }/resources/css/msgbox.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<title>NBIF 쪽찌함</title>
+<title>NBIF 쪽지함</title>
 </head>
 <body style="margin:0;">
 	<div id="btn-contaier">
@@ -70,9 +70,11 @@
 					success : data => {
 						if(data) {
 							alert("쪽지를 성공적으로 보냈습니다.");
+							opener.send($("#receiver").val());
+							location.replace("${path}/member/messagebox?memberNo=${loginMember.memberNo}&msgbox=send");
+						}else {
+							alert("쪽지 전송 실패");
 						}
-						opener.send($("#receiver").val());
-						location.replace("${path}/member/messagebox?memberNo=${loginMember.memberNo}&msgbox=send");
 					}
 				});
 			}else if($("#receiver").val()=="") {

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="${path}/resources/css/productDetail.css">
     <link rel="stylesheet" href="${path}/resources/css/inputStyle.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="${path}/resources/css/index.css">
+    <link rel="stylesheet" href="${path }/resources/css/index.css">
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
 	 // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -104,6 +104,25 @@
     <title>Document</title>
 </head>
 <body>
+	<div class="modal fade" id="msgModal" tabindex="-1"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">쪽지가 도착하였습니다.</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body container-fluid">바로 확인하시겠습니까?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-green" style="width:74px; color: #fff; background-color: #41B979; border-color: #41B979;"
+					onclick="msgBoxBtn(${loginMember.memberNo});" >예</button>
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">아니오</button>
+			</div>
+		</div>
+	</div>
+</div>
     <div id="container">
         <header>
             <div id="header-container">
@@ -113,7 +132,7 @@
                     <ul>
                     		<c:if test="${loginMember != null }">
                     		<li>
-                    			<a href="javascript:msgBox(${loginMember.memberNo });">쪽찌함</a>
+                    			<a href="javascript:msgBox(${loginMember.memberNo });">쪽지함</a>
                     		</li>
                     		</c:if>
                      		<li>
@@ -180,4 +199,12 @@
             	}
             </script>
             <script src="${path }/resources/js/messageBox.js"></script>
+            <button type="button" class="btn btn-purple" id="msgBoxBtn"
+									data-bs-toggle="modal" data-bs-target="#msgModal"
+									style="display: none;"></button>
+			<script>
+				const msgBoxBtn=(memberNo)=> {
+					msgBox(memberNo);
+				}
+			</script>
         </header>

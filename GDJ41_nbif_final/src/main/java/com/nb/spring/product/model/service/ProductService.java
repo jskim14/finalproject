@@ -60,6 +60,12 @@ public interface ProductService {
 	int updateStatusFailure();
 
 	Product selectOneSpecialProduct();
+	
+	List<Product> selectSpecialProductList();
+	
+	List<Product> selectListHighPrice(int startNum, int finishNum);
+	
+	int successfulBidUpdate();
 
 	List<Product> selectOtherList(String memberNo);
 }

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <style>
     section{
        padding:180px 10%;
@@ -151,4 +151,4 @@
 		let chargeWindow = window.open(location.origin+'/member/charge','_blank','width=400,height=500');
 	}
 </script>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

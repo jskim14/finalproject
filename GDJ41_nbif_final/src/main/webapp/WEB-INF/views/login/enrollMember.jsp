@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section  style="padding: 200px 10%;">
     <div class="container-fluid">
       <form action="${path}/member/enrollMemberMain" onsubmit="checkForm()" method="post">
@@ -333,4 +333,4 @@
 
 
 </script>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

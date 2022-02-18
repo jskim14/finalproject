@@ -197,7 +197,7 @@ footer {
 .price2{
     color:#41B979; font-weight:bolder; font-size:20px;
 }
-#deadLineBtn,#latestBtn {
+#deadLineBtn,#latestBtn,#highPirceBtn {
 	text-align: center; 
 	margin:auto; 
 	display: block;
@@ -209,7 +209,7 @@ footer {
 	font-weight: bold;
 	border-radius: 10px;
 }
-#deadLineBtn:hover,#latestBtn:hover {
+#deadLineBtn:hover,#latestBtn:hover,#highPirceBtn:hover {
 	background-color: black;
 	color:white;
 }
