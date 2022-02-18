@@ -351,7 +351,7 @@
 						</div> -->
 						<div class="row">
 							<c:choose>
-								<c:when test="${product.buyNowPrice!=null and product.nowBidPrice==null?true:product.nowBidPrice<product.buyNowPrice}">
+								<c:when test="${product.buyNowPrice!=null and product.nowBidPrice==null?true:Integer.parseInt(product.nowBidPrice)<Integer.parseInt(product.buyNowPrice)}">
 									<div class="col-7">
 										<div
 											style="border: 2px solid #41B979; border-radius: 10px; display: flex; justify-content: flex-end;">

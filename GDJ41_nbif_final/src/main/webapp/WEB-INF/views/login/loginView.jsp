@@ -72,13 +72,8 @@
 			<div class="row">
 				<div class="col-3"></div>
 				<div class="col-6">
-					<div class="row">
-						<div class="col-4">
-							<button type="button" class="btn btn-secondary w-100" style="background:#03C75A; border:none;font-size:13px;">
-								<img src="${path }/resources/images/naver.png" style="width:30px;height:30px;padding:0;">
-								네이버 로그인
-							</button>
-						</div>
+					<div class="row d-flex justify-content-center">
+						
 						<div class="col-4">
 
 							<button onclick="kakaoLogin()" type="button" class="btn btn-secondary w-100" style="height: 42px; background:#FEE500; font-size:13px;border:none;color:#624A3D;">
@@ -87,10 +82,7 @@
 							</button>
 
 						</div>
-						<div class="col-4">
-							<button type="button" class="btn btn-secondary w-100" style="background:#3366CC; border:none; font-size:13px;">
-							<img src="${path }/resources/images/google.png" style="width:30px;height:30px;padding:0;">Google 로그인</button>
-						</div>
+						
 					</div>
 				</div>
 				<div class="col-3"></div>
