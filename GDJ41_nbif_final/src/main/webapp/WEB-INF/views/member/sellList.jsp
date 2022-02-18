@@ -20,19 +20,20 @@ section {
 
 .goods-box {
 	width: 270px;
-	height: 350px;
-	border: lightsteelblue solid 1px;
-	border-radius: 10px;
+	height: 370px;
+	border-radius: 20px;
 	padding: 10px;
 	margin-bottom: 30px;
-	/* margin-right: 5px; */
-	margin-left: 0.5%;
+	margin-right: 15px;
+	box-shadow:0px 0px 10px 1px lightgray;
+	color:black;
+	/* margin-left: 0.5%; */
 }
 </style>
 
 
 <section>
-	<h2><strong style="color:skyblue">${sellList.get(0).seller.nickName}</strong>님의 판매 상품</h2>
+	<h2><strong style="color:royalblue">${sellList.get(0).seller.nickName}</strong>님의 판매 상품</h2>
 	<br>
 	<c:if test="${not empty sellList }">
 		<div id="goods-div">
@@ -50,7 +51,7 @@ section {
 								style="margin-bottom: 12px; border-radius: 20px;">
 						</c:if>
 						<p>
-							<strong style="font-size: 15px">${sl.productName }</strong><br>
+							<strong style="font-size: 18px">${sl.productName }</strong><br>
 							<c:if test="${p.nowBidPrice != null }">
 									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber
 										value="${sl.nowBidPrice }" />원</span>

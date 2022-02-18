@@ -8,7 +8,7 @@
 <style>
     section{
        padding:180px 10%;
-       min-height:800px;
+       min-height:600px;
     }
     #memberinfo{padding:30px; width:48%; height:130px; border-radius:20px; box-shadow:0px 0px 10px 2px lightgray;}
     #emoney-box{padding:30px; width:48%; height:130px; border-radius:20px; box-shadow:0px 0px 10px 2px lightgray;}
