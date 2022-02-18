@@ -127,11 +127,14 @@
         <header>
             <div id="header-container">
                 <div id="first-header">
-                    <h5><img src="${path}/resources/images/png.png" width="20px" height="20px"><span id="time">0000. 00. 00. 00: 00: 00</span></h5>
+                    <h5><img src="${path}/resources/images/png.png" width="13px" height="13px"><span id="time" style="font-size:12px;">0000. 00. 00. 00: 00: 00</span></h5>
 
                     <ul>
                      		<li>
 	                            <a href="${path }/cs/noticeList">고객센터</a>
+	                        </li>
+	                        <li>
+	                        	<i class="far fa-bell" style="color:white;margin-top:5px;]"></i><a href="javascript:msgBox(${loginMember.memberNo });">쪽지</a>
 	                        </li>
                     		<c:if test="${admin==null or admin==false}">
 		                       	<c:if test="${loginMember == null }">
@@ -144,7 +147,6 @@
 		                            <div class="btn-group" role="group">
 	    								<span style="vertical-align: middle; font-size: 15px; color: white; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false"><c:out value="${loginMember.memberName }"/>님 ▼</span>
 									    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="width:100px;">
-										    <li><a class="dropdown-item" href="javascript:msgBox(${loginMember.memberNo });">쪽지함</a><i class="fas fa-bell"></i></li>
 										    <li><a class="dropdown-item" href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a></li>
 										    <li><a class="dropdown-item" onclick="kakaoLogout()" href="${path}/member/logout">로그아웃</a></li>
 									    </ul>
