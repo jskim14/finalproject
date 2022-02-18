@@ -661,6 +661,7 @@ public class MemberController {
 		List<Product> sellList=service.sellList(memberNo);
 		
 		mv.addObject("sellList",sellList);
+		mv.addObject("seller",memberNo);
 		mv.setViewName("member/sellList");
 		return mv;
 	}
