@@ -196,6 +196,7 @@
         </div>
     </div>
     <script>
+
         $("input[name=flexRadioDefault1]").change(e=>{ //즉시구매여부
             if($(e.target).val()=='Y') {
             	$("#inputTyping1").attr("disabled",false);
@@ -238,7 +239,6 @@
     		if (numPattern != null) {
     			$(e.target).val("");
     			$(e.target).next().next().html("숫자만 입력이 가능합니다.").css("color","red");
-    			return false;
     		} else { //숫자만 입력했을때
 //    			let comma = $(e.target).val().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 //    			$(e.target).val(comma);
@@ -283,6 +283,7 @@
 
         /**/
         $("#currentDate").val(new Date().toISOString().substring(0, 10));
+        
                     
         $(function(){
             $("#maxDate").datepicker({
@@ -292,11 +293,15 @@
                 });
             })
             
-        $("#test123").click(e=>{
-            alert($("#maxDate").val());
+        $("#maxDate").blur(e=>{
+        	if($("#maxDate").val() != "" && ($("#maxDate").val() < $("#currentDate").val()) ){
+        		alert(" 경매종료일이 시작일보다 이전입니다. \n 날짜를 확인하세요.");
+        		$("#maxDate").val("");
+        		$("#maxDate").focus();
+        	}
         })
+            
         
-
         ClassicEditor
             .create( document.querySelector( '#classic' ))
             .catch( error => {
@@ -319,6 +324,7 @@
                 target2 = document.getElementById('showFiles');
                 target2.innerHTML = ("등록된 이미지 : ")+fileList;
             });
+            
         }
 
         

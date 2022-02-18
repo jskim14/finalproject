@@ -306,6 +306,14 @@
                 maxDate: +14
                 });
             })
+            
+ 		$("#maxDate").blur(e=>{
+        	if($("#maxDate").val() != "" && ($("#maxDate").val() < $("#currentDate").val()) ){
+        		alert(" 경매종료일이 시작일보다 이전입니다. \n 날짜를 확인하세요.");
+        		$("#maxDate").val("");
+        		$("#maxDate").focus();
+        	}
+        })
 
         ClassicEditor
             .create( document.querySelector( '#classic' ))

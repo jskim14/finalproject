@@ -21,7 +21,7 @@
 		<hr>
 		<form action="${path}/admin/specialProductEnrollEnd" method="post" enctype="multipart/form-data">
 			<div class="row ">
-				<div class="col-12 d-flex justify-content-center">
+				<div class="col-12 d-flex justify-content-center" style="padding-bottom: 3%">
 					<span style="font-size:30px">경매설정</span>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			
-			<div class="row m-1">
+			<div class="row m-1" style="padding-bottom: 3%">
 				<div class="col-2">입찰단위</div>
 				<div class="col-3">
 					<select id="bidUnit" class="form-select" name="bidUnit" required>
@@ -69,7 +69,7 @@
 			<hr>
 			
 			<div class="row m-1">
-				<div class="col-12 d-flex justify-content-center">
+				<div class="col-12 d-flex justify-content-center" style="padding-bottom: 3%">
 					<span style="font-size:30px">물품정보</span>
 				</div>
 				
@@ -126,7 +126,7 @@
 			
 			<hr>
 			
-			<div class="row m-1">
+			<div class="row m-1" style="padding-bottom: 3%">
 				<div class="col-2">
 					<span>상품 이미지</span>
 				</div>
@@ -141,11 +141,19 @@
 			</div>
 			<div class="row justify-content-center mt-3">
 				<div class="col-10">
-					<button type="submit" class=" w-100 btn btn-primary">등록</button>
+					<button type="submit" class=" w-100 btn btn-primary btnColor">등록</button>
 				</div>
 			</div>
 		</form>
 	</div>
 </section>
+<style>
+        .ck.ck-editor {
+            max-width: 100%;
+        }
+        .ck-editor__editable {
+            min-height: 300px;
+        }
+</style>
 <script src="${path }/resources/js/specialProductEnroll.js"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
