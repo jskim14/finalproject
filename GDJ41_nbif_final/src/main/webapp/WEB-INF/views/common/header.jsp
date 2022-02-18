@@ -133,9 +133,7 @@
                      		<li>
 	                            <a href="${path }/cs/noticeList">고객센터</a>
 	                        </li>
-	                        <li>
-	                        	<i class="far fa-bell" style="color:white;margin-top:5px;]"></i><a href="javascript:msgBox(${loginMember.memberNo });">쪽지</a>
-	                        </li>
+	                        
                     		<c:if test="${admin==null or admin==false}">
 		                       	<c:if test="${loginMember == null }">
 		                        <li>
@@ -144,14 +142,28 @@
 		                        </c:if>
 	                            <c:if test="${loginMember != null }">
 	                            <li>
+	                        		<a href="javascript:msgBox(${loginMember.memberNo });"><i class="far fa-bell" style="color:white;margin-top:5px;font-size:1.2rem;}"></i></a>
+	                        	</li>
+	                        	<%-- <li>
 		                            <div class="btn-group" role="group">
 	    								<span style="vertical-align: middle; font-size: 15px; color: white; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false"><c:out value="${loginMember.memberName }"/>님 ▼</span>
-									    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="width:100px;">
+									    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="width:30px;">
 										    <li><a class="dropdown-item" href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a></li>
 										    <li><a class="dropdown-item" onclick="kakaoLogout()" href="${path}/member/logout">로그아웃</a></li>
 									    </ul>
 									</div>
-		                         </li>
+		                         </li> --%>
+		                         <!--트라이 -->
+		                         <li>
+		                         <div id="newdropdown">
+		                   			<div id="after-login"><c:out value="${loginMember.memberName }"/> 님 ▼</div>
+								  <div class="newdropdown-content">
+									<a class="newdropdown-item" href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a>
+									<a class="newdropdown-item" href="${path}/member/logout">로그아웃</a>  
+								  </div>
+								</div>
+								</li>
+								<!--  -->
 	                            </c:if>
 						 	</c:if>
 							<c:if test="${admin!=null and admin==true }">
