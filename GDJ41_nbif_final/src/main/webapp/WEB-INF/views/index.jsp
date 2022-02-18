@@ -197,20 +197,19 @@
 		<button id="highPirceBtn" style="margin-bottom: 80px;">더보기</button>
 		</div>
 	</div>
-	<button onclick="">실험실</button>
 	<button onclick="websocket();">버튼</button>
 	<div style="padding-left: 6.7%; background-color: #FFD481;">
 		<div id="banner-con">
 			<div>
-				<a href=""><img src="${path}/resources/images/banner1.png"
+				<a href="${path }/cs/noticeList"><img src="${path}/resources/images/banner1.png"
 					alt="" width="230px" height="100%"></a>
 			</div>
 			<div>
-				<a href=""><img src="${path}/resources/images/banner2.png"
+				<a href="${path }/member/sellerrank"><img src="${path}/resources/images/banner2.png"
 					alt="" width="230px" height="100%"></a>
 			</div>
 			<div>
-				<a href=""><img src="${path}/resources/images/banner3.png"
+				<a href="javascript: goInsert();"><img src="${path}/resources/images/banner3.png"
 					alt="" width="230px" height="100%"></a>
 			</div>
 		</div>
@@ -218,6 +217,15 @@
 	<button id="btnBtn">실험버튼</button>
 </section>
 <script>
+	function goInsert() {
+		if(${loginMember == null}) {
+			alert(' 물품등록 페이지입니다. \n 이 페이지는 로그인 후 이용이 가능합니다.');
+			location.assign('${path}/member/login');
+		} else {
+			location.assign('${path}/product/insertProduct');
+		}
+	}
+
 	$("#btnBtn").click(e=> {
 		$.ajax({
 			url : "${path}/btnBtn",

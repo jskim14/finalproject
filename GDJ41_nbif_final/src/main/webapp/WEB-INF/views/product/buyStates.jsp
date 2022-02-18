@@ -158,7 +158,7 @@
 						        	<c:when test="${p.productNo.productStatus eq '1' and p.productNo.finalPrice eq p.amount }">
 							            <span style="font-size: 18px;float: left; color: gray;">배송대기</span>
 						        	</c:when>
-						        	<c:when test="${(p.productNo.productStatus eq '2' or p.productNo.productStatus eq '3') and p.productNo.highestBidder.memberNo eq loginMember.memberNo }">
+						        	<c:when test="${(p.productNo.productStatus eq '2' or p.productNo.productStatus eq '3') and p.productNo.finalPrice eq p.amount }">
 						            	<button type="button" class="btn btn-secondary btnColor" style="float: left; margin-right: 1%;" 
 						            	data-bs-toggle="modal" data-bs-target="#buyEnd">
 						            	구매확정 </button> 

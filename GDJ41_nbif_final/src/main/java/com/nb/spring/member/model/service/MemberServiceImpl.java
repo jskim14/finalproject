@@ -257,5 +257,10 @@ public class MemberServiceImpl implements MemberService {
 	public int emoneyCount(String memberNo) {
 		return dao.emoneyCount(session,memberNo);
 	}
+
+	@Override
+	public int emoneySelectCount(Map param) {
+		return dao.emoneySelectCount(session,param);
+	}
 	
 }

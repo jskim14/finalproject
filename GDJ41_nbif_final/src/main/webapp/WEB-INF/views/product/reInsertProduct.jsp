@@ -38,8 +38,9 @@
                                 <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="Y"> 
                                     설정
                                 </label> 
-                                <input type="text" id="inputTyping1" class="form-control inputBox" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
+                                <input type="text" id="inputTyping1" class="form-control inputBox" placeholder="즉시구매가를 입력해주세요" 
                                  style="width: 250px; display:inline; margin-left: 1%" disabled required>
+                                 <input type="hidden" name="buyNowPrice">
                                 <div class="onlyNumber" style="display: inline; padding: 1%"></div>
                             </c:if>
                             <c:if test="${not empty p.buyNowPrice}">
@@ -49,8 +50,9 @@
                                 <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="Y" checked> 
                                     설정
                                 </label> 
-                                <input type="text" id="inputTyping1" class="form-control inputBox" name="buyNowPrice" placeholder="즉시구매가를 입력해주세요" 
+                                <input type="text" id="inputTyping1" class="form-control inputBox" placeholder="즉시구매가를 입력해주세요" 
                                  style="width: 250px; display:inline; margin-left: 1%" value="${p.buyNowPrice }" required>
+                                 <input type="hidden" name="buyNowPrice">
                                 <div class="onlyNumber" style="display: inline; padding: 1%"></div>
                             </c:if> 
                             </div>
@@ -67,7 +69,7 @@
                                 <label><input class="form-check-input" type="radio" name="extendYn" id="flexRadioDefault2" value="Y"> 
                                     설정
                                 </label>
-                                <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
+                                <div class="inputNextSpan" style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
                             </c:if>
                             <c:if test="${p.extendYn eq 'Y' }">
@@ -77,7 +79,7 @@
                                 <label><input class="form-check-input" type="radio" name="extendYn" id="flexRadioDefault2" value="Y" checked> 
                                     설정
                                 </label>
-                                <div style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
+                                <div class="inputNextSpan" style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
                             </c:if>
                             </div>
@@ -87,9 +89,10 @@
                                 <span class="subMenuTitle">입찰 시작가</span> <!-- minBidPrice -->
                             </div>
                             <div class="titleRight">
-                                <input type="text" id="minBidPrice" class="form-control inputBox" name="minBidPrice" 
+                                <input type="text" id="minBidPrice" class="form-control inputBox" 
                                 placeholder="" style="width: 250px; display:inline;" value="${p.minBidPrice }" required>
-                                <div id="autionStartInfo" style="display: inline; padding: 1%"> *입찰시작가가 즉시구매가보다 높습니다. </div>
+                                <input type="hidden" name="minBidPrice">
+                                <div id="autionStartInfo" class="inputNextSpan" style="display: inline; padding: 1%"> *입찰시작가는 즉시구매가보다 높을 수 없습니다. </div>
                             </div>
                         </div>
                         <div class="subMenu">
@@ -106,9 +109,10 @@
                                     <option value="100000">100,000원</option>
                                     <option value="typing">직접입력</option>
                                 </select>
-                                <input type="text" id="inputTyping3" class="form-control inputBox" name="unit" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
-                                <div id="autionUnitInfo" style="display: inline; padding: 1%"> 
-                                	*입찰단위가 입찰시작가보다 높습니다. 
+                                <input type="text" id="inputTyping3" class="form-control inputBox" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
+                                <input type="hidden" name="unit" id="inputUnit">
+                                <div id="autionUnitInfo" class="inputNextSpan" style="display: inline; padding: 1%"> 
+                                	*입찰단위는 입찰시작가보다 클 수 없습니다.
                                	</div>
                             </div>
                         </div>
@@ -206,15 +210,6 @@
             $("#inputTyping1").next().html("");
         } 
     });
-/*         $("input[name=extendYn]").change(e=>{
-            if($(e.target).val()=='Y') {
-            	$("#inputTyping2").attr("disabled",false);
-                $("#inputTyping2").focus();            		 
-
-             }else {
-                $("#inputTyping2").attr("disabled",true); 
-            } 
-        }); */
         
         $(()=>{
         	$("#priceUnit").val("${p.bidUnit}");
@@ -227,10 +222,19 @@
                 $("#inputTyping3").focus();
             } else {
                 $("#inputTyping3").attr("disabled",true);
-                $("#inputTyping3").val("");
             }
         }
         
+        function unitSelect() {
+	       	 if($("#priceUnit").val()=="typing") {
+	             $("#inputTyping3").attr("disabled",false);
+	             $("#inputTyping3").focus();
+	         } else {
+	             $("#inputTyping3").attr("disabled",true);
+	             $("#inputTyping3").val("");
+	         }
+       } 
+		
         Number.prototype.format = function(){
 		    if(this==0) return 0;
 		    var reg = /(^[+-]?\d+)(\d{3})/;
@@ -245,7 +249,7 @@
 		   return parseInt(strNum.replace(/,/g,'')); 
 		};
 		
-          $(".inputBox").change(e=>{
+		$(".inputBox").change(e=>{
     		var numPattern = /([^0-9])/;
     		numPattern = $(e.target).val().match(numPattern);
     		if (numPattern != null) {
@@ -258,43 +262,41 @@
 				var temp = $(e.target).val().stringNumberToInt();
 				$(e.target).val(temp.format());
 				var temp1 = $(e.target).val().stringNumberToInt();
-				$(e.target).next().val(temp1); //hidden
+				$(e.target).next().val(temp1); //hidden에 넣어주는것
     			$(e.target).next().next().html(""); 
-				console.log($("input[name=flexRadioDefault1]").val());
+				//console.log($("input[name=flexRadioDefault1]").val());
     		}
         })  
-        
+      
         /* 입찰시작가, 즉시구매가 값 비교 */
         
-
-        $("#inputTyping3, #inputTyping1").change(e=>{
-        	if($("#inputTyping1").val() != "") {
-        		if($("input[name=minBidPrice]").val() > $("input[name=buyNowPrice]").val()) {
+        $("#inputTyping1, #minBidPrice").change(e=>{
+        	var minBid = Number($("input[name=minBidPrice]").val());
+        	var buyNow = Number($("input[name=buyNowPrice]").val());
+        	if(minBid != "" && buyNow !="") {
+        		if( minBid > buyNow ) {
 		        	$("#autionStartInfo").css('color','red').html('입찰시작가가 즉시구매가보다 높습니다.');
 		        } else {
 		        	$("#autionStartInfo").html("");
 		        }
         	}
-        	
         });
-
         
         /* 입찰시작가, 입찰단위 값 비교 */
-
         
+          $("#inputTyping3, #minBidPrice").change(e=>{
 
-/*          $("#inputTyping1").change(e=>{
-    		var numPattern = /([^0-9])/;
-    		numPattern = $(e.target).val().match(numPattern);
-    		if (numPattern != null) {
-    			$("#inputTyping1").val("");
-    			$(e.target).next().html("숫자만 입력이 가능합니다.").css("color","red");
-    			return false;
-    		} else {
-    			$(e.target).next().html("");
-    		}
-        }) 
- */
+	        	var minBid = Number($("input[name=minBidPrice]").val());
+	        	var unit = Number($("#inputUnit").val());
+	        	if(minBid != "" && unit !="") {
+	        		if( minBid < unit ) {
+			        	$("#autionUnitInfo").css('color','red').html('입찰단위가 입찰시작가보다 높습니다.');
+			        } else {
+			        	$("#autionUnitInfo").html("");
+			        }
+	        	}
+        }); 
+
         $("#currentDate").val(new Date().toISOString().substring(0, 10));
                     
         $(function(){

@@ -602,7 +602,7 @@ public class MemberController {
 		param.put("numPerPage", numPerPage);
 		
 		int pageBarSize = 5;
-		int totalData = service.emoneyCount(sessionMem.getMemberNo());
+		int totalData = service.emoneySelectCount(param);
 
 		List<Wallet> list = service.emoneySelectList(param);
 		Member mem = service.selectMember(sessionMem.getMemberNo());
