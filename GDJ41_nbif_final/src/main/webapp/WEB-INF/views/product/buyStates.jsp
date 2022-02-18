@@ -130,10 +130,10 @@
 						        		<strong><span style="font-size: 18px;float: left; color: #ef6253;">구매대기</span></strong>
 						        	</c:when>
 						        	<c:when test="${(p.productNo.productStatus eq '3' or p.productNo.productStatus eq '4' or p.productNo.productStatus eq '5') 
-						        	and p.productNo.finalPrice eq p.amount }">
+						        	and p.productNo.finalPrice eq p.amount }"> <!-- 내가입찰 -->
 						        		<strong><span style="font-size: 18px;float: left; color: #ef6253;">종료</span></strong>
 						        	</c:when>
-						        	<c:when test="${p.productNo.productStatus ne '0' and p.productNo.finalPrice ne p.amount}">
+						        	<c:when test="${p.productNo.productStatus ne '0' and p.productNo.finalPrice ne p.amount}"> <!-- 실패 -->
 						        		<strong><span style="font-size: 18px;float: left; color: #ef6253;">종료</span></strong>
 						        	</c:when>
 						        </c:choose>
@@ -182,7 +182,7 @@
 										    </div>
 										  </div>
 										</div>
-						            	<button type="button" class="btn btn-secondary btnColor" data-bs-toggle="modal"data-bs-target="#staticBackdrop" style="float: left;">
+						            	<button type="button" class="btn btn-secondary btnP" data-bs-toggle="modal"data-bs-target="#staticBackdrop" style="float: left;">
 						            	신고(환불신청) </button>
 						            	<!-- 모달창 -->
 										<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
@@ -280,6 +280,12 @@
 								        <a href="#" class="aColor" style="color: gray;">문의사항 바로가기</a>
 								    </div>
 						        </c:when>
+						        <c:when test="${(p.productNo.productStatus eq '3' or p.productNo.productStatus eq '4' or p.productNo.productStatus eq '5') 
+						        	and p.productNo.finalPrice eq p.amount }"> <!-- 내가입찰 -->
+					        		<div class="col">
+								    	낙찰에 실패하였습니다. 
+								    </div>
+					        	</c:when>
 						        <c:when test="${p.productNo.productStatus ne '0' and p.productNo.finalPrice ne p.amount }">
 								    <div class="col">
 								    	낙찰에 실패하였습니다. 
