@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
+	page="/WEB-INF/views/common/header.jsp" />
 <section style="padding: 200px 10%;">
 <style>
 .pick{
@@ -458,4 +458,4 @@
 
 <script src="${path }/resources/js/productDetail.js"></script>
 <jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
+	page="/WEB-INF/views/common/footer.jsp" />
