@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
 <c:if test="${cookie.flexCheckDefault.value != null }">
 	<c:set value="checked" var="check" />
 	<c:set value="${cookie.flexCheckDefault.value }" var="saveEmail" />
@@ -118,4 +118,4 @@
 	
 </script>
 
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />

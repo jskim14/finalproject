@@ -12,11 +12,20 @@
 	<artifactId>GDJ41_nbif_final</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GDJ41_nbif_final</name>
+	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+
+		<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-tomcat</artifactId>
+		<scope>provided</scope>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -158,5 +167,4 @@
 		</plugins>
 	</build>
 	
-	<packaging>war</packaging>
 </project>
