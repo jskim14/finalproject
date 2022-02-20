@@ -44,7 +44,7 @@
 									height=20px;>
 							</c:when>
 							<c:when test="${myPageMember.rank eq 'GOLD' }">
-								<img src="${path }/resources/images/rank/rank1.png" width=20px;
+								<img src="${path }/resources/images/rank/rank3.png" width=20px;
 									height=20px;>
 							</c:when>
 							<c:when test="${myPageMember.rank eq 'SILVER' }">
@@ -52,7 +52,7 @@
 									height=20px;>
 							</c:when>
 							<c:when test="${myPageMember.rank eq 'BRONZE' }">
-								<img src="${path }/resources/images/rank/rank3.png" width=20px;
+								<img src="${path }/resources/images/rank/rank1.png" width=20px;
 									height=20px;>
 							</c:when>
 						</c:choose> <c:out value="${myPageMember.rank }" /> 입니다.
