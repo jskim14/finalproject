@@ -142,7 +142,7 @@
 		                        </c:if>
 	                            <c:if test="${loginMember != null }">
 	                            <li>
-	                        		<a href="javascript:msgBox(${loginMember.memberNo });"><i class="far fa-bell" style="color:white;margin-top:5px;font-size:1.2rem;}"></i></a>
+	                        		<a href="javascript:msgBox(${loginMember.memberNo });"><i class="far fa-envelope" style="color:white;margin-top:5px;font-size:1.2rem;}">&nbsp;<span style="font-size:1rem;">쪽지함</span></i></a>
 	                        	</li>
 	                        	<%-- <li>
 		                            <div class="btn-group" role="group">
