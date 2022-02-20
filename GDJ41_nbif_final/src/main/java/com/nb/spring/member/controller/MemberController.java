@@ -691,12 +691,8 @@ public class MemberController {
 	@RequestMapping(value="/checkPw", method=RequestMethod.POST)
 	@ResponseBody
 	public void pwCheck(HttpServletResponse response, String memberNo, String password) throws Exception{
-		
-		System.out.println("넘어온 데이터"+memberNo+password);
-		
 		String pw = service.pwCheck(memberNo);
 		
-		System.out.println("가져온 비밀번호"+pw);
 		int result;
 		if(pw!=null&&encoder.matches(password, pw)){
 			result= 1;
@@ -708,15 +704,18 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/deleteMember")
-	public String deleteMember(String memberNo, RedirectAttributes redirectAttr, 
-			SessionStatus sessionSatus) {
+	public String deleteMember(String memberNo, SessionStatus status, HttpServletResponse response,
+			HttpSession session) throws Exception{
 		int result=service.deleteMember(memberNo);
 		if(result>0) {
-			redirectAttr.addFlashAttribute("msg","성공적으로 탈퇴했습니다. SEE YOU!");
-			SecurityContextHolder.clearContext();
+			status.setComplete();
+			session.invalidate();
 		}
+		response.setContentType("text/html; charset=UTF-8"); 
+		PrintWriter out = response.getWriter(); 
+		out.println("<script>alert('성공적으로 탈퇴했습니다.'); location.href='/';</script>"); 
+		out.flush();
 		return "redirect:/";
-		
 	}
 	
 	
