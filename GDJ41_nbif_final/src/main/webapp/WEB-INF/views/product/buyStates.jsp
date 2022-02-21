@@ -101,7 +101,7 @@
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
 						    <c:if test="${not empty p.productNo.images }">
-						    	<img src="/resources/upload/product/${p.productNo.images.get(0).imageName }" 
+						    	<img src="${path }/resources/upload/product/${p.productNo.images.get(0).imageName }" 
 						   		 alt="" style="width: 150px; height: 130px;">
 						    </c:if>
 						    <c:if test="${empty p.productNo.images}">

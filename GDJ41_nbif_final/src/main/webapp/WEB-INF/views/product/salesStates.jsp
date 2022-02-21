@@ -101,7 +101,7 @@
 						<a href="${path }/product/productDetail?productNo=${p.productNo}" class="col-2">
 						    <!-- 사진 -->
 						    <!-- images 의 첫번째.... -->
-						    <img src="/resources/upload/product/${p.images.get(0).imageName }" 
+						    <img src="${path }/resources/upload/product/${p.images.get(0).imageName }" 
 						    alt="" style="width: 150px; height: 130px;">
 						</a>
 						<div class="col-6">

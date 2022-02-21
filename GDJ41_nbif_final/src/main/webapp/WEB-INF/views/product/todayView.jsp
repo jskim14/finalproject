@@ -59,7 +59,7 @@
 	            <c:forEach var="p" items="${list }">
 		            <div id="wishBox" class="row wish-box" onclick="javascript:wishbox('${p.productNo}');"
 		            style="cursor:pointer;"> <!--  -->
-		                <div class="col"><img src="/resources/upload/product/${p.images[0].imageName }" width=60px; height=60px;></div>
+		                <div class="col"><img src="${path }/resources/upload/product/${p.images[0].imageName }" width=60px; height=60px;></div>
 		                <div class="col-5"><p><strong><c:out value="${p.productName }"></c:out></strong></p></div>
 		                <c:if test="${empty p.buyNowPrice }">
 		                	<div class="col"><p>즉시구매불가</p></div>
