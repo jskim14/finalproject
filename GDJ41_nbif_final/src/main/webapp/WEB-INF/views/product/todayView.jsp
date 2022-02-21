@@ -35,7 +35,7 @@
     <div id="wishContainer">
         <div style="margin-bottom:5%;">
             <h2 class="pageTitle2"><i class="fas fa-eye"></i>&nbsp;오늘 본 상품</h2>
-            <p>오늘 본 상품입니다.<br> 일정시간 이후 삭제되니 관심상품에 담으세요~!~!</p>
+            <p>오늘 본 상품입니다.<br> 일정시간 이후 삭제되니 관심상품에 담으세요!</p>
         </div>
         <br>
         <div>
@@ -59,7 +59,7 @@
 	            <c:forEach var="p" items="${list }">
 		            <div id="wishBox" class="row wish-box" onclick="javascript:wishbox('${p.productNo}');"
 		            style="cursor:pointer;"> <!--  -->
-		                <div class="col"><img src="/resources/upload/product/${p.images[0].imageName }" width=60px; height=60px;></div>
+		                <div class="col"><img src="${path }/resources/upload/product/${p.images[0].imageName }" width=60px; height=60px;></div>
 		                <div class="col-5"><p><strong><c:out value="${p.productName }"></c:out></strong></p></div>
 		                <c:if test="${empty p.buyNowPrice }">
 		                	<div class="col"><p>즉시구매불가</p></div>
