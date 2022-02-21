@@ -299,7 +299,7 @@
 												$("#reviewBtn").click(e=>{
 													
 													$.ajax({
-														url: location.origin+"/product/review",
+														url: "${path}/product/review",
 														data:{sellerNo:'${product.seller.memberNo}'},
 														dataType:'json',
 														success:data=>{
@@ -368,7 +368,7 @@
 	</div>
 	<script>
 		function permission(){
-			location.assign(location.origin+"/admin/permission?productNo=${product.productNo}");
+			location.assign("${path}/admin/permission?productNo=${product.productNo}");
 		}
 	
 	</script>
@@ -406,7 +406,7 @@
 						//location.assign(location.origin+"/admin/reject?productNo=${product.productNo}");
 						let form = document.createElement('form');
 						form.setAttribute("method",'post');
-						form.setAttribute("action",location.origin+"/admin/reject");
+						form.setAttribute("action","${path}/admin/reject");
 						document.charset ="utf-8";
 
 						let hiddenInput1 = document.createElement('input');

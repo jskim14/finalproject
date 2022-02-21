@@ -413,7 +413,7 @@
 							
 
 							$.ajax({
-								url:location.origin+"/product/wishList",
+								url:"${path}/product/wishList",
 								data:{productNo:'${product.productNo}',memberNo:'${loginMember.memberNo}'},
 								dataType:'json',
 								success:data=>{
@@ -480,7 +480,7 @@
 												$("#reviewBtn").click(e=>{
 													
 													$.ajax({
-														url: location.origin+"/product/review",
+														url: "${path}/product/review",
 														data:{sellerNo:'${product.seller.memberNo}'},
 														dataType:'json',
 														success:data=>{
@@ -809,7 +809,7 @@
 <script>
 	
 	function goToDetail(productNo){
-		location.href = location.origin+"/product/productDetail?productNo="+productNo;
+		location.href = "${path}/product/productDetail?productNo="+productNo;
 	}
 
 
@@ -848,6 +848,7 @@
             }
         }).open();
     }
+    const path = "${path}";
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${path }/resources/js/productDetail.js"></script>

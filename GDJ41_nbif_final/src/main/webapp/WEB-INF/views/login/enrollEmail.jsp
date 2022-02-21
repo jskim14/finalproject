@@ -87,7 +87,7 @@
 		        	  console.log(response)
 		        	  console.log(JSON.stringify(response));
 					  console.log(response['kakao_account']['id']);
-					sendPost2(location.origin+"/member/kakaoEnroll",'id',response['id'],'email',response['kakao_account']['email']);
+					sendPost2("${path}/member/kakaoEnroll",'id',response['id'],'email',response['kakao_account']['email']);
 		        
 		          },
 		          fail: function (error) {
@@ -126,13 +126,13 @@
 	  }
 
 	function goToEnrollMember(){
-		location.assign(location.origin+'/member/enrollMemberMainView');
+		location.assign('${path}/member/enrollMemberMainView');
 	}
 
 	function obtainCertification(){
 		const inputCode = $("#checkCode").val();
 		$.ajax({
-			url:location.origin+'/member/certification',
+			url:'${path}/member/certification',
 			type:"POST",
 			data:{'inputCode':inputCode},
 			success:data=>{
@@ -156,7 +156,7 @@
 			//alert('이메일 형식입니다');
 
 			$.ajax({
-				url:location.origin+'/member/email',
+				url:'${path}/member/email',
 				type:'POST',
 				data:{userEmail:clientEmail},
 				success: data=>{

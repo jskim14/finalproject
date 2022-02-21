@@ -1,5 +1,5 @@
 if(loginMember!="") {
-	const socket = new WebSocket("ws://61.78.121.242:8889/ws/messagebox");
+	const socket = new WebSocket(url + "/ws/messagebox");
 	socket.onmessage = message => {
 		console.log(message.data);
 		let msgbox = JSON.parse(message.data);
