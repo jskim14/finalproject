@@ -647,9 +647,7 @@ public class MemberController {
 	//셀러랭킹
 	@RequestMapping("/sellerrank")
 	public ModelAndView sellerrank(ModelAndView mv) {
-		List<Map<String,Object>> sellerList;
-		int index=0;
-		sellerList=service.sellerrank();
+		List<Map<String,Object>> sellerList = service.sellerrank();
 		
 		mv.addObject("sellerList",sellerList);
 		mv.setViewName("member/sellerrank");

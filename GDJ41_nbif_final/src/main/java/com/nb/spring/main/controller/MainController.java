@@ -51,30 +51,6 @@ public class MainController {
 		return mv;
 	}
 	
-	/*
-	 * @RequestMapping("/enrollEmail") public String enrollEmailView() { return
-	 * "login/enrollEmail"; }
-	 * 
-	 * @RequestMapping("/enrollMember") public String enrollMemberView() { return
-	 * "login/enrollMember"; }
-	 * 
-	 * @RequestMapping("/findId") public String findIdView() { return
-	 * "login/findId"; }
-	 * 
-	 * @RequestMapping("/findIdConfirm") public String findIdConfirmView() { return
-	 * "login/findIdConfirm"; }
-	 * 
-	 * @RequestMapping("/findPassword") public String findPasswordView() { return
-	 * "login/findPassword"; }
-	 * 
-	 * @RequestMapping("/report") public String reportListView() { return
-	 * "report/reportList"; }
-	 * 
-	 * @RequestMapping("/chatting") public String openchat() { return
-	 * "/report/chatting"; }
-	 */
-	
-	
 	@RequestMapping("/addLatest")
 	public void addLatest(int startNum, int finishNum, HttpServletResponse res) throws IOException {
 		List<Product> list = service.selectListLatest(startNum,finishNum);
@@ -202,13 +178,6 @@ public class MainController {
 			if(result>0) flag = true;
 		}
 		return flag;
-	}
-	@RequestMapping("/btnBtn")
-	@ResponseBody
-	public String btnBtn() {
-		String str = "gd";
-		int result = service.successfulBidUpdate();
-		return str;
 	}
 }
 
