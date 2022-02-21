@@ -148,7 +148,7 @@
 <script>
 	function goToCharge(){
 		/* event.stopPropagation(); */
-		let chargeWindow = window.open(location.origin+'/member/charge','_blank','width=400,height=500');
+		let chargeWindow = window.open('${path}/member/charge','_blank','width=400,height=500');
 	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

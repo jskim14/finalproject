@@ -66,7 +66,7 @@
 <script>
 	$("#submitBtn").click(e=>{
 		$.ajax({
-			url:location.origin+"/member/updatePasswordEnd",
+			url:"${path}/member/updatePasswordEnd",
 			data:{pw: $("input[name=pw]").val() , newPw: $("input[name=newPw]").val()},
 			dataType:'json', 
 			success:data=>{

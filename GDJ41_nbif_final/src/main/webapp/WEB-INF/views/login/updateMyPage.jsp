@@ -184,7 +184,7 @@ function checkDuplication(){
     const nickName = $("input[name=nickName]").val();
     
     $.ajax({
-        url:location.origin+"/member/duplicationCheck",
+        url:"${path}/member/duplicationCheck",
         data:{'nickName':nickName},
         success:data=>{
             console.log(data['result']);

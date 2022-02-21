@@ -588,7 +588,7 @@
 						<div class="col-12 d-flex" style="overflow-x:auto; " >
 						
 							<c:forEach items="${otherList }" var="other">
-								<div class="other m-1" onclick="goToDetail('${other.productNo}')" style="width:210px; border: 1px solid lightgray; border-radius: 10px; box-shadow: 1px 1px darkgray; transition-duration:0.3s">
+								<div class="other m-1" onclick="goToDetail(${other.productNo})" style="width:210px; border: 1px solid lightgray; border-radius: 10px; box-shadow: 1px 1px darkgray; transition-duration:0.3s">
 									<div class="d-flex justify-content-center my-2">
 										<img src="${path}/resources/upload/product/${other.images.get(0).imageName}" width="200px"
 											height="200px" style="border-radius: 10px;">
@@ -848,7 +848,6 @@
             }
         }).open();
     }
-    const path = "${path}";
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${path }/resources/js/productDetail.js"></script>

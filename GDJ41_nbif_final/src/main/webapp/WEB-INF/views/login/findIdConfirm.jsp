@@ -49,7 +49,7 @@
 </section>
 <script>
 	function goToFindPassword(){
-		location.assign(location.origin+"/member/findPassword");
+		location.assign("${path}/member/findPassword");
 	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
