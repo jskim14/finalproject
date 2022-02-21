@@ -169,11 +169,20 @@
 							<c:if test="${admin!=null and admin==true }">
 								<!--관리자 메뉴  -->
 								<li><a href="${path }/admin/adminMain">관리자메뉴</a></li>
+		                         <li>
+		                         <div id="newdropdown">
+		                   			<div id="after-login"><c:out value="${loginMember.memberName }"/> 님 ▼</div>
+								  <div class="newdropdown-content">
+									<a class="newdropdown-item" href="${path}/member/logout">로그아웃</a>  
+								  </div>
+								</div>
+								</li>
 							</c:if>
                         	<c:if test="${loginMember == null}">
 	                        <li>
 	                            <a href="${path}/member/login">로그인</a>
 	                        </li>
+	                        
                         	</c:if>
                     </ul>
                 </div>
