@@ -82,14 +82,20 @@
 	            		<th style="text-align:center;" class="table-dark">답변여부</th>
             		</tr> 
             	</thead>
-            	
             	<tbody id="cslist">
             	<c:forEach items="${qnaList }" var="q">
             		<tr>
             			<td style="text-align:center;"><c:out value="${q.qnaNo}"/></td>
+	            		
             			<td style="">
+            			<c:if test="${loginMember.memberNo != q.writer.memberNo }">
+            				<a href="javascript:window.alert('작성자만 확인 가능합니다.')" style="text-decoration:none;color:black;"><c:out value="${q.qnaTitle}"/></a>
+            			</c:if>
+            			<c:if test="${loginMember.memberNo == q.writer.memberNo }">
             				<a href="${path }/cs/qnaContent?qnaNo=${q.qnaNo}" style="text-decoration:none;color:black;"><c:out value="${q.qnaTitle}"/></a>
+            			</c:if>
             			</td>
+            			
             			<td style="text-align:center;"><c:out value="${q.writer.nickName}"/></td>
             			<td style="text-align:center;"><c:out value="${q.questionDate}"/></td>
             			<td style="text-align:center;">

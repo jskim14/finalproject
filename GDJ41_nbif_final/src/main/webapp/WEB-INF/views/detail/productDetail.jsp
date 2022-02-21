@@ -588,7 +588,7 @@
 						<div class="col-12 d-flex" style="overflow-x:auto; " >
 						
 							<c:forEach items="${otherList }" var="other">
-								<div class="other m-1" onclick="goToDetail(${other.productNo})" style="width:210px; border: 1px solid lightgray; border-radius: 10px; box-shadow: 1px 1px darkgray; transition-duration:0.3s">
+								<div class="other m-1" onclick="location.href='${path}/product/productDetail?productNo=${other.productNo }';" style="width:210px; border: 1px solid lightgray; border-radius: 10px; box-shadow: 1px 1px darkgray; transition-duration:0.3s">
 									<div class="d-flex justify-content-center my-2">
 										<img src="${path}/resources/upload/product/${other.images.get(0).imageName}" width="200px"
 											height="200px" style="border-radius: 10px;">
@@ -629,8 +629,7 @@
 											<strong>현재입찰가</strong> <strong style="color:#41B979;"><fmt:formatNumber value="${other.nowBidPrice}"/></strong>
 										</div>
 									</div>
-							</div>
-							
+								</div>
 							</c:forEach>
 						
 						
@@ -807,11 +806,6 @@
 	</div>
 </div>
 <script>
-	
-	function goToDetail(productNo){
-		location.href = "${path}/product/productDetail?productNo="+productNo;
-	}
-
 
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function findAddress() {
