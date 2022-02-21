@@ -57,7 +57,7 @@ section {
 				}else{
 					$("#checkResult").text("탈퇴 가능합니다. 안녕...").css({"color":"green"});
 					$("#delete").attr("disabled",false);
-					$("#check").attr("disabled",true);
+					$("#check").attr("disabled",true).css({"background":"gray"});
 				}
 			},
 			error : function(){

@@ -15,19 +15,19 @@
 
      <section>
  		<div>
+ 		
             <h3><i class="fas fa-exclamation"></i>&nbsp&nbsp물품 신고 내역</h3>
             </div>
-            <p></p>
+            <p>${reportList}</p>
             <br>
             <table class="table table-hover">
                 <thead>
                 	<tr>
 	                    <th class="table-dark">물품번호</th>
 	                    <th class="table-dark">상품명</th>
-	                    <th class="table-dark">이미지</th>
+	                    <!-- <th class="table-dark">이미지</th> -->
 	                    <th class="table-dark">아이디</th>
 	                    <th class="table-dark">신고사유</th>
-	                    <th class="table-dark">신고결과</th>
 	                    <th class="table-dark">신고일</th>
                     </tr>
                 </thead>
@@ -37,13 +37,9 @@
                 <tr>
                     <td><c:out value="${r.reportProduct.productNo }"/></td>
                     <td><c:out value="${r.reportProduct.productName }"/></td>
-                    <td></td>
-                  <%--  <c:if test="${not empty r.get(0).filename}">
-                    	<td><img src="${path }/resources/upload/report/${r.filename}"></td>
-                    </c:if> --%>
+                    <%-- <td><img src="${path }/resources/upload/report/${r.reportImages[0].filename}"></td> --%>
                     <td><c:out value="${r.reportMember.nickName }"/></td>
                     <td><c:out value="${r.reportReason }"/></td>
-                    <td><c:out value="${r.reportResult }"/></td>
                     <td><c:out value="${r.reportDate }"/></td>
                 </tr>
                 </c:forEach>

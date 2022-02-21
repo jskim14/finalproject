@@ -20,6 +20,11 @@ public class ReportDaoImpl implements ReportDao {
 	}
 
 	@Override
+	public List<ReportImage> selectReportImages(SqlSessionTemplate session, String productNo) {
+		return session.selectList("report.selectReportImages", productNo);
+	}
+
+	@Override
 	public int reportCount(SqlSessionTemplate session) {
 		return session.selectOne("report.reportCount");
 	}

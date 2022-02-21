@@ -55,9 +55,6 @@ public class ReportController {
 			@RequestParam(value="upFile", required=false) MultipartFile[] upFile,
 			HttpServletRequest req) throws Exception{
 		
-		log.debug(upFile[0].getOriginalFilename());
-		log.debug("{}", upFile[0].getSize());
-		
 		System.out.println("가져온상품번호"+product);
 		System.out.println("가져온작성자"+writer);
 		
