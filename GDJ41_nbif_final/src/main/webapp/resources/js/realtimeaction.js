@@ -1,4 +1,4 @@
-const socket = new WebSocket("ws://localhost:9090/ws/chat");
+const socket = new WebSocket("ws://61.78.121.242:8889/ws/chat");
 let min;
 let sec;
 socket.onmessage = message => {

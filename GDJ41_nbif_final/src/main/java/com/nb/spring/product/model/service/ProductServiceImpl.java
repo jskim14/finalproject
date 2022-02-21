@@ -237,7 +237,16 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<Product> selectSpecialProductList() {
-		return dao.selectSpecialProductList(session);
+		List<Product> list = dao.selectSpecialProductList(session);
+		List<Product> result = new ArrayList<Product>();
+		if(list.size()<4) {
+			for(Product p : list) {
+				if(result.size()<5) {
+					result.add(p);
+				}
+			}
+		}
+		return result;
 	}
 	
 	@Override
