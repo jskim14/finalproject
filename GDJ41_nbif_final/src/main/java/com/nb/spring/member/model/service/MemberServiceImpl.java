@@ -1,5 +1,6 @@
 package com.nb.spring.member.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,7 +131,16 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<Map<String, Object>> sellerrank() {
-		return dao.sellerrank(session);
+		List<Map<String, Object>> list = dao.sellerrank(session);
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		if(list.size()>10) {
+			for(int i=0; i<10; i++) {
+				result.add(list.get(i));
+			}
+		}else {
+			result = list;
+		}
+		return result;
 	}
 
 	@Override

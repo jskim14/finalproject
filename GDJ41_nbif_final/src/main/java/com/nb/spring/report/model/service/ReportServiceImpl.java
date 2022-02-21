@@ -58,6 +58,6 @@ public class ReportServiceImpl implements ReportService {
 	public int insertReportResult(Map<String, String> param) {
 		return dao.insertReportResult(session,param);
 	}
-	
 
+	
 }

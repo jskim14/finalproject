@@ -48,8 +48,8 @@ public interface MemberService {
 	
 	int endRealTimeActionWallet(Map<String,Object> param);
 
-	
 	List<Map<String,Object>> sellerrank();
+	
 	List<Product> sellList(String memberNo);
 	
 	List<MessageBox> messageReceivList(String memberNo, int cPage, int numPerPage);
