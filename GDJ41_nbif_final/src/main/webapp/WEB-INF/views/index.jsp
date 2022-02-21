@@ -230,7 +230,6 @@
 			</div>
 		</div>
 	</div>
-	<button id="btnBtn">실험버튼</button>
 </section>
 <script>
 	function goInsert() {
@@ -242,14 +241,6 @@
 		}
 	}
 
-	$("#btnBtn").click(e=> {
-		$.ajax({
-			url : "${path}/btnBtn",
-			success : data => {
-				
-			}
-		});
-	});
   	const websocket=()=> {
   		open("${path }/product/realtimeaction?productNo=LF100222147","_blank","width=1100, height=700, left=150");
   	}
