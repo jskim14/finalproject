@@ -62,13 +62,13 @@
 	                    <div id="_sym"><img src="${path }/resources/images/rank/rank4.png" width=20px; height=20px;></div>
 	                </c:when>
 	                <c:when test="${s.RANK eq 'GOLD' }">
-	                    <div id="_sym"><img src="${path }/resources/images/rank/rank1.png" width=20px; height=20px;></div>
+	                    <div id="_sym"><img src="${path }/resources/images/rank/rank3.png" width=20px; height=20px;></div>
 	                </c:when>
 	                <c:when test="${s.RANK eq 'SILVER' }">
 	                    <div id="_sym"><img src="${path }/resources/images/rank/rank2.png" width=20px; height=20px;></div>
                     </c:when>
                     <c:when test="${s.RANK eq 'BRONZE' }">
-	                    <div id="_sym"><img src="${path }/resources/images/rank/rank3.png" width=20px; height=20px;></div>
+	                    <div id="_sym"><img src="${path }/resources/images/rank/rank1.png" width=20px; height=20px;></div>
                     </c:when>
                     <c:otherwise>
                     	<div id="_rank"><h1 style="margin-left:10px;"><c:out value="${status.count }"/></h1></div>
