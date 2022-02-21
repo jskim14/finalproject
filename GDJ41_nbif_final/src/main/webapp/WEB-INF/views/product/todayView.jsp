@@ -35,7 +35,7 @@
     <div id="wishContainer">
         <div style="margin-bottom:5%;">
             <h2 class="pageTitle2"><i class="fas fa-eye"></i>&nbsp;오늘 본 상품</h2>
-            <p>오늘 본 상품입니다.<br> 일정시간 이후 삭제되니 관심상품에 담으세요~!~!</p>
+            <p>오늘 본 상품입니다.<br> 일정시간 이후 삭제되니 관심상품에 담으세요!</p>
         </div>
         <br>
         <div>
