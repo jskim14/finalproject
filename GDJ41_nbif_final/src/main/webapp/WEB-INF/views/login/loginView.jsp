@@ -96,16 +96,16 @@
 
 
 	function goToEnroll(){
-		location.assign(location.origin+"/member/enrollMember");
+		location.assign("${path}/member/enrollMember");
 	}
 
 	function goToFindId(){
 		
-		location.assign(location.origin+"/member/findId");
+		location.assign("${path}/member/findId");
 	}
 
 	function goToFindPassword(){
-		location.assign(location.origin+"/member/findPassword");
+		location.assign("${path}/member/findPassword");
 	}
 	
 </script>

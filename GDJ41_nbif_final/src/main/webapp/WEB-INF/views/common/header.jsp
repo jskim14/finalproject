@@ -42,7 +42,7 @@
 		        	  console.log(response)
 		        	  console.log(JSON.stringify(response));
 					  console.log(response['kakao_account']['id']);
-					sendPost(location.origin+"/member/kakaoLogin",'id',response['id'],'accessToken',accessToken);
+					sendPost("${path}/member/kakaoLogin",'id',response['id'],'accessToken',accessToken);
 		        	/*   Kakao.Auth.authorize({
 		    			  redirectUri: location.origin+"/member/kakaoLogin"
 		    			 
@@ -208,9 +208,10 @@
 						return;
 					}
 					
-					location.href = location.origin+"/product/productDetail?productNo="+productNo;
+					location.href = "${path}/product/productDetail?productNo="+productNo;
 
             	}
+            	const url = "ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
             </script>
             <script src="${path }/resources/js/messageBox.js"></script>
             <button type="button" class="btn btn-purple" id="msgBoxBtn"

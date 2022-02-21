@@ -53,7 +53,7 @@ const checkBuyNow=(pNo,isLogin)=>{
 		return;
 	}
 	$.ajax({
-		url:location.origin+"/product/checkBuyNow",
+		url:path + "/product/checkBuyNow",
 		data:{productNo:pNo},
 		method:"GET",
 		dataType:"json",
@@ -78,7 +78,7 @@ const bid=(pNo)=>{
 	const userInputPrice = $("#bidUnitInput").val().stringNumberToInt();
 	
 	$.ajax({
-		url:location.origin+"/product/bid",
+		url:path + "/product/bid",
 		data:{userBidPrice:userInputPrice,productNo:pNo},
 		dataType:"json",
 		success:data=>{

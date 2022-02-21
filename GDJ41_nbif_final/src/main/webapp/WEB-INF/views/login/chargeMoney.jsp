@@ -89,14 +89,14 @@
 
 	function kakaoPay(amount){
 		$.ajax({
-			url:location.origin+"/member/kakaoPay",
+			url:"${path}/member/kakaoPay",
 			dataType:'json',
 			data:{'amount':amount},
 			success: (data)=>{
 				console.log(data);
 				
 				$.ajax({
-					url:location.origin+"/member/kakaoSuccess",
+					url:"${path}/member/kakaoSuccess",
 					dataType:'json',
 					data:{'amount':amount},
 					success:(data)=>{

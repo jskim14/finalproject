@@ -106,14 +106,16 @@ public class MainController {
 		param.put("numPerPage", numPerPage);
 		param.put("keyword", keyword);
 		param.put("category", category);
-		List<Product> totalDataCount = service.searchProductCount(keyword);
+		List<Product> totalDataCount = service.searchProductCount(param);
 		int totalData = totalDataCount.size();
 		int pageBarSize = 5;
+		if(totalData>0) {
+			mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize, keyword, "/productSearch"));
+		}
 		mv.addObject("searchProduct", service.searchProduct(param));
 		mv.addObject("keyword", keyword);
 		mv.addObject("totalData", totalData);
 		mv.addObject("category", category);
-		mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize, keyword, "/productSearch"));
 		mv.setViewName("/product/searchProduct");
 		return mv;
 	}

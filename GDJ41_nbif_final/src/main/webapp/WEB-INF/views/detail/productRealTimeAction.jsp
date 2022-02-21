@@ -226,6 +226,8 @@ function noEvent() {
     }
 }
 document.onkeydown = noEvent;
+
+const url = "ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
 </script>
 <script src="${path }/resources/js/realtimeaction.js"></script>
 </body>
