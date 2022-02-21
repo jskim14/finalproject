@@ -1,6 +1,7 @@
 package com.nb.spring.report.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.Session;
 
@@ -38,4 +39,10 @@ public class ReportDaoImpl implements ReportDao {
 	public int insertReportImage(SqlSessionTemplate session, ReportImage ri) {
 		return session.insert("report.insertReportImage", ri);
 	}
+
+	@Override
+	public int insertReportResult(SqlSessionTemplate session, Map<String, String> param) {
+		return session.insert("report.insertReportResult", param);
+	}
+	
 }

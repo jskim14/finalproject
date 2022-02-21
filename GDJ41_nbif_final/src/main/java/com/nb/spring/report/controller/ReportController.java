@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -112,5 +113,23 @@ public class ReportController {
 		return mv;
 	}
 	
+	@RequestMapping("/insertReportReason")
+	public ModelAndView insertReportResult(ModelAndView mv, String productNo, String reportResult) {
+		Map<String,String> param= Map.of("productNo",productNo, "reportResult",reportResult);
+		int result=service.insertReportResult(param);
+		
+		String msg="";
+		String loc="/report/reportList";
+		if(result>0) {
+			msg="신고결과 등록 완료";
+		}else {
+			msg="신고결과 등록 실패";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
 	
 }
