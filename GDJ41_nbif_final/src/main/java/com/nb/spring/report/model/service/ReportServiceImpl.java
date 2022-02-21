@@ -24,7 +24,12 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Override
 	public List<Report> selectReportList(int cPage, int numPerPage) {
-		return dao.selectReportList(session, cPage, numPerPage);
+		List<Report> list=dao.selectReportList(session, cPage, numPerPage);
+		for(Report r:list) {
+			r.setReportImages(dao.selectReportImages(session,r.getReportProduct().getProductNo()));
+			System.out.println(r.getReportImages());
+		}
+		return list;
 	}
 
 	@Override
@@ -38,7 +43,7 @@ public class ReportServiceImpl implements ReportService {
 		if(result>0 && !r.getReportImages().isEmpty()) {
 			try {
 				for(ReportImage ri: r.getReportImages()) {
-					ri.setReportProduct(r.getReportProduct());
+					ri.setProductNo(r.getReportProduct());
 					result=dao.insertReportImage(session, ri);
 				}
 			}catch(RuntimeException e) {

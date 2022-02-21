@@ -33,10 +33,6 @@
 	</script>
 	<!--  -->
 	
-		<!-- 나중에 지울거 -->
-		<button type="button" class="btn btn-info" onclick="location.assign('${path}/member/sellerrank');">Rank</button>
-		
-		<!-- 여기까지 -->
 		<p>NBIF(버그아니라기능이조)&nbsp;&nbsp;&nbsp;&nbsp;서다빈&nbsp;이민선&nbsp;김지수&nbsp;양대열</p>
 		<p>Contact: 010 - 1111 - 1111 &nbsp;&nbsp;&nbsp;&nbsp;메일 :
 			nbif@gmail.com</p>

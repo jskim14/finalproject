@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ReportImage {
-	private Product reportProduct;
+	private Product productNo;
 	private String fileName;
 }
