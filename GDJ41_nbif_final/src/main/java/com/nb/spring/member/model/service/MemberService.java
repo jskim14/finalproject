@@ -88,4 +88,6 @@ public interface MemberService {
 	List<Member> selectMemberList(Map param);
 	
 	int emoneyCount(String memberNo);
+	
+	int emoneySelectCount(Map param);
 }

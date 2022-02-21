@@ -241,4 +241,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.emoneyCount", memberNo);
 	}
 
+	@Override
+	public int emoneySelectCount(SqlSessionTemplate session, Map param) {
+		return session.selectOne("member.emoneySelectCount", param);
+	}
+	
 }

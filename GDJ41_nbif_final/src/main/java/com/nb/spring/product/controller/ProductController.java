@@ -396,17 +396,29 @@ public class ProductController {
 		log.debug(productNo);
 		
 		int bidPrice = Integer.parseInt(userBidPrice);
-		Member m = (Member)session.getAttribute("loginMember");
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-		log.debug("{}",m);
-		if(m==null) {
+		
+		//log.debug("{}",m);
+		if(loginMember==null) {
 			//로그 아웃 상태 임
 			
 			return Map.of("result","로그인 후 이용해주세요");
 		}
 	
+		Member m = memberService.selectMember(loginMember.getMemberNo());
 		
 		Product product = productService.selectOneProductNo(productNo);
+		
+		Member highestBidder = product.getHighestBidder();
+		
+		if(highestBidder!=null&&highestBidder.getEmail().equals(m.getEmail())) {
+			return Map.of("result","본인이 최고 입찰자입니다.");
+		}
+		
+		
+		
+		
 		
 		log.debug("{}",product);
 		
@@ -418,6 +430,8 @@ public class ProductController {
 			
 			int balance = Integer.parseInt(m.getBalance());
 			if(balance<bidPrice) {
+				log.debug("{}",balance);
+				log.debug("{}",bidPrice);
 				//잔액부족 
 				return Map.of("result","잔액부족");
 			}

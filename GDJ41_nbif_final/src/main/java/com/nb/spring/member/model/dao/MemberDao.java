@@ -96,4 +96,6 @@ public interface MemberDao {
 	List<Member> selectMemberList(SqlSessionTemplate session,Map param);
 	
 	int emoneyCount (SqlSessionTemplate session, String memberNo);
+	
+	int emoneySelectCount (SqlSessionTemplate session, Map param);
 }

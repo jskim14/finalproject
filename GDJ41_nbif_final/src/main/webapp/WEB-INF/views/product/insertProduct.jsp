@@ -50,7 +50,7 @@
                                 <label><input class="form-check-input" type="radio" name="flexRadioDefault1" value="Y"> 
                                     설정
                                 </label> 
-                                <input type="text" id="inputTyping1" class="form-control inputBox" placeholder="즉시구매가를 입력해주세요" 
+                                <input type="text" id="inputTyping1"  class="form-control inputBox" placeholder="즉시구매가를 입력해주세요" 
                                  style="width: 250px; display:inline; margin-left: 1%" disabled required>
                                  <input type="hidden" name="buyNowPrice">
                                 <div class="onlyNumber" style="display: inline; padding: 1%"></div>
@@ -196,6 +196,7 @@
         </div>
     </div>
     <script>
+
         $("input[name=flexRadioDefault1]").change(e=>{ //즉시구매여부
             if($(e.target).val()=='Y') {
             	$("#inputTyping1").attr("disabled",false);
@@ -206,15 +207,6 @@
                 $("#inputTyping1").next().html("");
             } 
         });
-/*         $("input[name=extendYn]").change(e=>{ //자동재경매
-            if($(e.target).val()=='Y') {
-            	$("#inputTyping2").attr("disabled",false);
-                $("#inputTyping2").focus();            		 
-
-             }else {
-                $("#inputTyping2").attr("disabled",true); 
-            } 
-        }); */
         
          function unitSelect() {
 	       	 if($("#priceUnit").val()=="typing") {
@@ -226,7 +218,6 @@
 	         }
         } 
         
- 
         
     	Number.prototype.format = function(){
 		    if(this==0) return 0;
@@ -248,7 +239,6 @@
     		if (numPattern != null) {
     			$(e.target).val("");
     			$(e.target).next().next().html("숫자만 입력이 가능합니다.").css("color","red");
-    			return false;
     		} else { //숫자만 입력했을때
 //    			let comma = $(e.target).val().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 //    			$(e.target).val(comma);
@@ -277,7 +267,7 @@
         
         /* 입찰시작가, 입찰단위 값 비교 */
         
-/*          $("#inputTyping3, #minBidPrice").change(e=>{
+          $("#inputTyping3, #minBidPrice").change(e=>{
 
 	        	var minBid = Number($("input[name=minBidPrice]").val());
 	        	var unit = Number($("#inputUnit").val());
@@ -288,11 +278,12 @@
 			        	$("#autionUnitInfo").html("");
 			        }
 	        	}
-        }); */
+        }); 
         
 
         /**/
         $("#currentDate").val(new Date().toISOString().substring(0, 10));
+        
                     
         $(function(){
             $("#maxDate").datepicker({
@@ -302,11 +293,15 @@
                 });
             })
             
-        $("#test123").click(e=>{
-            alert($("#maxDate").val());
+        $("#maxDate").blur(e=>{
+        	if($("#maxDate").val() != "" && ($("#maxDate").val() < $("#currentDate").val()) ){
+        		alert(" 경매종료일이 시작일보다 이전입니다. \n 날짜를 확인하세요.");
+        		$("#maxDate").val("");
+        		$("#maxDate").focus();
+        	}
         })
+            
         
-
         ClassicEditor
             .create( document.querySelector( '#classic' ))
             .catch( error => {
@@ -329,6 +324,7 @@
                 target2 = document.getElementById('showFiles');
                 target2.innerHTML = ("등록된 이미지 : ")+fileList;
             });
+            
         }
 
         
