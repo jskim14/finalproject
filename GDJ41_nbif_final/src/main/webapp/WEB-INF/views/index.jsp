@@ -194,11 +194,11 @@
 					</li>
 				</c:forEach>
 		</ul>
-		<button id="highPirceBtn" style="margin-bottom: 80px;">더보기</button>
+		<button id="highPirceBtn" style="margin-bottom: 30px;">더보기</button>
 		</div>
 	</div>
 	<button id="wsBtn" onclick="websocket();" style="display: none;">버튼</button>
-	<div style="padding-left: 6.7%; background-color: #FFD481; margin-bottom:80px;">
+	<div style="padding-left: 6.7%; background-color: #FFD481; margin-top:80px; margin-bottom:80px;">
 		<div id="banner-con">
 			<div>
 				<a href="${path }/cs/noticeList"><img src="${path}/resources/images/banner1.png"
