@@ -197,10 +197,12 @@ public class MemberController {
 			mv.addObject("buyCnt", zeroList);
 		} else {
 			for(Wallet w : buyList) {
-				if(w.getProductNo().getProductStatus() != null && w.getProductNo().getFinalPrice() != null) {
+				if(w.getProductNo().getProductStatus() != null) {
 					if(w.getProductNo().getProductStatus().equals("0")) {
 						buying++;
 					}
+				}
+				if(w.getProductNo().getProductStatus() != null && w.getProductNo().getFinalPrice() != null) {
 					if((w.getProductNo().getProductStatus().equals("1")
 							||w.getProductNo().getProductStatus().equals("2"))
 							&& w.getProductNo().getFinalPrice().equals(w.getAmount())) { //구매대기
@@ -728,8 +730,14 @@ public class MemberController {
 	public ModelAndView updateMyPageEnd(HttpSession session, @RequestParam Map<String,String> param, ModelAndView mv) {
 		Member m = (Member) session.getAttribute("loginMember");
 		System.out.println(param);
-		String totalAddress = param.get("shipAddress")+" "+param.get("detailAddress");
-		param.put("address", totalAddress);
+		
+		if(param.get("shipAddress").equals("")) {
+			param.put("address", param.get("memberAddress"));
+		} else {
+			String totalAddress = param.get("shipAddress")+" "+param.get("detailAddress");
+			param.put("address", totalAddress);
+		}
+		System.out.println(param);
 		int result = service.updateMember(param); //닉네임으로 찾아서 수정 
 		
 		String msg = "";

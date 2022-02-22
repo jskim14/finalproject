@@ -61,7 +61,7 @@
                     </div>
                     <div class="inputRight">
                         <input type="text" name="shipAddress" id="shipAddress" class="form-control" placeholder="도로명주소"
-                        style="width: 350px; display:inline;" required />
+                        style="width: 350px; display:inline;"/>
                     </div>
                     <button id="search" type="button" class="btn btn-secondary btnColor" onclick="javascript: findAddress();"> 
                     주소 검색</button>
@@ -73,7 +73,8 @@
                     </div>
                     <div class="inputRight">
                         <input type="text" name="detailAddress" id="detailAddress" class="form-control" 
-                        style="width: 350px; display:inline;" placeholder="읍,면,동 이하 상세주소" required/>
+                        style="width: 350px; display:inline;" placeholder="읍,면,동 이하 상세주소" />
+                        <input type="hidden" name="memberAddress" value ="${m.address }" />
                     </div>
                 </div>
                 
