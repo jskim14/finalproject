@@ -1,6 +1,7 @@
 package com.nb.spring.report.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,11 @@ public class ReportServiceImpl implements ReportService {
 		}
 		return result;
 	}
+
+	@Override
+	public int insertReportResult(Map<String, String> param) {
+		return dao.insertReportResult(session,param);
+	}
+
 	
 }
