@@ -38,19 +38,26 @@ public class ReportServiceImpl implements ReportService {
 		return dao.reportCount(session);
 	}
 
+//	throws RuntimeException
 	@Override
-	public int insertReport(Report r) throws RuntimeException {
+	public int insertReport(Report r)  {
 		int result=dao.insertReport(session, r);
 		if(result>0 && !r.getReportImages().isEmpty()) {
 			try {
 				for(ReportImage ri: r.getReportImages()) {
-					ri.setProductNo(r.getReportProduct());
+					ri.setProductNo(r.getReportProduct().getProductNo());
 					result=dao.insertReportImage(session, ri);
 				}
 			}catch(RuntimeException e) {
-				throw new RuntimeException("에러! 등록실패");
+				e.printStackTrace();
 			}
 		}
+		return result;
+	}
+	
+	@Override
+	public int changeStatus(String productNo) {
+		int result=dao.changeStatus(session,productNo);
 		return result;
 	}
 
