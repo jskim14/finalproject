@@ -219,4 +219,10 @@ public class ProductDaoImpl implements ProductDao {
 	public int updateendAuction(SqlSessionTemplate session, String productNo) {
 		return session.update("product.updateendAuction", productNo);
 	}
+
+	@Override
+	public int sellerDeposit(SqlSessionTemplate session, Product p) {
+		return session.insert("product.sellerDeposit", p);
+	}
+	
 }

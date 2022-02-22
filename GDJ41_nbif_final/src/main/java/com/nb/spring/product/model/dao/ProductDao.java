@@ -82,4 +82,6 @@ public interface ProductDao {
 	List<Product> selectOtherList(SqlSessionTemplate session, String memberNo);
 	
 	int updateendAuction(SqlSessionTemplate session, String productNo);
+	
+	int sellerDeposit(SqlSessionTemplate session, Product p);
 }
