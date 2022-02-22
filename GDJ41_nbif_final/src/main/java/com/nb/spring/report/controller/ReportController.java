@@ -86,26 +86,33 @@ public class ReportController {
 				//save renamed file using method of MultipartFile Class
 				try {
 					mf.transferTo(new File(path+renameFile));
+					ReportImage ri=ReportImage.builder().fileName(renameFile).build();
+					r.getReportImages().add(ri);
 				}catch(IOException e) {
 					e.printStackTrace();
 				}
-				ReportImage ri=ReportImage.builder().fileName(renameFile).build();
-				r.getReportImages().add(ri);
 				
 			}
 		}
 		System.out.println("이미지이름"+r.getReportImages());
 		int result=service.insertReport(r);
-		log.debug("reportDate: {}", r);
+		int result2;
 		String msg="";
 		String loc="";
 		if(result>0) {
-			msg="신고 완료 하였습니다.";
-			loc="/";
+			result2=service.changeStatus(r.getReportProduct().getProductNo());
+			if(result2>0) {
+				msg="신고 완료 하였습니다.";
+				loc="/";
+			}else {
+				msg="신고 실패";
+				loc="/";
+			}
 		}else {
 			msg="신고 실패";
 			loc="/";
 		}
+		
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");

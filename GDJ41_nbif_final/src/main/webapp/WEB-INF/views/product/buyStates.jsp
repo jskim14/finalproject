@@ -218,19 +218,19 @@
 															<label for="exampleFormControlTextarea1" class="form-label">신고/반품
 																사유</label>
 															<textarea class="form-control" id="exampleFormControlTextarea1" name="reportReason"
-																rows="3" autofocus></textarea>
+																rows="3" autofocus required></textarea>
 														</div>
 														<!-- 첨부파일 여러장 선택 -->
 														<div class="mb-3">
-															<label for="formFileMultiple" class="form-label">첨부파일</label> 
-															<input name="upFile" class="form-control" type="file" id="formFileMultiple" multiple>
+															<label for="formFileMultiple" class="form-label">첨부파일 *최대 3장</label> 
+															<input name="upFile" id="upFile" class="form-control" type="file" id="formFileMultiple" multiple required>
 														</div>
 													</div>
 													
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary"
 															data-bs-dismiss="modal">닫기</button>
-														<button type="submit" class="btn btn-warning">등록</button>
+														<button type="submit" id="report-btn" class="btn btn-warning">등록</button>
 													</div>
 													</form>
 												</div>
@@ -239,7 +239,7 @@
 										<!--  -->				        	
 								</c:when>
 								<c:when test="${p.productNo.productStatus eq '5'}">
-						            	<button type="button" class="btn btn-secondary btnColor" style="float: left; margin-right: 1%;" 
+						            	<button type="button" class="btn btn-secondary btnP" style="float: left; margin-right: 1%;" 
 						            	data-bs-toggle="modal" data-bs-target="">
 						            	신고내역확인 </button> 
 						        </c:when>
@@ -318,6 +318,13 @@
 			$(e.target).next(".custom-file-label").html(fileName);
 		})
 	})
+	/* 신고이미지 갯수 제한 3장*/	
+		$('#upFile').on("change", function() {
+			if($('#upFile')[0].files.length>3){
+				alert("파일은 최대 3장까지 등록 가능합니다.");
+				$('#upFile').val('');
+			}
+		});
     
     </script>
 </section>

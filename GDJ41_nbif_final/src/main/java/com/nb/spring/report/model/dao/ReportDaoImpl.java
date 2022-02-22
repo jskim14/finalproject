@@ -44,5 +44,10 @@ public class ReportDaoImpl implements ReportDao {
 	public int insertReportResult(SqlSessionTemplate session, Map<String, String> param) {
 		return session.insert("report.insertReportResult", param);
 	}
+
+	@Override
+	public int changeStatus(SqlSessionTemplate session, String productNo) {
+		return session.update("report.changeStatus", productNo);
+	}
 	
 }
