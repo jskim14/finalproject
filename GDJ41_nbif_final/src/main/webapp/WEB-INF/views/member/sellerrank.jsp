@@ -25,12 +25,12 @@
     }
     #_rank{margin-left:2%; min-width:50px;}
     #_sym{margin-left:5%; min-width:30px;margin-right:0;}
-	#_id{margin-left:0%; min-width:11%; height:28px;}
-    #_total{margin-left:5%; min-width:10%; height:50px;}
-	#_ing{margin-left:5%;min-width:10%;height:50px;}
-	#_done{margin-left:5%;min-width:10%;height:50px;}
-	#_review{margin-left:5%;min-width:10%;height:50px;}
-	#_goods{margin-left:5%; text-align:center; min-width:10%;}
+	#_id{margin-left:0%; min-width:15%; height:28px;}
+    #_total{margin-left:4%; min-width:10%; height:50px;}
+	#_ing{margin-left:4%;min-width:10%;height:50px;}
+	#_done{margin-left:4%;min-width:10%;height:50px;}
+	#_review{margin-left:4%;min-width:10%;height:50px;}
+	#_goods{margin-left:3%; text-align:center; min-width:10%;}
 </style>
 
      <section>

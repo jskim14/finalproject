@@ -51,8 +51,8 @@
 		</button>
 	</div>
 	<div id="list-con">
-		<h4>DeadLine imminent</h4>
-		<h6>마감임박 상품</h6>
+		<h4><strong>DeadLine imminent</strong></h4>
+		<h6 style="color:gray;">마감임박 상품</h6>
 		<div>
 			<c:if test="${not empty deadLine }">
 			<ul style="overflow: hidden;">
@@ -69,21 +69,21 @@
 								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
 								</c:if>
 								<p>
-									<strong style="font-size: 15px">${p.productName }</strong><br>
+									<strong style="font-size: 18px">${p.productName }</strong><br>
 									<c:if test="${p.nowBidPrice != null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${p.nowBidPrice == null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span>원<br>
 									</c:if>
 									<fmt:parseNumber value="${p.nowBidPrice}" var="nowBidPrice"/>
 									<fmt:parseNumber value="${p.buyNowPrice}" var="buyNowPrice"/>
 									<c:choose>
 										<c:when test="${nowBidPrice<buyNowPrice }" >
-											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span>원<br>
 										</c:when>
 										<c:when test="${nowBidPrice>=buyNowPrice }">
-											즉시구매불가가<br>
+											즉시구매불가<br>
 										</c:when>
 										<c:otherwise>
 											즉시구매불가<br>
@@ -101,8 +101,8 @@
 			<h3 style="text-align: center; padding: 20px 20px;">마감 임박중인 상품이 없습니다.</h3>
 			</c:if>
 		</div>
-		<h4>Latest sale</h4>
-		<h6>최신 판매 상품</h6>
+		<h4><strong>New In</strong></h4>
+		<h6 style="color:gray;">신규 등록 상품</h6>
 		<div>
 			<c:if test="${not empty latest }">
 			<ul style="overflow: hidden;">
@@ -121,16 +121,16 @@
 								<p>
 									<strong style="font-size: 15px">${p.productName }</strong><br>
 									<c:if test="${p.nowBidPrice != null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${p.nowBidPrice == null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span>원<br>
 									</c:if>
 									<fmt:parseNumber value="${p.nowBidPrice}" var="nowBidPrice"/>
 									<fmt:parseNumber value="${p.buyNowPrice}" var="buyNowPrice"/>
 									<c:choose>
 										<c:when test="${nowBidPrice<buyNowPrice }" >
-											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span>원<br>
 										</c:when>
 										<c:when test="${nowBidPrice>=buyNowPrice }">
 											즉시구매불가가<br>
@@ -151,8 +151,8 @@
 			<h3 style="text-align: center; padding: 20px 20px;">최신 판매 등록된 상품이 없습니다.</h3>
 			</c:if>
 		</div>
-		<h4>Highprice Product</h4>
-		<h6>최고가 입찰 상품</h6>
+		<h4><strong>New Highest Bids</strong></h4>
+		<h6 style="color:gray;">최고가 입찰 상품</h6>
 		<div>
 		<ul>
 			<c:forEach var="p" items="${highPrice }">
@@ -170,16 +170,16 @@
 								<p>
 									<strong style="font-size: 15px">${p.productName }</strong><br>
 									<c:if test="${p.nowBidPrice != null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${p.nowBidPrice == null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span>원<br>
 									</c:if>
 									<fmt:parseNumber value="${p.nowBidPrice}" var="nowBidPrice"/>
 									<fmt:parseNumber value="${p.buyNowPrice}" var="buyNowPrice"/>
 									<c:choose>
 										<c:when test="${nowBidPrice<buyNowPrice }" >
-											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span>원<br>
 										</c:when>
 										<c:when test="${nowBidPrice>=buyNowPrice }">
 											즉시구매불가가<br>

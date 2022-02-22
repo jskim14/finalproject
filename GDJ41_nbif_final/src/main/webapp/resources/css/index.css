@@ -182,14 +182,14 @@ footer {
     width: 25%;
     border: 1px solid lightgray;
     border-radius: 20px;
-    box-shadow: 2px 2px lightgray;
-    
+    box-shadow:1px 1px 10px 1px lightgray;
 }
 #list-con>div>ul>li:first-child,#list-con>div>ul>li:nth-child(2),#list-con>div>ul>li:nth-child(3) {
     margin-right: 20px;
 }
 .goods-box {
     padding: 10px;
+    color:black;
 }
 .price1{
     color: #7f47e9; font-weight:bolder; font-size:20px;
@@ -204,7 +204,7 @@ footer {
 	width:100px;
 	height: 40px;
 	margin-top: 30px;
-	border:2px solid lightgrey;
+	border:1px solid lightgrey;
 	background-color: white;
 	font-weight: bold;
 	border-radius: 10px;
