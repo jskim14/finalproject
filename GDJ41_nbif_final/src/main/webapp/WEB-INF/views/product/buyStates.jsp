@@ -223,7 +223,7 @@
 														<!-- 첨부파일 여러장 선택 -->
 														<div class="mb-3">
 															<label for="formFileMultiple" class="form-label">첨부파일 *최대 3장</label> 
-															<input name="upFile" id="upFile" class="form-control" type="file" id="formFileMultiple" multiple>
+															<input name="upFile" id="upFile" class="form-control" type="file" id="formFileMultiple" multiple required>
 														</div>
 													</div>
 													

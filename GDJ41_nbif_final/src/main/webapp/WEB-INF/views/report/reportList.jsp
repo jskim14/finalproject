@@ -124,7 +124,12 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">닫기</button>
-									<button type="submit" class="btn btn-warning">등록</button>
+										<c:if test="${r.reportResult != null}">
+										</c:if>
+										<c:if test="${r.reportResult == null}">
+										<button type="submit" class="btn btn-warning">등록</button>
+										</c:if>
+									
 								</div>
 								</form>
 							</div>
