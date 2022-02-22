@@ -15,7 +15,7 @@
 	</div>
 	<div class="row ">
 		<div class="col-11">
-			<form action="" method="get">
+			<form action="${path }/admin/memberManagement" method="get">
 				<div class="row">
 					<div class="col-2">
 						 <select class="form-select" name="selectedCol" id="typeSelect">
