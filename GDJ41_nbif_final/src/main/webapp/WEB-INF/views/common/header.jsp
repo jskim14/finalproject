@@ -101,7 +101,8 @@
 			form.submit();
 		  }
     </script>
-    <title>Document</title>
+    <title>NBIF | Let's FLEX</title>
+    <link rel="icon" type="image/x-icon" href="${path }/resources/images/diamond2.png">
 </head>
 <body>
 	<div class="modal fade" id="msgModal" tabindex="-1"
