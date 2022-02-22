@@ -245,6 +245,10 @@
 						            	<!-- 여기 창  -->
 						            	<!-- 여기 창 -->
 						        </c:when>
+						        <c:when test="${(p.productNo.productStatus eq '3' or p.productNo.productStatus eq '4') 
+						        	and p.productNo.finalPrice eq p.amount}">
+						        	<span style="font-size: 18px;float: left; color: gray;">입찰완료</span>
+						        </c:when>
 						        </c:choose>					        
 						        </div>
 						    </div>

@@ -104,11 +104,11 @@
             <table class="table table-hover">
             	<thead id="thead">
             		 <tr>
-	            		<th style="text-align:center; min-width:50px;" class="table-dark">#</th>
-	            		<th style="text-align:center; min-width:200px;" class="table-dark">제목</th>
-	            		<th style="text-align:center; min-width:130px;" class="table-dark">작성일</th>
+	            		<th style="text-align:center; width:100px; font-weight: bold;">#</th>
+	            		<th style="text-align:center; min-width:200px; font-weight: bold;">제목</th>
+	            		<th style="text-align:center; min-width:130px; font-weight: bold;">작성일</th>
 	            		<c:if test="${loginMember.memberNo eq '5' }">
-	            			<th style="" class="table-dark">삭제</th>
+	            			<th style="font-weight: bold;">삭제</th>
 	            		</c:if>
             		</tr> 
             	</thead>
@@ -116,21 +116,27 @@
             	<tbody id="cslist">
             	<c:forEach items="${noticeList }" var="n">
             		<tr>
-            			<td style="text-align:center; min-width:50px;"><c:out value="${n.noticeNo}"/></td>
-            			<td class="accordion_area" style="">
-            			<button class="btn btn_toggle"><c:out value="${n.noticeTitle }"/></button>
-					      	<div class="content_area">
-     						 	<c:out value="${n.noticeContent }"/>
-     						</div>
-            			</td>
-            			<td style="text-align:center; min-width:130px;"><c:out value="${n.noticeWriteDate}"/></td>
-            			<c:if test="${loginMember.memberNo eq '5' }">
+            			<td style="text-align:center; width:100px;"><c:out value="${n.noticeNo}"/></td>
             			<td>
-            				<button type="button" class="btn btn-outline-danger" style="height:30px;width:50px;padding:0;"
-            				  id="delete" onclick="location.assign('${path}/cs/deleteNotice?noticeNo=${n.noticeNo}');">삭제</button>
+            				<span class="title" style="cursor: pointer; font-weight: bold;"><c:out value="${n.noticeTitle }"/></span>
+            			</td>
+            			<td style="text-align:center; width:250px;"><c:out value="${n.noticeWriteDate}"/></td>
+            			<c:if test="${loginMember.memberNo eq '5' }">
+            			<td style="width:100px;">
+            			<button type="button" class="btn btn-outline-danger" style="height:30px;width:50px;padding:0; "
+            				  id="delete">삭제</button>
             			</td>
 	            		</c:if>
             			
+            		</tr>
+            		<tr class="content" style="display:none; width:100%;">
+            			<td style="text-align:center; width:100px;"></td>
+            			<td style="max-width:500px;"><c:out value="${n.noticeContent }"/></td>
+            			<td style="text-align:center; width:250px;"></td>
+            			<c:if test="${loginMember.memberNo eq '5' }">
+            			<td>
+            			</td>
+            			</c:if>
             		</tr>
             	</c:forEach>
             		
@@ -146,41 +152,18 @@
         	$("#btn1").addClass("active");
         	
         	$("#delete").click(function(){
-        		if(confirm("정말 삭제하시겠습니까? ")==true){
-        			return true;
-        		}else{
-        			return false;
+        		if(confirm("정말 삭제하시겠습니까? ")){
+        			location.assign('${path}/cs/deleteNotice?noticeNo=${n.noticeNo}');
         		}
-        	})
+        	});
         	
-        	function bindingAccordionEvent(wrap){
-         	   let areaArr = document.querySelectorAll(wrap);
-         	   
-         	   areaArr.forEach(function(area){
-         	      let hasGroup = area.dataset['group'] !== undefined ? true : false;
-         	      let btn = area.querySelector('.btn_toggle');
-         	     
-         	     btn.addEventListener('click', function(){
-         	       if(hasGroup === true){
-         	         let name = area.dataset['group'];
-         	         let groupArr = document.querySelectorAll(wrap + '[data-group="'+ name +'"]');
-         	         let thisContent = area.querySelector('.content_area');
-         	         
-         	         groupArr.forEach(function(group){
-         	            let content = group.querySelector('.content_area');
-         	           content.classList.remove('act');
-         	         });
-         	         thisContent.classList.add('act');
-         	       }else{
-         	         let content = area.querySelector('.content_area');
-         	         content.classList.toggle('act'); 
-         	       }
-         	     });
-         	   });
-         	 }
-
-         	 bindingAccordionEvent('.accordion_area');
-        	
+          	$(".title").click(e=> {
+          		$(".content").hide();
+          		$("td").css({"backgroundColor":"white","color":"black"});
+        		let tr = $(e.target).parents("tr").next("tr");
+        		$(e.target).parents("tr").children().css({"backgroundColor":"#778899","color":"white"});
+        		tr.show();
+        	});
         </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
