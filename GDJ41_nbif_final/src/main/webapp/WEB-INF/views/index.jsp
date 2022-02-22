@@ -197,7 +197,7 @@
 		<button id="highPirceBtn" style="margin-bottom: 80px;">더보기</button>
 		</div>
 	</div>
-	<button onclick="websocket();">버튼</button>
+	<button id="wsBtn" onclick="websocket();" style="display: none;">버튼</button>
 	<div style="padding-left: 6.7%; background-color: #FFD481;">
 		<div id="banner-con">
 			<div>
@@ -211,22 +211,6 @@
 			<div>
 				<a href="javascript: goInsert();"><img src="${path}/resources/images/banner3.png"
 					alt="" width="230px" height="100%"></a>
-			</div>
-		</div>
-	</div>
-	<div style="padding-left: 6.7%; background:skyblue;">
-		<div style="display:flex;">
-			<div >
-				<a href="${path }/cs/noticeList">>NOTICE</a>
-			</div>
-			<div style="width=230px; height:100%; background:purple;">
-				<a style="width=230px; height:100%; background:purple;" href="${path }/cs/noticeList">NOTICE</a>
-			</div>
-			<div style="width=230px; height:100%;">
-				<a href="${path }/member/sellerrank">TOP RANKING</a>
-			</div>
-			<div style="width=230px; height:100%;">
-				<a href="javascript: goInsert();">ENROLL ITEMS</a>
 			</div>
 		</div>
 	</div>
