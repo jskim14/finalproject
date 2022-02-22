@@ -86,7 +86,7 @@ public class MainController {
 		int totalData = totalDataCount.size();
 		int pageBarSize = 5;
 		if(totalData>0) {
-			mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize, keyword, "/productSearch"));
+			mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize));
 		}
 		mv.addObject("searchProduct", service.searchProduct(param));
 		mv.addObject("keyword", keyword);
@@ -178,6 +178,47 @@ public class MainController {
 			if(result>0) flag = true;
 		}
 		return flag;
+	}
+	
+	@RequestMapping("/auctions")
+	public ModelAndView auctionItems(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage
+			,@RequestParam(value="numPerPage", defaultValue="16") int numPerPage
+			,@RequestParam(value="category", defaultValue="all")String category) {
+		int pageBarSize = 5;
+		int totalData = service.auctionItemsListCount(category);
+		List<Product> list = service.auctionItemsList(cPage, numPerPage , category);
+		System.out.println(totalData);
+		mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize));
+		mv.addObject("auctionItems", list);
+		mv.addObject("category", category);
+		mv.setViewName("product/auctionItems");
+		return mv;
+	}
+	
+	@RequestMapping("/specialauction")
+	public ModelAndView specialauction(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage
+			,@RequestParam(value="numPerPage", defaultValue="16") int numPerPage
+			,@RequestParam(value="category", defaultValue="all")String category) {
+		int pageBarSize = 5;
+		int totalData = service.specialauctionListCount();
+		List<Product> list = service.specialauctionList(cPage, numPerPage);
+		System.out.println(list);
+		String msg = "";
+		String loc = "";
+		if(list.isEmpty()) {
+			mv.setViewName("common/msg");
+			loc = "/";
+			msg = "준비중인 실시간경매 물품이 없습니다.";
+		}else {
+			mv.setViewName("product/specialAuction");
+			mv.addObject("specialauction", list);
+		}
+		mv.addObject("loc", loc);
+		mv.addObject("msg",msg);
+		mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize));
+		return mv;
 	}
 }
 

@@ -55,7 +55,7 @@ public class PageFactory {
 
 	}
 	
-	public static String getPageBarSearch(int totalData, int cPage, int numPerPage, int pageBarSize,String keyword, String url) {
+	public static String getPageBarSearch(int totalData, int cPage, int numPerPage, int pageBarSize) {
 		String pageBar = "";
 		int totalPage = (int)Math.ceil((double)totalData/numPerPage);
 		int pageNo = ((cPage-1)/pageBarSize)*pageBarSize+1;
@@ -92,12 +92,6 @@ public class PageFactory {
 			pageBar += "<a class='page-link' href='javascript:fn_paging(" + (pageNo) + ")'>다음</a>";
 			pageBar += "</li>";
 		}
-		pageBar += "</ul>";
-		pageBar += "<script>";
-		pageBar += "function fn_paging(cPage) {";
-		pageBar += "location.assign('" + url + "?cPage='+cPage);";
-		pageBar += "}";
-		pageBar += "</script>";
 		
 		return pageBar;
 

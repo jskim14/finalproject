@@ -221,6 +221,31 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
+	public List<Product> auctionItemsList(SqlSessionTemplate session, int cPage, int numPerPage,
+			String category) {
+		return session.selectList("product.auctionItemsList", category, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int auctionItemsListCount(SqlSessionTemplate session, String category) {
+		return session.selectOne("product.auctionItemsListCount", category);
+	}
+
+	@Override
+	public List<ProductImage> auctionItemsListImg(SqlSessionTemplate session, String productNo) {
+		return session.selectList("product.auctionItemsListImg", productNo);
+	}
+
+	@Override
+	public List<Product> specialauctionList(SqlSessionTemplate session, int cPage, int numPerPage) {
+		return session.selectList("product.specialauctionList", null, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int specialauctionListCount(SqlSessionTemplate session) {
+		return session.selectOne("product.specialauctionListCount");
+	}
+	
 	public int sellerDeposit(SqlSessionTemplate session, Product p) {
 		return session.insert("product.sellerDeposit", p);
 	}

@@ -83,5 +83,15 @@ public interface ProductDao {
 	
 	int updateendAuction(SqlSessionTemplate session, String productNo);
 	
+	List<Product> auctionItemsList(SqlSessionTemplate session, int cPage, int numPerPage, String category);
+	
+	int auctionItemsListCount(SqlSessionTemplate session, String category);
+	
+	List<ProductImage> auctionItemsListImg(SqlSessionTemplate session, String productNo);
+	
+	List<Product> specialauctionList(SqlSessionTemplate session, int cPage, int numPerPage);
+	
+	int specialauctionListCount(SqlSessionTemplate session);
+	
 	int sellerDeposit(SqlSessionTemplate session, Product p);
 }

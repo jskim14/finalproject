@@ -69,5 +69,13 @@ public interface ProductService {
 
 	List<Product> selectOtherList(String memberNo);
 	
+	List<Product> auctionItemsList(int cPage, int numPerPage, String category);
+	
+	int auctionItemsListCount(String category);
+	
+	List<Product> specialauctionList(int cPage, int numPerPage);
+	
+	int specialauctionListCount();
+	
 	int sellerDeposit(Product p);
 }

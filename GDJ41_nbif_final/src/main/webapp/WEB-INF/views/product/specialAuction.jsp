@@ -44,7 +44,7 @@ button.btn-choice {
 <section style="padding-bottom: 5%;">
 	<div style="height: 140px;"></div>
 	<div id="list-con" style="padding-top:100px; padding-bottom: 50px;">
-		<h5><span style="color:#0d6efd; font-weight: bold;"><c:out value="${keyword }" /></span>에 대한 검색결과는 <span style="color:#0d6efd; font-weight: bold;"><c:out value="${totalData }"/></span>개 입니다.</h5>
+		<h3><span style="color:black; font-weight: bold;">Special Auction</span></h3>
 		<div id="btn-contaier">
 			<button value="all" onclick="searchCategory(this.value);" class="${category eq 'all'?'btn-choice':'categoryBtn'}">전체</button>
 			<button value="FS" onclick="searchCategory(this.value);" class="${category eq 'FS'?'btn-choice':'categoryBtn'}">패션</button>
@@ -53,9 +53,10 @@ button.btn-choice {
 			<button value="AT" onclick="searchCategory(this.value);" class="${category eq 'AT'?'btn-choice':'categoryBtn'}">테크</button>
 		</div>
 		<div>
-			<c:if test="${not empty searchProduct }">
-			<ul style="overflow: hidden;">
-				<c:forEach var="p" items="${searchProduct }">
+			<c:if test="${not empty specialauction }">
+				<c:forEach var="p" items="${specialauction }" varStatus="sta">
+				<c:if test="${sta.count % 4 == 1 }">
+				<ul class="items-list" style="overflow: hidden;">
 				<fmt:parseNumber value="${p.nowBidPrice}" var="nowBidPrice"/>
 				<fmt:parseNumber value="${p.buyNowPrice}" var="buyNowPrice"/>
 					<li style="width: 25%;">
@@ -97,11 +98,66 @@ button.btn-choice {
 							</div>
 						</a>
 					</li>
+				</c:if>
+				<c:if test="${sta.count % 4 != 1 }">
+					<fmt:parseNumber value="${p.nowBidPrice}" var="nowBidPrice"/>
+				<fmt:parseNumber value="${p.buyNowPrice}" var="buyNowPrice"/>
+					<li style="width: 25%;">
+						<a href="${path }/product/productDetail?productNo=${p.productNo}">
+							<div class="goods-box">
+								<c:if test="${not empty p.images}">
+								<img src="${path }/resources/upload/product/${p.images.get(0).imageName}"
+								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								</c:if>
+								<c:if test="${empty p.images}">
+								<img src="${path }/resources/images/"
+								width="100%" height="200" style="margin-bottom: 12px; border-radius: 20px;">
+								</c:if>
+								<c:if test="${p.productStatus == 0 }">
+								<p>
+									<strong style="font-size: 15px">${p.productName }</strong><br>
+									판매자&nbsp;<strong>${p.seller.nickName }</strong><br>
+									<c:if test="${nowBidPrice != null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									</c:if>
+									<c:if test="${nowBidPrice == null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									</c:if>
+									<c:if test="${buyNowPrice != null && nowBidPrice<buyNowPrice }">
+									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+									</c:if>
+									<c:if test="${buyNowPrice == null ||  nowBidPrice>buyNowPrice}">
+									즉시구매불가<br>
+									</c:if>
+								</p>
+								</c:if>
+								<c:if test="${p.productStatus != 0 }">
+								<p>
+									<strong style="font-size: 15px">${p.productName }</strong><br>
+									<span style="margin-top: 10px;">판매자&nbsp;<strong>${p.seller.nickName }</strong></span><br>
+									<span style="padding-bottom: 30px;">판매 완료 상품</span><br><br>
+								</p>
+								</c:if>
+							</div>
+						</a>
+					</li>
+				</c:if>
+				<c:choose>
+					<c:when test="${sta.last && sta.count % 4 == 1 }">
+					<li style="border:none; box-shadow: none;"></li><li style="border:none; box-shadow: none;"></li><li style="border:none; box-shadow: none;"></li>
+					</c:when>
+					<c:when test="${sta.last && sta.count % 4 == 2 }">
+					<li style="border:none; box-shadow: none;"></li><li style="border:none; box-shadow: none;"></li>
+					</c:when>
+					<c:when test="${sta.last && sta.count % 4 == 3 }">
+					<li style="border:none; box-shadow: none;"></li>
+					</c:when>
+				</c:choose>
+				<c:if test="${sta.count % 4 == 0 }">
+				</ul>
+				<c:out value="${sta.end }"/>
+				</c:if>
 				</c:forEach>
-			</ul>
-			</c:if>
-			<c:if test="${empty searchProduct }">
-			<h3 style="text-align: center; padding-top:100px;">검색 결과가 없습니다.</h3>
 			</c:if>
 	</div>
 	</div>
@@ -110,11 +166,11 @@ button.btn-choice {
 		function fn_paging(cPage) {
 			let keyword = "${keyword}";
 			let category = "${category}";
-			location.assign("${path}/productSearch?cPage=" + cPage + "&keyword=" + keyword + "&category=" + category);
+			location.assign("${path}/specialauction?cPage=" + cPage + "&category=" + category);
 		}
 		const searchCategory=(category)=> {
 			let keyword = "${keyword}";
-			location.assign("${path}/productSearch?&keyword=" + keyword + "&category=" + category);
+			location.assign("${path}/specialauction?&category=" + category);
 		}
 	</script>
 </section>

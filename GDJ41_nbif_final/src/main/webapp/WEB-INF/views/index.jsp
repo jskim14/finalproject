@@ -133,7 +133,7 @@
 											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span>원<br>
 										</c:when>
 										<c:when test="${nowBidPrice>=buyNowPrice }">
-											즉시구매불가가<br>
+											즉시구매불가<br>
 										</c:when>
 										<c:otherwise>
 											즉시구매불가<br>
@@ -197,7 +197,7 @@
 		<button id="highPirceBtn" style="margin-bottom: 80px;">더보기</button>
 		</div>
 	</div>
-	<button onclick="websocket();">버튼</button>
+	<button id="wsBtn" onclick="websocket();" style="display: none;">버튼</button>
 	<div style="padding-left: 6.7%; background-color: #FFD481; margin-bottom:80px;">
 		<div id="banner-con">
 			<div>
@@ -214,7 +214,6 @@
 			</div>
 		</div>
 	</div>
-
 </section>
 <script>
 	function goInsert() {

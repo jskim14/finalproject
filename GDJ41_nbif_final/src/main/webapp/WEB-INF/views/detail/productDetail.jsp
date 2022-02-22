@@ -56,7 +56,7 @@
 
 
 </style>
-
+<fmt:formatDate var="endDate" value="${product.endDate }" pattern="yyyy-MM-dd HH:mm:ss"/>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12">
@@ -266,7 +266,6 @@
 							function showRemaining(){
 								let now = new Date();
 								let distDate = targetDate-now;
-								
 								if(distDate < 0 ){
 									clearInterval(timer);
 									if(flag){
@@ -292,7 +291,7 @@
 							timer = setInterval(showRemaining,1000);
 							
 						}
-						countDown("timer",new Date('${product.endDate}'),'${isGeneral}');
+						countDown("timer",new Date('${endDate}'),'${isGeneral}');
 						
 					</script>
 					<hr>
@@ -467,13 +466,6 @@
 												</div>
 												<div class="row">
 													<div class="col-1"></div>
-													<div class="col-6">
-														<strong>구매후기</strong>
-													</div>
-													<div class="col-4 d-flex justify-content-end">
-														<button id="reviewBtn" type="button" class="btn btn-green"
-															data-bs-toggle="modal" data-bs-target="#reviewModal">보러가기</button>
-													</div>
 													<div class="col-1"></div>
 													<script>
 
@@ -619,10 +611,10 @@
 											</div>
 										</div>
 										<div class="nameLine fontColorRed">
-											<c:if test="${other.buyNowPrice == null }">
+											<c:if test="${other.buyNowPrice == 0 }">
 												<strong style="color:#7f47e9;">즉시구매불가상품</strong>
 											</c:if>
-											<c:if test="${other.buyNowPrice != null }">
+											<c:if test="${other.buyNowPrice != 0 }">
 												<strong>즉시구매가</strong> <strong style="color:#7f47e9;"><fmt:formatNumber value="${other.buyNowPrice}"/></strong>
 											</c:if>
 										</div>
