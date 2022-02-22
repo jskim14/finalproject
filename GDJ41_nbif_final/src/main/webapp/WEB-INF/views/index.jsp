@@ -198,7 +198,7 @@
 		</div>
 	</div>
 	<button onclick="websocket();">버튼</button>
-	<div style="padding-left: 6.7%; background-color: #FFD481;">
+	<div style="padding-left: 6.7%; background-color: #FFD481; margin-bottom:80px;">
 		<div id="banner-con">
 			<div>
 				<a href="${path }/cs/noticeList"><img src="${path}/resources/images/banner1.png"
@@ -214,22 +214,7 @@
 			</div>
 		</div>
 	</div>
-	<div style="padding-left: 6.7%; background:skyblue;">
-		<div style="display:flex;">
-			<div >
-				<a href="${path }/cs/noticeList">>NOTICE</a>
-			</div>
-			<div style="width=230px; height:100%; background:purple;">
-				<a style="width=230px; height:100%; background:purple;" href="${path }/cs/noticeList">NOTICE</a>
-			</div>
-			<div style="width=230px; height:100%;">
-				<a href="${path }/member/sellerrank">TOP RANKING</a>
-			</div>
-			<div style="width=230px; height:100%;">
-				<a href="javascript: goInsert();">ENROLL ITEMS</a>
-			</div>
-		</div>
-	</div>
+
 </section>
 <script>
 	function goInsert() {
