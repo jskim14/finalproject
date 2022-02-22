@@ -51,6 +51,7 @@ public class ReportServiceImpl implements ReportService {
 				throw new RuntimeException("에러! 등록실패");
 			}
 		}
+//		dao.changeStatus();
 		return result;
 	}
 

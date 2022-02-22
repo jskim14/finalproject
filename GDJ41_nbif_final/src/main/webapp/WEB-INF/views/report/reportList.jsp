@@ -11,6 +11,34 @@
        padding:200px 10%;
        min-height:800px;
     }
+    .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #41B979;
+    border-color: #41B979;
+	}	
+	.page-item.active .page-link {
+	    z-index: 3;
+	    color: #fff;
+	    background-color: #41B979;
+	    border-color: #41B979;
+	}
+	
+	.page-link:hover {
+	    z-index: 2;
+	    color: #41B979;
+	    background-color: #e9ecef;
+	    border-color: #dee2e6;
+	}
+	
+	.page-link {
+	    position: relative;
+	    display: block;
+	    color: #41B979;
+	    text-decoration: none;
+	    background-color: #fff;
+	    border: 1px solid #dee2e6;
+	}
 </style>
 
      <section>
@@ -48,7 +76,7 @@
                     </c:if>
                     </td>
                     
-                    <td><button type="button" class="btn btn-warning" data-bs-toggle="modal" id="openModal_"
+                    <td><button type="button" class="btn btn-secondary btnColor" data-bs-toggle="modal" id="openModal_"
 						data-bs-target="#staticBackdrop${status.count }">보기</button></td>
 						<!-- 모달창 -->
 					<div class="modal fade" id="staticBackdrop${status.count }" data-bs-backdrop="static"
@@ -109,7 +137,7 @@
                 
             </table>
             
-            <div>${pageBar }</div>
+            <div style="margin-top:100px;">${pageBar }</div>
      </section>
      
      <script>

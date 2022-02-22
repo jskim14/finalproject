@@ -13,10 +13,37 @@
        min-height:800px;
     }
     #cs-title{text-align: center;}
-    
     .accordion_area .btn_toggle{display:block;width:80%;height:30px;padding:0 0px;background:#fff;font-size:16px;text-align:left;line-height:30px;box-sizing:border-box}
 	.accordion_area .content_area{display:none;padding:10px;background:#f4f4ff}
 	.accordion_area .content_area.act{display:block; width:80%;}
+	.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #41B979;
+    border-color: #41B979;
+	}	
+	.page-item.active .page-link {
+	    z-index: 3;
+	    color: #fff;
+	    background-color: #41B979;
+	    border-color: #41B979;
+	}
+	
+	.page-link:hover {
+	    z-index: 2;
+	    color: #41B979;
+	    background-color: #e9ecef;
+	    border-color: #dee2e6;
+	}
+	
+	.page-link {
+	    position: relative;
+	    display: block;
+	    color: #41B979;
+	    text-decoration: none;
+	    background-color: #fff;
+	    border: 1px solid #dee2e6;
+	}
 </style>
 
         <section>
