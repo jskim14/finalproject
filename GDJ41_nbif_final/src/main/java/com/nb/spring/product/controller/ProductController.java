@@ -158,7 +158,13 @@ public class ProductController {
 
 		System.out.println("시작가 : "+p.getMinBidPrice());
 		System.out.println("즉구 : "+p.getBuyNowPrice());
+		System.out.println(p.getBuyNowPrice().equals("")?true:false);
 		System.out.println(p);
+		
+		//buynow
+		if(p.getBuyNowPrice().equals("")) {
+			p.setBuyNowPrice("0");
+		}
 		
 		//date 
 		String date = maxDate+" "+maxTime;
@@ -203,9 +209,7 @@ public class ProductController {
 				}
 			}
 		}
-		System.out.println(p.getImages());
 		int result= productService.insertProduct(p);
-		System.out.println(result);
 		
 		String msg = "";
 		String loc = "";
@@ -668,6 +672,8 @@ public class ProductController {
 	@RequestMapping("/buyEnd")
 	public ModelAndView buyEnd(String productNo, HttpSession session, ModelAndView mv) {
 		Member login = (Member)session.getAttribute("loginMember");
+		Product p = productService.selectOneProductNo(productNo);
+		
 		int result = productService.buyEnd(productNo);
 		System.out.println(result);
 		String msg = "";
@@ -675,6 +681,8 @@ public class ProductController {
 		
 		if(result>0) {
 			msg = "구매가 확정되었습니다.";
+			int deposit = productService.sellerDeposit(p);
+			System.out.println("결과:"+deposit);
 		}else {
 			msg = "실패";
 		}

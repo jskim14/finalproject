@@ -285,4 +285,11 @@ public class ProductServiceImpl implements ProductService {
 		
 		return dao.selectOtherList(session,memberNo);
 	}
+
+	@Override
+	public int sellerDeposit(Product p) {
+		return dao.sellerDeposit(session, p);
+	}
+	
+	
 }

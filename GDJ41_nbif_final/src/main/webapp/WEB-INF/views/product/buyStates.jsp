@@ -238,6 +238,11 @@
 										</div>
 										<!--  -->				        	
 								</c:when>
+								<c:when test="${p.productNo.productStatus eq '5'}">
+						            	<button type="button" class="btn btn-secondary btnColor" style="float: left; margin-right: 1%;" 
+						            	data-bs-toggle="modal" data-bs-target="">
+						            	신고내역확인 </button> 
+						        </c:when>
 						        </c:choose>					        
 						        </div>
 						    </div>
@@ -272,20 +277,15 @@
 								        <span style="font-size:14px;">구매일</span><br><c:out value="${p.tradeDate }"/>
 								    </div>
 						        </c:when>
-						        <c:when test=""> <!-- 종료 -->
+						        <c:when test="${(p.productNo.productStatus eq '3' or p.productNo.productStatus eq '4' or p.productNo.productStatus eq '5') 
+						        	and p.productNo.finalPrice eq p.amount }"> <!-- 내가입찰 -->
 								    <div class="col">
 								    	거래가 종료되었습니다. <br> 자세한 사항은 1:1 문의사항을 이용하여 주세요.
 								    </div>
-								    <div class="row">
+								    <!-- <div class="row">
 								        <a href="#" class="aColor" style="color: gray;">문의사항 바로가기</a>
-								    </div>
+								    </div> -->
 						        </c:when>
-						        <c:when test="${(p.productNo.productStatus eq '3' or p.productNo.productStatus eq '4' or p.productNo.productStatus eq '5') 
-						        	and p.productNo.finalPrice eq p.amount }"> <!-- 내가입찰 -->
-					        		<div class="col">
-								    	낙찰에 실패하였습니다. 
-								    </div>
-					        	</c:when>
 						        <c:when test="${p.productNo.productStatus ne '0' and p.productNo.finalPrice ne p.amount }">
 								    <div class="col">
 								    	낙찰에 실패하였습니다. 

@@ -129,7 +129,7 @@
 		location.assign('${path}/member/enrollMemberMainView');
 	}
 
-	function obtainCertification(){
+ 	function obtainCertification(){
 		const inputCode = $("#checkCode").val();
 		$.ajax({
 			url:'${path}/member/certification',
@@ -137,16 +137,15 @@
 			data:{'inputCode':inputCode},
 			success:data=>{
 				console.log(data);
-				//alert(data['result']);
-
-				if(data['result']==true){
-					alert('인증 완료');
+				
+ 				 if(data['result']==true){
+					alert('인증 완료'); 
 					$('#goBtn').attr({disabled:false});
-				}
+				}  
 			}
 		});
 	}
-
+	 
 
 	function sendEmail (){
 		let clientEmail = document.getElementById("emailText").value;

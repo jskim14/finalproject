@@ -68,4 +68,6 @@ public interface ProductService {
 	int successfulBidUpdate();
 
 	List<Product> selectOtherList(String memberNo);
+	
+	int sellerDeposit(Product p);
 }
