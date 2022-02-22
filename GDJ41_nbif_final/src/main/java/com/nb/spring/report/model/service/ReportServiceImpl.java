@@ -46,12 +46,14 @@ public class ReportServiceImpl implements ReportService {
 				for(ReportImage ri: r.getReportImages()) {
 					ri.setProductNo(r.getReportProduct());
 					result=dao.insertReportImage(session, ri);
+					result=dao.changeStatus(session,r.getReportProduct().getProductNo());
 				}
 			}catch(RuntimeException e) {
 				throw new RuntimeException("에러! 등록실패");
 			}
 		}
-//		dao.changeStatus();
+		
+		
 		return result;
 	}
 
