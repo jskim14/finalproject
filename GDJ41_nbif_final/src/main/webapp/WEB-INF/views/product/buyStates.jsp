@@ -238,7 +238,7 @@
 										</div>
 										<!--  -->				        	
 								</c:when>
-								<c:when test="${p.productNo.productStatus eq '5'}">
+								<c:when test="${p.productNo.productStatus eq '5' and p.productNo.finalPrice eq p.amount}">
 						            	<button type="button" class="btn btn-secondary btnP" style="float: left; margin-right: 1%;" 
 						            	data-bs-toggle="modal" data-bs-target="">
 						            	신고내역확인 </button> 
