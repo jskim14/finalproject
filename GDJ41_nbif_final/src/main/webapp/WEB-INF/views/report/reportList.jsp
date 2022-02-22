@@ -49,7 +49,7 @@
                     </td>
                     
                     <td><button type="button" class="btn btn-warning" data-bs-toggle="modal" id="openModal_"
-						data-bs-target="#staticBackdrop${status.count }">보기</button>
+						data-bs-target="#staticBackdrop${status.count }">보기</button></td>
 						<!-- 모달창 -->
 					<div class="modal fade" id="staticBackdrop${status.count }" data-bs-backdrop="static"
 						data-bs-keyboard="false" tabindex="-1"
@@ -57,6 +57,7 @@
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 							<form name="reportForm" action="${path }/report/insertReportReason" method="POST">
+								<div class="modal-header">	
 									<h5 class="modal-title" id="staticBackdropLabel"
 										style="color: black;">신고내용</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -81,10 +82,15 @@
 									</div>
 									<div class="mb-3">
 										<label for="exampleFormControlInput1" class="form-label">처리 결과</label>
-										<textarea class="form-control" id="exampleFormControlTextarea1" name="reportResult"
-											rows="2"></textarea>
+										 <c:if test="${r.reportResult != null}">
+										<input type="text" class="form-control" id="exampleFormControlTextarea1" name="reportResult"
+											value="${r.reportResult }" readonly>
+										</c:if>
+										<c:if test="${r.reportResult == null}">
+										<input type="text" class="form-control" id="exampleFormControlTextarea1" name="reportResult">
+										</c:if>
 									</div>
-									<input type="text" value="${r.reportProduct.productNo }" name="productNo">
+									<input type="hidden" value="${r.reportProduct.productNo }" name="productNo">
 								</div>
 								
 								<div class="modal-footer">
@@ -96,7 +102,7 @@
 							</div>
 						</div>
 					</div>
-					</td>
+					
                 </tr>
                 </c:forEach>
                 </c:if>
