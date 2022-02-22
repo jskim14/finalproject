@@ -285,4 +285,33 @@ public class ProductServiceImpl implements ProductService {
 		
 		return dao.selectOtherList(session,memberNo);
 	}
+
+	@Override
+	public List<Product> auctionItemsList(int cPage, int numPerPage, String category) {
+		List<Product> list = dao.auctionItemsList(session, cPage, numPerPage, category);
+		for(Product p : list) {
+			p.setImages(dao.auctionItemsListImg(session,p.getProductNo()));
+		}
+		return list;
+	}
+
+	@Override
+	public int auctionItemsListCount(String category) {
+		return dao.auctionItemsListCount(session, category);
+	}
+
+	@Override
+	public List<Product> specialauctionList(int cPage, int numPerPage) {
+		List<Product> list = dao.specialauctionList(session, cPage, numPerPage);
+		for(Product p : list) {
+			p.setImages(dao.auctionItemsListImg(session,p.getProductNo()));
+		}
+		return list;
+	}
+
+	@Override
+	public int specialauctionListCount() {
+		return dao.specialauctionListCount(session);
+	}
+	
 }

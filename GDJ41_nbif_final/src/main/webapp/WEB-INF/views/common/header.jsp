@@ -101,7 +101,7 @@
 			form.submit();
 		  }
     </script>
-    <title>Document</title>
+    <title>NBIF</title>
 </head>
 <body>
 	<div class="modal fade" id="msgModal" tabindex="-1"
@@ -144,16 +144,6 @@
 	                            <li>
 	                        		<a href="javascript:msgBox(${loginMember.memberNo });"><i class="far fa-envelope" style="color:white;margin-top:5px;font-size:1.2rem;}">&nbsp;<span style="font-size:1rem;">쪽지함</span></i></a>
 	                        	</li>
-	                        	<%-- <li>
-		                            <div class="btn-group" role="group">
-	    								<span style="vertical-align: middle; font-size: 15px; color: white; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false"><c:out value="${loginMember.memberName }"/>님 ▼</span>
-									    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="width:30px;">
-										    <li><a class="dropdown-item" href="${path }/member/myPage?memberNo=${loginMember.memberNo}">마이페이지</a></li>
-										    <li><a class="dropdown-item" onclick="kakaoLogout()" href="${path}/member/logout">로그아웃</a></li>
-									    </ul>
-									</div>
-		                         </li> --%>
-		                         <!--트라이 -->
 		                         <li>
 		                         <div id="newdropdown">
 		                   			<div id="after-login"><c:out value="${loginMember.memberName }"/> 님 ▼</div>
@@ -190,8 +180,8 @@
                 <div id="second-header">
                     <h2><a href="${path }/"><img src="${path}/resources/images/NBIF.png" width="120px" height="40px"></a></h2>
                     <ul>
-                        <li style="width:200px"><a href="javascript:specialAuctionButton('${specialProduct.productNo}')">SPECIAL AUCTION</a></li>
-                        <li style="width:200px"><a href="">AUCTION ITEMS</a></li>
+                        <li style="width:200px"><a href="/specialauction">SPECIAL AUCTION</a></li>
+                        <li style="width:200px"><a href="/auctions">AUCTION ITEMS</a></li>
                         <li style="display: none; width:400px"><form action="${path }/productSearch" method="get"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></form></li>
                         <li><a href="javascript:search_btn()"><span><img src="${path}/resources/images/search.png" width="30px" height="30px"></span></a></li>
                         <li style="display: none;"><a href="javascript:search_btn_close()"><span><img src="${path}/resources/images/xxx.png" width="20px" height="20px"></span></a></li>
@@ -202,15 +192,6 @@
             	let loginMember = "${loginMember}";
             	let nickName = "${loginMember.nickName}";
 				let path = "${path}";
-            	function specialAuctionButton(productNo){
-            		if(!productNo){
-						alert("준비중인 실시간 경매물품이 없습니다.");
-						return;
-					}
-					
-					location.href = "${path}/product/productDetail?productNo="+productNo;
-
-            	}
             	const url = "ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
             </script>
             <script src="${path }/resources/js/messageBox.js"></script>

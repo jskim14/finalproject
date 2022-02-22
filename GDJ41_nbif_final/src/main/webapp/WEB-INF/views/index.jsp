@@ -133,7 +133,7 @@
 											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span>원<br>
 										</c:when>
 										<c:when test="${nowBidPrice>=buyNowPrice }">
-											즉시구매불가가<br>
+											즉시구매불가<br>
 										</c:when>
 										<c:otherwise>
 											즉시구매불가<br>
