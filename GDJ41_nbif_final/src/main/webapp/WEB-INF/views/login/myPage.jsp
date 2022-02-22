@@ -124,7 +124,7 @@
 		</button>
 		<button type="button" class="menu-box"
 			onclick="location.assign('${path}/product/insertProduct')">
-			물품 등록<br> <i class="fas fa-users" style="font-size: 2rem;"></i>
+			물품 등록<br> <i class="fas fa-registered" style="font-size: 2rem;"></i>
 		</button>
 		<button class="menu-box2" onclick="location.assign('${path}/member/salesStates?memberNo=${loginMember.memberNo}');">
 			<strong style="font-size: 20px;">내 판매현황</strong><br> 전체
