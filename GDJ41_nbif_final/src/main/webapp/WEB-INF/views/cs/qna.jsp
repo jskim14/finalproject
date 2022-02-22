@@ -29,7 +29,7 @@
             </div>
             <c:if test="${not empty loginMember}">
             	<div style="float:right;"> 
-					<button type="button" class="btn btn-warning" data-bs-toggle="modal"
+					<button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
 						data-bs-target="#staticBackdrop">문의 쓰기</button>
 				<!-- 모달창 -->
 					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
@@ -89,7 +89,9 @@
 	            		
             			<td style="">
             			<c:if test="${loginMember.memberNo != q.writer.memberNo }">
-            				<a href="javascript:window.alert('작성자만 확인 가능합니다.')" style="text-decoration:none;color:black;"><c:out value="${q.qnaTitle}"/></a>
+            				<a href="javascript:window.alert('작성자만 확인 가능합니다.')" style="text-decoration:none;color:black;">
+            				<c:out value="${q.qnaTitle}"/>&nbsp;&nbsp;<i class="fas fa-lock" style="color:gold;"></i></a>
+            				
             			</c:if>
             			<c:if test="${loginMember.memberNo == q.writer.memberNo }">
             				<a href="${path }/cs/qnaContent?qnaNo=${q.qnaNo}" style="text-decoration:none;color:black;"><c:out value="${q.qnaTitle}"/></a>
@@ -113,7 +115,7 @@
             	</tbody>
             </table>
             
-            <div>
+            <div style="margin-top:100px;">
             	${pageBar }
             </div>
             

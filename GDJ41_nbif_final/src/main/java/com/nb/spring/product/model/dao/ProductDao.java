@@ -92,4 +92,6 @@ public interface ProductDao {
 	List<Product> specialauctionList(SqlSessionTemplate session, int cPage, int numPerPage);
 	
 	int specialauctionListCount(SqlSessionTemplate session);
+	
+	int sellerDeposit(SqlSessionTemplate session, Product p);
 }

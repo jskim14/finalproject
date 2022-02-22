@@ -1,45 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <footer>
+<style>
+html{
+	position:relative;
+	min-height:100%;
+	margin:0;
+}
+footer{
+	width:100%;
+	height:110px;
+	position:absolute;
+	bottom:0;
+	left:0;
+}
+body{
+	min-height:100%;
+}
+</style>
 	<div id="footer-con">
 	<!-- 채팅아이콘 
 	<a href="javascript:void(0);" onclick="openchat();" class="float">
 <i class="far fa-comments  fa-lg my-float"></i>
 </a> -->
 
-<style>
-	.float{
-	position:fixed;
-	width:50px;
-	height:50px;
-	bottom:40px;
-	right:40px;
-	background-color:#0C9;
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 2px 2px 3px #999;
-	cursor:pointer;
-}
 
-.my-float{
-	margin-top:18px;
-}
-</style>
-	<script>
+	<!-- <script>
 	const openchat=()=> {
 		open("${path }/chatting","_blank","width=320, height=500, right=60");
 	}
-	</script>
-	<!--  -->
-	
-		<p>NBIF(버그아니라기능이조)&nbsp;&nbsp;&nbsp;&nbsp;서다빈&nbsp;이민선&nbsp;김지수&nbsp;양대열</p>
-		<p>Contact: 010 - 1111 - 1111 &nbsp;&nbsp;&nbsp;&nbsp;메일 :
-			nbif@gmail.com</p>
-		<br>
-		<p>
-			Copyright&copy; 2022. <strong>NBIF</strong> All rights reserved.
-		</p>
+	</script> -->
+		<div style="item-align:center; font-size:12px;">
+		<strong>Team NBIF(버그아니라기능이조)</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span style="color:gray">Dabin Seo&nbsp;•&nbsp;Minsun Lee&nbsp;•&nbsp;Jisu Kim&nbsp;•&nbsp;Daeyeol Yang</span><br>
+		Copyright&copy; 2022. <strong>NBIF</strong> All rights reserved.
+		</div>
 	</div>
 
 

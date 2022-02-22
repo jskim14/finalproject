@@ -197,8 +197,13 @@
 		<button id="highPirceBtn" style="margin-bottom: 80px;">더보기</button>
 		</div>
 	</div>
+<<<<<<< HEAD
 	<button id="wsBtn" onclick="websocket();" style="display: none;">버튼</button>
 	<div style="padding-left: 6.7%; background-color: #FFD481;">
+=======
+	<button onclick="websocket();">버튼</button>
+	<div style="padding-left: 6.7%; background-color: #FFD481; margin-bottom:80px;">
+>>>>>>> branch 'master' of https://github.com/DaBinSeo/finalproject.git
 		<div id="banner-con">
 			<div>
 				<a href="${path }/cs/noticeList"><img src="${path}/resources/images/banner1.png"

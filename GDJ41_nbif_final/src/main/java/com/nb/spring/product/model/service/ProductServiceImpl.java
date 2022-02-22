@@ -314,4 +314,9 @@ public class ProductServiceImpl implements ProductService {
 		return dao.specialauctionListCount(session);
 	}
 	
+	public int sellerDeposit(Product p) {
+		return dao.sellerDeposit(session, p);
+	}
+	
+	
 }

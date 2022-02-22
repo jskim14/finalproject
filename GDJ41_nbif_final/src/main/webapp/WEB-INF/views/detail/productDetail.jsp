@@ -393,7 +393,7 @@
 								<c:if test="${isWishList == false }">
 									<button id="wishListBtn" type="button"
 										class="btn btn-green w-100 d-flex justify-content-center align-items-center">
-										<i class="far fa-bookmark fa-3x"></i> &nbsp;&nbsp;<span style="font-size:30px">관심등록</span>
+										<i class="far fa-bookmark fa-2x"></i> &nbsp;&nbsp;<span style="font-size:20px">관심등록</span>
 									</button>
 								</c:if>
 								<c:if test="${isWishList == true }">
@@ -401,7 +401,7 @@
 									<button id="wishListBtn" type="button"
 										class="btn btn-green w-100 d-flex justify-content-center align-items-center"
 										disabled>
-										<i class="far fa-bookmark fa-2x"></i>&nbsp;&nbsp;<span style="font-size:30px">관심등록</span>
+										<i class="far fa-bookmark fa-2x"></i>&nbsp;&nbsp;<span style="font-size:20px">관심등록</span>
 									</button>
 								</c:if>
 							</div>
@@ -551,17 +551,16 @@
 
 				</div>
 				<br>
-				<div class="row">
+				<div class="row" style="min-height:300px; margin-top:100px;">
 					<div class="col-12">
-						<hr>
-						<h2>
+						
+						<h3>
 							상품정보
-						</h2>
-					</div>
-					<div class="col-12">
-						<p>
-							<c:out value="${product.productContent }" escapeXml="false"/>
-						</p>
+						</h3>
+						<hr>
+						<div style="justify-content:flex-start;align-items:flex-start;">
+							<p><c:out value="${product.productContent }" escapeXml="false"/></p>
+						</div>
 					</div>
 
 				</div>
@@ -569,23 +568,25 @@
 				<c:if test="${isGeneral == true }">
 
 					<div class="row">
-						<div class="col-12">
+						<div class="col-12" style="margin-top:100px;">
+							
+							<h3>
+								<strong><c:out
+											value="${product.seller.nickName}" /></strong>의 다른상품<br>
+							</h3>
 							<hr>
-							<h2>
-								<strong><strong><c:out
-											value="${product.seller.nickName}" /></strong>의 다른상품</strong>
-							</h2>
 						</div>
 						
 						<div class="col-12 d-flex" style="overflow-x:auto; " >
 						
 							<c:forEach items="${otherList }" var="other">
-								<div class="other m-1" onclick="location.href='${path}/product/productDetail?productNo=${other.productNo }';" style="width:210px; border: 1px solid lightgray; border-radius: 10px; box-shadow: 1px 1px darkgray; transition-duration:0.3s">
+								<div class="other m-1" onclick="location.href='${path}/product/productDetail?productNo=${other.productNo }';" 
+								style="width:270px; height:340px; border-radius: 10px; margin-right:20px; box-shadow: 0px 0px 10px 1px lightgray; transition-duration:0.3s">
 									<div class="d-flex justify-content-center my-2">
-										<img src="${path}/resources/upload/product/${other.images.get(0).imageName}" width="200px"
+										<img src="${path}/resources/upload/product/${other.images.get(0).imageName}" width="220px"
 											height="200px" style="border-radius: 10px;">
 									</div>
-									<div class="alignVertical">
+									<div class="alignVertical" style="padding-left:20px;">
 										<div class="nameLine">
 											<div>
 												<strong>

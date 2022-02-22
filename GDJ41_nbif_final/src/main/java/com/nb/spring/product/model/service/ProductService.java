@@ -76,4 +76,6 @@ public interface ProductService {
 	List<Product> specialauctionList(int cPage, int numPerPage);
 	
 	int specialauctionListCount();
+	
+	int sellerDeposit(Product p);
 }

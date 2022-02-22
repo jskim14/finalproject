@@ -246,4 +246,8 @@ public class ProductDaoImpl implements ProductDao {
 		return session.selectOne("product.specialauctionListCount");
 	}
 	
+	public int sellerDeposit(SqlSessionTemplate session, Product p) {
+		return session.insert("product.sellerDeposit", p);
+	}
+	
 }

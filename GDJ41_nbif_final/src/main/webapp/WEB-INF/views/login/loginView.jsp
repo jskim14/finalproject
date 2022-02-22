@@ -49,7 +49,22 @@
 				<div class="col-6">
 					<button type="submit" class="btn btn-secondary w-100">로그인</button>
 				</div>
-				<br>
+				
+				<div class="col-3"></div>
+			</div>
+			<div class="row">
+				<div class="col-3"></div>
+				<div class="col-6">
+					<div class="row d-flex justify-content-center">
+						<div class="col">
+							<button onclick="kakaoLogin()" type="button" class="btn btn-secondary w-100" style="height: 42px; background:#FEE500; font-size:13px;border:none;color:#624A3D;">
+								<img src="${path }/resources/images/kakao.png" style="width:20px;height:20px;padding:0;">
+								카카오 로그인
+							</button>
+						</div>
+					</div>
+
+				</div>
 				<div class="col-3"></div>
 			</div>
 			<div class="row">
@@ -69,24 +84,7 @@
 				</div>
 				<div class="col-3"></div>
 			</div>
-			<div class="row">
-				<div class="col-3"></div>
-				<div class="col-6">
-					<div class="row d-flex justify-content-center">
-						
-						<div class="col-4">
-
-							<button onclick="kakaoLogin()" type="button" class="btn btn-secondary w-100" style="height: 42px; background:#FEE500; font-size:13px;border:none;color:#624A3D;">
-								<img src="${path }/resources/images/kakao.png" style="width:20px;height:20px;padding:0;">
-								카카오 로그인
-							</button>
-
-						</div>
-						
-					</div>
-				</div>
-				<div class="col-3"></div>
-			</div>
+			
 		</div>
 	</form>
 </section>

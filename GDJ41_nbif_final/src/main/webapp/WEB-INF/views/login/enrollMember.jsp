@@ -295,11 +295,6 @@
     }
 
 
-
-
-
-
-
 	$("#inputPassword").keyup(e=>{
         let pw = $("#inputPassword").val();
         let textRoot = $("#inputPasswordText");
@@ -329,7 +324,6 @@
                 textRoot.css('color','#7f47e9').html("일치하지않습니다.");
         }
     })
-
 
 
 </script>
