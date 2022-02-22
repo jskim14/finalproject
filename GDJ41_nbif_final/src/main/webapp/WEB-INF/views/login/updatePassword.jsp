@@ -88,7 +88,7 @@
 	        if(req.test(pw)){
 	            textRoot.css('color','#41B979').html("사용이 가능합니다.");
 	        }else{
-	            textRoot.css('color','red').html("형식에 맞게 입력해주세요.");
+	            textRoot.css('color','red').html("영문자,특수문자를 포함하여 8글자 이상 입력해주세요.");
 	        }
 	    }
 	});

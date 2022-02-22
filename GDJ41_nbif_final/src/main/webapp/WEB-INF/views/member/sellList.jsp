@@ -57,25 +57,48 @@ section {
 						</c:if>
 						<p>
 							<strong style="font-size: 18px">${sl.productName }</strong><br>
-							<c:if test="${p.nowBidPrice != null }">
+									<c:if test="${sl.nowBidPrice != null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${sl.nowBidPrice }"/></span>원<br>
+									</c:if>
+									<c:if test="${sl.nowBidPrice == null }">
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${sl.minBidPrice }"/></span>원<br>
+									</c:if>
+									<fmt:parseNumber value="${sl.nowBidPrice}" var="nowBidPrice"/>
+									<fmt:parseNumber value="${sl.buyNowPrice}" var="buyNowPrice"/>
+									<c:choose>
+										<c:when test="${sl.nowBidPrice<sl.buyNowPrice }" >
+											즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${sl.buyNowPrice }"/></span>원<br>
+										</c:when>
+										<c:when test="${sl.nowBidPrice>=sl.buyNowPrice }">
+											즉시구매불가<br>
+										</c:when>
+										<c:otherwise>
+											즉시구매불가<br>
+										</c:otherwise>
+									</c:choose>
+									판매자&nbsp;<strong>${sl.seller.nickName }</strong>
+						
+							<%-- <strong style="font-size: 18px">${sl.productName }</strong><br>
+							<c:if test="${sl.nowBidPrice != null }">
 									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber
 										value="${sl.nowBidPrice }" />원</span>
 								<br>
 							</c:if>
-							<c:if test="${p.nowBidPrice == null }">
+							<c:if test="${sl.nowBidPrice == null }">
 									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber
 										value="${sl.minBidPrice }" />원</span>
 								<br>
 							</c:if>
-							<c:if test="${p.buyNowPrice != null }">
+							<c:if test="${sl.buyNowPrice != null }">
 									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber
 										value="${sl.buyNowPrice }" />원</span>
 								<br>
 							</c:if>
-							<c:if test="${p.buyNowPrice == null }">
+							<c:if test="${sl.buyNowPrice == null }">
 									즉시구매불가<br>
 							</c:if>
 							판매자&nbsp;<strong>${sl.seller.nickName }</strong>
+						 --%>
 						</p>
 					</div>
 				</a>

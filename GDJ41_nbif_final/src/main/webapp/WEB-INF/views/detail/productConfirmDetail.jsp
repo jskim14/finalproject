@@ -345,9 +345,9 @@
 				<div class="row">
 					<div class="col-12">
 						<hr>
-						<h1>
+						<h3>
 							<strong>상품정보</strong>
-						</h1>
+						</h3>
 					</div>
 					<div class="col-12">
 						<p>
@@ -357,8 +357,11 @@
 
 				</div>
 
-<div class="container" style="z-index: 999;position: fixed; right:150px; bottom:0px;height: 100px; width: 400px;background-color: white; border: 3px solid #41B979; border-radius: 20px">
-	<div class="row mt-4">
+<div class="container" style="z-index: 999;position: fixed; right:150px; top:60%; left:10%; height: 160px; width: 300px;background-color: rgba( 255, 255, 255, 0.5 ); border: 1px solid yellow; border-radius: 10px">
+	<div class="row mt-4" style="text-align:center;">
+		<i class="fas fa-exclamation fa-3x"></i>
+		<h4>물품을 승인하시겠습니까?</h4>
+		<br>
 		<div class="col ">
 			<button type="button" class="btn btn-purple w-100" data-bs-toggle="modal" data-bs-target="#rejectModal">거절</button>
 		</div>
