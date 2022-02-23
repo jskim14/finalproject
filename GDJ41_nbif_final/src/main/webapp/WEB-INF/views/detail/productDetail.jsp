@@ -399,13 +399,13 @@
 
 
 							</div> -->
-								<c:if test="${isWishList == false }">
+								<c:if test="${isWishList == false && product.productStatus == 0 }">
 									<button id="wishListBtn" type="button"
 										class="btn btn-green w-100 d-flex justify-content-center align-items-center">
 										<i class="far fa-bookmark fa-2x"></i> &nbsp;&nbsp;<span style="font-size:20px">관심등록</span>
 									</button>
 								</c:if>
-								<c:if test="${isWishList == true }">
+								<c:if test="${isWishList == true || product.productStatus != 0}">
 
 									<button id="wishListBtn" type="button"
 										class="btn btn-green w-100 d-flex justify-content-center align-items-center"
