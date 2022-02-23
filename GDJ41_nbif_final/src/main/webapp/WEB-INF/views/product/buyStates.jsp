@@ -117,7 +117,7 @@
 			</c:if>
 			<c:if test="${not empty productList }">
 				<!-- 상품내용 한줄 -->
-				<c:forEach var="p" items="${productList}">
+				<c:forEach var="p" items="${productList}" varStatus="st">
 				<c:if test="${p.categoryDetail ne '0' }">
 					<div class="row" style="margin: 0; text-align: center;">
 						<hr>
@@ -198,10 +198,10 @@
 											test="${(p.productNo.productStatus eq '2' or p.productNo.productStatus eq '3') and p.productNo.finalPrice eq p.amount }">
 											<button type="button" class="btn btn-secondary btnColor"
 												style="float: left; margin-right: 1%;"
-												data-bs-toggle="modal" data-bs-target="#buyEnd">
+												data-bs-toggle="modal" data-bs-target="#buyEnd${st.count }">
 												구매확정</button>
 											<!-- Modal -->
-											<div class="modal fade" id="buyEnd" data-bs-backdrop="static"
+											<div class="modal fade" id="buyEnd${st.count }" data-bs-backdrop="static"
 												data-bs-keyboard="false" tabindex="-1"
 												aria-labelledby="staticBackdropLabel" aria-hidden="true">
 												<div class="modal-dialog">
@@ -225,10 +225,10 @@
 												</div>
 											</div>
 											<button type="button" class="btn btn-secondary btnP"
-												data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+												data-bs-toggle="modal" data-bs-target="#staticBackdrop${st.count }"
 												style="float: left;">신고(환불신청)</button>
 											<!-- 모달창 -->
-											<div class="modal fade" id="staticBackdrop"
+											<div class="modal fade" id="staticBackdrop${st.count }"
 												data-bs-backdrop="static" data-bs-keyboard="false"
 												tabindex="-1" aria-labelledby="staticBackdropLabel"
 												aria-hidden="true">
@@ -297,9 +297,9 @@
 											<button type="button" class="btn btn-secondary btnP rtBtn" value="${p.productNo.productNo}"
 												style="float: left; margin-right: 1%;">신고내역확인</button>
 											<button type="button" style="display:none;" id="openReporyBtn"
-												data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
+												data-bs-toggle="modal" data-bs-target="#staticBackdrop${st.count }"></button>
 											<!-- 여기 창  -->
-											<div class="modal fade" id="staticBackdrop"
+											<div class="modal fade" id="staticBackdrop${st.count }"
 												data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 												aria-labelledby="staticBackdropLabel" aria-hidden="true">
 												<div class="modal-dialog modal-dialog-centered">
