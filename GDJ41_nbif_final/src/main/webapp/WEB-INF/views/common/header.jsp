@@ -117,7 +117,7 @@
 			<div class="modal-body container-fluid">바로 확인하시겠습니까?</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-green" style="width:74px; color: #fff; background-color: #41B979; border-color: #41B979;"
-					onclick="msgBoxBtn(${loginMember.memberNo});" >예</button>
+					onclick="msgBoxBtn(${loginMember.memberNo});" data-bs-dismiss="modal" >예</button>
 				<button type="button" class="btn btn-secondary"
 					data-bs-dismiss="modal">아니오</button>
 			</div>

@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<section style="padding-bottom: 5%;">
+<section style="padding-bottom: 5%; width: 100%;">
 	<div style="height: 140px;"></div>
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-bs-ride="carousel" style="margin-bottom: 5%;">
@@ -24,19 +24,19 @@
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 				<img src="${path}/resources/images/111.png" class="d-block w-100"
-					alt="..." height="400px" width="100%">
+					alt="..." width="100%">
 			</div>
 			<div class="carousel-item">
 				<img src="${path}/resources/images/222.png" class="d-block w-100"
-					alt="..." height="400px" width="100%">
+					alt="..." width="100%">
 			</div>
 			<div class="carousel-item">
 				<img src="${path}/resources/images/333.png" class="d-block w-100"
-					alt="..." height="400px" width="100%">
+					alt="..." width="100%">
 			</div>
 			<div class="carousel-item">
 				<img src="${path}/resources/images/444.png" class="d-block w-100"
-					alt="..." height="400px" width="100%">
+					alt="..." width="100%">
 			</div>
 		</div>
 		<button class="carousel-control-prev" type="button"

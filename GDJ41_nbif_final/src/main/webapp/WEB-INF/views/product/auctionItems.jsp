@@ -49,8 +49,8 @@ button.btn-choice {
 			<button value="all" onclick="searchCategory(this.value);" class="${category eq 'all'?'btn-choice':'categoryBtn'}">전체</button>
 			<button value="FS" onclick="searchCategory(this.value);" class="${category eq 'FS'?'btn-choice':'categoryBtn'}">패션</button>
 			<button value="LF" onclick="searchCategory(this.value);" class="${category eq 'LF'?'btn-choice':'categoryBtn'}">라이프</button>
-			<button value="TC" onclick="searchCategory(this.value);" class="${category eq 'TC'?'btn-choice':'categoryBtn'}">아트</button>
-			<button value="AT" onclick="searchCategory(this.value);" class="${category eq 'AT'?'btn-choice':'categoryBtn'}">테크</button>
+			<button value="AR" onclick="searchCategory(this.value);" class="${category eq 'AR'?'btn-choice':'categoryBtn'}">아트</button>
+			<button value="TC" onclick="searchCategory(this.value);" class="${category eq 'TC'?'btn-choice':'categoryBtn'}">테크</button>
 		</div>
 		<div>
 			<c:if test="${not empty auctionItems }">
@@ -161,7 +161,9 @@ button.btn-choice {
 			</c:if>
 	</div>
 	</div>
-	${pageBar }
+	<div style="padding-bottom: 80px;">
+		${pageBar }
+	</div>
 	<script>
 		function fn_paging(cPage) {
 			let keyword = "${keyword}";
