@@ -579,7 +579,6 @@ public class MemberController {
 										"bidPrice",numAmount,
 										"productNo",""
 									);
-		
 		int result = service.updateBalance(DealType.INPUT, param);
 		
 		if(result>0) {
