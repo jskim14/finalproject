@@ -46,13 +46,6 @@ button.btn-choice {
 	<div id="list-con" style="padding-top:100px; padding-bottom: 50px;">
 		<h3><span style="color:black; font-weight: bold;">Special Auction</span></h3>
 		<div style="width:210px; height:6px; background:black;"></div>
-		<div id="btn-contaier">
-			<button value="all" onclick="searchCategory(this.value);" class="${category eq 'all'?'btn-choice':'categoryBtn'}">전체</button>
-			<button value="FS" onclick="searchCategory(this.value);" class="${category eq 'FS'?'btn-choice':'categoryBtn'}">패션</button>
-			<button value="LF" onclick="searchCategory(this.value);" class="${category eq 'LF'?'btn-choice':'categoryBtn'}">라이프</button>
-			<button value="AR" onclick="searchCategory(this.value);" class="${category eq 'AR'?'btn-choice':'categoryBtn'}">아트</button>
-			<button value="TC" onclick="searchCategory(this.value);" class="${category eq 'TC'?'btn-choice':'categoryBtn'}">테크</button>
-		</div>
 		<div>
 			<c:if test="${not empty specialauction }">
 				<c:forEach var="p" items="${specialauction }" varStatus="sta">
@@ -154,10 +147,6 @@ button.btn-choice {
 			let keyword = "${keyword}";
 			let category = "${category}";
 			location.assign("${path}/specialauction?cPage=" + cPage + "&category=" + category);
-		}
-		const searchCategory=(category)=> {
-			let keyword = "${keyword}";
-			location.assign("${path}/specialauction?&category=" + category);
 		}
 	</script>
 </section>

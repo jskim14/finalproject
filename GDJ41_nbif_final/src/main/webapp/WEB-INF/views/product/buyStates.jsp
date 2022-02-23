@@ -450,6 +450,12 @@
     		success : data => {
     			$("#staticBackdrop input#productName").val(data["reportProduct"]["productName"]);
     			$("#staticBackdrop input#reportReason").val(data["reportReason"]);
+    			$("#staticBackdrop div#reportImage").html("");
+    			let label = $("<label>");
+    			label.attr({"for":"exampleFormControlTextarea1","class":"form-label"});
+    			label.text("첨부이미지");
+    			$("#staticBackdrop div#reportImage").html(label);
+    			$("#staticBackdrop div#reportImage").append("<br>");
     			for(let i=0; i<data["reportImages"].length; i++) {
     				let reportImg = data["reportImages"][i];
     				let imgSrc = "${path}/resources/upload/report/" + reportImg["fileName"];
