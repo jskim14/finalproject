@@ -12,17 +12,31 @@
 		data-bs-ride="carousel" style="margin-bottom: 5%;">
 		<div class="carousel-indicators">
 			<c:forEach items="${specialProductList }" var="sp" varStatus="sta">
-				<button type="button" data-bs-target="#carouselExampleIndicators"
-				data-bs-slide-to="${sta.index }" class="active" aria-current="true"
-				aria-label="Slide ${sta.count }"></button>
+				<c:if test="${sta.count == 1 }">
+					<button type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide-to="${sta.index }" class="active" aria-current="true"
+					aria-label="Slide ${sta.count }"></button>
+				</c:if>
+				<c:if test="${sta.count != 1 }">
+					<button type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide-to="${sta.index }" aria-label="Slide ${sta.count }"></button>
+				</c:if>
 			</c:forEach>
 		</div>
 		<div class="carousel-inner">
-			<c:forEach items="${specialProductList }" var="sp">
-			<div class="carousel-item active">
-				<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100"
-					alt="..." width="100%">
-			</div>
+			<c:forEach items="${specialProductList }" var="sp" varStatus="sta">
+			<c:if test="${sta.count == 1 }">
+				<div class="carousel-item active">
+					<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100"
+						alt="..." width="100%">
+				</div>
+			</c:if>
+			<c:if test="${sta.count != 1 }">
+				<div class="carousel-item">
+					<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100"
+						alt="..." width="100%">
+				</div>
+			</c:if>
 			</c:forEach>
 		</div>
 		<button class="carousel-control-prev" type="button"
