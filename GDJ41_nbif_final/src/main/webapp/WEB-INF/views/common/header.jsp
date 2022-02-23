@@ -181,8 +181,8 @@
                 <div id="second-header">
                     <h2><a href="${path }/"><img src="${path}/resources/images/NBIF.png" width="120px" height="40px"></a></h2>
                     <ul>
-                        <li style="width:200px"><a href="/specialauction">SPECIAL AUCTION</a></li>
-                        <li style="width:200px"><a href="/auctions">AUCTION ITEMS</a></li>
+                        <li style="width:200px"><a href="${path }/specialauction">SPECIAL AUCTION</a></li>
+                        <li style="width:200px"><a href="${path }/auctions">AUCTION ITEMS</a></li>
                         <li style="display: none; width:400px"><form action="${path }/productSearch" method="get"><input type="search" name="keyword" id="search-bar" placeholder=" Search..."></form></li>
                         <li><a href="javascript:search_btn()"><span><img src="${path}/resources/images/search.png" width="30px" height="30px"></span></a></li>
                         <li style="display: none;"><a href="javascript:search_btn_close()"><span><img src="${path}/resources/images/xxx.png" width="20px" height="20px"></span></a></li>
