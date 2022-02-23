@@ -104,11 +104,11 @@
             <table class="table table-hover">
             	<thead id="thead">
             		 <tr>
-	            		<th style="text-align:center; width:100px; font-weight: bold;">#</th>
-	            		<th style="text-align:center; font-weight: bold;">제목</th>
-	            		<th style="text-align:center; width:250px; font-weight: bold;">작성일</th>
+	            		<th style="text-align:center; width:100px; font-weight: bold;" class="table-dark">#</th>
+	            		<th style="min-width:200px; font-weight: bold;" class="table-dark">제목</th>
+	            		<th style="text-align:center; min-width:130px; font-weight: bold;" class="table-dark">작성일</th>
 	            		<c:if test="${loginMember.memberNo eq '5' }">
-	            			<th style="font-weight: bold;"></th>
+	            			<th style="font-weight: bold;" class="table-dark">삭제</th>
 	            		</c:if>
             		</tr> 
             	</thead>
