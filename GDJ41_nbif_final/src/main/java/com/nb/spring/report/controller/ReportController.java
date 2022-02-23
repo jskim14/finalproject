@@ -8,16 +8,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.nb.spring.common.PageFactory;
 import com.nb.spring.member.model.vo.Member;
 import com.nb.spring.product.model.vo.Product;
@@ -137,6 +141,14 @@ public class ReportController {
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
 		return mv;
+	}
+	
+	@PostMapping("/reportCon")
+	@ResponseBody
+	public void reportCon(String productNo, HttpServletResponse res) throws IOException {
+		Report r = service.reportCon(productNo);
+		res.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(r, res.getWriter());
 	}
 	
 }

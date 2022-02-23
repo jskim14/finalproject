@@ -40,9 +40,6 @@ public class MainController {
 		int startNum = 0;
 		int finishNum = 3;
 		
-		Product specialProduct = service.selectOneSpecialProduct();
-		
-		mv.addObject("specialProduct", specialProduct);
 		mv.addObject("specialProductList", service.selectSpecialProductList());
 		mv.addObject("deadLine", service.selectListDeadLine(startNum, finishNum));
 		mv.addObject("latest", service.selectListLatest(startNum, finishNum));
@@ -211,12 +208,14 @@ public class MainController {
 			mv.setViewName("common/msg");
 			loc = "/";
 			msg = "준비중인 실시간경매 물품이 없습니다.";
+			mv.addObject("loc", loc);
+			mv.addObject("msg",msg);
+
 		}else {
 			mv.setViewName("product/specialAuction");
 			mv.addObject("specialauction", list);
 		}
-		mv.addObject("loc", loc);
-		mv.addObject("msg",msg);
+		mv.addObject("category", category);
 		mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize));
 		return mv;
 	}

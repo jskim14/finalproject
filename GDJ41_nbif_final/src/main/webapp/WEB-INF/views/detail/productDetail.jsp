@@ -56,6 +56,9 @@
 
 
 </style>
+<script>
+	const status = ${product.productStatus};
+</script>
 <fmt:formatDate var="endDate" value="${product.endDate }" pattern="yyyy-MM-dd HH:mm:ss"/>
 	<div class="container-fluid">
 		<div class="row">
@@ -266,11 +269,17 @@
 							function showRemaining(){
 								let now = new Date();
 								let distDate = targetDate-now;
+								console.log(flag);
+								console.log("${product.bannerImageName}"!=null);
+								console.log(Number(status)==0);
 								if(distDate < 0 ){
 									clearInterval(timer);
-									if(flag){
+									if(flag && Number(status)==1){
+										$('#goBtn').attr({disabled:true});
 										document.getElementById(id).textContent = "종료된 상품입니다.";
-									}else{
+									}else if(flag && "${product.bannerImageName}"!=null && Number(status)==0){
+										console.log(status);
+										$('#goBtn').attr({disabled:false});
 										document.getElementById(id).textContent = "경매진행중...";
 									}
 									return;
@@ -518,7 +527,7 @@
 						<div class="row">
 							<div class="col-12">
 								<button id="goBtn" type="button" class="btn btn-green w-100"
-									onclick="goToSpecialAction()" >실시간 경매장으로~</button>
+									onclick="goToSpecialAction()">실시간 경매장으로~</button>
 							</div>
 						</div>
 	<script>
@@ -529,21 +538,22 @@
 
 				let gap = nowDate - bidStartDate;
 
-				if(gap>0){
+/*  				if(gap>0){
 					$('#goBtn').attr({disabled:true});
 				}else{
 					$('#goBtn').attr({disabled:false});
-				}
+				} */
 
 			}
 
 
 			function goToSpecialAction(){
-				open("/product/realtimeaction","_blank","width=1100, height=700, left=150"); 
-				//location.assign(location.origin+"//");
+				if("${loginMember}"!="") {
+					open("/product/realtimeaction?productNo=${product.productNo}","_blank","width=1100, height=700, left=150"); 
+				}else {
+					alert("로그인 후 이용할 수 있습니다.");
+				}
 			}
-
-
 	</script>
 
 

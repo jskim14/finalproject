@@ -49,5 +49,11 @@ public class ReportDaoImpl implements ReportDao {
 	public int changeStatus(SqlSessionTemplate session, String productNo) {
 		return session.update("report.changeStatus", productNo);
 	}
+
+	@Override
+	public Report reportCon(SqlSessionTemplate session, String productNo) {
+		return session.selectOne("report.reportCon", productNo);
+	}
+	
 	
 }

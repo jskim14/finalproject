@@ -19,7 +19,7 @@ a {
 	height: 30px;
 	margin: 0;
 	padding: 0;
-	background-color: #0d6efd;
+	background-color: #41B979;
 	color: white;
 	border: none;
 	font-weight: bold;
@@ -35,8 +35,8 @@ a {
 	margin: 0;
 	padding: 0;
 	background-color: white;
-	color: #0d6efd;
-	border: 1px solid #0d6efd;
+	color: #41B979;
+	border: 1px solid #41B979;
 	font-weight: bold;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
@@ -45,12 +45,12 @@ a {
 }
 
 .msgBoxBtn:hover {
-	background-color: #0d6efd;
+	background-color: #41B979;
 	color: white;
 }
 
 #container {
-	background-color: #0d6efd;
+	background-color: #41B979;
 	height: 474px;
 	padding-left: 25px;
 }
@@ -74,8 +74,8 @@ a {
 }
 
 table#msgList thead th {
-	border-bottom: 2px solid #0d6efd;
-	color: #0d6efd;
+	border-bottom: 2px solid #41B979;
+	color: #41B979;
 }
 
 table#msgList td, table th {
@@ -102,7 +102,7 @@ a.checkMsg {
 }
 
 .uncheckMsg {
-	color: #0d6efd;
+	color: #41B979;
 	font-weight: bold;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -115,7 +115,7 @@ a.checkMsg {
 .view-btn {
 		width:50px;
 		background-color: white;
-		color: #0d6efd;
+		color: #41B979;
 		border: none;
 		border-radius: 5px;
 		font-weight: bold;
@@ -137,3 +137,32 @@ textarea:focus {
 	border: 2px solid #c4c4c4;
 	padding: 5px 0 0 5px;
 }
+
+		.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #41B979;
+    border-color: #41B979;
+	}	
+	.page-item.active .page-link {
+	    z-index: 3;
+	    color: #fff;
+	    background-color: #41B979;
+	    border-color: #41B979;
+	}
+	
+	.page-link:hover {
+	    z-index: 2;
+	    color: #41B979;
+	    background-color: #e9ecef;
+	    border-color: #dee2e6;
+	}
+	
+	.page-link {
+	    position: relative;
+	    display: block;
+	    color: #41B979;
+	    text-decoration: none;
+	    background-color: #fff;
+	    border: 1px solid #dee2e6;
+	}
