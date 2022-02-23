@@ -75,13 +75,13 @@ button.btn-choice {
 									<strong style="font-size: 15px">${p.productName }</strong><br>
 									판매자&nbsp;<strong>${p.seller.nickName }</strong><br>
 									<c:if test="${nowBidPrice != null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${nowBidPrice == null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${buyNowPrice != null && nowBidPrice<buyNowPrice }">
-									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${buyNowPrice == null ||  nowBidPrice>buyNowPrice}">
 									즉시구매불가<br>
@@ -118,13 +118,13 @@ button.btn-choice {
 									<strong style="font-size: 15px">${p.productName }</strong><br>
 									판매자&nbsp;<strong>${p.seller.nickName }</strong><br>
 									<c:if test="${nowBidPrice != null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${nowBidPrice == null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${buyNowPrice != null && nowBidPrice<buyNowPrice }">
-									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${buyNowPrice == null ||  nowBidPrice>buyNowPrice}">
 									즉시구매불가<br>
