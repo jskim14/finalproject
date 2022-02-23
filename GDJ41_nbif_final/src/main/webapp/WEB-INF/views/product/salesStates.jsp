@@ -97,7 +97,7 @@
 			</c:if>
 			<c:if test="${not empty productList }">
 				<!-- 상품내용 한줄 -->
-				<c:forEach var="p" items="${productList}">
+				<c:forEach var="p" items="${productList}" varStatus="st">
      				<div class="row" style="margin: 0; text-align: center;">
 						<hr>
 						<a href="${path }/product/productDetail?productNo=${p.productNo}" class="col-2">
@@ -158,10 +158,10 @@
 						            	onclick="location.assign('${path}/product/updateProduct?productNo=${p.productNo }')">
 						            	수정하기 </button> 
 						            	<button type="button" class="btn btn-secondary" style="background-color:#7f47e9"
-						            	data-bs-toggle="modal" data-bs-target="#delete" >
+						            	data-bs-toggle="modal" data-bs-target="#delete${st.count }" >
 						            	삭제 </button>
 						            	<!-- Modal -->
-										<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+										<div class="modal fade" id="delete${st.count }" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 										  <div class="modal-dialog">
 										    <div class="modal-content">
 										      <div class="modal-header">
@@ -189,10 +189,10 @@
 								            <button type="button" class="btn btn-secondary btnColor"
 								            onclick="location.assign('${path}/product/reInsertProduct?productNo=${p.productNo }')">재등록하기 </button>
 								            <button type="button" class="btn btn-secondary" style="background-color:#7f47e9"
-							            	data-bs-toggle="modal" data-bs-target="#delete" >
+							            	data-bs-toggle="modal" data-bs-target="#delete${st.count }" >
 							            	삭제 </button>
 							            	<!-- Modal -->
-											<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+											<div class="modal fade" id="delete${st.count }" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 											  <div class="modal-dialog">
 											    <div class="modal-content">
 											      <div class="modal-header">
@@ -217,10 +217,10 @@
 						        <c:choose>
 						        	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '1' }">
 							            <button type="button" class="btn btn-secondary btnColor" 
-							            data-bs-toggle="modal" data-bs-target="#shipping"
+							            data-bs-toggle="modal" data-bs-target="#shipping${st.count }"
 							            style="float: left;">발송하기 </button>
 										<!-- Modal -->
-										<div class="modal fade" id="shipping" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+										<div class="modal fade" id="shipping${st.count }" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 										  <div class="modal-dialog">
 										    <div class="modal-content">
 										      <div class="modal-header">

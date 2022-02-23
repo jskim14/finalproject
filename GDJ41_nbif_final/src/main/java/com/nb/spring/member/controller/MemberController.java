@@ -196,26 +196,28 @@ public class MemberController {
 			mv.addObject("buyCnt", zeroList);
 		} else {
 			for(Wallet w : buyList) {
-				if(w.getProductNo().getProductStatus() != null) {
-					if(w.getProductNo().getProductStatus().equals("0")) {
-						buying++;
+				if(!(w.getCategoryDetail().equals("0"))) {
+					if(w.getProductNo().getProductStatus() != null) {
+						if(w.getProductNo().getProductStatus().equals("0")) {
+							buying++;
+						}
 					}
-				}
-				if(w.getProductNo().getProductStatus() != null && w.getProductNo().getFinalPrice() != null) {
-					if((w.getProductNo().getProductStatus().equals("1")
-							||w.getProductNo().getProductStatus().equals("2"))
-							&& w.getProductNo().getFinalPrice().equals(w.getAmount())) { //구매대기
-						waiting++;
-					}
-					if((w.getProductNo().getProductStatus().equals("3")
-							||w.getProductNo().getProductStatus().equals("4")
-							||w.getProductNo().getProductStatus().equals("5"))
-							&& w.getProductNo().getFinalPrice().equals(w.getAmount()) ) { //종료
-						end++;
-					}
-					if(!(w.getProductNo().getProductStatus().equals("0"))
-							&& !(w.getProductNo().getFinalPrice().equals(w.getAmount()))) { //종료
-						end++;
+					if(w.getProductNo().getProductStatus() != null && w.getProductNo().getFinalPrice() != null) {
+						if((w.getProductNo().getProductStatus().equals("1")
+								||w.getProductNo().getProductStatus().equals("2"))
+								&& w.getProductNo().getFinalPrice().equals(w.getAmount())) { //구매대기
+							waiting++;
+						}
+						if((w.getProductNo().getProductStatus().equals("3")
+								||w.getProductNo().getProductStatus().equals("4")
+								||w.getProductNo().getProductStatus().equals("5"))
+								&& w.getProductNo().getFinalPrice().equals(w.getAmount()) ) { //종료
+							end++;
+						}
+						if(!(w.getProductNo().getProductStatus().equals("0"))
+								&& !(w.getProductNo().getFinalPrice().equals(w.getAmount()))) { //종료
+							end++;
+						}
 					}
 				}
 			}
