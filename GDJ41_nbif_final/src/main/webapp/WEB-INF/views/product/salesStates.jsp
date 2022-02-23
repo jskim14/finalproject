@@ -250,11 +250,6 @@
 						        	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '4' }">
 							            <span style="font-size: 18px;float: left; color: gray;">구매확정</span>
 						        	</c:when>
-						        	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '5' }">
-							            <span style="font-size: 18px;float: left; color: gray;">
-							            <a href="#" class="aColor" style="color: gray;">문의사항 바로가기</a>
-							            </span>
-						        	</c:when>
 						        </c:choose>
 						        
 						        </div>
