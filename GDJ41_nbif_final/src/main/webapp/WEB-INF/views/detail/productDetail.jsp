@@ -538,11 +538,11 @@
 
 				let gap = nowDate - bidStartDate;
 
-/*  				if(gap>0){
+  				if(gap>0){
 					$('#goBtn').attr({disabled:true});
 				}else{
 					$('#goBtn').attr({disabled:false});
-				} */
+				} 
 
 			}
 

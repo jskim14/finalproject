@@ -28,14 +28,14 @@
 			<c:if test="${sta.count == 1 }">
 				<div class="carousel-item active">
 					<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100 proImg"
-						alt="..." width="100%">
+						alt="..." width="100%" style="cursor: pointer;">
 					<button style="display: none;" onclick="moveDetail(this.value);" value="${sp.productNo }"></button>
 				</div>
 			</c:if>
 			<c:if test="${sta.count != 1 }">
 				<div class="carousel-item">
 					<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100 proImg"
-						alt="..." width="100%">
+						alt="..." width="100%" style="cursor: pointer;">
 					<button style="display: none;" onclick="moveDetail(this.value);" value="${sp.productNo }"></button>
 				</div>
 			</c:if>
@@ -387,7 +387,11 @@
   		} 
   	}
   	$(".proImg").click(e=> {
-  		console.log('zz');
+  		$(e.target).next().click();
   	});
+  	
+  	const moveDetail =(proNo)=> {
+  		location.assign("${path}/product/productDetail?productNo=" + proNo);
+  	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

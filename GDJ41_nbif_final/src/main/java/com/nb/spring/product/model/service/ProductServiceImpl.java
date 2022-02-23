@@ -239,7 +239,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> selectSpecialProductList() {
 		List<Product> list = dao.selectSpecialProductList(session);
 		List<Product> result = new ArrayList<Product>();
-		if(list.size()<4) {
+		if(!list.isEmpty()) {
 			for(Product p : list) {
 				if(result.size()<5) {
 					result.add(p);
