@@ -202,17 +202,17 @@
 	<button id="wsBtn" onclick="websocket();" style="display: none;">버튼</button>
 	<div style="padding-left: 6.7%; background-color: #EAEBEF; margin-top:80px; margin-bottom:80px;">
 		<div id="banner-con">
-			<div>
+			<div style="margin-left:100px;">
 				<a href="${path }/cs/noticeList"><img src="${path}/resources/images/banner1.png"
-					alt="" width="230px" height="100%"></a>
+					alt="" width="200px" height="100%"></a>
 			</div>
 			<div>
 				<a href="${path }/member/sellerrank"><img src="${path}/resources/images/banner2.png"
-					alt="" width="230px" height="100%"></a>
+					alt="" width="200px" height="100%"></a>
 			</div>
 			<div>
 				<a href="javascript: goInsert();"><img src="${path}/resources/images/banner3.png"
-					alt="" width="230px" height="100%"></a>
+					alt="" width="200px" height="100%"></a>
 			</div>
 		</div>
 	</div>

@@ -31,7 +31,7 @@ button.btn-choice {
 	font-weight: bold;
 	margin-right: 5px;
 	cursor: pointer;
-	border:2px solid #41B979;
+	border:1px solid #41B979;
 }
 .categoryBtn:hover {
 	background-color: #41B979;
