@@ -75,17 +75,9 @@ button.btn-choice {
 									<strong style="font-size: 15px">${p.productName }</strong><br>
 									판매자&nbsp;<strong>${p.seller.nickName }</strong><br>
 									<c:if test="${nowBidPrice != null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									경매시작가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
 									</c:if>
-									<c:if test="${nowBidPrice == null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
-									</c:if>
-									<c:if test="${buyNowPrice != null && nowBidPrice<buyNowPrice }">
-									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
-									</c:if>
-									<c:if test="${buyNowPrice == null ||  nowBidPrice>buyNowPrice}">
-									즉시구매불가<br>
-									</c:if>
+									경매시작날짜&nbsp;<fmt:formatDate value="${p.endDate }" pattern="yyyy-MM-dd HH:mm"/>
 								</p>
 								</c:if>
 								<c:if test="${p.productStatus != 0 }">
@@ -118,17 +110,9 @@ button.btn-choice {
 									<strong style="font-size: 15px">${p.productName }</strong><br>
 									판매자&nbsp;<strong>${p.seller.nickName }</strong><br>
 									<c:if test="${nowBidPrice != null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									경매시작가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
 									</c:if>
-									<c:if test="${nowBidPrice == null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
-									</c:if>
-									<c:if test="${buyNowPrice != null && nowBidPrice<buyNowPrice }">
-									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
-									</c:if>
-									<c:if test="${buyNowPrice == null ||  nowBidPrice>buyNowPrice}">
-									즉시구매불가<br>
-									</c:if>
+									경매시작날짜&nbsp;<fmt:formatDate value="${p.endDate }" pattern="yyyy-MM-dd HH:mm"/>
 								</p>
 								</c:if>
 								<c:if test="${p.productStatus != 0 }">

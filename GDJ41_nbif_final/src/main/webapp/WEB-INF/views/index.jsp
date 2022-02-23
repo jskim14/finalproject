@@ -27,14 +27,16 @@
 			<c:forEach items="${specialProductList }" var="sp" varStatus="sta">
 			<c:if test="${sta.count == 1 }">
 				<div class="carousel-item active">
-					<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100"
+					<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100 proImg"
 						alt="..." width="100%">
+					<button style="display: none;" onclick="moveDetail(this.value);" value="${sp.productNo }"></button>
 				</div>
 			</c:if>
 			<c:if test="${sta.count != 1 }">
 				<div class="carousel-item">
-					<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100"
+					<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100 proImg"
 						alt="..." width="100%">
+					<button style="display: none;" onclick="moveDetail(this.value);" value="${sp.productNo }"></button>
 				</div>
 			</c:if>
 			</c:forEach>
@@ -384,5 +386,8 @@
   			ul.append(li);
   		} 
   	}
+  	$(".proImg").click(e=> {
+  		console.log('zz');
+  	});
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
