@@ -27,7 +27,7 @@
  			<c:if test="${msgbox == 'send' }">
  			<p>보낸쪽지 총 <span><c:out value="${totalData }" /></span>통</p>
  			</c:if>
- 			<button onclick="deleteMsg();" style="position: absolute; left:89%; top:9%; width: 50px; background-color: white; color: #0d6efd; border: none; border-radius: 5px; font-weight: bold;">삭제</button>
+ 			<button onclick="deleteMsg();" style="position: absolute; left:89%; top:9%; width: 50px; background-color: white; color: #41B979; border: none; border-radius: 5px; font-weight: bold;">삭제</button>
  		</div>	
  		<div style="background-color: white; width:650px; height:404px;">
  			<div style="height: 330px; margin-bottom: 20px;">

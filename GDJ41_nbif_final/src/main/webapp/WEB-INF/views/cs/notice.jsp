@@ -58,7 +58,7 @@
             </div>
             <c:if test="${loginMember.memberNo eq '5' }">
             	<div style="float:right;"> 
-					<button type="button" class="btn btn-warning" data-bs-toggle="modal"
+					<button type="button" class="btn btnColor btn-primary" data-bs-toggle="modal"
 						data-bs-target="#staticBackdrop">공지 등록</button>
 				<!-- 모달창 -->
 					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
@@ -123,8 +123,7 @@
             			<td style="text-align:center; width:250px;"><c:out value="${n.noticeWriteDate}"/></td>
             			<c:if test="${loginMember.memberNo eq '5' }">
             			<td style="width:100px;">
-            			<button type="button" class="btn btn-outline-danger" style="height:30px;width:50px;padding:0; "
-            				  id="delete">삭제</button>
+
             			</td>
 	            		</c:if>
             			
@@ -135,6 +134,8 @@
             			<td style="text-align:center; width:250px;"></td>
             			<c:if test="${loginMember.memberNo eq '5' }">
             			<td>
+            			            			<button type="button" class="btn btn-outline-danger" style="height:30px;width:50px;padding:0; "
+            				  id="delete">삭제</button>
             			</td>
             			</c:if>
             		</tr>

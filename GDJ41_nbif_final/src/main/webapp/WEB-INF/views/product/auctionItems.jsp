@@ -15,26 +15,26 @@ button.btn-choice {
 	width: 60px;
 	height: 30px;
 	border-radius: 10px;
-	background-color: #0d6efd;
+	background-color: #41B979;
 	color: white;
 	font-weight: bold;
 	margin-right: 5px;
 	cursor: pointer;
-	border:2px solid #0d6efd;
+	border:2px solid #41B979;
 }
 .categoryBtn {
 	width: 60px;
 	height: 30px;
 	border-radius: 10px;
 	background-color: white;
-	color: #0d6efd;
+	color: #41B979;
 	font-weight: bold;
 	margin-right: 5px;
 	cursor: pointer;
-	border:2px solid #0d6efd;
+	border:2px solid #41B979;
 }
 .categoryBtn:hover {
-	background-color: #0d6efd;
+	background-color: #41B979;
 	color: white;
 }
 .goods-box p {
@@ -75,13 +75,13 @@ button.btn-choice {
 									<strong style="font-size: 15px">${p.productName }</strong><br>
 									판매자&nbsp;<strong>${p.seller.nickName }</strong><br>
 									<c:if test="${nowBidPrice != null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${nowBidPrice == null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${buyNowPrice != null && nowBidPrice<buyNowPrice }">
-									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${buyNowPrice == null ||  nowBidPrice>buyNowPrice}">
 									즉시구매불가<br>
@@ -118,13 +118,13 @@ button.btn-choice {
 									<strong style="font-size: 15px">${p.productName }</strong><br>
 									판매자&nbsp;<strong>${p.seller.nickName }</strong><br>
 									<c:if test="${nowBidPrice != null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.nowBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${nowBidPrice == null }">
-									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span><br>
+									현재입찰가&nbsp;<span class="price1"><fmt:formatNumber value="${p.minBidPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${buyNowPrice != null && nowBidPrice<buyNowPrice }">
-									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span><br>
+									즉시구매가&nbsp;<span class="price2"><fmt:formatNumber value="${p.buyNowPrice }"/></span>원<br>
 									</c:if>
 									<c:if test="${buyNowPrice == null ||  nowBidPrice>buyNowPrice}">
 									즉시구매불가<br>

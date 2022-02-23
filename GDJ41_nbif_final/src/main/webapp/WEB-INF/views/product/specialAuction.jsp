@@ -15,33 +15,33 @@ button.btn-choice {
 	width: 60px;
 	height: 30px;
 	border-radius: 10px;
-	background-color: #0d6efd;
+	background-color: #41B979;
 	color: white;
 	font-weight: bold;
 	margin-right: 5px;
 	cursor: pointer;
-	border:2px solid #0d6efd;
+	border:2px solid #41B979;
 }
 .categoryBtn {
 	width: 60px;
 	height: 30px;
 	border-radius: 10px;
 	background-color: white;
-	color: #0d6efd;
+	color: #41B979;
 	font-weight: bold;
 	margin-right: 5px;
 	cursor: pointer;
-	border:2px solid #0d6efd;
+	border:2px solid #41B979;
 }
 .categoryBtn:hover {
-	background-color: #0d6efd;
+	background-color: #41B979;
 	color: white;
 }
 .goods-box p {
 	height: 108px;
 }
 </style>
-<section style="padding: 15%;">
+<section style="padding-bottom: 5%;">
 	<div style="height: 140px;"></div>
 	<div id="list-con" style="padding-top:100px; padding-bottom: 50px;">
 		<h3><span style="color:black; font-weight: bold;">Special Auction</span></h3>
@@ -49,8 +49,8 @@ button.btn-choice {
 			<button value="all" onclick="searchCategory(this.value);" class="${category eq 'all'?'btn-choice':'categoryBtn'}">전체</button>
 			<button value="FS" onclick="searchCategory(this.value);" class="${category eq 'FS'?'btn-choice':'categoryBtn'}">패션</button>
 			<button value="LF" onclick="searchCategory(this.value);" class="${category eq 'LF'?'btn-choice':'categoryBtn'}">라이프</button>
+			<button value="AR" onclick="searchCategory(this.value);" class="${category eq 'AR'?'btn-choice':'categoryBtn'}">아트</button>
 			<button value="TC" onclick="searchCategory(this.value);" class="${category eq 'TC'?'btn-choice':'categoryBtn'}">테크</button>
-			<button value="AT" onclick="searchCategory(this.value);" class="${category eq 'AT'?'btn-choice':'categoryBtn'}">아트</button>
 		</div>
 		<div>
 			<c:if test="${not empty specialauction }">

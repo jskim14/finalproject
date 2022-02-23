@@ -11,33 +11,19 @@
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-bs-ride="carousel" style="margin-bottom: 5%;">
 		<div class="carousel-indicators">
-			<button type="button" data-bs-target="#carouselExampleIndicators"
-				data-bs-slide-to="0" class="active" aria-current="true"
-				aria-label="Slide 1"></button>
-			<button type="button" data-bs-target="#carouselExampleIndicators"
-				data-bs-slide-to="1" aria-label="Slide 2"></button>
-			<button type="button" data-bs-target="#carouselExampleIndicators"
-				data-bs-slide-to="2" aria-label="Slide 3"></button>
-			<button type="button" data-bs-target="#carouselExampleIndicators"
-				data-bs-slide-to="3" aria-label="Slide 4"></button>
+			<c:forEach items="${specialProductList }" var="sp" varStatus="sta">
+				<button type="button" data-bs-target="#carouselExampleIndicators"
+				data-bs-slide-to="${sta.index }" class="active" aria-current="true"
+				aria-label="Slide ${sta.count }"></button>
+			</c:forEach>
 		</div>
 		<div class="carousel-inner">
+			<c:forEach items="${specialProductList }" var="sp">
 			<div class="carousel-item active">
-				<img src="${path}/resources/images/111.png" class="d-block w-100"
+				<img src="${path}/resources/upload/product/${sp.bannerImageName}" class="d-block w-100"
 					alt="..." width="100%">
 			</div>
-			<div class="carousel-item">
-				<img src="${path}/resources/images/222.png" class="d-block w-100"
-					alt="..." width="100%">
-			</div>
-			<div class="carousel-item">
-				<img src="${path}/resources/images/333.png" class="d-block w-100"
-					alt="..." width="100%">
-			</div>
-			<div class="carousel-item">
-				<img src="${path}/resources/images/444.png" class="d-block w-100"
-					alt="..." width="100%">
-			</div>
+			</c:forEach>
 		</div>
 		<button class="carousel-control-prev" type="button"
 			data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -188,7 +174,7 @@
 											즉시구매불가<br>
 										</c:otherwise>
 									</c:choose>
-									판매자&nbsp;<strong>${p.seller.nickName }</strong>
+									판매자&nbsp;<strong><c:out value="${p.seller.nickName }"/></strong>
 							</div>
 						</a>
 					</li>
@@ -198,7 +184,7 @@
 		</div>
 	</div>
 	<button id="wsBtn" onclick="websocket();" style="display: none;">버튼</button>
-	<div style="padding-left: 6.7%; background-color: #FFD481; margin-top:80px; margin-bottom:80px;">
+	<div style="padding-left: 6.7%; background-color: #EAEBEF; margin-top:80px; margin-bottom:80px;">
 		<div id="banner-con">
 			<div>
 				<a href="${path }/cs/noticeList"><img src="${path}/resources/images/banner1.png"

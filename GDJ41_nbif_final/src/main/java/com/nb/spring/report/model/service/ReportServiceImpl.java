@@ -66,5 +66,10 @@ public class ReportServiceImpl implements ReportService {
 		return dao.insertReportResult(session,param);
 	}
 
+	@Override
+	public Report reportCon(String productNo) {
+		return dao.reportCon(session, productNo);
+	}
+
 	
 }
