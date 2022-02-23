@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/resources/js/jquery.timepicker.min.js" ></script><!-- 타이머js -->
 <link type="text/css" rel="stylesheet" href="/resources/css/jquery.timepicker.css" media=""/>
 <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
-<section style="padding: 200px 10%;">
+<section style="padding: 15%;">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12">
@@ -84,7 +84,7 @@
 					  <option value="FS">패션</option>
 					  <option value="LF">라이프</option>
 					  <option value="TC">테크</option>
-					  <option value="AT">아트</option>
+					  <option value="AR">아트</option>
 					</select>
 				</div>
 			</div>

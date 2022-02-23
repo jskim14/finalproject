@@ -41,7 +41,7 @@ button.btn-choice {
 	height: 108px;
 }
 </style>
-<section style="padding-bottom: 5%;">
+<section style="padding: 15%;">
 	<div style="height: 140px;"></div>
 	<div id="list-con" style="padding-top:100px; padding-bottom: 50px;">
 		<h3><span style="color:black; font-weight: bold;">Special Auction</span></h3>
