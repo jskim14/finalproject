@@ -34,7 +34,7 @@
 						<input id="emailText" type="email" class="form-control" placeholder="ex) nbif@naver.com" autofocus>
 					</div>
 					<div class= "col-5">
-						<button type="button" class="btn btn-primary" onclick="sendEmail();">인증번호받기</button>
+						<button type="button" style="width:100%;"class="btn btn-primary btnColor" onclick="sendEmail();">인증번호받기</button>
 					</div>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 						<input id="checkCode"type="text" class="form-control" placeholder="인증번호를 입력해주세요">
 					</div>
 					<div class="col-5">
-						<button type="button" class="btn btn-primary" onclick="obtainCertification();">인증</button>
+						<button type="button" style="width:100%;"class="btn btn-primary btnColor" onclick="obtainCertification();">인증</button>
 					</div>
 				</div>
 			</div>
@@ -57,15 +57,15 @@
 		<div class="row">
 			<div class="col-4"></div>
 			<div class="col-4">
-				<button id="goBtn" class="btn btn-primary" style="width: 100%;" disabled onclick="goToEnrollMember();">회원가입 진행</button>
+				<button id="goBtn" class="btn btn-primary btnColor" style="width: 100%;" disabled onclick="goToEnrollMember();">회원가입 진행</button>
 			</div>
 			<div class="col-4"></div>
 		</div>
 		
 		<div class="row my-3 justify-content-center">
-			<div class="col-3">
+			<div class="col-4">
 				<button onclick="kakaoEnroll()" type="button" class="btn btn-secondary w-100" style="height: 42px; background:#FEE500; font-size:13px;border:none;color:#624A3D;">
-					<img src="/resources/images/kakao.png" style="width:20px;height:20px;padding:0;">
+					<img src="${path }/resources/images/kakao.png" style="width:20px;height:20px;padding:0;">
 								카카오 ID로 회원가입
 				</button>
 			</div>
