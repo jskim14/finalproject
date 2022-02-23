@@ -45,6 +45,7 @@ button.btn-choice {
 	<div style="height: 140px;"></div>
 	<div id="list-con" style="padding-top:100px; padding-bottom: 50px;">
 		<h3><span style="color:black; font-weight: bold;">Auction Items</span></h3>
+		<div style="width:186px; height:6px; background:black;"></div>
 		<div id="btn-contaier">
 			<button value="all" onclick="searchCategory(this.value);" class="${category eq 'all'?'btn-choice':'categoryBtn'}">전체</button>
 			<button value="FS" onclick="searchCategory(this.value);" class="${category eq 'FS'?'btn-choice':'categoryBtn'}">패션</button>
