@@ -137,12 +137,11 @@
 			data:{'inputCode':inputCode},
 			success:data=>{
 				console.log(data);
-				
- 				 if(data['result']==true){
+  				 if(data['result']==true){
 					alert('인증 완료'); 
 					$('#goBtn').attr({disabled:false});
 				}  
-			}
+ 			}
 		});
 	}
 	 
