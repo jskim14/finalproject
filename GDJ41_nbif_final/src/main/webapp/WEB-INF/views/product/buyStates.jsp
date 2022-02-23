@@ -42,7 +42,6 @@
 					<span><i class="fas fa-shopping-bag"></i>&nbsp;구매현황</span>
 				</div>
 			</a>
-			${productList }
 			<div id="stateCount" class="row">
 				<div class="subMenuTitle col">
 					<div>
