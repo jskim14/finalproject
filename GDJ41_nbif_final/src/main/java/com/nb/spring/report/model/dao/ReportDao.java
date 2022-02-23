@@ -20,5 +20,7 @@ public interface ReportDao {
 	int insertReportResult(SqlSessionTemplate session, Map<String,String>param);
 	
 	int changeStatus(SqlSessionTemplate session, String productNo);
+	
+	Report reportCon(SqlSessionTemplate session, String productNo);
 
 }

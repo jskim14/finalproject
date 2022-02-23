@@ -269,11 +269,16 @@
 							function showRemaining(){
 								let now = new Date();
 								let distDate = targetDate-now;
+								console.log(flag);
+								console.log("${product.bannerImageName}"!=null);
+								console.log(Number(status)==0);
 								if(distDate < 0 ){
 									clearInterval(timer);
-									if(flag){
+									if(flag && Number(status)==1){
+										$('#goBtn').attr({disabled:true});
 										document.getElementById(id).textContent = "종료된 상품입니다.";
-									}else if(flag && "${product.bannerImageName}"!=null && Number(status)!=1){
+									}else if(flag && "${product.bannerImageName}"!=null && Number(status)==0){
+										console.log(status);
 										$('#goBtn').attr({disabled:false});
 										document.getElementById(id).textContent = "경매진행중...";
 									}
@@ -533,21 +538,22 @@
 
 				let gap = nowDate - bidStartDate;
 
- 				if(gap>0){
+/*  				if(gap>0){
 					$('#goBtn').attr({disabled:true});
 				}else{
 					$('#goBtn').attr({disabled:false});
-				}
+				} */
 
 			}
 
 
 			function goToSpecialAction(){
-				open("/product/realtimeaction?productNo=${product.productNo}","_blank","width=1100, height=700, left=150"); 
-				//location.assign(location.origin+"//");
+				if("${loginMember}"!="") {
+					open("/product/realtimeaction?productNo=${product.productNo}","_blank","width=1100, height=700, left=150"); 
+				}else {
+					alert("로그인 후 이용할 수 있습니다.");
+				}
 			}
-
-
 	</script>
 
 

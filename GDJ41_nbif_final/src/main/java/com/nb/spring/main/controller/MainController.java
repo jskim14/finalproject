@@ -40,9 +40,6 @@ public class MainController {
 		int startNum = 0;
 		int finishNum = 3;
 		
-		Product specialProduct = service.selectOneSpecialProduct();
-		
-		mv.addObject("specialProduct", specialProduct);
 		mv.addObject("specialProductList", service.selectSpecialProductList());
 		mv.addObject("deadLine", service.selectListDeadLine(startNum, finishNum));
 		mv.addObject("latest", service.selectListLatest(startNum, finishNum));

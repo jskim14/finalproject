@@ -13,4 +13,5 @@ public interface ReportService {
 	int insertReport(Report r);
 	int insertReportResult(Map<String,String>param);
 	int changeStatus(String productNo);
+	Report reportCon(String productNo);
 }
