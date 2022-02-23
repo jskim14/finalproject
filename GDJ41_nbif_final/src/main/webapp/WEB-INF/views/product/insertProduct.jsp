@@ -70,8 +70,8 @@
                                 <!-- <input type="text" id="inputTyping2" class="form-control inputBox" placeholder="재경매 시작가를 입력해주세요" 
                                  style="width: 250px; display:inline; margin-left: 1%" disabled>
                                  <input type="hidden" name="nowBidPrice"> -->
-                                <div class="onlyNumber" style="display: inline; padding: 1%"> </div>
-                                <div class="inputNextSpan" style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
+                                <div class="onlyNumber" style="display: inline;"></div>
+                                <div class="inputNextSpan"><span style="color:navy">*경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 <input type="text" id="minBidPrice" class="form-control inputBox" 
                                 placeholder="" style="width: 250px; display:inline;" required>
                                 <input type="hidden" name="minBidPrice">
-                                <div id="autionStartInfo" class="inputNextSpan" style="display: inline; padding: 1%"> *입찰시작가는 즉시구매가보다 높을 수 없습니다. </div>
+                                <div id="autionStartInfo" class="inputNextSpan" style="display: inline; padding: 1%;color:navy"><br> *입찰시작가는 즉시구매가보다 높을 수 없습니다. </div>
                             </div>
                         </div>
                         <div class="subMenu">
@@ -102,8 +102,8 @@
                                 </select>
                                 <input type="text" id="inputTyping3" class="form-control inputBox" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
                                 <input type="hidden" name="unit" id="inputUnit">
-                                <div id="autionUnitInfo" class="inputNextSpan" style="display: inline; padding: 1%"> 
-                                	*입찰단위는 입찰시작가보다 클 수 없습니다.
+                                <div id="autionUnitInfo" class="inputNextSpan" style="display: inline; padding: 1%; color:navy;"> 
+                                	<br>*입찰단위는 입찰시작가보다 클 수 없습니다.
                                	</div>
                             </div>
                         </div>
@@ -113,9 +113,9 @@
                             </div>
                             <div class="titleRight">
                                 <!-- 스타일 각각해야됨 -->
-                                시작일 &nbsp;<input type="date"  id="currentDate" class="form-control" style="width: 180px; display:inline;" readonly>&nbsp;
-                                종료일 &nbsp;<input type="text" id="maxDate" class="form-control" name="maxDate" placeholder="최대 14일 가능" style="width: 180px; display:inline;" required>&nbsp;
-                                마감시간 &nbsp;<input type="time" class="form-control" name="maxTime" style="width: 180px; display:inline;" required>&nbsp;
+                                시작일: &nbsp;<input type="date" id="currentDate" class="form-control" style="width: 180px; display:inline;" readonly>&nbsp;
+                                종료일: &nbsp;<input type="text" id="maxDate" class="form-control" name="maxDate" placeholder="최대 14일 가능" style="width:140px; display:inline;" required>&nbsp;
+                                마감시간: &nbsp;<input type="time" class="form-control" name="maxTime" style="width:140px; display:inline;" required>&nbsp;
                                 
                             </div>
                         </div>
