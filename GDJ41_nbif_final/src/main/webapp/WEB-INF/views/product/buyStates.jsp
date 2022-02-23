@@ -38,9 +38,11 @@
 <section>
     <div class="row" style="padding: 15%"> 
        	<div id="stateContainer" class="row"> 
-           	<div class="pageTitle row">
-           		<span><i class="fas fa-shopping-bag"></i>&nbsp;구매현황</span>
-           	</div> 
+       		<a href="${path }/member/buyStates?memberNo=${loginMember.memberNo}" class="aColor">
+	           	<div class="pageTitle row">
+	           		<span><i class="fas fa-shopping-bag"></i>&nbsp;구매현황</span>
+	           	</div> 
+         	</a>
            	<div id="stateCount" class="row">
 	            <div class="subMenuTitle col" >
 	               <div>전체<br> 
@@ -311,6 +313,7 @@
 	    date.setMonth(date.getMonth() - 3);
 	    $("#startDate").val(date.toISOString().substring(0, 10));
 	    var date = new Date();
+	    date.setMonth(date.getMonth() + 3);
 	    $("#endDate").val(date.toISOString().substring(0, 10));
 	});
 

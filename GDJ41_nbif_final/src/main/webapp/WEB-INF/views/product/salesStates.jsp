@@ -34,9 +34,11 @@
 <section>
     <div class="row" style="padding: 15%;"> 
        	<div id="stateContainer" class="row"> 
-           	<div class="pageTitle row">
-           		<span><i class="fas fa-store"></i>&nbsp;판매현황</span>
-           	</div> 
+           	<a href="${path }/member/salesStates?memberNo=${loginMember.memberNo}" class="aColor">
+	           	<div class="pageTitle row">
+	           		<span><i class="fas fa-store"></i>&nbsp;판매현황</span>
+	           	</div> 
+           	</a>
            	<div id="stateCount" class="row">
 	            <div class="subMenuTitle col" >
 	                <div>전체<br>
@@ -276,19 +278,28 @@
 						        </c:when>
 							 	<c:when test="${p.permissionYn eq '2'}">
 								    <div class="col">
-								    	승인이 거절되었습니다. <br> 사유: <c:out value="${p.rejectReason }"></c:out>
+								    	승인이 거절되었습니다. <br>
+								    	<strong style="color : red;"> 사유: <c:out value="${p.rejectReason }"></c:out></strong>
 								    </div>
 						        </c:when>
 							 	<c:when test="${p.permissionYn eq '1' and p.productStatus eq '0' }"> <!-- 판매중 -->
-								    <div class="col">
-								    	<span style="font-size:14px;">현재최고입찰가</span><br><fmt:formatNumber value="${p.nowBidPrice }" pattern="#,###"/>원
-								    </div>
-							    	<div class="col">
-								        <span style="font-size:14px;">최고입찰자</span><br><c:out value="${p.highestBidder.nickName }"/>
-								    </div>
-								    <div class="col">
-								        <span style="font-size:14px;">마감일</span><br><c:out value="${p.endDate }"/>
-								    </div>
+							 		<c:if test="${empty p.highestBidder }">
+							 			<div class="col">
+							 				아직 입찰에 시도한 회원이 없습니다.
+							 			</div>
+							 		</c:if>
+							 		<c:if test="${not empty p.highestBidder }">
+									    <div class="col">
+									    	<span style="font-size:14px;">현재최고액</span><br><fmt:formatNumber value="${p.nowBidPrice }" pattern="#,###"/>원
+									    </div>
+								    	<div class="col">
+									        <span style="font-size:14px;">최고입찰자</span><br><c:out value="${p.highestBidder.nickName }"/>
+									    </div>
+									    <div class="col">
+									        <span style="font-size:14px;">마감일</span><br><c:out value="${p.endDate }"/>
+									    </div>
+							 		</c:if>
+								    
 						        </c:when>
 						        <c:when test="${p.permissionYn eq '1' and p.productStatus eq '1' }"> <!-- 입완 -->
 								    <div class="col">
@@ -333,6 +344,7 @@
 	    date.setMonth(date.getMonth() - 3);
 	    $("#startDate").val(date.toISOString().substring(0, 10));
 	    var date = new Date();
+	    date.setMonth(date.getMonth() + 3);
 	    $("#endDate").val(date.toISOString().substring(0, 10));
 	});
 
