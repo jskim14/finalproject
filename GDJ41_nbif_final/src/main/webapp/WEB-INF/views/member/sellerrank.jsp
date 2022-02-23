@@ -77,15 +77,15 @@
                     
                     <div id="_id"><p><strong style="font-size:21px;"><c:out value="${s.NICKNAME }"/></strong></p></div>
                     
-                    <div id="_total"><p>총 물품<br><strong style="font-size:20px; color:#7f47e9;"><c:out value="${s.TOTALCOUNT }"/></strong> 건</p></div>
-                    <div id="_ing"><p>진행중인 경매<br><strong style="font-size:20px; color:#7f47e9;"><c:out value="${s.ING }"/></strong> 건</p></div>
+                    <div id="_total"><p>총 판매 물품<br><strong style="font-size:20px; color:#7f47e9;"><c:out value="${s.TOTALCOUNT }"/></strong> 건</p></div>
+                    <div id="_ing"><p>진행 중인 경매<br><strong style="font-size:20px; color:#7f47e9;"><c:out value="${s.ING }"/></strong> 건</p></div>
                     <div id="_done"><p>판매 완료 상품<br><strong style="font-size:20px; color:#7f47e9;"><c:out value="${s.DONE }"/></strong> 건</p></div>
                     <div id="_review"><p>구매후기<br><strong style="font-size:20px; color:#7f47e9;"><c:out value="${s.REVIEWCOUNT }"/></strong> 건</p></div>
                    	<c:if test="${s.ING==0 }">
-                    <div id="_goods"><a href="javascript:window.alert('판매자가 진행중인 경매가 없습니다.')"><strong>판매자 상품<br>보러가기</strong></a></div>
+                    <div id="_goods"><a href="javascript:window.alert('판매자가 진행중인 경매가 없습니다.')"><strong>판매 중인 상품<br>보러가기</strong></a></div>
                 	</c:if>
                 	<c:if test="${s.ING!=0 }">
-                    <div id="_goods"><a href="${path }/member/sellList?memberNo=${s.MEMBERNO}"><strong>판매자 상품<br>보러가기</strong></a></div>
+                    <div id="_goods"><a href="${path }/member/sellList?memberNo=${s.MEMBERNO}"><strong>판매 중인 상품<br>보러가기</strong></a></div>
                 	</c:if>
                 </div>
                 </c:forEach>
