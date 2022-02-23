@@ -75,7 +75,7 @@ public class MainController {
 	@RequestMapping("/productSearch")
 	public ModelAndView searchProduct(ModelAndView mv, String keyword,
 			@RequestParam(value="cPage", defaultValue="1") int cPage
-			,@RequestParam(value="numPerPage", defaultValue="4") int numPerPage
+			,@RequestParam(value="numPerPage", defaultValue="16") int numPerPage
 			,@RequestParam(value="category", defaultValue="all")String category) {
 		Map<String,Object> param = new HashMap<String,Object>();
 		param.put("cPage", cPage);

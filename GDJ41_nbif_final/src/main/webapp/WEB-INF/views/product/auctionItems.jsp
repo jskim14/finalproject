@@ -161,7 +161,9 @@ button.btn-choice {
 			</c:if>
 	</div>
 	</div>
-	${pageBar }
+	<div style="padding-bottom: 80px;">
+		${pageBar }
+	</div>
 	<script>
 		function fn_paging(cPage) {
 			let keyword = "${keyword}";

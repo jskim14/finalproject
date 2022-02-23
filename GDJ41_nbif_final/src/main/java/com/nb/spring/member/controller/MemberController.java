@@ -50,7 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/member")
-@SessionAttributes({"loginMember","admin","accessToken" ,"salesCnt","buyCnt"})
+@SessionAttributes({"loginMember","admin","accessToken" ,"salesCnt","buyCnt","msgCount"})
 public class MemberController {
 	
 	
@@ -122,7 +122,6 @@ public class MemberController {
 			}else {
 				mv.addObject("admin",false);
 			}
-			
 			mv.addObject("loginMember", m);
 			mv.addObject("msg","로그인 성공");
 			mv.addObject("loc","/");
