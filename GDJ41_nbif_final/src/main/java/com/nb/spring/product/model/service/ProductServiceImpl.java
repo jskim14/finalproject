@@ -274,7 +274,7 @@ public class ProductServiceImpl implements ProductService {
 		int result = 0;
 		for(Product p : list) {
 			if(p.getProductStatus().equals("0")) {
-				result += dao.updateendAuction(session,p.getProductNo());
+				result += dao.updateendAuction(session, p.getProductNo());
 			}
 		}
 		return result;

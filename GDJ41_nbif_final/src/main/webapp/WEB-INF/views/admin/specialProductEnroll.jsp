@@ -62,7 +62,7 @@
 					</select>
 				</div>
 				<div class="col-3">
-					<input type="text" id="bidUnitInput" name="bidUnitInput" class="form-control" disabled/>
+					<input type="text" id="bidUnitInput" name="bidUnitInput" class="form-control" disabled required/>
 				</div>
 			</div>
 			

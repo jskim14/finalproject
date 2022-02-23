@@ -91,8 +91,8 @@
                                 <span class="subMenuTitle">입찰단위</span>
                             </div>
                             <div class="titleRight">
-                                <select id="priceUnit" onchange="unitSelect();" class="form-select" name="unit" aria-label="Default select example" style="width: 200px; color: gray; display:inline;" required>
-                                    <option selected>---선택하세요---</option>
+                                <select id="priceUnit" onchange="unitSelect();" class="form-select" name="unit" aria-label="Default select example" style="width: 200px; color: gray; display:inline;" required="required">
+                                    <option value="" selected>---선택하세요---</option>
                                     <option value="1000">1,000원</option>
                                     <option value="5000">5,000원</option>
                                     <option value="10000">10,000원</option>
