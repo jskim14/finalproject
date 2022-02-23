@@ -28,7 +28,6 @@ section{
     width: 100%;
     background-color: black;
     padding: 0 10% 1% 10%;
-    box-shadow: 5px 0.2px 5px 5px lightgray;
 }
 #header-container>div {
     display: inline-flex;
