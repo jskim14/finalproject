@@ -8,8 +8,8 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script type="text/javascript" src="/resources/js/jquery.timepicker.min.js" ></script><!-- 타이머js -->
-<link type="text/css" rel="stylesheet" href="/resources/css/jquery.timepicker.css" media=""/>
+<script type="text/javascript" src="${path }/resources/js/jquery.timepicker.min.js" ></script><!-- 타이머js -->
+<link type="text/css" rel="stylesheet" href="${path }/resources/css/jquery.timepicker.css" media=""/>
 <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 <section style="padding: 15%;">
 	<div class="container-fluid">
