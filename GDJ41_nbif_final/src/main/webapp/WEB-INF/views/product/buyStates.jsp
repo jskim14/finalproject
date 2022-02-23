@@ -42,6 +42,7 @@
 					<span><i class="fas fa-shopping-bag"></i>&nbsp;구매현황</span>
 				</div>
 			</a>
+			${productList }
 			<div id="stateCount" class="row">
 				<div class="subMenuTitle col">
 					<div>
@@ -117,6 +118,7 @@
 			<c:if test="${not empty productList }">
 				<!-- 상품내용 한줄 -->
 				<c:forEach var="p" items="${productList}">
+				<c:if test="${p.categoryDetail ne '0' }">
 					<div class="row" style="margin: 0; text-align: center;">
 						<hr>
 						<a
@@ -157,13 +159,13 @@
 											</c:when>
 											<c:when
 												test="${(p.productNo.productStatus eq '3' or p.productNo.productStatus eq '4' or p.productNo.productStatus eq '5') 
-						        	and p.productNo.finalPrice eq p.amount }">
+						        	and p.productNo.finalPrice eq p.amount}">
 												<!-- 내가입찰 -->
 												<strong><span
 													style="font-size: 18px; float: left; color: #ef6253;">종료</span></strong>
 											</c:when>
 											<c:when
-												test="${p.productNo.productStatus ne '0' and p.productNo.finalPrice ne p.amount}">
+												test="${p.productNo.productStatus ne '0' and p.productNo.finalPrice ne p.amount }">
 												<!-- 실패 -->
 												<strong><span
 													style="font-size: 18px; float: left; color: #ef6253;">종료</span></strong>
@@ -414,6 +416,7 @@
 							</div>
 						</a>
 					</div>
+					</c:if>
 				</c:forEach>
 			</c:if>
 		</div>
