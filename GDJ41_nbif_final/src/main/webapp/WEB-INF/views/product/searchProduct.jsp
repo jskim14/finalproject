@@ -15,26 +15,26 @@ button.btn-choice {
 	width: 60px;
 	height: 30px;
 	border-radius: 10px;
-	background-color: #0d6efd;
+	background-color: #41B979;
 	color: white;
 	font-weight: bold;
 	margin-right: 5px;
 	cursor: pointer;
-	border:2px solid #0d6efd;
+	border:2px solid #41B979;
 }
 .categoryBtn {
 	width: 60px;
 	height: 30px;
 	border-radius: 10px;
 	background-color: white;
-	color: #0d6efd;
+	color: #41B979;
 	font-weight: bold;
 	margin-right: 5px;
 	cursor: pointer;
-	border:2px solid #0d6efd;
+	border:2px solid #41B979;
 }
 .categoryBtn:hover {
-	background-color: #0d6efd;
+	background-color: #41B979;
 	color: white;
 }
 .goods-box p {
@@ -44,7 +44,7 @@ button.btn-choice {
 <section style="padding-bottom: 5%;">
 	<div style="height: 140px;"></div>
 	<div id="list-con" style="padding-top:100px; padding-bottom: 50px;">
-		<h5><span style="color:#0d6efd; font-weight: bold;"><c:out value="${keyword }" /></span>에 대한 검색결과는 <span style="color:#0d6efd; font-weight: bold;"><c:out value="${totalData }"/></span>개 입니다.</h5>
+		<h5><span style="color:#41B979; font-weight: bold;"><c:out value="${keyword }" /></span>에 대한 검색결과는 <span style="color:#41B979; font-weight: bold;"><c:out value="${totalData }"/></span>개 입니다.</h5>
 		<div id="btn-contaier">
 			<button value="all" onclick="searchCategory(this.value);" class="${category eq 'all'?'btn-choice':'categoryBtn'}">전체</button>
 			<button value="FS" onclick="searchCategory(this.value);" class="${category eq 'FS'?'btn-choice':'categoryBtn'}">패션</button>

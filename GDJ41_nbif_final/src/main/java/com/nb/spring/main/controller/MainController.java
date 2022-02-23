@@ -211,12 +211,14 @@ public class MainController {
 			mv.setViewName("common/msg");
 			loc = "/";
 			msg = "준비중인 실시간경매 물품이 없습니다.";
+			mv.addObject("loc", loc);
+			mv.addObject("msg",msg);
+
 		}else {
 			mv.setViewName("product/specialAuction");
 			mv.addObject("specialauction", list);
 		}
-		mv.addObject("loc", loc);
-		mv.addObject("msg",msg);
+		mv.addObject("category", category);
 		mv.addObject("pageBar", PageFactory.getPageBarSearch(totalData, cPage, numPerPage, pageBarSize));
 		return mv;
 	}
