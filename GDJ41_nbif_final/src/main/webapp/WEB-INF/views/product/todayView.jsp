@@ -41,11 +41,11 @@
         <div>
             <div id="wishTitle" class="row">
                 <div class="col">
-	                <button type="button" id="delete" class="btn btn-secondary" style="background-color:#7f47e9;"
+	                <button type="button" id="delete" class="btn btn-secondary btnP" style="width:100px;"
 			        onclick="location.assign('${path}/product/todayDelete')"> 모두삭제
 			        </button>
 	        	</div>
-                <div class="col-5">찜한상품</div>
+                <div class="col-4">찜한상품</div>
                 <div class="col">즉시구매가</div>
                 <div class="col">현재입찰가</div>
                 <div class="col">마감일</div>
@@ -60,7 +60,7 @@
 		            <div id="wishBox" class="row wish-box" onclick="javascript:wishbox('${p.productNo}');"
 		            style="cursor:pointer;"> <!--  -->
 		                <div class="col"><img src="${path }/resources/upload/product/${p.images[0].imageName }" width=60px; height=60px;></div>
-		                <div class="col-5"><p><strong><c:out value="${p.productName }"></c:out></strong></p></div>
+		                <div class="col-4"><p><strong><c:out value="${p.productName }"></c:out></strong></p></div>
 		                <c:if test="${empty p.buyNowPrice }">
 		                	<div class="col"><p>즉시구매불가</p></div>
 		                </c:if>

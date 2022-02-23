@@ -34,7 +34,7 @@
 						<fmt:formatNumber value="${m.balance }" pattern="#,###"/>원
 						</span>
 					</a>
-					<div class="col-4" style=" padding: 1% 0 0 5%; ">
+					<div class="col-5" style=" padding: 1% 0 0 5%; ">
 						<form action="${path }/member/emoneySelectList" method="get">
 				            <button type="submit" class="btn btn-secondary emoneyBtn" 
 				             name="btnCategory" value="input">입금</button> 
@@ -46,9 +46,9 @@
 		        	</div>
 	    		</div>
 			</div>
-			<div class="col-1" style="float: right;">
+			<div class="col">
 		    <!-- 검색 -->
- 		    	<select class="form-select" id="selectNum" >
+ 		    	<select class="form-select" id="selectNum" style="float: right; width : 100px">
 				  <option value="15" ${numPerPage==15?"selected":"" }>15</option>
 				  <option value="30" ${numPerPage==30?"selected":"" }>30</option>
 				  <option value="50" ${numPerPage==50?"selected":"" }>50</option>
