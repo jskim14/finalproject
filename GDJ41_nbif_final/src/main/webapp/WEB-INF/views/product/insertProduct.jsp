@@ -113,9 +113,9 @@
                             </div>
                             <div class="titleRight">
                                 <!-- 스타일 각각해야됨 -->
-                                시작일: &nbsp;<input type="date" id="currentDate" class="form-control" style="width: 180px; display:inline;" readonly>&nbsp;
-                                종료일: &nbsp;<input type="text" id="maxDate" class="form-control" name="maxDate" placeholder="최대 14일 가능" style="width:140px; display:inline;" required>&nbsp;
-                                마감시간: &nbsp;<input type="time" class="form-control" name="maxTime" style="width:140px; display:inline;" required>&nbsp;
+                                시작일: &nbsp;<input type="date" id="currentDate" class="form-control" style="width: 160px; display:inline;" readonly>&nbsp;<br>
+                                종료일: &nbsp;<input type="text" id="maxDate" class="form-control" name="maxDate" placeholder="최대 14일 가능" style="width:160px; display:inline;" required>&nbsp;
+                                마감시간: &nbsp;<input type="time" class="form-control" name="maxTime" style="width:160px; display:inline;" required>&nbsp;
                                 
                             </div>
                         </div>

@@ -69,7 +69,7 @@
                                 <label><input class="form-check-input" type="radio" name="extendYn" id="flexRadioDefault2" value="Y"> 
                                     설정
                                 </label>
-                                <div class="inputNextSpan" style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
+                                <div class="inputNextSpan"><span style="color:navy">*경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
                             </c:if>
                             <c:if test="${p.extendYn eq 'Y' }">
@@ -79,7 +79,7 @@
                                 <label><input class="form-check-input" type="radio" name="extendYn" id="flexRadioDefault2" value="Y" checked> 
                                     설정
                                 </label>
-                                <div class="inputNextSpan" style="padding: 1%"><span> *경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
+                                <div class="inputNextSpan"><span style="color:navy">*경매가 유찰될 경우 1회에 한해 자동으로 경매가 재진행 됩니다.</span><br>
                                 </div>
                             </c:if>
                             </div>
@@ -92,7 +92,7 @@
                                 <input type="text" id="minBidPrice" class="form-control inputBox"
                                 placeholder="" style="width: 250px; display:inline;" value="${p.minBidPrice }" required>
                                 <input type="hidden" name="minBidPrice">
-                                <div id="autionStartInfo" class="inputNextSpan" style="display: inline; padding: 1%"> *입찰시작가는 즉시구매가보다 높을 수 없습니다. </div>
+                                <div id="autionStartInfo" class="inputNextSpan" style="display: inline; padding: 1%;color:navy"><br> *입찰시작가는 즉시구매가보다 높을 수 없습니다. </div>
                             </div>
                         </div>
                         <div class="subMenu">
@@ -111,8 +111,8 @@
                                 </select>
                                 <input type="text" id="inputTyping3" class="form-control inputBox" placeholder="" style="width: 250px; display:inline; margin-left: 1%;" disabled required>
                                 <input type="hidden" name="unit" id="inputUnit">
-                                <div id="autionUnitInfo" class="inputNextSpan" style="display: inline; padding: 1%"> 
-                                	*입찰단위는 입찰시작가보다 클 수 없습니다.
+                                <div id="autionUnitInfo" class="inputNextSpan" style="display: inline; padding: 1%; color:navy;"> 
+                                	<br>*입찰단위는 입찰시작가보다 클 수 없습니다.
                                	</div>
                             </div>
                         </div>
