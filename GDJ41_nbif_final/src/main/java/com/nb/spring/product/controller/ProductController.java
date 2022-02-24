@@ -778,8 +778,9 @@ public class ProductController {
 	
 	@RequestMapping("/todayView")
 	public String todayView(@CookieValue(value = "productNum", required = false) Cookie view, Model m) {
-		
+		System.out.println("test");
 		if(view != null) {
+			cookieList.clear();
 			String nums[] = view.getValue().split("\\|");
 			System.out.println("nums"+nums[1]);
 			for(int i=1; i<nums.length; i++) {
