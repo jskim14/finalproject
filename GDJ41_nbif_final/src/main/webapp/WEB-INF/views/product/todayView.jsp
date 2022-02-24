@@ -61,10 +61,10 @@
 		            style="cursor:pointer;"> <!--  -->
 		                <div class="col"><img src="${path }/resources/upload/product/${p.images[0].imageName }" width=60px; height=60px;></div>
 		                <div class="col-4"><p><strong><c:out value="${p.productName }"></c:out></strong></p></div>
-		                <c:if test="${empty p.buyNowPrice }">
+		                <c:if test="${empty p.buyNowPrice or p.buyNowPrice=='0' }">
 		                	<div class="col"><p>즉시구매불가</p></div>
 		                </c:if>
-		                <c:if test="${not empty p.buyNowPrice }">
+		                <c:if test="${not empty p.buyNowPrice and p.buyNowPrice!='0'}">
 		                	<div class="col"><p><fmt:formatNumber value="${p.buyNowPrice }"/>원</p></div>
 		                </c:if>
 		                <div class="col"><p><fmt:formatNumber value="${p.nowBidPrice }"/>원</p></div>
