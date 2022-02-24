@@ -549,7 +549,7 @@
 
 			function goToSpecialAction(){
 				if("${loginMember}"!="") {
-					open("/product/realtimeaction?productNo=${product.productNo}","_blank","width=1100, height=700, left=150"); 
+					open("${path}/product/realtimeaction?productNo=${product.productNo}","_blank","width=1100, height=700, left=150"); 
 				}else {
 					alert("로그인 후 이용할 수 있습니다.");
 				}
