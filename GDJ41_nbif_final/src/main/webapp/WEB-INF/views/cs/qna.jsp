@@ -14,23 +14,20 @@
     }
     #cs-title{text-align: center;}
     .page-item.active .page-link {
-	    z-index: 3;
-	    color: #fff;
+	    z-index: 3; color: #fff;
 	    background-color: #41B979;
 	    border-color: #41B979;
 	}
 	
 	.page-link:hover {
-	    z-index: 2;
-	    color: #41B979;
+	    z-index: 2; color: #41B979;
 	    background-color: #e9ecef;
 	    border-color: #dee2e6;
 	}
 	
 	.page-link {
 	    position: relative;
-	    display: block;
-	    color: #41B979;
+	    display: block; color: #41B979;
 	    text-decoration: none;
 	    background-color: #fff;
 	    border: 1px solid #dee2e6;
@@ -107,16 +104,37 @@
             	<c:forEach items="${qnaList }" var="q">
             		<tr>
             			<td style="text-align:center;"><c:out value="${q.qnaNo}"/></td>
-	            		
+	            			
             			<td style="">
-            			<c:if test="${loginMember.memberNo != q.writer.memberNo }">
+            			<%-- <c:if test="${loginMember.memberNo != q.writer.memberNo or loginMember.memberNo !='5'}">
             				<a href="javascript:window.alert('작성자만 확인 가능합니다.')" style="text-decoration:none;color:black;">
             				<c:out value="${q.qnaTitle}"/>&nbsp;&nbsp;<i class="fas fa-lock" style="color:gray;"></i></a>
             				
             			</c:if>
-            			<c:if test="${loginMember.memberNo == q.writer.memberNo }">
-            				<a href="${path }/cs/qnaContent?qnaNo=${q.qnaNo}" style="text-decoration:none;color:black;"><c:out value="${q.qnaTitle}"/></a>
-            			</c:if>
+            			<c:if test="${loginMember.memberNo == q.writer.memberNo or loginMember.memberNo == '5' }">
+            				<a href="${path }/cs/qnaContent?qnaNo=${q.qnaNo}" style="text-decoration:none;color:black;">
+            				<c:out value="${q.qnaTitle}"/></a>
+            			</c:if> --%>
+            			
+            			
+            			<c:choose>
+            				<c:when test="${loginMember.memberNo =='5' }">
+            					<a href="${path }/cs/qnaContent?qnaNo=${q.qnaNo}" style="text-decoration:none;color:black;">
+            					<c:out value="${q.qnaTitle}"/></a>
+            				</c:when>
+            				<c:when test="${loginMember.memberNo != q.writer.memberNo}">
+            					<a href="javascript:window.alert('작성자만 확인 가능합니다.')" style="text-decoration:none;color:black;">
+            					<c:out value="${q.qnaTitle}"/>&nbsp;&nbsp;<i class="fas fa-lock" style="color:gray;"></i></a>
+            				</c:when>
+            				<c:when test="${loginMember!=null and (loginMember.memberNo == q.writer.memberNo)}">
+            					<a href="${path }/cs/qnaContent?qnaNo=${q.qnaNo}" style="text-decoration:none;color:black;">
+            					<c:out value="${q.qnaTitle}"/></a>
+            				</c:when>
+            			
+            			</c:choose>
+            			
+            				<%-- <a href="javascript:openCheck('${q.writer.memberNo}','${q.qnaNo }');"  style="text-decoration:none;color:black;">
+            				<c:out value="${q.qnaTitle}"/></a> --%>
             			</td>
             			
             			<td style="text-align:center;"><c:out value="${q.writer.nickName}"/></td>
@@ -128,7 +146,6 @@
             				<c:if test="${not empty q.qnaAnswer}">
             					<span style="color:royalblue;">완료</span>
             				</c:if>
-            				
             			</td>
             		</tr>
             	</c:forEach>
@@ -141,10 +158,19 @@
             </div>
             
         </section>
+        
         <script>
         	$("#btn2").addClass("active");
         	
-        	$("#n")
+        	
+        	/* function openCheck(qWriter,qnaNo){
+        		
+        		if('${loginMember.memberNo}'!= qWriter || '${loginMember.memberNo}' !='5'){
+        			alert("작성자와 관리자만 확인 가능합니다.");
+        		}else if('${loginMember.memberNo}' == qWriter || '${loginMember.memberNo}' =='5'){
+        			location.href="${path }/cs/qnaContent?qnaNo=qnaNo";
+        		};
+        	} */
         </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -20,7 +20,7 @@ section {
 	<br>
 	<hr>
 	<div style="text-align:center; item-align:center;">
-		<form action="/member/deleteMember" method="post" id="deleteForm" name="deleteForm">
+		<form action="${path }/member/deleteMember" method="post" id="deleteForm" name="deleteForm">
 	                       <input type="hidden" id="memberNo" name="memberNo" value="${loginMember.memberNo}">
 	        <div class="panel panel-default panel-margin-10" style="display:inline-block;">
 	            <div class="panel-body panel-body-content text-center">
