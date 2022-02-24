@@ -35,6 +35,47 @@
 }
 </style>
 <section>
+<div class="modal fade" id="staticBackdrop${st.count }"
+												data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+												aria-labelledby="staticBackdropLabel" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered">
+													<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="staticBackdropLabel"
+																	style="color: black;">신고내용</h5>
+																<button type="button" class="btn-close" data-bs-dismiss="modal"
+																	aria-label="Close"></button>
+															</div>
+															<div class="modal-body" style="color: black;">
+																<div class="mb-3">
+																	<label for="exampleFormControlInput1" class="form-label">신고
+																		상품명</label> <input type="text" class="form-control" id="productName"
+																		value="" readonly>
+																</div>
+																<div class="mb-3">
+																	<label for="exampleFormControlInput1" class="form-label">신고사유</label>
+																	<input type="text" class="form-control" id="reportReason"
+																		value="" readonly>
+																</div>
+																<div class="mb-3" id="reportImage">
+																	<label for="exampleFormControlTextarea1" class="form-label">첨부
+																		이미지</label><br>
+																</div>
+																<div class="mb-3">
+																	<label for="exampleFormControlInput1" class="form-label">처리
+																		결과</label>
+																		<input type="text" class="form-control" readonly="readonly"
+																			id="exampleFormControlTextarea1" name="reportResult">
+																</div>
+															</div>
+										
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-bs-dismiss="modal">닫기</button>
+															</div>
+													</div>
+												</div>
+											</div>
 	<div class="row" style="padding: 15%">
 		<div id="stateContainer" class="row">
 			<a href="${path }/member/buyStates?memberNo=${loginMember.memberNo}" class="aColor">
@@ -296,49 +337,9 @@
 											<button type="button" class="btn btn-secondary btnP rtBtn" value="${p.productNo.productNo}"
 												style="float: left; margin-right: 1%;">신고내역확인</button>
 											<button type="button" style="display:none;" id="openReporyBtn"
-												data-bs-toggle="modal" data-bs-target="#staticBackdrop${st.count }"></button>
+												data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
 											<!-- 여기 창  -->
-											<div class="modal fade" id="staticBackdrop${st.count }"
-												data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-												aria-labelledby="staticBackdropLabel" aria-hidden="true">
-												<div class="modal-dialog modal-dialog-centered">
-													<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="staticBackdropLabel"
-																	style="color: black;">신고내용</h5>
-																<button type="button" class="btn-close" data-bs-dismiss="modal"
-																	aria-label="Close"></button>
-															</div>
-															<div class="modal-body" style="color: black;">
-																<div class="mb-3">
-																	<label for="exampleFormControlInput1" class="form-label">신고
-																		상품명</label> <input type="text" class="form-control" id="productName"
-																		value="" readonly>
-																</div>
-																<div class="mb-3">
-																	<label for="exampleFormControlInput1" class="form-label">신고사유</label>
-																	<input type="text" class="form-control" id="reportReason"
-																		value="" readonly>
-																</div>
-																<div class="mb-3" id="reportImage">
-																	<label for="exampleFormControlTextarea1" class="form-label">첨부
-																		이미지</label><br>
-																</div>
-																<div class="mb-3">
-																	<label for="exampleFormControlInput1" class="form-label">처리
-																		결과</label>
-																		<input type="text" class="form-control" readonly="readonly"
-																			id="exampleFormControlTextarea1" name="reportResult">
-																</div>
-															</div>
-										
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary"
-																	data-bs-dismiss="modal">닫기</button>
-															</div>
-													</div>
-												</div>
-											</div>
+											
 											<!-- 여기 창 -->
 										</c:when>
 										<c:when
@@ -450,6 +451,7 @@
     		data : {"productNo":$(e.target).val()},
     		dataType : "json",
     		success : data => {
+    			console.log(data);
     			$("#staticBackdrop input#productName").val(data["reportProduct"]["productName"]);
     			$("#staticBackdrop input#reportReason").val(data["reportReason"]);
     			$("#staticBackdrop div#reportImage").html("");
