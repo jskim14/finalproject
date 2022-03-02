@@ -787,8 +787,8 @@ public class ProductController {
 				Product p = productService.selectOneProductNo(nums[i]);
 				if(p != null) {
 					cookieList.add(p);
-					List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
-					m.addAttribute("list",todayList);
+					//List<Product> todayList = cookieList.stream().distinct().collect(Collectors.toList());
+					m.addAttribute("list",cookieList);
 				}
 			}
 		} 
